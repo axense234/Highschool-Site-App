@@ -1,0 +1,9 @@
+{
+  "name": "@vasile-barbu/backend",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "nodemon src/index.ts"
+  },
+  "author": "axense234"
+}

@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Anunt {
+  anunt_uid String @id @unique
+  titlu     String
+  descriere String
+
+  imagineUrl              String?
+  videoUrl                String?
+  pozitionareVideoInAnunt String? @default("mijloc")
+
+  Utilizator Utilizator? @relation(fields: [creatDe], references: [utilizator_uid])
+  creatDe    String?
+}
+
+model SetariUtilizator {
+  setari_uid     String     @id @unique
+  utilizator_uid String     @unique
+  utilizator     Utilizator @relation(fields: [utilizator_uid], references: [utilizator_uid])
+}
+
+model Utilizator {
+  utilizator_uid   String            @id @unique
+  username         String            @unique
+  email            String            @unique
+  password         String
+  rolUtilizator    RolUtilizator     @default(UTILIZATOR)
+  anunturiCreate   Anunt[]
+  setariUtilizator SetariUtilizator?
+}
+
+enum RolUtilizator {
+  ADMIN
+  PROFESOR
+  UTILIZATOR
+}

@@ -1,0 +1,9 @@
+@use "../abstracts" as *;
+
+.logoContainer {
+  transition: transform 0.1s;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+}

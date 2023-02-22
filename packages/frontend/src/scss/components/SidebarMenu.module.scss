@@ -1,0 +1,14 @@
+@use "../abstracts" as *;
+
+.sidebarMenuContainer {
+  font-size: 3rem;
+  transition: transform 0.1s ease-in;
+  position: absolute;
+  z-index: 1;
+  top: 1rem;
+  left: 1rem;
+
+  &:hover {
+    transform: rotate(90deg);
+  }
+}
