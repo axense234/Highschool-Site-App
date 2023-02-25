@@ -1,0 +1,98 @@
+@use "../../abstracts" as *;
+
+.facilitiesSliderContainer {
+  @include flexCenter(column);
+  width: 30%;
+  height: 40rem;
+  position: relative;
+  padding: 1rem;
+  background-color: getColor("silver-40");
+  border-radius: 1rem;
+  gap: 2rem;
+
+  #{&}__images {
+    @include flexCenter(row);
+    position: relative;
+    width: 100%;
+    height: 40rem;
+    overflow: hidden;
+    margin-bottom: auto;
+
+    img {
+      width: auto;
+      min-width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+
+      transition: transform 0.1s, opacity 0.3s;
+    }
+  }
+
+  #{&}__buttons {
+    @include flexCenter(row);
+    width: 90%;
+    justify-content: space-between;
+    position: absolute;
+    top: 45%;
+    height: 4rem;
+
+    display: none;
+    opacity: 0;
+
+    transition: opacity 0.1s ease-in;
+
+    button {
+      border-radius: 50%;
+      border: 1px solid black;
+      width: 4rem;
+      font-size: 2.25rem;
+      height: 100%;
+      color: white;
+      background-color: rgba($color: getColor("silver-40"), $alpha: 0.9);
+    }
+  }
+
+  #{&}__imagesMap {
+    @include flexCenter(row);
+    width: 60%;
+    justify-content: space-evenly;
+    height: 2rem;
+
+    input {
+      transition: transform 0.1s ease-in;
+      transform: scale(1.5);
+
+      &:hover {
+        transform: scale(2);
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+}
+
+.current {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.next {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.prev {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.activeInput {
+  transform: scale(2);
+}
+
+.notActive {
+  transform: scale(1.5);
+}

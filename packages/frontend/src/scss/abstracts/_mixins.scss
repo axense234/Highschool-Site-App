@@ -1,0 +1,22 @@
+@use "./functions" as *;
+@use "./variables" as *;
+
+@mixin flexCenter($direction) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin homePageSection($bgColor, $direction) {
+  padding: $sectionPadding;
+  @include flexCenter($direction);
+  width: 100%;
+
+  background-color: $bgColor;
+}
+
+@mixin pageLayout() {
+  width: 100%;
+  @include flexCenter(column);
+}

@@ -1,5 +1,5 @@
 // React Types
-import { JSX } from "react";
+import { JSX, Dispatch, SetStateAction } from "react";
 
 // Types
 type sidebarLink = {
@@ -9,6 +9,26 @@ type sidebarLink = {
   dest: string;
 };
 
+type infoSectionType = {
+  id: number;
+  logoUrl: string;
+  desc: string;
+  title: string;
+};
+
+type facilityImageType = {
+  id: number;
+  logoUrl: string;
+  title: string;
+};
+
+type facilityRoomType = {
+  id: number;
+  desc: string;
+};
+
+type offeringItemType = infoSectionType;
+
 // Interfaces
 interface MetaProps {
   keywords?: string;
@@ -16,4 +36,30 @@ interface MetaProps {
   title?: string;
 }
 
-export { sidebarLink, MetaProps };
+interface InfoSectionProps extends infoSectionType {
+  id?: number;
+}
+
+interface OfferingItemProps extends offeringItemType {
+  id?: number;
+  listNumber: number;
+}
+
+interface SliderButtonsProps {
+  handlePrevImage: () => void;
+  handleNextImage: () => void;
+  setStopAutoImages: Dispatch<SetStateAction<boolean>>;
+  show: boolean;
+}
+
+export {
+  sidebarLink,
+  MetaProps,
+  infoSectionType,
+  InfoSectionProps,
+  facilityImageType,
+  facilityRoomType,
+  offeringItemType,
+  OfferingItemProps,
+  SliderButtonsProps,
+};
