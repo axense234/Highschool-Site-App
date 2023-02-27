@@ -42,7 +42,12 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
       <div className={sidebarStyles.sidebarContainer__pageLinks}>
         {sidebarPageLinks.map((pageLink) => {
           return (
-            <Link href={pageLink.dest} key={pageLink.id} title={pageLink.label}>
+            <Link
+              href={pageLink.dest}
+              key={pageLink.id}
+              title={pageLink.label}
+              onClick={() => setShowSidebar(false)}
+            >
               <i>{pageLink.logoUrl}</i>
               <h2>{pageLink.label}</h2>
             </Link>
@@ -56,6 +61,7 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
               href={socialMediaLink.dest}
               key={socialMediaLink.id}
               title={socialMediaLink.label}
+              target='_blank'
             >
               <i>{socialMediaLink.logoUrl}</i>
             </Link>

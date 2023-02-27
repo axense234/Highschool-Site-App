@@ -1,0 +1,87 @@
+@use "../abstracts" as *;
+
+.announcementsContainer {
+  @include pageLayout();
+
+  #{&}__content {
+    @include homePageSection(getColor("silver-10"), column);
+    gap: 5rem;
+    width: 100%;
+
+    h2 {
+      font-size: 4rem;
+      letter-spacing: 5px;
+    }
+  }
+
+  #{&}__announcements {
+    @include flexCenter(column);
+    align-items: flex-start;
+    gap: 5rem;
+    width: 80%;
+  }
+
+  #{&}__announcement {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: space-between;
+    border: 5px solid getColor("silver-30");
+    width: 100%;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    background-color: getColor("silver-20");
+    gap: 5rem;
+
+    transition: transform 0.1s ease-in;
+
+    &:hover {
+      transform: translateX(1rem);
+      box-shadow: -5px 5px 10px 4px getColor("silver-50");
+    }
+
+    img {
+      width: 40%;
+      height: auto;
+      border-radius: 2rem;
+    }
+  }
+
+  #{&}__announcementInfo {
+    @include flexCenter(column);
+    align-items: flex-start;
+    gap: 3rem;
+    width: 60%;
+
+    iframe {
+      width: 70%;
+      height: auto;
+      min-height: 20rem;
+      border-radius: 1rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+    }
+
+    .announcementsContainer__announcementTitle {
+      h3 {
+        font-size: 4rem;
+      }
+    }
+  }
+
+  #{&}__announcementTitle {
+    @include flexCenter(row);
+    gap: 5rem;
+    width: 70%;
+    justify-content: flex-start;
+
+    h3 {
+      font-size: 3rem;
+    }
+
+    svg {
+      font-size: 3rem;
+    }
+  }
+}

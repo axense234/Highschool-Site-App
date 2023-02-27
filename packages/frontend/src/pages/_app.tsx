@@ -4,6 +4,9 @@ import { useState } from "react";
 import "@/scss/abstracts/globals.scss";
 // Next
 import type { AppProps } from "next/app";
+// Redux
+import { Provider } from "react-redux";
+import store from "@/redux/api/store";
 // Components
 import Sidebar from "@/components/Sidebar";
 import SidebarMenu from "@/components/SidebarMenu";
@@ -14,10 +17,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <div className='app-container'>
-      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-      <SidebarMenu setShowSidebar={setShowSidebar} />
-      <Component {...pageProps} />
-      <Footer />
+      <Provider store={store}>
+        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+        <SidebarMenu setShowSidebar={setShowSidebar} />
+        <Component {...pageProps} />
+        <Footer />
+      </Provider>
     </div>
   );
 }

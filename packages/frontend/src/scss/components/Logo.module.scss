@@ -3,7 +3,11 @@
 .logoContainer {
   transition: transform 0.1s;
 
+  img {
+    border-radius: 50%;
+  }
+
   &:hover {
-    transform: scale(1.3);
+    transform: scale(1.5);
   }
 }

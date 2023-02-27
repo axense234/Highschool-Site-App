@@ -10,7 +10,7 @@ const Logo: FC = () => {
   return (
     <Link href='/home' title='Acasa' className={logoStyles.logoContainer}>
       <Image
-        src='https://res.cloudinary.com/birthdayreminder/image/upload/v1677054397/Highschool%20Site%20App/Logo.png_y7cm9g.png'
+        src='https://res.cloudinary.com/birthdayreminder/image/upload/v1677431641/Highschool%20Site%20App/logo_lv5vow.png'
         alt='Logo'
         width={60}
         height={60}

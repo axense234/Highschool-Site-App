@@ -29,6 +29,16 @@ type facilityRoomType = {
 
 type offeringItemType = infoSectionType;
 
+type AnnouncementItemType = {
+  anunt_uid: string;
+  titlu: string;
+  descriere: string;
+
+  imagineUrl?: string;
+  videoUrl?: string;
+  pozitionareVideoInAnunt?: "final" | "inceput";
+};
+
 // Interfaces
 interface MetaProps {
   keywords?: string;
@@ -52,6 +62,15 @@ interface SliderButtonsProps {
   show: boolean;
 }
 
+interface HomeTitleProps {
+  title: string;
+  quote?: string;
+}
+
+interface AnnouncementProps extends AnnouncementItemType {
+  anunt_uid?: string;
+}
+
 export {
   sidebarLink,
   MetaProps,
@@ -62,4 +81,7 @@ export {
   offeringItemType,
   OfferingItemProps,
   SliderButtonsProps,
+  HomeTitleProps,
+  AnnouncementItemType,
+  AnnouncementProps,
 };

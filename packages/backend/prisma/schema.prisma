@@ -8,13 +8,14 @@ datasource db {
 }
 
 model Anunt {
-  anunt_uid String @id @unique
+  anunt_uid String @id @unique @default(uuid())
   titlu     String
   descriere String
 
   imagineUrl              String?
   videoUrl                String?
-  pozitionareVideoInAnunt String? @default("mijloc")
+  // final -> dupa descriere,inceput -> inainte de descriere
+  pozitionareVideoInAnunt String? @default("inceput")
 
   Utilizator Utilizator? @relation(fields: [creatDe], references: [utilizator_uid])
   creatDe    String?

@@ -6,7 +6,9 @@ require("express-async-errors");
 import * as dotenv from "dotenv";
 // DB
 import { connectToPostgres } from "./db/postgres";
-// Express Async Error
+
+// Routers
+import announcementsRouter from "./routers/announcements";
 
 dotenv.config();
 
@@ -18,6 +20,8 @@ app.use(express.json());
 app.get("/", (req: Request, res: Response) => {
   return res.status(200).json({ msg: "Working." });
 });
+
+app.use("/", [announcementsRouter]);
 
 const startServer = async () => {
   try {

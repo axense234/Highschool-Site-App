@@ -1,5 +1,6 @@
 // Types
 import {
+  AnnouncementItemType,
   facilityImageType,
   facilityRoomType,
   infoSectionType,
@@ -170,3 +171,56 @@ export const offeringsList: offeringItemType[] = [
 export const AUTO_SLIDER_DELAY = 2000; // 2 seconds
 export const AUTO_SLIDER_RESTART = 4000; // 2 seconds
 export const AUTO_SLIDER_FREQUENCY = 3000; // 3 seconds
+
+export const templateAnnouncements: AnnouncementItemType[] = [
+  {
+    anunt_uid: "blah",
+    descriere:
+      "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
+    titlu: "Anunt 1",
+    imagineUrl: "https://picsum.photos/500/500.jpg",
+    pozitionareVideoInAnunt: "inceput",
+    videoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
+  },
+  {
+    anunt_uid: "blah blah",
+    descriere:
+      "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
+    titlu: "Anunt 2",
+    imagineUrl: "https://picsum.photos/500/500.jpg",
+    pozitionareVideoInAnunt: "inceput",
+    videoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
+  },
+  {
+    anunt_uid: "blah blah blah",
+    descriere:
+      "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
+    titlu: "Anunt 3",
+    imagineUrl: "https://picsum.photos/500/500.jpg",
+    pozitionareVideoInAnunt: "final",
+    videoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
+  },
+  {
+    anunt_uid: "blah blah blah blah",
+    descriere:
+      "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
+    titlu: "Anunt 4",
+    imagineUrl: "https://picsum.photos/500/500.jpg",
+    pozitionareVideoInAnunt: "final",
+    videoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
+  },
+  {
+    anunt_uid: "blah blah blah blah blah",
+    descriere:
+      "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
+    titlu: "Anunt 5",
+    imagineUrl: "https://picsum.photos/500/500.jpg",
+    pozitionareVideoInAnunt: "inceput",
+    videoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
+  },
+];
