@@ -7,7 +7,6 @@ const usePopInAnimation = (
   entry: IntersectionObserverEntry | undefined
 ) => {
   useEffect(() => {
-    console.log(entry, inView);
     if (inView) {
       entry?.target.classList.add(className);
     }

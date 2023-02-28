@@ -1,21 +1,37 @@
 // React
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+// Prisma Types
+import { Anunt } from "@prisma/client";
 // Next
 import Image from "next/image";
 // React Icons
 import { MdArrowDropDownCircle } from "react-icons/md";
-// Types
-import { AnnouncementProps } from "types";
 // SCSS
 import announcementsStyles from "../scss/components/Anunturi.module.scss";
 // Components
 import HomeTitle from "@/components/Home/HomeTitle";
-// Data
-import { templateAnnouncements } from "@/data";
 // Components
 import Meta from "@/components/Meta";
+// Redux
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  getAllAnnouncements,
+  selectAllAnnouncements,
+  selectLoadingAnnouncements,
+} from "@/redux/slices/announcementsSlice";
+import SectionLoading from "@/components/SectionLoading";
 
 const Announcements: FC = () => {
+  const announcements = useAppSelector(selectAllAnnouncements);
+  const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (loadingAnnouncements === "IDLE") {
+      dispatch(getAllAnnouncements());
+    }
+  }, []);
+
   return (
     <>
       <Meta
@@ -28,24 +44,32 @@ const Announcements: FC = () => {
           className={announcementsStyles.announcementsContainer__content}
         >
           <h2>Anunturi in momentul actual</h2>
-          <div
-            className={
-              announcementsStyles.announcementsContainer__announcements
-            }
-          >
-            {templateAnnouncements.map((announcement) => {
-              return (
-                <Announcement {...announcement} key={announcement.anunt_uid} />
-              );
-            })}
-          </div>
+          {loadingAnnouncements === "PENDING" ||
+          loadingAnnouncements === "IDLE" ? (
+            <SectionLoading />
+          ) : (
+            <div
+              className={
+                announcementsStyles.announcementsContainer__announcements
+              }
+            >
+              {announcements.map((announcement) => {
+                return (
+                  <Announcement
+                    {...announcement}
+                    key={announcement.anunt_uid}
+                  />
+                );
+              })}
+            </div>
+          )}
         </section>
       </main>
     </>
   );
 };
 
-const Announcement: FC<AnnouncementProps> = ({
+const Announcement: FC<Anunt> = ({
   descriere,
   titlu,
   imagineUrl,
@@ -80,13 +104,15 @@ const Announcement: FC<AnnouncementProps> = ({
     <article
       className={announcementsStyles.announcementsContainer__announcement}
     >
-      <Image
-        src={imagineUrl as string}
-        alt={titlu}
-        width={100}
-        height={100}
-        title={titlu}
-      />
+      {imagineUrl && (
+        <Image
+          src={imagineUrl as string}
+          alt={titlu}
+          width={100}
+          height={100}
+          title={titlu}
+        />
+      )}
       <div
         className={announcementsStyles.announcementsContainer__announcementInfo}
       >
@@ -101,12 +127,22 @@ const Announcement: FC<AnnouncementProps> = ({
             title='Inchide'
           />
         </div>
-        {pozitionareVideoInAnunt === "inceput" && (
-          <iframe src={videoUrl} title={titlu} />
+        {pozitionareVideoInAnunt === "inceput" && videoUrl && (
+          <iframe
+            src={videoUrl as string}
+            title={titlu}
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            allowFullScreen
+          />
         )}
         <p>{descriere}</p>
-        {pozitionareVideoInAnunt === "final" && (
-          <iframe src={videoUrl} title={titlu} />
+        {pozitionareVideoInAnunt === "final" && videoUrl && (
+          <iframe
+            src={videoUrl as string}
+            title={titlu}
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            allowFullScreen
+          />
         )}
       </div>
     </article>

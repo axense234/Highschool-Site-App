@@ -1,6 +1,5 @@
 // Types
 import {
-  AnnouncementItemType,
   facilityImageType,
   facilityRoomType,
   infoSectionType,
@@ -15,6 +14,8 @@ import { CgProfile, CgFacebook } from "react-icons/cg";
 import { FaSchool } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import { TbOlympics } from "react-icons/tb";
+// Prisma Types
+import { Anunt } from "@prisma/client";
 
 export const sidebarPageLinks: sidebarLink[] = [
   { id: 1, label: "Acasa", dest: "/home", logoUrl: AiFillHome({}) },
@@ -172,7 +173,7 @@ export const AUTO_SLIDER_DELAY = 2000; // 2 seconds
 export const AUTO_SLIDER_RESTART = 4000; // 2 seconds
 export const AUTO_SLIDER_FREQUENCY = 3000; // 3 seconds
 
-export const templateAnnouncements: AnnouncementItemType[] = [
+export const templateAnnouncements: Anunt[] = [
   {
     anunt_uid: "blah",
     descriere:

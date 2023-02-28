@@ -65,7 +65,7 @@
 
     .announcementsContainer__announcementTitle {
       h3 {
-        font-size: 4rem;
+        font-size: 2.5rem;
       }
     }
   }
@@ -73,11 +73,11 @@
   #{&}__announcementTitle {
     @include flexCenter(row);
     gap: 5rem;
-    width: 70%;
+    width: 100%;
     justify-content: flex-start;
 
     h3 {
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
 
     svg {

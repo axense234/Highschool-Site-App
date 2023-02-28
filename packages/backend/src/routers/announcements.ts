@@ -5,6 +5,7 @@ import express from "express";
 import {
   createAnnouncement,
   getAllAnnouncements,
+  deleteAllAnnouncements,
 } from "../controllers/announcements";
 
 const router = express.Router();
@@ -12,6 +13,8 @@ const router = express.Router();
 router.get("/anunturi", getAllAnnouncements);
 
 router.post("/anunturi/create", createAnnouncement);
+
+router.delete("/anunturi/delete/all", deleteAllAnnouncements);
 
 // EXPORTS
 export default router;

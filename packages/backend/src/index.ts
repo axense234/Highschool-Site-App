@@ -4,9 +4,10 @@ import express, { Response, Request } from "express";
 require("express-async-errors");
 // Dotenv
 import * as dotenv from "dotenv";
+// Security Middleware
+import cors from "cors";
 // DB
 import { connectToPostgres } from "./db/postgres";
-
 // Routers
 import announcementsRouter from "./routers/announcements";
 
@@ -16,6 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   return res.status(200).json({ msg: "Working." });

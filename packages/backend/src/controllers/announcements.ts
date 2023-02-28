@@ -45,5 +45,22 @@ const createAnnouncement = async (req: Request, res: Response) => {
   });
 };
 
+// DELETE ALL ANNOUNCEMENTS
+const deleteAllAnnouncements = async (req: Request, res: Response) => {
+  const deletedAnnouncements = await anuntClient.deleteMany({});
+
+  if (deletedAnnouncements.count < 1) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Error when deleting all announcements!",
+      announcements: [],
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    msg: `Successfully deleted all announcements(${deletedAnnouncements.count}!)`,
+    announcements: deletedAnnouncements,
+  });
+};
+
 // EXPORTS
-export { getAllAnnouncements, createAnnouncement };
+export { getAllAnnouncements, createAnnouncement, deleteAllAnnouncements };
