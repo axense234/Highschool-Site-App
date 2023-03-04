@@ -29,14 +29,14 @@
     width: 100%;
     padding: 1rem 2rem;
     border-radius: 1rem;
-    background-color: getColor("silver-20");
+    background-color: getColor("silver-white");
     gap: 5rem;
 
     transition: transform 0.1s ease-in;
 
     &:hover {
       transform: translateX(1rem);
-      box-shadow: -5px 5px 10px 4px getColor("silver-50");
+      box-shadow: $itemBoxShadowOnHover;
     }
 
     img {

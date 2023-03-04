@@ -12,6 +12,7 @@ import announcementsStyles from "../scss/components/Anunturi.module.scss";
 import HomeTitle from "@/components/Home/HomeTitle";
 // Components
 import Meta from "@/components/Meta";
+import SectionLoading from "@/components/SectionLoading";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -19,7 +20,6 @@ import {
   selectAllAnnouncements,
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
-import SectionLoading from "@/components/SectionLoading";
 
 const Announcements: FC = () => {
   const announcements = useAppSelector(selectAllAnnouncements);
@@ -77,6 +77,16 @@ const Announcement: FC<Anunt> = ({
   pozitionareVideoInAnunt,
 }) => {
   const [toggle, setToggle] = useState<boolean>(false);
+  const [workingVideoUrl, setVideoWorkingUrl] = useState<string>(
+    videoUrl as string
+  );
+
+  useEffect(() => {
+    if (videoUrl?.startsWith("https://www.youtube.com/watch?v=")) {
+      const newVideoUrl = videoUrl.replace("/watch?v=", "/embed/");
+      setVideoWorkingUrl(newVideoUrl);
+    }
+  }, [videoUrl, setVideoWorkingUrl]);
 
   if (!toggle) {
     return (
@@ -127,18 +137,18 @@ const Announcement: FC<Anunt> = ({
             title='Inchide'
           />
         </div>
-        {pozitionareVideoInAnunt === "inceput" && videoUrl && (
+        {pozitionareVideoInAnunt === "inceput" && workingVideoUrl && (
           <iframe
-            src={videoUrl as string}
+            src={workingVideoUrl as string}
             title={titlu}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
             allowFullScreen
           />
         )}
         <p>{descriere}</p>
-        {pozitionareVideoInAnunt === "final" && videoUrl && (
+        {pozitionareVideoInAnunt === "final" && workingVideoUrl && (
           <iframe
-            src={videoUrl as string}
+            src={workingVideoUrl as string}
             title={titlu}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
             allowFullScreen

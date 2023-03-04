@@ -1,4 +1,5 @@
-// React Types
+// React/Prisma Types
+import { Utilizator } from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
 // Types
@@ -29,6 +30,29 @@ type facilityRoomType = {
 
 type offeringItemType = infoSectionType;
 
+type objectKeyValueType = {
+  key: string;
+  value: string;
+};
+
+type formModalType = {
+  showModal: boolean;
+  msg: string;
+  color?: string;
+};
+
+type errorPayloadType = {
+  msg: string;
+  user?: Utilizator;
+};
+
+type profileOption = {
+  id: number;
+  label: string;
+};
+
+type ThemeType = "light" | "dark";
+
 // Interfaces
 interface MetaProps {
   keywords?: string;
@@ -56,6 +80,20 @@ interface HomeTitleProps {
   title: string;
   quote?: string;
 }
+interface templateUser extends Utilizator {
+  utilizator_uid?: string;
+  username?: string;
+}
+
+interface SectionLoadingProps {
+  padding?: string;
+}
+
+interface OverlayProps {
+  title: string;
+  showOverlay: boolean;
+  setShowOverlay: Dispatch<SetStateAction<boolean>>;
+}
 
 export {
   sidebarLink,
@@ -68,4 +106,12 @@ export {
   OfferingItemProps,
   SliderButtonsProps,
   HomeTitleProps,
+  templateUser,
+  objectKeyValueType,
+  formModalType,
+  errorPayloadType,
+  profileOption,
+  ThemeType,
+  SectionLoadingProps,
+  OverlayProps,
 };

@@ -20,18 +20,55 @@ model Anunt {
 }
 
 model SetariUtilizator {
-  setari_uid     String     @id @unique
+  setari_uid     String     @id @unique @default(uuid())
   utilizator_uid String     @unique
   utilizator     Utilizator @relation(fields: [utilizator_uid], references: [utilizator_uid])
+
+  darkMode Boolean? @default(false)
 }
 
 model Utilizator {
-  utilizator_uid   String            @id @unique
+  utilizator_uid String @id @unique @default(uuid())
+
   username         String            @unique
   email            String            @unique
   password         String
   rolUtilizator    RolUtilizator     @default(UTILIZATOR)
   setariUtilizator SetariUtilizator?
+}
+
+model Profesor {
+  profesor_uid String @id @unique @default(uuid())
+  id           String @default("")
+
+  imagineProfilUrl String? @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+  username         String
+  profesorDe       Materii
+  descriere        String
+}
+
+enum Materii {
+  MATEMATICA
+  FIZICA
+  CHIMIE
+  INFORMATICA
+  INFORMATICA_OPTIONAL
+
+  ENGLEZA
+  ROMANA
+  FRANCEZA
+  GERMANA
+  LATINA
+
+  BIOLOGIE
+  GEOGRAFIE
+  ISTORIE
+  PSIHOLOGIE
+
+  SPORT
+  DESEN
+  MUZICA
+  RELIGIE
 }
 
 enum RolUtilizator {

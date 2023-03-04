@@ -5,6 +5,8 @@
   font-family: "Kanit", sans-serif;
 }
 
+// Check for light theme using media query,not supported on Internet Explorer but i do not care
+
 body,
 html {
   width: 100%;
@@ -19,6 +21,11 @@ html {
 
   width: 100%;
   height: 100%;
+}
+
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #606060;
 }
 
 button,

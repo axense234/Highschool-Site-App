@@ -1,0 +1,85 @@
+// Express
+import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+// Prisma
+import { setariUtilizatorClient, utlizatorClient } from "../db/postgres";
+import { encryptPassword, verifyPassword } from "../utils/bcrypt";
+// Utils
+import { createJWT } from "../utils/jwt";
+import { cacheJWT } from "../utils/redis";
+
+// SIGN UP / CREATE USER
+const createUser = async (req: Request, res: Response) => {
+  const userBody = req.body;
+
+  const encryptedPassword = await encryptPassword(userBody.password);
+
+  userBody.password = encryptedPassword;
+  userBody.username = userBody.email;
+
+  const createdUser = await utlizatorClient.create({ data: { ...userBody } });
+
+  if (!createdUser) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Could not create a user with the data provided!",
+      user: {},
+    });
+  }
+
+  const createdSettings = await setariUtilizatorClient.create({
+    data: { utilizator_uid: createdUser.utilizator_uid },
+  });
+
+  console.log(createdUser, createdSettings);
+
+  const token = createJWT(createdUser.username, createdUser.utilizator_uid);
+  await cacheJWT(token);
+
+  return res.status(StatusCodes.CREATED).json({
+    token,
+    msg: `Successfully created user: ${createdUser.username}!`,
+    user: createdUser,
+  });
+};
+
+const loginUser = async (req: Request, res: Response) => {
+  const { password, email, rolUtilizator } = req.body;
+
+  if (!password || !email) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide both password and email", user: {} });
+  }
+
+  const foundUser = await utlizatorClient.findUnique({ where: { email } });
+
+  if (!foundUser) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find any accounts with the email:${email}!`,
+      user: {},
+    });
+  }
+
+  const passwordsMatch = await verifyPassword(password, foundUser.password);
+
+  if (!passwordsMatch) {
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ msg: `Invalid password!`, user: {} });
+  }
+
+  const token = createJWT(foundUser.username, foundUser.utilizator_uid);
+  await cacheJWT(token);
+
+  // Temporarily changing the foundUser user role
+  foundUser.rolUtilizator = rolUtilizator;
+
+  return res.status(StatusCodes.OK).json({
+    token,
+    msg: `Successfully logged in user with email:${foundUser.email}!`,
+    user: foundUser,
+  });
+};
+
+// EXPORTS
+export { createUser, loginUser };

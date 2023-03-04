@@ -1,10 +1,13 @@
+/* eslint-disable no-undef */
 // Types
 import {
   facilityImageType,
   facilityRoomType,
   infoSectionType,
   offeringItemType,
+  profileOption,
   sidebarLink,
+  templateUser,
 } from "types";
 // React Icons
 import { AiFillHome } from "react-icons/ai";
@@ -14,15 +17,28 @@ import { CgProfile, CgFacebook } from "react-icons/cg";
 import { FaSchool } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import { TbOlympics } from "react-icons/tb";
+import { BiLogIn } from "react-icons/bi";
 // Prisma Types
-import { Anunt } from "@prisma/client";
+import { Anunt, Profesor } from "@prisma/client";
+
+export const defaultTemplateProfile: templateUser = {
+  email: "",
+  password: "PAROLA",
+  rolUtilizator: "ADMIN",
+};
+
+export const profileOptions: profileOption[] = [
+  { id: 1, label: "Setari Profil" },
+  { id: 2, label: "Iesi din Cont" },
+];
 
 export const sidebarPageLinks: sidebarLink[] = [
   { id: 1, label: "Acasa", dest: "/home", logoUrl: AiFillHome({}) },
   { id: 2, label: "Despre Proiect", dest: "/", logoUrl: FcAbout({}) },
   { id: 3, label: "Anunturi", dest: "/anunturi", logoUrl: MdAnnouncement({}) },
   { id: 4, label: "Profesori", dest: "/profesori", logoUrl: MdPeople({}) },
-  { id: 5, label: "Profil", dest: "/profil", logoUrl: CgProfile({}) },
+  { id: 5, label: "Intra in cont", dest: "/login", logoUrl: BiLogIn({}) },
+  { id: 6, label: "Profil", dest: "/profil", logoUrl: CgProfile({}) },
 ];
 
 export const sidebarSocialMediaLinks: sidebarLink[] = [
@@ -176,6 +192,7 @@ export const AUTO_SLIDER_FREQUENCY = 3000; // 3 seconds
 export const templateAnnouncements: Anunt[] = [
   {
     anunt_uid: "blah",
+    id: "blah",
     descriere:
       "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
     titlu: "Anunt 1",
@@ -186,6 +203,7 @@ export const templateAnnouncements: Anunt[] = [
   },
   {
     anunt_uid: "blah blah",
+    id: "blah blah",
     descriere:
       "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
     titlu: "Anunt 2",
@@ -196,6 +214,7 @@ export const templateAnnouncements: Anunt[] = [
   },
   {
     anunt_uid: "blah blah blah",
+    id: "blah blah blah",
     descriere:
       "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
     titlu: "Anunt 3",
@@ -206,6 +225,7 @@ export const templateAnnouncements: Anunt[] = [
   },
   {
     anunt_uid: "blah blah blah blah",
+    id: "blah blah blah blah",
     descriere:
       "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
     titlu: "Anunt 4",
@@ -216,6 +236,7 @@ export const templateAnnouncements: Anunt[] = [
   },
   {
     anunt_uid: "blah blah blah blah blah",
+    id: "blah blah blah blah blah",
     descriere:
       "The sun slowly set over the horizon, casting a warm orange glow across the sky. A gentle breeze rustled through the leaves of the trees, creating a soothing melody that filled the air. The scent of fresh grass and blooming flowers mixed together, creating a sweet aroma that lingered in the nostrils. In the distance, birds chirped and sang, adding to the peaceful ambiance of the moment. As the night approached, the world around seemed to slow down and take a deep breath, preparing for the calm that would soon envelop everything.",
     titlu: "Anunt 5",
@@ -223,5 +244,53 @@ export const templateAnnouncements: Anunt[] = [
     pozitionareVideoInAnunt: "inceput",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
+  },
+];
+
+export const templateTeachers: Profesor[] = [
+  {
+    profesor_uid: "prof",
+    id: "prof",
+    username: "Elena Popescu",
+    descriere: "Sunt profesoara de Engleza!",
+    profesorDe: "ENGLEZA",
+    imagineProfilUrl:
+      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+  },
+  {
+    profesor_uid: "prof prof",
+    id: "prof prof",
+    username: "Andrei Ionescu",
+    descriere: "Sunt profesor de Informatica!",
+    profesorDe: "INFORMATICA",
+    imagineProfilUrl:
+      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+  },
+  {
+    profesor_uid: "prof prof prof",
+    id: "prof prof prof",
+    username: "Maria Dragomir",
+    descriere: "Sunt profesoara de Latina!",
+    profesorDe: "LATINA",
+    imagineProfilUrl:
+      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+  },
+  {
+    profesor_uid: "prof prof prof prof",
+    id: "prof prof prof prof",
+    username: "Alexandru Vladescu",
+    descriere: "Sunt profesor de Istorie!",
+    profesorDe: "ISTORIE",
+    imagineProfilUrl:
+      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+  },
+  {
+    profesor_uid: "prof prof prof prof prof",
+    id: "prof prof prof prof prof",
+    username: "Ana Stoica",
+    descriere: "Sunt profesoara de Geografie!",
+    profesorDe: "GEOGRAFIE",
+    imagineProfilUrl:
+      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
   },
 ];

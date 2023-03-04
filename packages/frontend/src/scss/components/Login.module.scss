@@ -1,0 +1,63 @@
+@use "../abstracts" as *;
+
+.loginContainer {
+  @include pageLayout();
+
+  #{&}__formContainer {
+    @include homePageSection(getColor("silver-30"), column);
+    gap: 5rem;
+    padding-bottom: 12.5rem;
+
+    h2 {
+      font-size: 4rem;
+      letter-spacing: 4px;
+    }
+  }
+
+  #{&}__form {
+    @include flexCenter(column);
+    border: 3px solid getColor("silver-50");
+    background-color: getColor("silver-white");
+    width: 50%;
+    padding: 2rem 0.75rem;
+    border-radius: 1rem;
+
+    &:hover {
+      box-shadow: $itemBoxShadowOnHover;
+    }
+
+    button {
+      @include formButton(75%, 2rem);
+    }
+  }
+
+  #{&}__control {
+    @include flexCenter(column);
+    gap: 0.35rem;
+    width: 75%;
+    align-items: flex-start;
+    margin: 0.5rem 0;
+
+    label {
+      font-size: 2.5rem;
+    }
+
+    select {
+      font-size: 1.15rem;
+      padding: 0.5rem;
+      border-radius: 1rem;
+      width: 50%;
+      border: 2px solid getColor("silver-50");
+
+      transition: transform 0.1s ease-in;
+
+      &:hover {
+        transform: scale(1.025);
+      }
+    }
+
+    input {
+      @include controlInput(2rem, 100%);
+    }
+  }
+}

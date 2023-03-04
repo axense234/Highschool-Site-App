@@ -1,0 +1,38 @@
+@use "../abstracts" as *;
+
+@keyframes vibrate {
+  33% {
+    transform: translateX(-10%);
+  }
+  66% {
+    transform: translateX(0);
+  }
+  99% {
+    transform: translateX(10%);
+  }
+}
+
+.formModalContainer {
+  @include flexCenter(row);
+  border: 1px solid black;
+  width: 75%;
+  border-radius: 1rem;
+  border: 3px solid getColor("silver-50");
+  padding: 2rem 1rem;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  background-color: red;
+  color: white;
+  align-self: center;
+
+  opacity: 0;
+  display: none;
+
+  transition: opacity 0.3s, transform 0.3s;
+
+  animation: vibrate 0.5s linear 0.1s 2;
+
+  p {
+    text-align: center;
+  }
+}

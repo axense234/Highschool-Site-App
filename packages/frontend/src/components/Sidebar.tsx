@@ -10,6 +10,9 @@ import sidebarStyles from "../scss/components/Sidebar.module.scss";
 import { sidebarPageLinks, sidebarSocialMediaLinks } from "@/data";
 // Components
 import Logo from "./Logo";
+import { useAppSelector } from "@/hooks/redux";
+import { selectProfile } from "@/redux/slices/generalSlice";
+import useGetProfile from "@/hooks/useGetProfile";
 
 interface SidebarProps {
   showSidebar: boolean;
@@ -18,6 +21,9 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
   const sidebarRef = useRef<HTMLElement>(null);
+  const profile = useAppSelector(selectProfile);
+
+  useGetProfile();
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -41,6 +47,9 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
       <h1>Liceul Teoretic "Vasile Barbu" Pitesti</h1>
       <div className={sidebarStyles.sidebarContainer__pageLinks}>
         {sidebarPageLinks.map((pageLink) => {
+          if (pageLink.label === "Profil" && !profile.username) {
+            return null;
+          }
           return (
             <Link
               href={pageLink.dest}

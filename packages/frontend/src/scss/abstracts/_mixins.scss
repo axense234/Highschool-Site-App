@@ -20,3 +20,33 @@
   width: 100%;
   @include flexCenter(column);
 }
+
+@mixin controlInput($fontSize, $width) {
+  width: $width;
+  font-size: $fontSize;
+  border-radius: 1rem;
+  border: 2px solid getColor("silver-50");
+
+  transition: transform 0.1s ease-in;
+
+  &:hover {
+    transform: translateX(1rem);
+  }
+}
+
+@mixin formButton($width, $fontSize) {
+  width: $width;
+  padding: 1rem 0.5rem;
+  border-radius: 1rem;
+  border: 2px solid getColor("silver-50");
+  margin-top: 5rem;
+  font-size: $fontSize;
+
+  &:focus-visible {
+    outline: 3px solid getColor("silver-50");
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}

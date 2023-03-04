@@ -12,6 +12,8 @@ import { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // State
 import { State } from "../api/store";
+// Data
+import { templateAnnouncements } from "@/data";
 
 type initialStateType = {
   loadingAnnouncements: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -49,13 +51,15 @@ const announcementsSlice = createSlice({
       })
       .addCase(getAllAnnouncements.fulfilled, (state, action) => {
         const announcements = action.payload as Anunt[];
-        if (announcements.length > 1) {
+        if (announcements.length >= 1) {
           announcements.map((announcement) => {
             announcement.id = announcement.anunt_uid;
             return announcement;
           });
+          announcementsAdapter.upsertMany(state, announcements);
+        } else {
+          announcementsAdapter.upsertMany(state, templateAnnouncements);
         }
-        announcementsAdapter.upsertMany(state, announcements);
         state.loadingAnnouncements = "SUCCEDED";
       })
       .addCase(getAllAnnouncements.rejected, (state, action) => {
