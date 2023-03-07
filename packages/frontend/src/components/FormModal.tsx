@@ -1,18 +1,54 @@
 // React
 import { FC, useEffect, useRef } from "react";
+// Types
+import { FormModalProps, formModalType } from "types";
+// Redux Toolkit
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 // Hooks
 import useModalTransition from "@/hooks/useModalTransition";
 // SCSS
 import formModalStyles from "../scss/components/FormModal.module.scss";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { selectFormModal, updateFormModal } from "@/redux/slices/generalSlice";
+import {
+  selectFormModal,
+  updateGeneralFormModal,
+} from "@/redux/slices/generalSlice";
+import {
+  selectTeachersFormModal,
+  updateTeachersFormModal,
+} from "@/redux/slices/teachersSlice";
+import {
+  selectAnnouncementsFormModal,
+  updateAnnouncementsFormModal,
+} from "@/redux/slices/announcementsSlice";
 
-const FormModal: FC = () => {
-  const formModal = useAppSelector(selectFormModal);
+const FormModal: FC<FormModalProps> = ({ type }) => {
+  const generalFormModal = useAppSelector(selectFormModal);
+  const teachersFormModal = useAppSelector(selectTeachersFormModal);
+  const announcementsFormModal = useAppSelector(selectAnnouncementsFormModal);
   const formModalRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
+
+  let formModal: formModalType;
+  let updateFormModal: ActionCreatorWithPayload<boolean>;
+  switch (type) {
+    case "teachers":
+      formModal = teachersFormModal;
+      updateFormModal = updateTeachersFormModal;
+      break;
+    case "announcements":
+      formModal = announcementsFormModal;
+      updateFormModal = updateAnnouncementsFormModal;
+      break;
+    case "general":
+      formModal = generalFormModal;
+      updateFormModal = updateGeneralFormModal;
+      break;
+    default:
+      throw new Error("no form modal type");
+  }
 
   useModalTransition(formModal.showModal, formModalRef);
 

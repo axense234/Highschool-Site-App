@@ -6,7 +6,7 @@ import { setariUtilizatorClient, utlizatorClient } from "../db/postgres";
 import { encryptPassword, verifyPassword } from "../utils/bcrypt";
 // Utils
 import { createJWT } from "../utils/jwt";
-import { cacheJWT } from "../utils/redis";
+import { cacheJWT, deleteCachedJWT } from "../utils/redis";
 
 // SIGN UP / CREATE USER
 const createUser = async (req: Request, res: Response) => {
@@ -41,6 +41,8 @@ const createUser = async (req: Request, res: Response) => {
     user: createdUser,
   });
 };
+
+// LOGIN USER
 
 const loginUser = async (req: Request, res: Response) => {
   const { password, email, rolUtilizator } = req.body;
@@ -81,5 +83,13 @@ const loginUser = async (req: Request, res: Response) => {
   });
 };
 
+// LOG OUT USER
+const logoutUser = async (req: Request, res: Response) => {
+  await deleteCachedJWT("ltvbp_jwt");
+  return res
+    .status(StatusCodes.OK)
+    .json({ msg: "Successfully logged out!", user: {} });
+};
+
 // EXPORTS
-export { createUser, loginUser };
+export { createUser, loginUser, logoutUser };

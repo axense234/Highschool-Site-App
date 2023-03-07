@@ -48,7 +48,7 @@ const Login: FC = () => {
             className={loginStyles.loginContainer__form}
             onSubmit={(e) => handleOnFormSubmit(e)}
           >
-            <FormModal />
+            <FormModal type='general' />
             <div className={loginStyles.loginContainer__control}>
               <label htmlFor='email'>Email:</label>
               <input

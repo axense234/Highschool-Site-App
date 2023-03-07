@@ -1,5 +1,5 @@
 // React/Prisma Types
-import { Utilizator } from "@prisma/client";
+import { Anunt, Materii, Profesor, Utilizator } from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
 // Types
@@ -49,9 +49,20 @@ type errorPayloadType = {
 type profileOption = {
   id: number;
   label: string;
+  content: string;
 };
 
 type ThemeType = "light" | "dark";
+
+type MaterieType = {
+  id: number;
+  nume: Materii;
+};
+
+type OverlayType = {
+  overlayFunctionUsed: string;
+  showOverlay: boolean;
+};
 
 // Interfaces
 interface MetaProps {
@@ -91,8 +102,23 @@ interface SectionLoadingProps {
 
 interface OverlayProps {
   title: string;
-  showOverlay: boolean;
-  setShowOverlay: Dispatch<SetStateAction<boolean>>;
+}
+
+interface CardModalProps {
+  cardId: string;
+  componentType: "teacher" | "announcement";
+}
+
+interface templateAnnouncement extends Anunt {
+  anunt_uid?: string;
+}
+
+interface templateTeacher extends Profesor {
+  profesor_uid?: string;
+}
+
+interface FormModalProps {
+  type: "teachers" | "announcements" | "general";
 }
 
 export {
@@ -114,4 +140,10 @@ export {
   ThemeType,
   SectionLoadingProps,
   OverlayProps,
+  CardModalProps,
+  MaterieType,
+  templateAnnouncement,
+  templateTeacher,
+  OverlayType,
+  FormModalProps,
 };

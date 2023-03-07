@@ -2,7 +2,7 @@
 import { redisClient } from "../db/redis";
 
 const cacheJWT = async (jwt: string) => {
-  await redisClient.set("ltvbp_jwt", jwt);
+  await redisClient.setEx("ltvbp_jwt", 10800, jwt);
 };
 
 const getCachedJWT = async () => {
@@ -10,4 +10,8 @@ const getCachedJWT = async () => {
   return jwt;
 };
 
-export { cacheJWT, getCachedJWT };
+const deleteCachedJWT = async (key: string) => {
+  await redisClient.del(key);
+};
+
+export { cacheJWT, getCachedJWT, deleteCachedJWT };

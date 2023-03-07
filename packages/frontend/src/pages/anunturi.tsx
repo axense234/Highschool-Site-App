@@ -13,6 +13,8 @@ import HomeTitle from "@/components/Home/HomeTitle";
 // Components
 import Meta from "@/components/Meta";
 import SectionLoading from "@/components/SectionLoading";
+import CardModal from "@/components/CardModal";
+import Overlay from "@/components/Overlay";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -20,6 +22,7 @@ import {
   selectAllAnnouncements,
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
+import { selectOverlay, setCardModalId } from "@/redux/slices/generalSlice";
 
 const Announcements: FC = () => {
   const announcements = useAppSelector(selectAllAnnouncements);
@@ -39,6 +42,7 @@ const Announcements: FC = () => {
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitesti.Pagina de anunturi.'
       />
       <main className={announcementsStyles.announcementsContainer}>
+        <Overlay title='Esti sigur ca vrei sa stergi anuntul?' />
         <HomeTitle title='Anunturi' quote='Nu glumesc.' />
         <section
           className={announcementsStyles.announcementsContainer__content}
@@ -75,11 +79,14 @@ const Announcement: FC<Anunt> = ({
   imagineUrl,
   videoUrl,
   pozitionareVideoInAnunt,
+  anunt_uid,
 }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [workingVideoUrl, setVideoWorkingUrl] = useState<string>(
     videoUrl as string
   );
+  const overlay = useAppSelector(selectOverlay);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (videoUrl?.startsWith("https://www.youtube.com/watch?v=")) {
@@ -93,6 +100,12 @@ const Announcement: FC<Anunt> = ({
       <article
         className={announcementsStyles.announcementsContainer__announcement}
         title={titlu}
+        onMouseEnter={() => dispatch(setCardModalId(anunt_uid))}
+        onMouseLeave={() => {
+          if (!overlay.showOverlay) {
+            dispatch(setCardModalId(""));
+          }
+        }}
       >
         <div
           className={
@@ -106,6 +119,7 @@ const Announcement: FC<Anunt> = ({
           />
         </div>
         <p>{descriere.slice(0, 100)}...</p>
+        <CardModal cardId={anunt_uid} componentType='announcement' />
       </article>
     );
   }
@@ -113,6 +127,12 @@ const Announcement: FC<Anunt> = ({
   return (
     <article
       className={announcementsStyles.announcementsContainer__announcement}
+      onMouseEnter={() => dispatch(setCardModalId(anunt_uid))}
+      onMouseLeave={() => {
+        if (!overlay.showOverlay) {
+          dispatch(setCardModalId(""));
+        }
+      }}
     >
       {imagineUrl && (
         <Image
@@ -155,6 +175,7 @@ const Announcement: FC<Anunt> = ({
           />
         )}
       </div>
+      <CardModal cardId={anunt_uid} componentType='announcement' />
     </article>
   );
 };

@@ -6,6 +6,8 @@ import {
   createTeacher,
   deleteAllTeachers,
   getAllTeachers,
+  deleteTeacherById,
+  updateTeacherById,
 } from "../controllers/teachers";
 import authenticationMiddleware from "../middleware/authentication";
 
@@ -19,6 +21,18 @@ router.delete(
   "/profesori/delete/all",
   authenticationMiddleware,
   deleteAllTeachers
+);
+
+router.delete(
+  "/profesori/profesor/delete/:teacherId",
+  authenticationMiddleware,
+  deleteTeacherById
+);
+
+router.patch(
+  "/profesori/profesor/update/:teacherId",
+  authenticationMiddleware,
+  updateTeacherById
 );
 
 // EXPORTS

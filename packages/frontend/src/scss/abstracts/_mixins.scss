@@ -50,3 +50,17 @@
     transform: scale(1.05);
   }
 }
+
+@mixin controlSelect() {
+  font-size: 1.15rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  width: 50%;
+  border: 2px solid getColor("silver-50");
+
+  transition: transform 0.1s ease-in;
+
+  &:hover {
+    transform: scale(1.025);
+  }
+}

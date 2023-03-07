@@ -7,6 +7,7 @@ import {
   errorPayloadType,
   formModalType,
   objectKeyValueType,
+  OverlayType,
   templateUser,
 } from "types";
 // Axios
@@ -16,24 +17,23 @@ import axiosInstance from "@/utils/axios";
 import { State } from "../api/store";
 // Config
 import { baseSiteUrl } from "@/config";
-import { defaultTemplateProfile } from "@/data";
+// Data
+import { defaultOverlay, defaultProfile, defaultTemplateProfile } from "@/data";
 
 type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   profile: Utilizator;
   templateProfile: templateUser;
   formModal: formModalType;
+  cardModalId: string;
+  optionsContent: string;
+  overlay: OverlayType;
+  editMode: boolean;
 };
 
 const initialState: initialStateType = {
   loadingProfile: "IDLE",
-  profile: {
-    email: "",
-    password: "",
-    rolUtilizator: "ADMIN",
-    username: "",
-    utilizator_uid: "",
-  },
+  profile: defaultProfile,
   // For the login page
   templateProfile: defaultTemplateProfile,
   // For the form modal
@@ -41,6 +41,14 @@ const initialState: initialStateType = {
     showModal: false,
     msg: "",
   },
+  // Id required for the card modal
+  cardModalId: "",
+  // The content displayed on the options content comp
+  optionsContent: "settings",
+  // The overlay object
+  overlay: defaultOverlay,
+  // Edit mode(used in combination with cardModalId)
+  editMode: false,
 };
 
 // THUNKS
@@ -88,6 +96,18 @@ export const updateProfile = createAsyncThunk<
   }
 });
 
+export const logoutProfile = createAsyncThunk<string | AxiosError>(
+  "general/logoutProfile",
+  async () => {
+    try {
+      const { data } = await axiosInstance.get("/utilizatori/optiuni/logout");
+      return data.msg as string;
+    } catch (error) {
+      return error as AxiosError;
+    }
+  }
+);
+
 const generalSlice = createSlice({
   name: "general",
   initialState,
@@ -98,8 +118,20 @@ const generalSlice = createSlice({
         [action.payload.key]: action.payload.value,
       };
     },
-    updateFormModal(state, action: PayloadAction<boolean>) {
+    updateGeneralFormModal(state, action: PayloadAction<boolean>) {
       state.formModal.showModal = action.payload;
+    },
+    updateOverlay(state, action: PayloadAction<OverlayType>) {
+      state.overlay = action.payload;
+    },
+    setCardModalId(state, action: PayloadAction<string>) {
+      state.cardModalId = action.payload;
+    },
+    setOptionsContent(state, action: PayloadAction<string>) {
+      state.optionsContent = action.payload;
+    },
+    setEditMode(state, action: PayloadAction<boolean>) {
+      state.editMode = action.payload;
     },
   },
   extraReducers(builder) {
@@ -171,18 +203,42 @@ const generalSlice = createSlice({
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.loadingProfile = "FAILED";
+      })
+      .addCase(logoutProfile.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.profile = defaultProfile;
+        state.templateProfile = defaultTemplateProfile;
+        window.location.href = `${baseSiteUrl}/home`;
       });
   },
 });
 
 export const selectProfile = (state: State) => state.general.profile;
+
 export const selectTemplateProfile = (state: State) =>
   state.general.templateProfile;
+
 export const selectFormModal = (state: State) => state.general.formModal;
 
 export const selectLoadingProfile = (state: State) =>
   state.general.loadingProfile;
 
-export const { updateTemplateProfile, updateFormModal } = generalSlice.actions;
+export const selectCardModalId = (state: State) => state.general.cardModalId;
+
+export const selectOptionsContent = (state: State) =>
+  state.general.optionsContent;
+
+export const selectOverlay = (state: State) => state.general.overlay;
+
+export const selectEditMode = (state: State) => state.general.editMode;
+
+export const {
+  updateTemplateProfile,
+  updateGeneralFormModal,
+  setCardModalId,
+  setOptionsContent,
+  updateOverlay,
+  setEditMode,
+} = generalSlice.actions;
 
 export default generalSlice.reducer;

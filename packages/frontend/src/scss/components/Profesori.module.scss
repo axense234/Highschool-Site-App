@@ -1,5 +1,14 @@
 @use "../abstracts" as *;
 
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.5);
+  }
+}
+
 .profesoriContainer {
   @include pageLayout();
 
@@ -28,6 +37,7 @@
   #{&}__profesor {
     @include flexCenter(column);
     width: 30%;
+    min-height: 40rem;
     background-color: getColor("silver-40");
     padding: 2.5rem;
     gap: 2.5rem;
@@ -38,6 +48,8 @@
     img {
       width: 75%;
       height: auto;
+      max-height: 20rem;
+      min-height: 15rem;
       border-radius: 50%;
       border: 3px solid white;
     }
@@ -72,6 +84,87 @@
         font-size: 1.5rem;
         align-self: flex-start;
       }
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      min-height: 7.5rem;
+      max-height: 10rem;
+      padding: 0.25rem;
+      border-radius: 1rem;
+      border: 3px solid getColor("silver-50");
+      font-size: 1.25rem;
+
+      &:focus-visible {
+        outline: 3px solid getColor("silver-50");
+      }
+    }
+
+    input {
+      @include controlInput(2.25rem, 100%);
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      font-size: 3rem;
+      border: none;
+
+      animation: pulse 0.5s alternate infinite;
+
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  #{&}__profesorImage {
+    @include flexCenter(column);
+    position: relative;
+    width: 100%;
+  }
+
+  #{&}__profesorImageOverlay {
+    @include flexCenter(column);
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba($color: getColor("silver-30"), $alpha: 0.5);
+
+    input {
+      display: none;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-size: 5rem;
+      color: getColor("silver-white");
+    }
+  }
+
+  #{&}__control {
+    @include flexCenter(row);
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+    label {
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    select {
+      @include controlSelect();
     }
   }
 }

@@ -28,6 +28,15 @@ const getAllAnnouncements = async (req: Request, res: Response) => {
 const createAnnouncement = async (req: Request, res: Response) => {
   const announcementBody = req.body;
 
+  if (!announcementBody.titlu || !announcementBody.descriere) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({
+        msg: "Introduceti titlul si descrierea anuntului.",
+        announcement: {},
+      });
+  }
+
   const createdAnnouncement = await anuntClient.create({
     data: { ...announcementBody },
   });
@@ -62,5 +71,37 @@ const deleteAllAnnouncements = async (req: Request, res: Response) => {
   });
 };
 
+// DELETE ANNOUNCEMENT BY ID
+const deleteAnnouncementById = async (req: Request, res: Response) => {
+  const { announcementId } = req.params;
+
+  if (!announcementId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide an announcementId!", announcement: {} });
+  }
+
+  const deletedAnnouncement = await anuntClient.delete({
+    where: { anunt_uid: announcementId },
+  });
+
+  if (!deletedAnnouncement) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not delete announcement with id:${announcementId}!`,
+      announcement: {},
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    msg: `Successfully deleted announcement with title:${deletedAnnouncement.titlu}!`,
+    announcement: deletedAnnouncement,
+  });
+};
+
 // EXPORTS
-export { getAllAnnouncements, createAnnouncement, deleteAllAnnouncements };
+export {
+  getAllAnnouncements,
+  createAnnouncement,
+  deleteAllAnnouncements,
+  deleteAnnouncementById,
+};

@@ -26,6 +26,12 @@ const getAllTeachers = async (req: Request, res: Response) => {
 const createTeacher = async (req: Request, res: Response) => {
   const teacherBody = req.body;
 
+  if (!teacherBody.username || !teacherBody.descriere) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Introduceti nume si prenumele,descrierea.", teacher: {} });
+  }
+
   const createdTeacher = await profesorClient.create({
     data: { ...teacherBody },
   });
@@ -60,5 +66,67 @@ const deleteAllTeachers = async (req: Request, res: Response) => {
   });
 };
 
+// DELETE TEACHER BY ID
+const deleteTeacherById = async (req: Request, res: Response) => {
+  const { teacherId } = req.params;
+
+  if (!teacherId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide a teacherId!", teacher: {} });
+  }
+
+  const deletedTeacher = await profesorClient.delete({
+    where: { profesor_uid: teacherId },
+  });
+
+  if (!deletedTeacher) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not delete teacher with id:${teacherId}!`,
+      teacher: {},
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    msg: `Successfully deleted teacher with username:${deletedTeacher.username}!`,
+    teacher: deletedTeacher,
+  });
+};
+
+// UPDATE TEACHER BY ID
+const updateTeacherById = async (req: Request, res: Response) => {
+  const { teacherId } = req.params;
+  const teacherBody = req.body;
+
+  if (!teacherId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide a teacherId!", teacher: {} });
+  }
+
+  const updatedTeacher = await profesorClient.update({
+    where: { profesor_uid: teacherId },
+    data: { ...teacherBody },
+  });
+
+  if (!updatedTeacher) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find teacher with id:${teacherId} in order to update them!`,
+      teacher: {},
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    msg: `Successfully updated teacher: ${updatedTeacher.username}!`,
+    teacher: updatedTeacher,
+  });
+};
+
 // EXPORTS
-export { getAllTeachers, createTeacher, deleteAllTeachers };
+export {
+  getAllTeachers,
+  createTeacher,
+  deleteAllTeachers,
+  deleteTeacherById,
+  updateTeacherById,
+};

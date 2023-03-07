@@ -1,5 +1,5 @@
 // React
-import { FC, SyntheticEvent, useState } from "react";
+import { FC, useState } from "react";
 // Components
 import Meta from "@/components/Meta";
 // SCSS
@@ -9,34 +9,52 @@ import { profileOptions } from "@/data";
 // Components
 import SectionLoading from "@/components/SectionLoading";
 import HomeTitle from "@/components/Home/HomeTitle";
+import Overlay from "@/components/Overlay";
+import ProfileSettings from "@/components/Profile/ProfileSettings";
+import ProfileCreateAnnouncement from "@/components/Profile/ProfileCreateAnnouncement";
+import ProfileCreateTeacher from "@/components/Profile/ProfileCreateTeacher";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   selectLoadingProfile,
+  selectOptionsContent,
   selectProfile,
-  selectTemplateProfile,
-  updateProfile,
-  updateTemplateProfile,
+  setOptionsContent,
+  updateOverlay,
 } from "@/redux/slices/generalSlice";
-import FormModal from "@/components/FormModal";
-import Overlay from "@/components/Overlay";
 
 const Profile: FC = () => {
   const profile = useAppSelector(selectProfile);
   const loadingProfile = useAppSelector(selectLoadingProfile);
+  const dispatch = useAppDispatch();
 
-  const [showOverlay, setShowOverlay] = useState<boolean>(false);
+  const optionsContent = useAppSelector(selectOptionsContent);
+
+  let renderedOptionsContent;
+
+  switch (optionsContent) {
+    case "settings":
+      renderedOptionsContent = <ProfileSettings />;
+      break;
+    case "logout":
+      renderedOptionsContent = <ProfileSettings />;
+      break;
+    case "createAnnouncement":
+      renderedOptionsContent = <ProfileCreateAnnouncement />;
+      break;
+    case "createTeacher":
+      renderedOptionsContent = <ProfileCreateTeacher />;
+      break;
+    default:
+      throw new Error("nu am caz pentru optionsContent");
+  }
 
   return (
     <>
       <Meta title='Liceul Teoretic "Vasile Barbu" Pitesti - Profilul Tau' />
       <main className={profileStyles.profileContainer}>
         <HomeTitle title='Profilul Tau(ADMIN)' quote='Smecherie pe felie.' />
-        <Overlay
-          title='Esti sigur ca vrei sa iesi din cont?'
-          showOverlay={showOverlay}
-          setShowOverlay={setShowOverlay}
-        />
+        <Overlay title='Esti sigur ca vrei sa iesi din cont?' />
         <div className={profileStyles.profileContainer__content}>
           {loadingProfile === "IDLE" || loadingProfile === "PENDING" ? (
             <SectionLoading padding='12.5rem 5rem' />
@@ -60,21 +78,34 @@ const Profile: FC = () => {
                         <button
                           type='button'
                           key={option.id}
-                          onClick={() => setShowOverlay(true)}
+                          onClick={() =>
+                            dispatch(
+                              updateOverlay({
+                                overlayFunctionUsed: "logout",
+                                showOverlay: true,
+                              })
+                            )
+                          }
                         >
                           {option.label}
                         </button>
                       );
                     }
                     return (
-                      <button type='button' key={option.id}>
+                      <button
+                        type='button'
+                        key={option.id}
+                        onClick={() =>
+                          dispatch(setOptionsContent(option.content))
+                        }
+                      >
                         {option.label}
                       </button>
                     );
                   })}
                 </nav>
                 <div className={profileStyles.profileContainer__optionsContent}>
-                  <ProfileSettings />
+                  {renderedOptionsContent}
                 </div>
               </section>
             </div>
@@ -82,71 +113,6 @@ const Profile: FC = () => {
         </div>
       </main>
     </>
-  );
-};
-
-const ProfileSettings: FC = () => {
-  const templateProfile = useAppSelector(selectTemplateProfile);
-  const dispatch = useAppDispatch();
-
-  const [showPassword, setShowPassword] = useState<boolean>(true);
-
-  const handleUsernameChange = (username: string) => {
-    dispatch(updateTemplateProfile({ key: "username", value: username }));
-  };
-
-  const handleEmailChange = (email: string) => {
-    dispatch(updateTemplateProfile({ key: "email", value: email }));
-  };
-
-  const handlePasswordChange = (password: string) => {
-    dispatch(updateTemplateProfile({ key: "password", value: password }));
-  };
-
-  const handleFormSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    dispatch(updateProfile(templateProfile));
-  };
-  return (
-    <form
-      className={profileStyles.profileContainer__settings}
-      onSubmit={(e) => handleFormSubmit(e)}
-    >
-      <FormModal />
-      <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='username'>Change Username:</label>
-        <input
-          type='text'
-          name='username'
-          id='username'
-          value={templateProfile.username}
-          onChange={(e) => handleUsernameChange(e.target.value)}
-        />
-      </div>
-      <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='email'>Change Email:</label>
-        <input
-          type='email'
-          name='email'
-          id='email'
-          value={templateProfile.email}
-          onChange={(e) => handleEmailChange(e.target.value)}
-        />
-      </div>
-      <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='password'>Change Password:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          name='password'
-          id='password'
-          placeholder='ex: testing'
-          value={templateProfile.password}
-          onChange={(e) => handlePasswordChange(e.target.value)}
-        />
-      </div>
-      <button type='submit'>Updateaza profilul</button>
-    </form>
   );
 };
 export default Profile;

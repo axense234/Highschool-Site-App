@@ -4,9 +4,13 @@ import {
   facilityImageType,
   facilityRoomType,
   infoSectionType,
+  MaterieType,
   offeringItemType,
+  OverlayType,
   profileOption,
   sidebarLink,
+  templateAnnouncement,
+  templateTeacher,
   templateUser,
 } from "types";
 // React Icons
@@ -19,7 +23,7 @@ import { BsGithub } from "react-icons/bs";
 import { TbOlympics } from "react-icons/tb";
 import { BiLogIn } from "react-icons/bi";
 // Prisma Types
-import { Anunt, Profesor } from "@prisma/client";
+import { Anunt, Profesor, Utilizator } from "@prisma/client";
 
 export const defaultTemplateProfile: templateUser = {
   email: "",
@@ -27,9 +31,62 @@ export const defaultTemplateProfile: templateUser = {
   rolUtilizator: "ADMIN",
 };
 
+export const defaultOverlay: OverlayType = {
+  overlayFunctionUsed: "logout",
+  showOverlay: false,
+};
+
+export const defaultTemplateAnnouncement: templateAnnouncement = {
+  descriere: "",
+  imagineUrl: "",
+  pozitionareVideoInAnunt: "final",
+  titlu: "",
+  videoUrl: "",
+  id: "",
+};
+
+export const defaultTemplateTeacher: templateTeacher = {
+  descriere: "",
+  id: "",
+  imagineProfilUrl: null,
+  profesorDe: "SPORT",
+  username: "",
+};
+
+export const materii: MaterieType[] = [
+  { id: 1, nume: "BIOLOGIE" },
+  { id: 2, nume: "CHIMIE" },
+  { id: 3, nume: "DESEN" },
+  { id: 4, nume: "ENGLEZA" },
+  { id: 5, nume: "FIZICA" },
+  { id: 6, nume: "FRANCEZA" },
+  { id: 7, nume: "GEOGRAFIE" },
+  { id: 8, nume: "GERMANA" },
+  { id: 9, nume: "INFORMATICA" },
+  { id: 10, nume: "INFORMATICA_OPTIONAL" },
+  { id: 11, nume: "ISTORIE" },
+  { id: 12, nume: "LATINA" },
+  { id: 13, nume: "MATEMATICA" },
+  { id: 14, nume: "MUZICA" },
+  { id: 15, nume: "PSIHOLOGIE" },
+  { id: 16, nume: "RELIGIE" },
+  { id: 17, nume: "ROMANA" },
+  { id: 18, nume: "SPORT" },
+];
+
+export const defaultProfile: Utilizator = {
+  email: "",
+  password: "",
+  rolUtilizator: "ADMIN",
+  username: "",
+  utilizator_uid: "",
+};
+
 export const profileOptions: profileOption[] = [
-  { id: 1, label: "Setari Profil" },
-  { id: 2, label: "Iesi din Cont" },
+  { id: 1, label: "Setari Profil", content: "settings" },
+  { id: 2, label: "Iesi din Cont", content: "logout" },
+  { id: 3, label: "Creeaza un Anunt", content: "createAnnouncement" },
+  { id: 4, label: "Creeaza un Profesor", content: "createTeacher" },
 ];
 
 export const sidebarPageLinks: sidebarLink[] = [
