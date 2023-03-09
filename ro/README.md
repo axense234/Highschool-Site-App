@@ -22,7 +22,8 @@ npm install
 ### Executarea programului
 
 ```
-redis-client -> intr-un terminal WSL !!!
+redis-server -> intr-un terminal WSL !!!
+cd Highschool-Site-App
 npm run dev
 ```
 

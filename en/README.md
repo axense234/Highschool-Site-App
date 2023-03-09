@@ -17,13 +17,14 @@ A Fullstack Mern Typescript with Sass and Redux project with the purpose of impr
 
 ```
 git clone https://github.com/axense234/Highschool-Site-App.git
+cd Highschool-Site-App
 npm install
 ```
 
 ### Executing program
 
 ```
-redis-client -> in a WSL terminal !!!
+redis-server -> in a WSL terminal !!!
 npm run dev
 ```
 
