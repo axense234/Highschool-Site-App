@@ -11,7 +11,8 @@ A Fullstack Mern Typescript with Sass and Redux project with the purpose of impr
 ### Dependencies
 
 - Check package.json for details.
-- Also if you are on Windows,you will need to install Linux since you will need to use Redix,you can install Linux on Windows by installing the Windows Subsystem for Linux(WSL) by following this [**_guide_**](https://learn.microsoft.com/en-us/windows/wsl/install).
+- Also if you are on Windows,you will need to install Linux since you will need to use Redis,you can install Linux on Windows by installing the Windows Subsystem for Linux(WSL) by following this [**_guide_**](https://learn.microsoft.com/en-us/windows/wsl/install).
+- Rename .env.sample to .env and place your respective environment variables
 
 ### Installing
 

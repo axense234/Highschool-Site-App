@@ -11,6 +11,8 @@ Un proiect Fullstack Mern Typescript cu Sass si Redux,create in scopul de a-mi p
 ### **Dependențe(pachete)**
 
 - Verificati fisierul package.json pentru detalii.
+- Daca sunteti pe Windows,o sa aveti nevoie de Linux,deci deoarece aveti nevoie de Redis,puteti instala Linux pe Windows urmand acest [**_tutorial_**](https://learn.microsoft.com/en-us/windows/wsl/install).
+- Redenumiti fisierul .env.sample la .env si introduceti variabilele de mediu respective
 
 ### Instalare
 
