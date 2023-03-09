@@ -10,8 +10,5 @@
   "main": "index.js",
   "keywords": [],
   "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "typescript": "^4.9.5"
-  }
+  "description": ""
 }
