@@ -6,11 +6,33 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install ttypescript;ttsc && npx prisma migrate deploy production;",
+    "build": "npm install typescript;tsc && npx prisma migrate deploy production;",
     "start": "node dist/index.js"
   },
   "author": "axense234",
   "main": "index.js",
   "keywords": [],
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^4.11.0",
+    "@types/node": "^18.14.6",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "dotenv": "^16.0.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.21",
+    "prisma": "^4.11.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
 }
