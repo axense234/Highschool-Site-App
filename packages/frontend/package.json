@@ -14,5 +14,8 @@
     "@types/react": "^18.0.28",
     "eslint": "^8.35.0",
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@vasile-barbu/backend": "1.1.0"
   }
 }
