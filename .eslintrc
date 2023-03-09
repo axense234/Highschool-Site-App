@@ -21,7 +21,7 @@
     "indent": "off",
     "function-paren-newline": "off",
     "jsx-quotes": "off",
-    "no-undef": "warn",
+    "no-undef": "off",
     "camelcase": "off",
     "comma-dangle": "off",
     "semi": "off",
