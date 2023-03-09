@@ -104,6 +104,21 @@ export const deleteAnnouncementById = createAsyncThunk<
   }
 });
 
+export const updateAnnouncementById = createAsyncThunk<
+  Anunt | AxiosError,
+  templateAnnouncement
+>("announcements/updateAnnouncement", async (templateAnnouncement) => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/anunturi/anunt/update/${templateAnnouncement.anunt_uid}`,
+      templateAnnouncement
+    );
+    return data.announcement as Anunt;
+  } catch (error) {
+    return error as AxiosError;
+  }
+});
+
 const announcementsSlice = createSlice({
   name: "announcements",
   initialState,
@@ -119,6 +134,12 @@ const announcementsSlice = createSlice({
     },
     updateAnnouncementsFormModal(state, action: PayloadAction<boolean>) {
       state.formModal.showModal = action.payload;
+    },
+    setTemplateAnnouncement(
+      state,
+      action: PayloadAction<templateAnnouncement>
+    ) {
+      state.templateAnnouncement = action.payload;
     },
   },
   extraReducers(builder) {
@@ -169,12 +190,31 @@ const announcementsSlice = createSlice({
         if (announcement) {
           announcementsAdapter.removeOne(state, announcement.anunt_uid);
         }
+      })
+      .addCase(updateAnnouncementById.fulfilled, (state, action) => {
+        const announcement = action.payload as Anunt;
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          const data = axiosError.response?.data as errorPayloadType;
+          state.formModal.showModal = true;
+          state.formModal.msg = data.msg;
+          state.formModal.color = "red";
+        } else {
+          announcement.id = announcement.anunt_uid;
+          announcementsAdapter.updateOne(state, {
+            id: announcement.anunt_uid,
+            changes: announcement,
+          });
+        }
       });
   },
 });
 
-export const { selectAll: selectAllAnnouncements } =
-  announcementsAdapter.getSelectors<State>((state) => state.announcements);
+export const {
+  selectAll: selectAllAnnouncements,
+  selectById: selectAnnouncementById,
+} = announcementsAdapter.getSelectors<State>((state) => state.announcements);
 
 export const selectLoadingAnnouncements = (state: State) =>
   state.announcements.loadingAnnouncements;
@@ -185,7 +225,10 @@ export const selectTemplateAnnouncement = (state: State) =>
 export const selectAnnouncementsFormModal = (state: State) =>
   state.announcements.formModal;
 
-export const { updateTemplateAnnouncement, updateAnnouncementsFormModal } =
-  announcementsSlice.actions;
+export const {
+  updateTemplateAnnouncement,
+  updateAnnouncementsFormModal,
+  setTemplateAnnouncement,
+} = announcementsSlice.actions;
 
 export default announcementsSlice.reducer;

@@ -50,4 +50,24 @@
       @include controlInput(2rem, 100%);
     }
   }
+
+  #{&}__passwordControl {
+    @include flexCenter(row);
+    width: 100%;
+    position: relative;
+
+    input {
+      width: 100%;
+      &:hover {
+        transform: translateX(0);
+      }
+    }
+
+    svg {
+      position: absolute;
+      z-index: 3;
+      right: 1rem;
+      font-size: 1.5rem;
+    }
+  }
 }

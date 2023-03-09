@@ -7,6 +7,7 @@ import {
   getAllAnnouncements,
   deleteAllAnnouncements,
   deleteAnnouncementById,
+  updateAnnouncementById,
 } from "../controllers/announcements";
 import authenticationMiddleware from "../middleware/authentication";
 
@@ -26,6 +27,12 @@ router.delete(
   "/anunturi/anunt/delete/:announcementId",
   authenticationMiddleware,
   deleteAnnouncementById
+);
+
+router.patch(
+  "/anunturi/anunt/update/:announcementId",
+  authenticationMiddleware,
+  updateAnnouncementById
 );
 
 // EXPORTS

@@ -1,11 +1,15 @@
 // React
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 // Components
 import Meta from "@/components/Meta";
 // SCSS
 import profileStyles from "../scss/components/Profile.module.scss";
 // Data
-import { profileOptions } from "@/data";
+import {
+  defaultTemplateAnnouncement,
+  defaultTemplateTeacher,
+  profileOptions,
+} from "@/data";
 // Components
 import SectionLoading from "@/components/SectionLoading";
 import HomeTitle from "@/components/Home/HomeTitle";
@@ -22,6 +26,8 @@ import {
   setOptionsContent,
   updateOverlay,
 } from "@/redux/slices/generalSlice";
+import { setTemplateAnnouncement } from "@/redux/slices/announcementsSlice";
+import { setTemplateTeacher } from "@/redux/slices/teachersSlice";
 
 const Profile: FC = () => {
   const profile = useAppSelector(selectProfile);
@@ -48,6 +54,11 @@ const Profile: FC = () => {
     default:
       throw new Error("nu am caz pentru optionsContent");
   }
+
+  useEffect(() => {
+    dispatch(setTemplateAnnouncement(defaultTemplateAnnouncement));
+    dispatch(setTemplateTeacher(defaultTemplateTeacher));
+  }, []);
 
   return (
     <>
@@ -98,6 +109,10 @@ const Profile: FC = () => {
                         onClick={() =>
                           dispatch(setOptionsContent(option.content))
                         }
+                        className={`${
+                          optionsContent === option.content &&
+                          "activeProfileOption"
+                        }`}
                       >
                         {option.label}
                       </button>

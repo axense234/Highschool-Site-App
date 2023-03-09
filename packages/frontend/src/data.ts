@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 // Types
 import {
+  AboutTechnologyType,
   facilityImageType,
   facilityRoomType,
   infoSectionType,
@@ -24,6 +25,103 @@ import { TbOlympics } from "react-icons/tb";
 import { BiLogIn } from "react-icons/bi";
 // Prisma Types
 import { Anunt, Profesor, Utilizator } from "@prisma/client";
+
+export const aboutTechnologiesUsedFrontend: AboutTechnologyType[] = [
+  {
+    id: 1,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764486/Icons%20and%20Stuff/HTML5_badge_ag98vs.webp",
+    label: "HTML",
+    techUrl: "https://www.w3schools.com/html/",
+  },
+  {
+    id: 2,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764497/Icons%20and%20Stuff/css-118-569410_pqbfyw.webp",
+    label: "CSS",
+    techUrl: "https://www.w3schools.com/css/",
+  },
+  {
+    id: 3,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063331/Icons%20and%20Stuff/typescript_logo_png_kl85ny.webp",
+    label: "Typescript",
+    techUrl: "https://www.typescriptlang.org/",
+  },
+  {
+    id: 4,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764549/Icons%20and%20Stuff/react_js_logo_icon512_b7nzgm.webp",
+    label: "React",
+    techUrl: "https://reactjs.org/",
+  },
+  {
+    id: 5,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674571442/Icons%20and%20Stuff/next-js-logo-7929BCD36F-seeklogo.com_vxm0md.webp",
+    label: "NextJS",
+    techUrl: "https://nextjs.org/",
+  },
+  {
+    id: 6,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063415/Icons%20and%20Stuff/sass-logo-2_xkltmh.webp",
+    label: "Sass",
+    techUrl: "https://sass-lang.com/",
+  },
+  {
+    id: 7,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764511/Icons%20and%20Stuff/redux-logo_ejnmb7.webp",
+    label: "Redux Toolkit",
+    techUrl: "https://redux-toolkit.js.org/",
+  },
+];
+
+export const aboutTechnologiesUsedBackend: AboutTechnologyType[] = [
+  {
+    id: 1,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764542/Icons%20and%20Stuff/nodejs-logo-png--435_xz77cw.webp",
+    label: "Node",
+    techUrl: "https://nodejs.org/en/",
+  },
+  {
+    id: 2,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764524/Icons%20and%20Stuff/express-js-icon-20_onazqf.webp",
+    label: "Express",
+    techUrl: "https://expressjs.com/",
+  },
+  {
+    id: 3,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063331/Icons%20and%20Stuff/typescript_logo_png_kl85ny.webp",
+    label: "Typescript",
+    techUrl: "https://www.typescriptlang.org/",
+  },
+  {
+    id: 4,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063477/Icons%20and%20Stuff/postgresql-logo-png-transparent_zxfyrt.webp",
+    label: "PostgreSQL",
+    techUrl: "https://www.postgresql.org/",
+  },
+  {
+    id: 5,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063501/Icons%20and%20Stuff/prisma-logo-3805665B69-seeklogo.com_cj8pk8.webp",
+    label: "Prisma",
+    techUrl: "https://www.prisma.io/",
+  },
+  {
+    id: 6,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063521/Icons%20and%20Stuff/redis-logo_i8mudb.webp",
+    label: "Redis",
+    techUrl: "https://redis.io/",
+  },
+];
 
 export const defaultTemplateProfile: templateUser = {
   email: "",

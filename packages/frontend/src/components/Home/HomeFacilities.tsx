@@ -9,7 +9,7 @@ import FacilitiesSlider from "./FacilitiesSlider";
 
 const HomeFacilities: FC = () => {
   return (
-    <section className={homeStyles.homeContainer__facilities}>
+    <section className={homeStyles.homeContainer__facilities} id='facilities'>
       <FacilitiesSlider />
       <div className={homeStyles.homeContainer__facilitiesInfo}>
         <h2>Dotarea Liceului</h2>

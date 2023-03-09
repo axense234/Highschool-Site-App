@@ -1,5 +1,7 @@
 // React
 import { FC, useState, SyntheticEvent } from "react";
+// React Icons
+import { BiShow, BiHide } from "react-icons/bi";
 // Redux
 import { useAppSelector, useAppDispatch } from "@/hooks/redux";
 import {
@@ -16,7 +18,7 @@ const ProfileSettings: FC = () => {
   const templateProfile = useAppSelector(selectTemplateProfile);
   const dispatch = useAppDispatch();
 
-  const [showPassword, setShowPassword] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleUsernameChange = (username: string) => {
     dispatch(updateTemplateProfile({ key: "username", value: username }));
@@ -63,14 +65,21 @@ const ProfileSettings: FC = () => {
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
         <label htmlFor='password'>Change Password:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          name='password'
-          id='password'
-          placeholder='ex: testing'
-          value={templateProfile.password}
-          onChange={(e) => handlePasswordChange(e.target.value)}
-        />
+        <div className={profileStyles.profileContainer__passwordControl}>
+          <input
+            type={showPassword ? "text" : "password"}
+            name='password'
+            id='password'
+            placeholder='ex: testing'
+            value={templateProfile.password}
+            onChange={(e) => handlePasswordChange(e.target.value)}
+          />
+          {showPassword ? (
+            <BiHide onClick={() => setShowPassword(false)} />
+          ) : (
+            <BiShow onClick={() => setShowPassword(true)} />
+          )}
+        </div>
       </div>
       <button type='submit'>Updateaza profilul</button>
     </form>

@@ -98,6 +98,12 @@ const updateTeacherById = async (req: Request, res: Response) => {
   const { teacherId } = req.params;
   const teacherBody = req.body;
 
+  if (!teacherBody.username) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: `Scrieti numele si prenumele profesorului!` });
+  }
+
   if (!teacherId) {
     return res
       .status(StatusCodes.BAD_REQUEST)

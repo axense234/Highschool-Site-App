@@ -15,7 +15,7 @@ import usePopInAnimation from "@/hooks/usePopInAnimation";
 
 const HomeOfferings = () => {
   return (
-    <section className={homeStyles.homeContainer__offerings}>
+    <section className={homeStyles.homeContainer__offerings} id='offerings'>
       <h2>Ce oferim?</h2>
       <ol className={homeStyles.homeContainer__offeringsList}>
         {offeringsList.map((offering, offIndex) => {

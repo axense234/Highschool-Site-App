@@ -1,5 +1,7 @@
 // React
-import { FC, SyntheticEvent } from "react";
+import { FC, SyntheticEvent, useState } from "react";
+// React Icons
+import { BiHide, BiShow } from "react-icons/bi";
 // SCSS
 import HomeTitle from "@/components/Home/HomeTitle";
 // Components
@@ -17,6 +19,8 @@ import {
 const Login: FC = () => {
   const dispatch = useAppDispatch();
   const templateProfile = useAppSelector(selectTemplateProfile);
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const onEmailChange = (email: string) =>
     dispatch(updateTemplateProfile({ key: "email", value: email }));
@@ -59,11 +63,18 @@ const Login: FC = () => {
             </div>
             <div className={loginStyles.loginContainer__control}>
               <label htmlFor='parola'>Parola:</label>
-              <input
-                type='password'
-                value={templateProfile.password}
-                onChange={(e) => onPasswordChange(e.target.value)}
-              />
+              <div className={loginStyles.loginContainer__passwordControl}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={templateProfile.password}
+                  onChange={(e) => onPasswordChange(e.target.value)}
+                />
+                {showPassword ? (
+                  <BiHide onClick={() => setShowPassword(false)} />
+                ) : (
+                  <BiShow onClick={() => setShowPassword(true)} />
+                )}
+              </div>
             </div>
             <div className={loginStyles.loginContainer__control}>
               <label htmlFor='parola'>Rol(ADMIN pt optiuni extra):</label>

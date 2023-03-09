@@ -14,7 +14,7 @@ const HomeBac: FC = () => {
   usePopInAnimation("showVertical", inView, entry);
 
   return (
-    <section className={homeStyles.homeContainer__bac}>
+    <section className={homeStyles.homeContainer__bac} id='bac'>
       <h2>Promovabilitatea la Bacalaureat</h2>
       <Image
         className='hidden'

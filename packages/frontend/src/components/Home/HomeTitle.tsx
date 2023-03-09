@@ -17,7 +17,7 @@ const HomeTitle: FC<HomeTitleProps> = ({ title, quote }) => {
   usePopInAnimation("showVertical", quoteInView, quoteEntry);
 
   return (
-    <section className={homeTitleStyles.homeContainer__title}>
+    <section className={homeTitleStyles.homeContainer__title} id='title'>
       <h1 ref={titleRef} className='hidden'>
         {title}
       </h1>

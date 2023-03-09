@@ -39,6 +39,7 @@ import {
 import { materii } from "@/data";
 // Store
 import { State } from "@/redux/api/store";
+import EditFormModal from "@/components/EditFormModal";
 
 const Profesori: FC = () => {
   const teachers = useAppSelector(selectAllTeachers);
@@ -119,7 +120,9 @@ const Profesor: FC<Profesor> = ({
     e.preventDefault();
 
     dispatch(updateTeacherById(templateTeacher));
-    dispatch(setEditMode(false));
+    if (templateTeacher.username) {
+      dispatch(setEditMode(false));
+    }
   };
 
   useEffect(() => {
@@ -140,6 +143,7 @@ const Profesor: FC<Profesor> = ({
           }
         }}
       >
+        <EditFormModal type='teachers' />
         <div className={profesoriStyles.profesoriContainer__profesorImage}>
           <Image
             src={

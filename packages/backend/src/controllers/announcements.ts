@@ -29,12 +29,10 @@ const createAnnouncement = async (req: Request, res: Response) => {
   const announcementBody = req.body;
 
   if (!announcementBody.titlu || !announcementBody.descriere) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({
-        msg: "Introduceti titlul si descrierea anuntului.",
-        announcement: {},
-      });
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Introduceti titlul si descrierea anuntului.",
+      announcement: {},
+    });
   }
 
   const createdAnnouncement = await anuntClient.create({
@@ -98,10 +96,49 @@ const deleteAnnouncementById = async (req: Request, res: Response) => {
   });
 };
 
+// UPDATE ANNOUNCEMENT BY ID
+const updateAnnouncementById = async (req: Request, res: Response) => {
+  const { announcementId } = req.params;
+  const announcementBody = req.body;
+
+  if (!announcementBody.titlu || !announcementBody.descriere) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({
+        msg: "Introduceti titlul si descrierea anuntului!",
+        announcement: {},
+      });
+  }
+
+  if (!announcementId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide an announcementId!", announcement: {} });
+  }
+
+  const updatedAnnouncement = await anuntClient.update({
+    where: { anunt_uid: announcementId },
+    data: { ...announcementBody },
+  });
+
+  if (!updatedAnnouncement) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find announcement with id:${announcementId} in order to update it!`,
+      announcement: updatedAnnouncement,
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    msg: `Successfully updated announcement: ${updatedAnnouncement.titlu}!`,
+    announcement: updatedAnnouncement,
+  });
+};
+
 // EXPORTS
 export {
   getAllAnnouncements,
   createAnnouncement,
   deleteAllAnnouncements,
   deleteAnnouncementById,
+  updateAnnouncementById,
 };

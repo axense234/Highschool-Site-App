@@ -64,6 +64,13 @@ type OverlayType = {
   showOverlay: boolean;
 };
 
+type AboutTechnologyType = {
+  id: number;
+  logoUrl: string;
+  label: string;
+  techUrl: string;
+};
+
 // Interfaces
 interface MetaProps {
   keywords?: string;
@@ -121,6 +128,12 @@ interface FormModalProps {
   type: "teachers" | "announcements" | "general";
 }
 
+interface VideoContainerProps {
+  workingVideoUrl: string;
+  titlu: string;
+  onVideoUrlChange: (videoUrl: string) => void;
+}
+
 export {
   sidebarLink,
   MetaProps,
@@ -146,4 +159,6 @@ export {
   templateTeacher,
   OverlayType,
   FormModalProps,
+  VideoContainerProps,
+  AboutTechnologyType,
 };

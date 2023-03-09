@@ -1,20 +1,13 @@
 // React
-import { FC, useEffect, useState } from "react";
-// Prisma Types
-import { Anunt } from "@prisma/client";
-// Next
-import Image from "next/image";
-// React Icons
-import { MdArrowDropDownCircle } from "react-icons/md";
+import { FC, useEffect } from "react";
 // SCSS
 import announcementsStyles from "../scss/components/Anunturi.module.scss";
 // Components
 import HomeTitle from "@/components/Home/HomeTitle";
-// Components
 import Meta from "@/components/Meta";
 import SectionLoading from "@/components/SectionLoading";
-import CardModal from "@/components/CardModal";
 import Overlay from "@/components/Overlay";
+import Announcement from "@/components/Announcements/Announcement";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -22,12 +15,11 @@ import {
   selectAllAnnouncements,
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
-import { selectOverlay, setCardModalId } from "@/redux/slices/generalSlice";
 
 const Announcements: FC = () => {
+  const dispatch = useAppDispatch();
   const announcements = useAppSelector(selectAllAnnouncements);
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (loadingAnnouncements === "IDLE") {
@@ -70,113 +62,6 @@ const Announcements: FC = () => {
         </section>
       </main>
     </>
-  );
-};
-
-const Announcement: FC<Anunt> = ({
-  descriere,
-  titlu,
-  imagineUrl,
-  videoUrl,
-  pozitionareVideoInAnunt,
-  anunt_uid,
-}) => {
-  const [toggle, setToggle] = useState<boolean>(false);
-  const [workingVideoUrl, setVideoWorkingUrl] = useState<string>(
-    videoUrl as string
-  );
-  const overlay = useAppSelector(selectOverlay);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (videoUrl?.startsWith("https://www.youtube.com/watch?v=")) {
-      const newVideoUrl = videoUrl.replace("/watch?v=", "/embed/");
-      setVideoWorkingUrl(newVideoUrl);
-    }
-  }, [videoUrl, setVideoWorkingUrl]);
-
-  if (!toggle) {
-    return (
-      <article
-        className={announcementsStyles.announcementsContainer__announcement}
-        title={titlu}
-        onMouseEnter={() => dispatch(setCardModalId(anunt_uid))}
-        onMouseLeave={() => {
-          if (!overlay.showOverlay) {
-            dispatch(setCardModalId(""));
-          }
-        }}
-      >
-        <div
-          className={
-            announcementsStyles.announcementsContainer__announcementTitle
-          }
-        >
-          <h3>{titlu}</h3>
-          <MdArrowDropDownCircle
-            onClick={() => setToggle(true)}
-            title='Deschide'
-          />
-        </div>
-        <p>{descriere.slice(0, 100)}...</p>
-        <CardModal cardId={anunt_uid} componentType='announcement' />
-      </article>
-    );
-  }
-
-  return (
-    <article
-      className={announcementsStyles.announcementsContainer__announcement}
-      onMouseEnter={() => dispatch(setCardModalId(anunt_uid))}
-      onMouseLeave={() => {
-        if (!overlay.showOverlay) {
-          dispatch(setCardModalId(""));
-        }
-      }}
-    >
-      {imagineUrl && (
-        <Image
-          src={imagineUrl as string}
-          alt={titlu}
-          width={100}
-          height={100}
-          title={titlu}
-        />
-      )}
-      <div
-        className={announcementsStyles.announcementsContainer__announcementInfo}
-      >
-        <div
-          className={
-            announcementsStyles.announcementsContainer__announcementTitle
-          }
-        >
-          <h3>{titlu}</h3>
-          <MdArrowDropDownCircle
-            onClick={() => setToggle(false)}
-            title='Inchide'
-          />
-        </div>
-        {pozitionareVideoInAnunt === "inceput" && workingVideoUrl && (
-          <iframe
-            src={workingVideoUrl as string}
-            title={titlu}
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-            allowFullScreen
-          />
-        )}
-        <p>{descriere}</p>
-        {pozitionareVideoInAnunt === "final" && workingVideoUrl && (
-          <iframe
-            src={workingVideoUrl as string}
-            title={titlu}
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-            allowFullScreen
-          />
-        )}
-      </div>
-      <CardModal cardId={anunt_uid} componentType='announcement' />
-    </article>
   );
 };
 
