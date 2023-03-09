@@ -4,10 +4,9 @@
   "workspaces": [
     "packages/*"
   ],
-  "schema.prisma": "packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "lerna run dev",
-    "build": "lerna run build"
+    "build": "lerna bootstrap && lerna run build"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
