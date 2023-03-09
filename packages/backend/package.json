@@ -10,5 +10,7 @@
   "main": "index.js",
   "keywords": [],
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "vasile-barbu": "file:../../"
+  }
 }
