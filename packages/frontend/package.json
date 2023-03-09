@@ -3,9 +3,10 @@
   "version": "1.1.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm install next;next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "author": "axense234"
+  "author": "axense234",
+  "gitHead": "af4bdcac624ce503f53f34c0ae035d8779bb8349"
 }

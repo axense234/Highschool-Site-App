@@ -10,5 +10,6 @@
   "author": "axense234",
   "dependencies": {
     "typescript": "^4.9.5"
-  }
+  },
+  "gitHead": "af4bdcac624ce503f53f34c0ae035d8779bb8349"
 }
