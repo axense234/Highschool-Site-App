@@ -3,12 +3,12 @@
   "version": "1.1.0",
   "scripts": {
     "dev": "next dev",
-    "build": "npm i @vasile-barbu/backend;next build",
+    "build": "npm i @vasile-barbu;next build",
     "start": "next start",
     "lint": "next lint"
   },
   "author": "axense234",
   "dependencies": {
-    "@vasile-barbu/backend": "1.1.0"
+    "@vasile-barbu": "1.1.0"
   }
 }
