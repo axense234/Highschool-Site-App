@@ -1,2 +1,8 @@
 [build]
+  command = "npm run build"
   base = "packages/frontend"
+
+[[redirects]]
+  from = "*"
+  to = "/index.html"
+  status = 200
