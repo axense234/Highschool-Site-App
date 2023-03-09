@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "dev": "lerna run dev",
-    "build": "lerna bootstrap && lerna run build"
+    "build": "lerna bootstrap --hoist && lerna run build"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
