@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "scripts": {
     "dev": "next dev",
-    "build": "npm install next;next build",
+    "build": "npm install next && npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -12,6 +12,7 @@
   "devDependencies": {
     "@types/node": "^18.14.6",
     "@types/react": "^18.0.28",
+    "eslint": "^8.35.0",
     "typescript": "^4.9.5"
   }
 }
