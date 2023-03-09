@@ -1,7 +1,6 @@
 {
   "name": "@vasile-barbu/backend",
   "version": "1.0.0",
-  "private": "true",
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "npm install typescript && tsc && npx prisma migrate deploy production",
