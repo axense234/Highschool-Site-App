@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npx prisma migrate deploy production && tsc",
+    "build": "npx prisma migrate deploy production && npx tsc",
     "start": "node ./dist/index.js"
   },
   "author": "axense234"
