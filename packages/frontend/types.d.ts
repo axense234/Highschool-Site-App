@@ -76,6 +76,7 @@ interface MetaProps {
   keywords?: string;
   desc?: string;
   title?: string;
+  imageUrls?: string[];
 }
 
 interface InfoSectionProps extends infoSectionType {

@@ -13,6 +13,7 @@ import {
 } from "@/data";
 // SCSS
 import facilitiesSliderStyles from "../../scss/components/Home/FacilitiesSlider.module.scss";
+// Hooks
 import useModalTransition from "@/hooks/useModalTransition";
 
 const FacilitiesSlider: FC = () => {
@@ -84,7 +85,10 @@ const FacilitiesSlider: FC = () => {
               value={imageIndex}
               title={image.id.toString()}
               key={image.id}
-              onChange={() => setImageId(imageIndex)}
+              onChange={() => {
+                setStopAutoImages(true);
+                setImageId(imageIndex);
+              }}
             />
           );
         })}
