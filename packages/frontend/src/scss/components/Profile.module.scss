@@ -3,7 +3,6 @@
 .profileContainer {
   @include pageLayout();
   height: 100rem;
-  border: 1px solid black;
 
   @media all and (max-width: getScreenSize("laptop")) {
     height: 125rem;
