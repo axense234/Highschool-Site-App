@@ -17,9 +17,24 @@
     width: 100%;
     gap: 5rem;
 
+    @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+      padding: 7.5rem 0.5rem;
+    }
+
     h2 {
       font-size: 4rem;
       letter-spacing: 5px;
+      text-align: center;
+
+      @media all and (max-width: 650px) {
+        font-size: 3rem;
+        letter-spacing: 3.5px;
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
     }
   }
 
@@ -31,7 +46,16 @@
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    align-items: flex-start;
     gap: 4rem;
+
+    @media all and (max-width: 875px) {
+      padding: 2rem;
+    }
+
+    @media all and (max-width: 500px) {
+      padding: 0.5rem;
+    }
   }
 
   #{&}__profesor {
@@ -45,11 +69,25 @@
 
     transition: transform 0.1s ease-in;
 
+    @media all and (max-width: (getScreenSize("laptopL") + 240px)) {
+      width: 40%;
+    }
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 45%;
+    }
+
+    @media all and (max-width: (getScreenSize("laptop") + 200px)) {
+      width: 80%;
+    }
+
+    @media all and (max-width: 875px) {
+      width: 100%;
+    }
+
     img {
       width: 75%;
       height: auto;
-      max-height: 20rem;
-      min-height: 15rem;
       border-radius: 50%;
       border: 3px solid white;
     }
@@ -73,6 +111,11 @@
       letter-spacing: 3px;
       text-align: center;
       margin-bottom: 1rem;
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+      }
     }
 
     p {
@@ -83,6 +126,14 @@
       &:nth-of-type(1) {
         font-size: 1.5rem;
         align-self: flex-start;
+
+        @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 1rem;
       }
     }
 

@@ -5,14 +5,25 @@
 
   h2 {
     font-size: 4rem;
+    text-align: center;
     letter-spacing: 3px;
     align-self: center;
+
+    @media all and (max-width: 650px) {
+      font-size: 3rem;
+      letter-spacing: 3.5px;
+    }
   }
 
   h3 {
     font-size: 3rem;
     letter-spacing: 1.5px;
     margin-bottom: 1rem;
+
+    @media all and (max-width: 650px) {
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
 
     a {
       text-decoration: none;
@@ -46,6 +57,10 @@
 
   p {
     font-size: 1.5rem;
+
+    @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+      font-size: 1.2rem;
+    }
   }
 
   #{&}__generalInfo {
@@ -68,6 +83,10 @@
     @include homePageSection(getColor("silver-50"), column);
     align-items: flex-start;
     gap: 3rem;
+
+    @media all and (max-width: 350px) {
+      padding: 7.5rem 0.4rem;
+    }
   }
 
   #{&}__pageInfo {
@@ -77,6 +96,14 @@
 
     p {
       font-size: 2rem;
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 1.5rem;
+      }
+
+      @media all and (max-width: 350px) {
+        font-size: 1.2rem;
+      }
     }
   }
 
@@ -87,8 +114,17 @@
 
     li {
       margin-left: 7.5rem;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        margin-left: 0.2rem;
+      }
+
       p {
         font-size: 1.35rem;
+
+        @media all and (max-width: 350px) {
+          font-size: 1rem;
+        }
       }
     }
   }
@@ -117,16 +153,6 @@
     h3 {
       margin-top: 5rem;
     }
-
-    img {
-      width: 75%;
-      height: auto;
-      transition: transform 0.1s ease-in;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
   }
 
   #{&}__frontendTech {
@@ -135,6 +161,30 @@
     justify-content: flex-start;
     gap: 2.5rem;
     width: 70%;
+
+    @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+      width: 100%;
+      justify-content: center;
+    }
+
+    a {
+      @include flexCenter(row);
+      width: 20%;
+
+      @media all and (max-width: 650px) {
+        width: 40%;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.1s ease-in;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
 
   #{&}__backendTech {

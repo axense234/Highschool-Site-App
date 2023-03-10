@@ -183,8 +183,8 @@ export const defaultProfile: Utilizator = {
 export const profileOptions: profileOption[] = [
   { id: 1, label: "Setari Profil", content: "settings" },
   { id: 2, label: "Iesi din Cont", content: "logout" },
-  { id: 3, label: "Creeaza un Anunt", content: "createAnnouncement" },
-  { id: 4, label: "Creeaza un Profesor", content: "createTeacher" },
+  { id: 3, label: "Creeaza Anunt", content: "createAnnouncement" },
+  { id: 4, label: "Creeaza Profesor", content: "createTeacher" },
 ];
 
 export const sidebarPageLinks: sidebarLink[] = [

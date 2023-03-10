@@ -11,6 +11,17 @@
     h2 {
       font-size: 4rem;
       letter-spacing: 4px;
+      text-align: center;
+
+      @media all and (max-width: 650px) {
+        font-size: 3rem;
+        letter-spacing: 3.5px;
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
     }
   }
 
@@ -22,12 +33,24 @@
     padding: 2rem 0.75rem;
     border-radius: 1rem;
 
+    @media all and (max-width: 1650px) {
+      width: 75%;
+    }
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
+
     &:hover {
       box-shadow: $itemBoxShadowOnHover;
     }
 
     button {
       @include formButton(75%, 2rem);
+
+      @media all and (max-width: 475px) {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -38,12 +61,24 @@
     align-items: flex-start;
     margin: 0.5rem 0;
 
+    @media all and (max-width: 475px) {
+      width: 90%;
+    }
+
     label {
       font-size: 2.5rem;
+
+      @media all and (max-width: 475px) {
+        font-size: 1.2rem;
+      }
     }
 
     select {
       @include controlSelect();
+
+      @media all and (max-width: 475px) {
+        width: 100%;
+      }
     }
 
     input {

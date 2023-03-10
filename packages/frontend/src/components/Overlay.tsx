@@ -16,10 +16,10 @@ import {
   setCardModalId,
   updateOverlay,
 } from "@/redux/slices/generalSlice";
-// Data
-import { defaultOverlay } from "@/data";
 import { deleteAnnouncementById } from "@/redux/slices/announcementsSlice";
 import { deleteTeacherById } from "@/redux/slices/teachersSlice";
+// Data
+import { defaultOverlay } from "@/data";
 
 const Overlay: FC<OverlayProps> = ({ title }) => {
   const overlayRef = useRef<HTMLDivElement>(null);

@@ -4,7 +4,7 @@ A Fullstack Mern Typescript with Sass and Redux project with the purpose of impr
 
 ## Description
 
-A Fullstack Mern Typescript with Sass and Redux project with the purpose of improving my overall web developer skills and to compete against other people in a highschool competition("Scoala intre viziune si misiune" -> in romanian).This project has basically forced me to learn monorepos and how to create better README.mds that also have language support since i am presenting this project to either romanians(for the competition) or other people that speak english.I have broken mentally over this project,and due to lack of time,this project is NOT mobile responsive,tho i will probably add that after the competition is done since i want to practice with Sass media quering since its way easier than just straight up CSS.
+A Fullstack Mern Typescript with Sass and Redux project with the purpose of improving my overall web developer skills and to compete against other people in a highschool competition("Scoala intre viziune si misiune" -> in romanian).This project has basically forced me to learn monorepos and how to create better README.mds that also have language support since i am presenting this project to either romanians(for the competition) or other people that speak english.I have broken mentally over this project,and due to lack of time,this project is NOT mobile responsive(i made it responsive 10.03.2023),tho i will probably add that after the competition is done since i want to practice with Sass media quering since its way easier than just straight up CSS.
 
 ## **Getting Started**
 
@@ -35,6 +35,8 @@ npm run dev
 
 ## **Version History**
 
+- 1.1.0
+  - Second version of the website,this time optimized for all devices
 - 1.0.0
   - First version of the website,later versions will contain a mobile responsive version
   - See [commit change](https://github.com/axense234/Highschool-Site-App/commits/master) or See [release history](https://github.com/axense234/Highschool-Site-App/releases)

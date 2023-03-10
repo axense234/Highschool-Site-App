@@ -5,7 +5,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 5;
   width: 100%;
   height: 100%;
   background-color: rgba($color: getColor("silver-20"), $alpha: 0.7);
@@ -29,10 +29,24 @@
 
     transition: transform 0.1s ease-in;
 
+    @media all and (max-width: 1200px) {
+      width: 90%;
+    }
+
     h2 {
       font-size: 4rem;
       letter-spacing: 3px;
       text-align: center;
+
+      @media all and (max-width: 650px) {
+        font-size: 3rem;
+        letter-spacing: 3.5px;
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
     }
 
     &:hover {

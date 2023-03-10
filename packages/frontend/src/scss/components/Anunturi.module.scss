@@ -17,9 +17,24 @@
     gap: 5rem;
     width: 100%;
 
+    @media all and (max-width: getScreenSize("mobileL")) {
+      padding: 7.5rem 0.5rem;
+    }
+
     h2 {
       font-size: 4rem;
       letter-spacing: 5px;
+      text-align: center;
+
+      @media all and (max-width: 650px) {
+        font-size: 3rem;
+        letter-spacing: 3.5px;
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
     }
   }
 
@@ -28,6 +43,10 @@
     align-items: flex-start;
     gap: 5rem;
     width: 80%;
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 100%;
+    }
   }
 
   #{&}__announcement {
@@ -43,15 +62,29 @@
 
     transition: transform 0.1s ease-in;
 
+    @media all and (max-width: getScreenSize("laptop")) {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
     &:hover {
       transform: translateX(1rem);
       box-shadow: $itemBoxShadowOnHover;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        transform: translateX(0);
+      }
     }
 
     img {
       width: 40%;
       height: auto;
       border-radius: 2rem;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+      }
     }
   }
 
@@ -61,20 +94,37 @@
     gap: 3rem;
     width: 60%;
 
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
+
     iframe {
       width: 70%;
       height: auto;
       min-height: 20rem;
       border-radius: 1rem;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+      }
     }
 
     p {
       font-size: 1.25rem;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 1rem;
+      }
     }
 
     .announcementsContainer__announcementTitle {
       h3 {
         font-size: 2.5rem;
+
+        @media all and (max-width: getScreenSize("laptop")) {
+          font-size: 2rem;
+          text-align: center;
+        }
       }
     }
 
@@ -103,10 +153,15 @@
 
     h3 {
       font-size: 2.5rem;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        font-size: 1.5rem;
+      }
     }
 
     svg {
       font-size: 3rem;
+      z-index: 2;
     }
 
     input {
@@ -120,6 +175,10 @@
     position: relative;
     width: 40%;
     border-radius: 2rem;
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
 
     img {
       width: 100%;
@@ -145,6 +204,10 @@
       border: none;
       font-size: 10rem;
       color: getColor("silver-white");
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        font-size: 5rem;
+      }
     }
   }
 

@@ -12,12 +12,24 @@
   box-shadow: 1px 1px 5px 3px #333333;
   background-color: #cccccc;
 
+  @media all and (max-width: (getScreenSize("laptopL") + 200px)) {
+    width: 30%;
+  }
+
+  @media all and (max-width: (getScreenSize("laptop") + 200px)) {
+    width: 40%;
+  }
+
+  @media all and (max-width: (getScreenSize("tablet") + 100px)) {
+    width: 100%;
+  }
+
   position: fixed;
   left: 0;
   bottom: 0;
   transform: translateX(-150%);
-  z-index: 2;
-  transition: transform 0.3s;
+  z-index: 4;
+  transition: transform 0.3s, width 0.3s;
 
   h1 {
     font-size: 1.75rem;

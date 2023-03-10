@@ -3,6 +3,11 @@
 .profileContainer {
   @include pageLayout();
   height: 100rem;
+  border: 1px solid black;
+
+  @media all and (max-width: getScreenSize("laptop")) {
+    height: 125rem;
+  }
 
   #{&}__content {
     @include homePageSection(getColor("silver-50"), row);
@@ -10,6 +15,11 @@
     background-color: getColor;
     height: 100%;
     padding-bottom: 25rem;
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      padding: 7.5rem 0.5rem;
+      padding-bottom: 25rem;
+    }
   }
 
   #{&}__wrapper {
@@ -22,11 +32,28 @@
     padding: 1rem 3rem;
     border-radius: 2rem;
 
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 100%;
+    }
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      flex-direction: column;
+    }
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      padding: 1rem;
+    }
+
     hr {
       height: 100%;
       width: 7.5px;
       background-color: getColor("silver-20");
       border-radius: 1rem;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+        height: 10px;
+      }
     }
   }
 
@@ -36,11 +63,18 @@
     width: 30%;
     align-items: flex-start;
 
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
     h2 {
       font-size: 2rem;
       letter-spacing: 2px;
       margin-bottom: auto;
       font-weight: bolder;
+      text-align: center;
     }
 
     p {
@@ -53,6 +87,11 @@
     width: 70%;
     height: 100%;
     justify-content: flex-start;
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   #{&}__options {
@@ -95,6 +134,14 @@
     justify-content: flex-start;
     gap: 2.5rem;
 
+    @media all and (max-width: getScreenSize("laptop")) {
+      padding: 1rem;
+    }
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      padding: 0.25rem;
+    }
+
     button {
       @include formButton(100%, 1.5rem);
       margin-top: auto;
@@ -106,16 +153,29 @@
     justify-content: space-between;
     width: 100%;
 
+    @media all and (max-width: getScreenSize("laptop")) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     label {
       font-size: 1.5rem;
     }
 
     input {
       @include controlInput(1.25rem, 50%);
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+      }
     }
 
     select {
       @include controlSelect();
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+      }
     }
 
     textarea {
@@ -128,6 +188,11 @@
       &:focus-visible {
         outline: 3px solid getColor("silver-50");
       }
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        min-width: 100%;
+        max-width: 100%;
+      }
     }
   }
 
@@ -135,6 +200,10 @@
     @include flexCenter(row);
     width: 50%;
     position: relative;
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
 
     input {
       width: 100%;

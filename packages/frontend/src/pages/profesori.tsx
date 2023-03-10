@@ -15,6 +15,7 @@ import HomeTitle from "@/components/Home/HomeTitle";
 import SectionLoading from "@/components/SectionLoading";
 import CardModal from "@/components/CardModal";
 import Overlay from "@/components/Overlay";
+import EditFormModal from "@/components/EditFormModal";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -39,7 +40,6 @@ import {
 import { materii } from "@/data";
 // Store
 import { State } from "@/redux/api/store";
-import EditFormModal from "@/components/EditFormModal";
 
 const Profesori: FC = () => {
   const teachers = useAppSelector(selectAllTeachers);

@@ -3,4 +3,11 @@
 .footerContainer {
   @include homePageSection(getColor("silver-white"), row);
   justify-content: space-between;
+  gap: 2rem;
+
+  @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+    p {
+      font-size: 0.75rem;
+    }
+  }
 }

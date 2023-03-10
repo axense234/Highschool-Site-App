@@ -36,10 +36,11 @@ const About: FC = () => {
             <p>
               Ma numesc Comanescu Andrei,am 17 ani,vin de la Liceul Teoretic Ion
               Barbu Pitesti,studiez dezvoltarea site-urilor de vreo 2 ani.Sunt
-              proficient in urmatoarele
-              tehnologii:HTML,CSS,SASS,Javascript,Typescript,React,NextJS,Node,Express,MongoDB,Mongoose,PostgreSQL,Prisma,Redis,Redux,Netlify,Render,ElephantSQL;merg
-              mai mult in detaliu despre tehnologiile respective in{" "}
-              <a href='#technologiesUsed'>ultima sectiune.</a>
+              proficient in urmatoarele tehnologii:HTML, CSS, SASS, Javascript,
+              Typescript, React, NextJS, Node, Express, MongoDB, Mongoose,
+              PostgreSQL, Prisma, Redis, Redux, Netlify, Render,
+              ElephantSQL;merg mai mult in detaliu despre tehnologiile
+              respective in <a href='#technologiesUsed'>ultima sectiune.</a>
             </p>
             <p>
               Folosesc&nbsp;

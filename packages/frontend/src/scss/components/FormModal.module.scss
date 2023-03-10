@@ -32,6 +32,12 @@
 
   animation: vibrate 0.5s linear 0.1s 2;
 
+  @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
   p {
     text-align: center;
   }

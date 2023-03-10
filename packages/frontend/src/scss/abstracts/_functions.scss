@@ -3,3 +3,7 @@
 @function getColor($color) {
   @return map-get($map: $colors, $key: $color);
 }
+
+@function getScreenSize($size) {
+  @return map-get($map: $screenSizes, $key: $size);
+}

@@ -8,6 +8,16 @@ $colors: (
   "silver-white": #e6e6e6,
 );
 
+$screenSizes: (
+  "normal": 1920px,
+  "laptopL": 1440px,
+  "laptop": 1024px,
+  "tablet": 768px,
+  "mobileL": 425px,
+  "mobileM": 375px,
+  "mobileS": 320px,
+);
+
 $sectionPadding: 7.5rem;
 $subtitleFontSize: 3.5rem;
 $descFontSize: 1.5rem;

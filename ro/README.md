@@ -35,6 +35,8 @@ npm run dev
 
 ## **Istoria Versiunilor**
 
+- 1.1.0
+  - A doua versiune a site-ului,de data asta optimizat pentru toate dispozitivele
 - 1.0.0
   - Prima versiune a site-ului,versiuni viitoare for contine adaptabilitate pentru telefoane/tablete/etc..
   - Vezi [istoria schimbarilor](https://github.com/axense234/Highschool-Site-App/commits/master) sau Vezi [istoria versiunilor](https://github.com/axense234/Highschool-Site-App/releases)

@@ -13,6 +13,7 @@ import Image from "next/image";
 import announcementsStyles from "../../scss/components/Anunturi.module.scss";
 // Components
 import CardModal from "../CardModal";
+import EditFormModal from "../EditFormModal";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -32,7 +33,6 @@ import {
 } from "@/redux/slices/announcementsSlice";
 // Store
 import { State } from "@/redux/api/store";
-import EditFormModal from "../EditFormModal";
 
 const Announcement: FC<Anunt> = ({
   descriere,
