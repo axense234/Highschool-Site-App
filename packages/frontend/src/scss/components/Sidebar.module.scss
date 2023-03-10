@@ -60,6 +60,10 @@
     margin-bottom: auto;
     gap: 2rem;
 
+    @media all and (max-width: (getScreenSize("tablet") + 100px)) {
+      gap: 1rem;
+    }
+
     a {
       display: flex;
       align-items: center;
