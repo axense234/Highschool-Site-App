@@ -20,6 +20,7 @@ A Fullstack Mern Typescript with Sass and Redux project with the purpose of impr
 git clone https://github.com/axense234/Highschool-Site-App.git
 cd Highschool-Site-App
 npm install
+npx prisma generate --schema=./packages/backend/prisma/schema.prisma
 ```
 
 ### Executing program
