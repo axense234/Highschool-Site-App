@@ -50,14 +50,14 @@ const loginUser = async (req: Request, res: Response) => {
   if (!password || !email) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please provide both password and email", user: {} });
+      .json({ msg: "Precizati email-ul si parola!", user: {} });
   }
 
   const foundUser = await utlizatorClient.findUnique({ where: { email } });
 
   if (!foundUser) {
     return res.status(StatusCodes.NOT_FOUND).json({
-      msg: `Could not find any accounts with the email:${email}!`,
+      msg: `Nu am putut sa gasim conturi cu email-ul:${email}!`,
       user: {},
     });
   }
@@ -67,7 +67,7 @@ const loginUser = async (req: Request, res: Response) => {
   if (!passwordsMatch) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .json({ msg: `Invalid password!`, user: {} });
+      .json({ msg: `Parola gresita!`, user: {} });
   }
 
   const token = createJWT(foundUser.username, foundUser.utilizator_uid);
