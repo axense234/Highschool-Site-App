@@ -26,7 +26,7 @@ const SectionLoading: FC<SectionLoadingProps> = ({ padding }) => {
 
   return (
     <div className={loadingStyles.sectionLoadingContainer} style={{ padding }}>
-      <p>Loading,please wait...</p>
+      <p>Se încarcă...</p>
       <FadeLoader
         color='#606060'
         width={mobileSpinner ? 15 : 30}

@@ -30,7 +30,7 @@ const createAnnouncement = async (req: Request, res: Response) => {
 
   if (!announcementBody.titlu || !announcementBody.descriere) {
     return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Introduceti titlul si descrierea anuntului.",
+      msg: "Introduceți titlul și descrierea anunțului.",
       announcement: {},
     });
   }
@@ -102,12 +102,10 @@ const updateAnnouncementById = async (req: Request, res: Response) => {
   const announcementBody = req.body;
 
   if (!announcementBody.titlu || !announcementBody.descriere) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({
-        msg: "Introduceti titlul si descrierea anuntului!",
-        announcement: {},
-      });
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Introduceți titlul si descrierea anunțului!",
+      announcement: {},
+    });
   }
 
   if (!announcementId) {

@@ -39,7 +39,7 @@ const CardModal: FC<CardModalProps> = ({ cardId, componentType }) => {
     <div className={cardStyles.modalContainer} ref={cardModalRef}>
       <button type='button'>
         <AiFillDelete
-          title='Sterge card-ul.'
+          title='Șterge card-ul.'
           onClick={() => {
             dispatch(
               updateOverlay({
@@ -51,7 +51,7 @@ const CardModal: FC<CardModalProps> = ({ cardId, componentType }) => {
           }}
         />
       </button>
-      <button type='button' title='Editeaza card-ul.'>
+      <button type='button' title='Editează card-ul.'>
         <AiFillEdit
           onClick={() => {
             dispatch(setEditMode(true));

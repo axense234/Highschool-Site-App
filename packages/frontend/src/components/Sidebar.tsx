@@ -12,6 +12,7 @@ import { sidebarPageLinks, sidebarSocialMediaLinks } from "@/data";
 import Logo from "./Logo";
 import { useAppSelector } from "@/hooks/redux";
 import { selectProfile } from "@/redux/slices/generalSlice";
+// Hooks
 import useGetProfile from "@/hooks/useGetProfile";
 
 interface SidebarProps {
@@ -41,10 +42,10 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
         <Logo />
         <AiFillCloseCircle
           onClick={() => setShowSidebar(false)}
-          title='Inchide meniul de navigare'
+          title='Închide meniul de navigare'
         />
       </div>
-      <h1>Liceul Teoretic "Vasile Barbu" Pitesti</h1>
+      <h1>Liceul Teoretic "Vasile Barbu" Pitești</h1>
       <div className={sidebarStyles.sidebarContainer__pageLinks}>
         {sidebarPageLinks.map((pageLink) => {
           if (pageLink.label === "Profil" && !profile.username) {

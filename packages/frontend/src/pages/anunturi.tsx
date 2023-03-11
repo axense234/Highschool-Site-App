@@ -30,16 +30,19 @@ const Announcements: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Vasile Barbu" Pitesti - Anunturi'
-        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitesti.Pagina de anunturi.'
+        title='Liceul Teoretic "Vasile Barbu" Pitești - Anunțuri'
+        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina de anunțuri.'
       />
       <main className={announcementsStyles.announcementsContainer}>
-        <Overlay title='Esti sigur ca vrei sa stergi anuntul?' />
-        <HomeTitle title='Anunturi' quote='Nu glumesc.' />
+        <Overlay title='Ești sigur că vrei să ștergi anunțul?' />
+        <HomeTitle
+          title='Anunțuri'
+          quote='Anunțuri generale despre diverse activități.'
+        />
         <section
           className={announcementsStyles.announcementsContainer__content}
         >
-          <h2>Anunturi in momentul actual</h2>
+          <h2>Anunțuri in momentul actual</h2>
           {loadingAnnouncements === "PENDING" ||
           loadingAnnouncements === "IDLE" ? (
             <SectionLoading />

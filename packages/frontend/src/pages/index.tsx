@@ -18,29 +18,29 @@ const About: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Vasile Barbu" Pitesti - Despre Proiect'
-        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitesti.Pagina descrierii proiectului.'
+        title='Liceul Teoretic "Vasile Barbu" Pitești - Despre Proiect.'
+        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina descrierii proiectului.'
       />
       <main className={aboutStyles.aboutContainer}>
         <HomeTitle
           title='Despre Proiect'
-          quote='Tot ce ai nevoie sa stii despre proiectul meu.'
+          quote='Tot ce ai nevoie să știi despre proiectul meu.'
         />
         <section
           className={aboutStyles.aboutContainer__generalInfo}
           id='generalInfo'
         >
-          <h2>Informatii Generale</h2>
+          <h2>Informații generale.</h2>
           <div className={aboutStyles.aboutContainer__me}>
             <h3>1.Cine sunt eu?</h3>
             <p>
-              Ma numesc Comanescu Andrei,am 17 ani,vin de la Liceul Teoretic Ion
-              Barbu Pitesti,studiez dezvoltarea site-urilor de vreo 2 ani.Sunt
-              proficient in urmatoarele tehnologii:HTML, CSS, SASS, Javascript,
-              Typescript, React, NextJS, Node, Express, MongoDB, Mongoose,
-              PostgreSQL, Prisma, Redis, Redux, Netlify, Render,
-              ElephantSQL;merg mai mult in detaliu despre tehnologiile
-              respective in <a href='#technologiesUsed'>ultima sectiune.</a>
+              Mă numesc Comănescu Andrei, am 17 ani, vin de la Liceul Teoretic
+              Ion Barbu Pitești, studiez dezvoltarea site-urilor de vreo 2 ani.
+              Sunt proficient în următoarele tehnologii: HTML, CSS, SASS,
+              Javascript, Typescript, React, NextJS, Node, Express, MongoDB,
+              Mongoose, PostgreSQL, Prisma, Redis, Redux, Netlify, Render,
+              ElephantSQL; merg mai mult în detaliu despre tehnologiile
+              respective în <a href='#technologiesUsed'>ultima secțiune.</a>
             </p>
             <p>
               Folosesc&nbsp;
@@ -51,24 +51,25 @@ const About: FC = () => {
               >
                 Github
               </a>{" "}
-              pentru a imi stoca proiectele referitoare la dezvoltarea
-              web,probleme in C++,tutoriale.
+              pentru a-mi stoca proiectele referitoare la dezvoltarea web,
+              probleme în C++, tutoriale.
             </p>
           </div>
           <div className={aboutStyles.aboutContainer__site}>
-            <h3>2.De ce am facut acest site?</h3>
+            <h3>2.De ce am făcut acest site?</h3>
             <p>
-              Am facut acest site pentru a imi arata cunostintele referitoare la
-              dezvoltarea web,in acelasi timp antrenandu-ma putin mai mult cu
-              tehnologiile: SCSS,NextJS,Redux Typescript deoarece aceste
-              tehnologii sunt putin mai complicate,dar se merita a fi invatate
-              deoarece imi fac viata mai usoara si mai putin plictisitoare.
+              Am făcut acest site pentru a-mi arăta cunoștințele referitoare la
+              dezvoltarea web, în același timp antrenându-mă puțin mai mult cu
+              tehnologiile: SCSS, NextJS, Redux, Typescript, deoarece aceste
+              tehnologii sunt puțin mai complicate, dar merită a fi învățate,
+              deoarece îmi fac viața mai ușoară și mai puțin plictisitoare.
             </p>
             <p>
-              Un alt motiv pentru crearea site-ului este sansa de a castiga un
-              premiu pentru munca mea grea(acest site mi-a luat peste 20 de ore
-              am innebunit putin) si pentru a imi forta intelegerea/invatarea
-              mai in detaliu a tehnologiilor folosite,contra timp.
+              Un alt motiv pentru crearea site-ului este șansa de a câștiga un
+              premiu pentru munca mea grea (acest site mi-a luat peste 20 de ore
+              și am înnebunit puțin), și pentru a-mi forța înțelegerea/învățarea
+              mai în detaliu a tehnologiilor folosite, în condiții de timp
+              limitat.
             </p>
           </div>
         </section>
@@ -76,36 +77,36 @@ const About: FC = () => {
           className={aboutStyles.aboutContainer__pagesInfo}
           id='pagesInfo'
         >
-          <h2>Informatii despre Paginile Site-ului</h2>
+          <h2>Informații despre Paginile Site-ului</h2>
           <div className={aboutStyles.aboutContainer__pageInfo}>
             <h3>
-              <Link href='/home'>1.Acasa</Link>
+              <Link href='/home'>1.Acasă</Link>
             </h3>
-            <p>Pagina "Acasa" este compusa din 5 sectiuni:</p>
+            <p>Pagina "Acasă" este compusă din 5 secțiuni:</p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
                 <h4>
                   <Link href='/home/#title'>1.Titlul</Link>
                 </h4>
                 <p>
-                  Sectiunea "Titlul" este prima sectiune din pagina "Acasa",ea
-                  continand un titlu,si un sub-titlu.Fundalul sectiunii este o
-                  imagine a Liceul Teoretic Ion Barbu din Bucuresti deoarece nu
-                  am gasit o imagine de calitate a liceului din Pitesti.Aceasta
-                  sectiune este reprezentata de un component functional
-                  React,care primeste 2 parametrii,titlul si subtitul si ii
-                  afiseaza cum se vede.
+                  Sectiunea "Titlul" este prima secțiune din pagina "Acasă", ea
+                  conținând un titlu și un subtitlu. Fundalul secțiunii este o
+                  imagine a Liceului Teoretic Ion Barbu din București, deoarece
+                  nu am găsit o imagine de calitate a liceului din Pitești.
+                  Această secțiune este reprezentată de un component funcțional
+                  React, care primește 2 parametri: titlul și subtitlul și le
+                  afișează cum se poate observa.
                 </p>
               </li>
               <li>
                 <h4>
-                  <Link href='/home/#differences'>2.Ce ne deosebeste?</Link>
+                  <Link href='/home/#differences'>2.Ce ne diferențiază?</Link>
                 </h4>
                 <p>
-                  Sectiunea "Ce ne deosebeste?" este a doua sectiune din pagina
-                  "Acasa",ea continand 4 sub-sectiuni,fiecare sub-sectiune la
-                  randul ei continand o imagine si o descriere a deosebirii
-                  respective.
+                  Sectiunea "Ce ne diferențiază??" este a doua sectiune din
+                  pagina "Acasă", ea conținând 4 subsecțiuni, fiecare
+                  subsecțiune, la rândul ei, conținând o imagine și o descriere
+                  a deosebirii respective.
                 </p>
               </li>
               <li>
@@ -114,13 +115,13 @@ const About: FC = () => {
                 </h4>
                 <p>
                   Sectiunea "Dotarea liceului" este a treia sectiune din pagina
-                  "Acasa",ea continand un "slider" care,daca nu e deranjat de un
-                  utilizator,incepe sa arate diferite imagini despre renovariile
-                  claselor din liceu.Daca acest "slider" este intrerupt de
-                  utilizator,nu va speriati,intra in modul automat dupa cateva
-                  secunde de liniste.
-                  <br /> Aceasta sectiune mai contine o lista cu dotarii
-                  liceului,prezentate rand cu rand.
+                  "Acasă", ea conține un "slider" care, dacă nu este deranjat de
+                  un utilizator, începe să arate diferite imagini despre
+                  renovările claselor din liceu. Dacă acest "slider" este
+                  întrerupt de utilizator, nu trebuie să vă faceți griji, intră
+                  în modul automat după câteva secunde de liniște. Această
+                  secțiune mai conține o listă cu dotările liceului, prezentate
+                  rând pe rând.
                 </p>
               </li>
               <li>
@@ -130,13 +131,13 @@ const About: FC = () => {
                   </Link>
                 </h4>
                 <p>
-                  Sectiunea "Promovabilitea la Bacalaureat" este a patra
-                  sectiune din pagina "Acasa",ea continand o imagine luata de pe
-                  site-ul original al Liceului Teoretic Ion Barbu Pitesti care
-                  ne arata statisticile referitoarea la promovabilitatea la bac
-                  din liceu.
+                  Secțiunea "Promovabilitatea la Bacalaureat" este a patra
+                  secțiune din pagina "Acasă", ea conținând o imagine luată de
+                  pe site-ul original al Liceului Teoretic Ion Barbu Pitești,
+                  care ne arată statisticile referitoare la promovabilitatea la
+                  bacalaureat din liceu.
                   <br />
-                  Daca aveam access la baza lor de date de studenti puteam sa
+                  Dacă aveam acces la baza lor de date de studenți, puteam să
                   folosesc{" "}
                   <a
                     href='https://react-charts.tanstack.com/'
@@ -145,8 +146,8 @@ const About: FC = () => {
                   >
                     React Charts
                   </a>{" "}
-                  ca sa imi construiesc propriile grafice folosindu-ma de baza
-                  lor de date de studenti.
+                  ca să-mi construiesc propriile grafice, aș fi avut nevoie de
+                  acces la baza lor de date de studenți.
                 </p>
               </li>
               <li>
@@ -154,10 +155,10 @@ const About: FC = () => {
                   <Link href='/home/#offerings'>5.Ce oferim?</Link>
                 </h4>
                 <p>
-                  Sectiunea "Ce oferim?" este ultima sectiune din pagina
-                  "Acasa",ea continand,foarte similator cu sectiunea "Ce ne
-                  deosebeste?",4 sub-sectiuni care la randul lor contin o
-                  descriere scurta a ofertei si imaginea produsului respectiv.
+                  Secțiunea "Ce oferim?" este ultima secțiune din pagina
+                  "Acasă", ea conținând, foarte similar cu secțiunea "Ce ne
+                  diferențiază?", 4 subsecțiuni care, la rândul lor, conțin o
+                  descriere scurtă a ofertei și imaginea produsului respectiv.
                 </p>
               </li>
             </ul>
@@ -166,61 +167,59 @@ const About: FC = () => {
             <h3>
               <Link href='/home'>2.Despre Proiect</Link>
             </h3>
-            <p>Pagina "Despre Proiect" este compusa din 5 sectiuni:</p>
+            <p>Pagina "Despre Proiect" este compusă din 5 secțiuni:</p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
                 <h4>
                   <Link href='/#title'>1.Titlul</Link>
                 </h4>
                 <p>
-                  Sectiunea "Titlul" este prima sectiune din pagina "Despre
-                  Proiect",ea continand un titlu,si un sub-titlu.Fundalul
-                  sectiunii este o imagine a Liceul Teoretic Ion Barbu din
-                  Bucuresti deoarece nu am gasit o imagine de calitate a
-                  liceului din Pitesti.Aceasta sectiune este reprezentata de un
-                  component functional React,care primeste 2 parametrii,titlul
-                  si subtitul si ii afiseaza cum se vede.Daca nu va dati
-                  seama,este un component comun multor pagini.
+                  Secțiunea "Titlul" este prima secțiune din pagina "Despre
+                  Proiect", ea conținând un titlu și un subtitlu. Fundalul
+                  sectiunii este o imagine a Liceului Teoretic Ion Barbu din
+                  Pitești deoarece nu am găsit o imagine de calitate a liceului
+                  din Pitești. Această secțiune este reprezentată de un
+                  component funcțional React, care primește 2 parametri, titlul
+                  și subtitlul, și îi afișează cum se vede. Este un component
+                  comun multor pagini.
                 </p>
               </li>
               <li>
                 <h4>
-                  <Link href='/#generalInfo'>2.Informatii Generale</Link>
+                  <Link href='/#generalInfo'>2.Informații Generale</Link>
                 </h4>
                 <p>
-                  Sectiunea "Informatii Generale?" este a doua sectiune din
-                  pagina "Despre Proiect",ea continand o "mapa" a
-                  proiectului,fiecare titlu si sub-titlu fiind un link la
-                  paginile/sectiunile respective.In plus,contin o descriere mai
-                  detaliata a sectiunilor paginilor.
+                  Secțiunea "Informații Generale" este a doua secțiune din
+                  pagina "Despre Proiect", ea conține o "mapă" a proiectului,
+                  fiecare titlu și subtitlu fiind un link către
+                  paginile/secțiunile respective. În plus, conține o descriere
+                  mai detaliată a secțiunilor paginilor.
                 </p>
               </li>
               <li>
                 <h4>
                   <Link href='/#pagesInfo'>
-                    3.Informatii despre Paginile Site-ului
+                    3.Informații despre Paginile Site-ului
                   </Link>
                 </h4>
                 <p>
-                  Sectiunea "Ce oferim?" este ultima sectiune din pagina
-                  "Acasa",ea continand,foarte similator cu sectiunea "Ce ne
-                  deosebeste?",4 sub-sectiuni care la randul lor contin o
-                  descriere scurta a ofertei si imaginea produsului respectiv.
+                  Secțiunea "Informații despre Paginile Site-ului" este a treia
+                  secțiune din pagina "Despre Proiect", ea conține informații
+                  generale despre paginile site-ului.
                 </p>
               </li>
               <li>
                 <h4>
                   <Link href='/#adminInfo'>
-                    4.Informatii despre Contul Admin
+                    4.Informații despre Contul Admin
                   </Link>
                 </h4>
                 <p>
-                  Sectiunea "Informatii despre Contul Admin" este a treia
-                  sectiune din pagina "Despre Proiect",ea continand un
-                  informatii generale despre cum sa intrati in contul
-                  admin(folosind pagina "Intra in Cont"),cum sa iesiti din
-                  contul admin,cum sa creati,stergeti,modificati
-                  anunturi/profesori.
+                  Secțiunea "Informații despre Contul Admin" este a patra
+                  secțiune din pagina "Despre Proiect",ea conținand informații
+                  generale despre cum sa intrați in contul admin(folosind pagina
+                  "Intră in Cont"),cum sa iesiți din contul admin,cum sa
+                  creați,ștergeți,modificați anunțuri/profesori.
                 </p>
               </li>
               <li>
@@ -230,11 +229,11 @@ const About: FC = () => {
                   </Link>
                 </h4>
                 <p>
-                  Sectiunea "Tehnologiile folosite in Crearea Site-ului" este a
-                  a cincea sectiune din pagina "Despre Proiect",care contine
-                  link-uri,descrieri,logo-uri despre tehnologiile folosite in
-                  crearea site-ului.Daca va intereseaza putin puteti sa dati
-                  click pe logo-uri sa vedeti cu ce tehnologii a fost creat
+                  Secțiunea "Tehnologiile folosite în Crearea Site-ului" este a
+                  cincea secțiune din pagina "Despre Proiect", care conține
+                  link-uri, descrieri, logo-uri despre tehnologiile folosite în
+                  crearea site-ului. Dacă vă interesează puțin, puteți să dați
+                  click pe logo-uri să vedeți cu ce tehnologii a fost creat
                   site-ul.
                 </p>
               </li>
@@ -242,65 +241,52 @@ const About: FC = () => {
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
             <h3>
-              <Link href='/anunturi'>3.Anunturi</Link>
+              <Link href='/anunturi'>3.Anunțuri</Link>
             </h3>
             <p>
-              Pagina "Anunturi" este compusa dintr-o singura sectiune care
-              contine mai multe componente "Anunt",care fiecare are urmatoarele
-              functiuni:
+              Pagina "Anunțuri" este compusă dintr-o singură secțiune care
+              conține mai multe componente "Anunț",care fiecare are următoarele
+              funcționalități:
             </p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
                 <h4>
-                  <Link href='/anunturi'>1.Functia de a vedea componentul</Link>
+                  <Link href='/anunturi'>1.Funcția de a vedea componentul</Link>
                 </h4>
                 <p>
-                  Functia de a vedea componentul face referire la faptul ca
-                  componentul "Anunt" poate fi vazut.Acesta este compus din 3
-                  interfate in functie de mod(normal si editare).O interfata
-                  cand anuntul este acuns,una cand nu e ascuns,si una cand e in
-                  modul de editare.
+                  Funcția de a vedea componentul face referire vizibilitatea
+                  componentului "Anunț".Acesta este compus din 3 interfețe in
+                  funcție de mod(normal si editare).O interfața cănd anunțul
+                  este acuns,una cănd nu e ascuns și una când e in modul
+                  editare.
                 </p>
               </li>
               <li>
                 <h4>
-                  <Link href='/anunturi'>2.Functia de a edita componentul</Link>
+                  <Link href='/anunturi'>2.Funcția de a edita componentul</Link>
                 </h4>
                 <p>
-                  Functia de a edita componentul face referire la faptul ca
-                  componentul "Anunt" poate fi editat,prin apasarea butonului
-                  verde cand mouse-ul este pe componentul respectiv.Puteti edita
-                  componentul cum vreti dumneavoastra si aceste modificari pot
-                  fi salvate prin apasarea butonului verde "bifat" in contul din
+                  Funcția de a edita componentul face referire la modificarea
+                  componentului "Anunț",prin apăsarea butonului verde cănd
+                  mouse-ul este pe componentul respectiv.Puteți edita
+                  componentul cum vreți dumneavoastră si aceste modificări pot
+                  fi salvate prin apăsarea butonului verde "bifat" in contul din
                   dreapta sus.
                 </p>
               </li>
               <li>
                 <h4>
                   <Link href='/anunturi'>
-                    3.Functia de a sterge componentul
+                    3.Funcția de a șterge componentul
                   </Link>
                 </h4>
                 <p>
-                  Functia de a sterge componentul face referire la faptul ca
-                  componentul "Anunt" poate fi eliminat,prin apasarea butonului
-                  rosu cand mouse-ul este pe componentul respectiv.Inainte ca
-                  acesta sa fie eliminat pe bune,o sa apara o interfata
-                  "overlay" care,dupa cateva secunde,va lasa sa eliminati
-                  componentul respectiv.
-                </p>
-              </li>
-              <li>
-                <h4>
-                  <Link href='/anunturi'>4.Cum se poata asa ceva?</Link>
-                </h4>
-                <p>
-                  Componentele "Anunt" pan la urma sunt doar interfete care
-                  arata proprietatile unui model "Anunt",deci ca sa
-                  editam/stergem aceste componente,putem sa stergem modelele
-                  insine.Proiectul foloseste un server cu tehnologiile NODE
-                  TYPESCRIPT POSTGRESQL PRISMA REDIS.PostgreSQL si Redis sunt
-                  date de baze.
+                  Funcția de a șterge componentul face referire la stergerea
+                  componentului "Anunț",prin apăsarea butonului roșu cănd
+                  mouse-ul este pe componentul respectiv.Înainte ca acesta să
+                  fie eliminat permanent,o să apară o interfața "overlay" care,
+                  după căteva secunde, vă lasă să eliminați componentul
+                  respectiv.
                 </p>
               </li>
             </ul>
@@ -310,101 +296,88 @@ const About: FC = () => {
               <Link href='/profesori'>4.Profesori</Link>
             </h3>
             <p>
-              Pagina "Profesori" este compusa dintr-o singura sectiune care
-              contine mai multe componente "Profesor",care fiecare are
-              urmatoarele functiuni:
+              Pagina "Profesori" este compusă dintr-o singură secțiune care
+              conține mai multe componente "Profesor",care fiecare are
+              următoarele funcțiuni:
             </p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
                 <h4>
                   <Link href='/profesori'>
-                    1.Functia de a vedea componentul
+                    1.Funcția de a vedea componentul
                   </Link>
                 </h4>
                 <p>
-                  Functia de a vedea componentul face referire la faptul ca
-                  componentul "Profesor" poate fi vazut.Acesta este compus din 2
-                  interfate in functie de mod(normal si editare).
+                  Functia de a vedea componentul face referire la vizibilitatea
+                  componentului "Profesor".Acesta este compus din 2 interfețe în
+                  funcție de mod(normal si editare).
                 </p>
               </li>
               <li>
                 <h4>
                   <Link href='/profesori'>
-                    2.Functia de a edita componentul
+                    2.Funcția de a edita componentul
                   </Link>
                 </h4>
                 <p>
-                  Functia de a edita componentul face referire la faptul ca
-                  componentul "Profesor" poate fi editat,prin apasarea butonului
-                  verde cand mouse-ul este pe componentul respectiv.Puteti edita
-                  componentul cum vreti dumneavoastra si aceste modificari pot
-                  fi salvate prin apasarea butonului verde "bifat" in contul din
+                  Functia de a edita componentul face se referă la modificarea
+                  componentului "Profesor", prin apăsarea butonului verde cănd
+                  mouse-ul este pe componentul respectiv.Puteți edita
+                  componentul cum vreți dumneavoastră și aceste modificări pot
+                  fi salvate prin apăsarea butonului verde "bifat" în contul din
                   dreapta sus.
                 </p>
               </li>
               <li>
                 <h4>
                   <Link href='/profesori'>
-                    3.Functia de a sterge componentul
+                    3.Funcția de a șterge componentul
                   </Link>
                 </h4>
                 <p>
-                  Functia de a sterge componentul face referire la faptul ca
-                  componentul "Profesor" poate fi eliminat,prin apasarea
-                  butonului rosu cand mouse-ul este pe componentul
-                  respectiv.Inainte ca acesta sa fie eliminat pe bune,o sa apara
-                  o interfata "overlay" care,dupa cateva secunde,va lasa sa
-                  eliminati componentul respectiv.
-                </p>
-              </li>
-              <li>
-                <h4>
-                  <Link href='/profesori'>4.Cum se poata asa ceva?</Link>
-                </h4>
-                <p>
-                  Componentele "Profesor" pan la urma sunt doar interfete care
-                  arata proprietatile unui model "Profesor",deci ca sa
-                  editam/stergem aceste componente,putem sa stergem modelele
-                  insine.Proiectul foloseste un server cu tehnologiile NODE
-                  TYPESCRIPT POSTGRESQL PRISMA REDIS.PostgreSQL si Redis sunt
-                  date de baze.
+                  Funcția de a șterge componentul face referire eliminarea
+                  componentului "Profesor", prin apăsarea butonului roșu cănd
+                  mouse-ul este pe componentul respectiv.Înainte ca acesta să
+                  fie eliminat pe bune,o să apară o interfața "overlay" care,
+                  după câteva secunde, vă lasă să eliminați permanent
+                  componentul respectiv.
                 </p>
               </li>
             </ul>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
             <h3>
-              <Link href='/login'>5.Intra in cont</Link>
+              <Link href='/login'>5.Intră în cont</Link>
             </h3>
             <p>
-              Pagina "Intra in cont" este compusa dintr-o singura sectiune,care
-              contine un formular,care,daca se introduce email-ul si parola
-              corecta a Contului Admin,puteti sa intrati in contul
-              respectiv.Aceasta sectiune are 2 chestii interesante despre ea.
+              Pagina "Intră în cont" este compusă dintr-o singură secțiune, care
+              conține un formular,în cazul în care se introduce email-ul si
+              parola corectă a Contului Admin, puteți să intrați în contul
+              respectiv.Această secțiune are 2 abilități interesante despre ea.
             </p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
                 <h4>
                   <Link href='/login'>
-                    1.Abilitatea de a intra in cont cu informatiile corecte
+                    1.Abilitatea de a intra în cont cu informațiile corecte
                   </Link>
                 </h4>
                 <p>
-                  Abilitatea de a intra in cont cu informatiile corecte este
-                  facuta posibila cu interfata formularului si tehnologia numita
-                  "Redux",care imi stocheaza informatiile introduse si le
+                  Abilitatea de a intra în cont cu informațiile corecte este
+                  făcuta posibilă cu interfața formularului și tehnologia numită
+                  "Redux", care îmi stochează informațiile introduse și le
                   trimite la server.
                 </p>
               </li>
               <li>
                 <h4>
-                  <Link href='/login'>2.Validarea de informatiei gresita</Link>
+                  <Link href='/login'>2.Validarea informației incorecte</Link>
                 </h4>
                 <p>
-                  Validarea de informatie gresita este facuta posibil cu
-                  ajutorul unui component "modal" care apare cand
-                  email-ul/parola nu exista/nu au fost introduse.Mesajul vizibil
-                  de acest "modal" este cel primit de la server in cazul de
+                  Validarea informației incorecte este facută posibil cu
+                  ajutorul unui component "modal" care apare când
+                  email-ul/parola nu există/nu au fost introduse.Mesajul vizibil
+                  de acest "modal" este cel primit de la server în cazul de
                   eroare.
                 </p>
               </li>
@@ -415,86 +388,86 @@ const About: FC = () => {
           className={aboutStyles.aboutContainer__adminInfo}
           id='adminInfo'
         >
-          <h2>Informatii despre Contul Admin</h2>
+          <h2>Informații despre Contul Admin</h2>
           <p>
-            Contul Admin reprezinta contul unui utilizator cu proprietatea
-            "rolUtilizator" setat la ADMIN.Daca sunteti conectati la contul
-            ADMIN,puteti creea/sterge/edita profesori/anunturi,puteti sa va
-            deconectati de la cont si puteti sa schimbati
-            parola/username-ul/email-ul contului insine.
+            Contul Admin reprezintă contul unui utilizator cu proprietatea
+            "rolUtilizator" setată la ADMIN.Daca sunteți conectați la contul
+            ADMIN, puteți creea/șterge/edita profesori/anunțuri, puteți să vă
+            deconectați de la cont ți puteți să schimbați
+            parola/username-ul/email-ul contului însine.
           </p>
-          <h3>Pasi pentru a va conecta la Contul Admin:</h3>
+          <h3>Pași pentru a vă conecta la Contul Admin:</h3>
           <ul className={aboutStyles.aboutContainer__pageInfoSections}>
             <li>
               <h4>
                 <Link href='/login'>
-                  1.Intrati pe pagina "Intra in Cont" prin deschiderea barei de
-                  navigare,sau prin a apasa pe acest text.
+                  1.Intrați pe pagina "Intră în Cont" prin deschiderea barei de
+                  navigare sau prin a apăsa pe acest text.
                 </Link>
               </h4>
             </li>
             <li>
               <h4>
-                <Link href='/login'>2.Introduceti datele corecte</Link>
+                <Link href='/login'>2.Introduceți datele corecte</Link>
               </h4>
               <p>
-                Daca nu ati editat detaliile contului din Profil,introduceti
+                Dacă nu ați editat detaliile contului din Profil, introduceți
                 aceste date:
                 <br />
                 Email: testing@gmail.com
                 <br />
-                Parola: testing
+                Parolă: testing
                 <br />
                 Rol Utilizator: ADMIN
               </p>
             </li>
           </ul>
-          <h3>Ce puteti sa faceti dupa ce ati intrat in Contul Admin?</h3>
+          <h3>Ce puteți să faceți după ce ați intrat în Contul Admin?</h3>
           <ul className={aboutStyles.aboutContainer__pageInfoSections}>
             <li>
               <h4>
                 <Link href='/login'>
-                  1.Puteti sa schimbati detaliile Contului Admin
+                  1.Puteți să schimbați detaliile Contului Admin
                 </Link>
               </h4>
               <p>
-                Ca sa schimbati detaliile Contului Admin,apasati pe bara de
-                optiuni pe optiunea "Setari Profil",chiar daca aceasta este
-                selectata la inceput.
+                Ca să schimbați detaliile Contului Admin,apăsați pe bara de
+                opțiuni pe opțiunea "Setări Profil",chiar dacă aceasta este
+                selectată la început.
               </p>
             </li>
             <li>
               <h4>
                 <Link href='/login'>
-                  2.Puteti sa va deconectati de la Contul Admin
+                  2.Puteți să vă deconectați de la Contul Admin
                 </Link>
               </h4>
               <p>
-                Daca vreti sa va deconectati de la Contul Admin,apasati pe
-                optiunea "Iesi din Cont",asteptati putin si apasati pe butonul
+                Dacă vreți să vă deconectați de la Contul Admin apăsați pe
+                opțiunea "Ieși din Cont", așteptați puțin și apăsați pe butonul
                 "Da".
               </p>
             </li>
             <li>
               <h4>
-                <Link href='/login'>3.Puteti sa creati un Anunt</Link>
+                <Link href='/login'>3.Puteți să creați un Anunț</Link>
               </h4>
               <p>
-                Daca vreti sa creati un Anunt,apasati pe optiunea "Creeaza un
-                Anunt" si introduceti informatiile dorite.Daca introduceti
-                informatii invalide,un component "modal" va va arata greseala
-                dumneavoastra.
+                Dacă vreți să creați un Anunț apăsați pe opțiunea "Creează un
+                Anunț" și introduceți informațiile dorite.Dacă introduceți
+                informații invalide un component "modal" vă va arăta greșeala
+                dumneavoastră.
               </p>
             </li>
             <li>
               <h4>
-                <Link href='/login'>4.Puteti sa creati un Profesor</Link>
+                <Link href='/login'>4.Puteți să creați un Profesor</Link>
               </h4>
               <p>
-                Daca vreti sa creati un Profesor,apasati pe optiunea "Creeaza un
-                Profesor " si introduceti informatiile dorite.Daca introduceti
-                informatii invalide,un component "modal" va va arata greseala
-                dumneavoastra.
+                Dacă vreți să creați un Profesor apăsați pe opțiunea "Creează un
+                Profesor" și introduceți informațiile dorite.Daca introduceți
+                informații invalide un component "modal" vă va arăta greșeala
+                dumneavoastră.
               </p>
             </li>
           </ul>
@@ -504,7 +477,7 @@ const About: FC = () => {
           id='technologiesUsed'
         >
           <h2>Tehnologiile folosite in Crearea Site-ului</h2>
-          <h3>1.Tehnologiile folosite pe client:</h3>
+          <h3>1.Tehnologiile folosite pe Client:</h3>
           <div className={aboutStyles.aboutContainer__frontendTech}>
             {aboutTechnologiesUsedFrontend.map((technology) => {
               return (
@@ -523,7 +496,7 @@ const About: FC = () => {
               );
             })}
           </div>
-          <h3>2.Tehnologiile folosite pe server:</h3>
+          <h3>2.Tehnologiile folosite pe Server:</h3>
           <div className={aboutStyles.aboutContainer__backendTech}>
             {aboutTechnologiesUsedBackend.map((technology) => {
               return (

@@ -54,15 +54,15 @@ const Profesori: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Vasile Barbu" Pitesti - Profesorii Nostri' />
+      <Meta title='Liceul Teoretic "Vasile Barbu" Pitești - Profesorii Noștri' />
       <main className={profesoriStyles.profesoriContainer}>
         <HomeTitle
-          title='Profesorii Nostri'
-          quote='Nu e garantat sa fie platiti.'
+          title='Profesorii Noștri'
+          quote='Omul fără învățătură e ca pământul fără ploaie.'
         />
-        <Overlay title='Esti sigur ca vrei sa stergi profesorul?' />
+        <Overlay title='Ești sigur că vrei să ștergi profesorul?' />
         <section className={profesoriStyles.profesoriContainer__content}>
-          <h2>Profesorii nostri</h2>
+          <h2>Profesorii noștri</h2>
           {loadingTeachers === "IDLE" || loadingTeachers === "PENDING" ? (
             <SectionLoading />
           ) : (

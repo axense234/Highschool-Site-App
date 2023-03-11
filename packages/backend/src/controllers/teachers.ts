@@ -29,7 +29,7 @@ const createTeacher = async (req: Request, res: Response) => {
   if (!teacherBody.username || !teacherBody.descriere) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Introduceti nume si prenumele,descrierea.", teacher: {} });
+      .json({ msg: "Introduceți nume, prenume si o descriere.", teacher: {} });
   }
 
   const createdTeacher = await profesorClient.create({
@@ -101,7 +101,7 @@ const updateTeacherById = async (req: Request, res: Response) => {
   if (!teacherBody.username) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: `Scrieti numele si prenumele profesorului!` });
+      .json({ msg: `Scrieți numele si prenumele profesorului!` });
   }
 
   if (!teacherId) {

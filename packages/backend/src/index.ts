@@ -36,13 +36,15 @@ app.use(errorHandlerMiddleware);
 const startServer = async () => {
   try {
     await connectToRedis().then(() => {
-      console.log("Connected to Redis!");
+      console.log("Connected to Redis! / Conectat la Redis!");
     });
     await connectToPostgres().then(() =>
-      console.log("Connected to PostgreSQL!")
+      console.log("Connected to PostgreSQL! / Conectat la PostgreSQL!")
     );
     app.listen(PORT, () => {
-      console.log(`Server is listening on port:${PORT}...`);
+      console.log(
+        `Server is listening on port:${PORT}... / Serverul asculta pe portul:${PORT}`
+      );
     });
   } catch (error) {
     console.log(error);

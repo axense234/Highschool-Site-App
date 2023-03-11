@@ -40,14 +40,14 @@ const Login: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Vasile Barbu" Pitesti - Intra in contul tau' />
+      <Meta title='Liceul Teoretic "Vasile Barbu" Pitești - Intră în Contul Admin' />
       <main className={loginStyles.loginContainer}>
         <HomeTitle
-          title='Intra in cont(ADMIN)'
-          quote='Intrati in cont pentru a avea mai multe optiuni de editare.'
+          title='Intră în cont(ADMIN)'
+          quote='Intrați în cont pentru a avea mai multe opțiuni de editare.'
         />
         <section className={loginStyles.loginContainer__formContainer}>
-          <h2>Conecteaza-te la contul tau</h2>
+          <h2>Conectează-te la contul tău</h2>
           <form
             className={loginStyles.loginContainer__form}
             onSubmit={(e) => handleOnFormSubmit(e)}
@@ -62,7 +62,7 @@ const Login: FC = () => {
               />
             </div>
             <div className={loginStyles.loginContainer__control}>
-              <label htmlFor='parola'>Parola:</label>
+              <label htmlFor='parola'>Parolă:</label>
               <div className={loginStyles.loginContainer__passwordControl}>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -77,7 +77,7 @@ const Login: FC = () => {
               </div>
             </div>
             <div className={loginStyles.loginContainer__control}>
-              <label htmlFor='parola'>Rol(ADMIN pt optiuni extra):</label>
+              <label htmlFor='parola'>Rol(ADMIN):</label>
               <select
                 name='rol'
                 id='rol'
@@ -89,7 +89,7 @@ const Login: FC = () => {
                 <option value='ELEV'>ELEV</option>
               </select>
             </div>
-            <button type='submit'>Intra in cont</button>
+            <button type='submit'>Intră în cont</button>
           </form>
         </section>
       </main>

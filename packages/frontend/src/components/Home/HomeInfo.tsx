@@ -16,7 +16,7 @@ import usePopInAnimation from "@/hooks/usePopInAnimation";
 const HomeInfo: FC = () => {
   return (
     <section className={homeStyles.homeContainer__info} id='differences'>
-      <h2>Ce ne deosebeste?</h2>
+      <h2>Ce ne diferențiază?</h2>
       <div className={homeStyles.homeContainer__infoSections}>
         {infoSections.map((infoSection) => {
           return <InfoSection {...infoSection} key={infoSection.id} />;

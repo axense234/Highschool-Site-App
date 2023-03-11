@@ -73,13 +73,19 @@ const updateUserByIdOrJWT = async (req: Request, res: Response) => {
   if (!userBody.username || !userBody.email || !userBody.password) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please enter username,email and a password!", user: {} });
+      .json({
+        msg: "Vă rog să introduceți un username, un email si o parolă.",
+        user: {},
+      });
   }
 
   if (userBody.password && userBody.password === "PAROLA") {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please enter another password,not PAROLA!", user: {} });
+      .json({
+        msg: "Vă rog să introduceți altă parola înafară de PAROLA",
+        user: {},
+      });
   }
 
   if (userBody.password) {

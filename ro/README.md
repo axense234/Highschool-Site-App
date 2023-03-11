@@ -1,18 +1,18 @@
 # Highschool Site App -> Vasile Barbu
 
-Un proiect Fullstack Mern Typescript cu Sass si Redux,create in scopul de a-mi perfectiona cunostintele asupra dezvoltarii web la un nivel mai avansat,in acelasi timp avand competitie cu alti copii prin participarea la concursul "Scoala intre viziune si misiune",sectiunea a doua.
+Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp având competiție cu alți copii prin participarea la concursul "Scoala între viziune si misiune", secțiunea a doua.
 
 ## **Descriere**
 
-Un proiect Fullstack Mern Typescript cu Sass si Redux,create in scopul de a-mi perfectiona cunostintele asupra dezvoltarii web la un nivel mai avansat,in acelasi timp avand competitie cu alti copii prin participarea la concursul "Scoala intre viziune si misiune",sectiunea a doua.Proiectul asta m-a fortat sa invat mai in detaliu arhitectura "monorepo" cu Lerna si sa creez fisiere README.md mai bune,in diferite limbi.Proiectul asta mi-a luat peste 30 de ore la momentul scrierii si mai am putin si ma dau cu capu de pereti,dar na,oricum nu am ce face.
+Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp având competiție cu alți copii prin participarea la concursul "Scoala între viziune si misiune", secțiunea a doua. Proiectul m-a forțat să învăț mai în detaliu arhitectura "monorepo" cu Lerna și să creez fișiere README.md mai bune, în diferite limbi. Proiectul mi-a luat peste 30 de ore la momentul scrierii, ceea ce a fost destul de greu.
 
 ## **Incepeti**
 
 ### **Dependențe(pachete)**
 
-- Verificati fisierul package.json pentru detalii.
-- Daca sunteti pe Windows,o sa aveti nevoie de Linux,deci deoarece aveti nevoie de Redis,puteti instala Linux pe Windows urmand acest [**_tutorial_**](https://learn.microsoft.com/en-us/windows/wsl/install).
-- Redenumiti fisierul .env.sample la .env si introduceti variabilele de mediu respective
+- Verificați fișierul package.json pentru detalii.
+- Dacă folosiți ca sistem de operare Windows, o să aveți nevoie de Linux, deoarece aveți nevoie de Redis, puteți instala Linux pe Windows urmând acest [**_tutorial_**](https://learn.microsoft.com/en-us/windows/wsl/install).
+- Redenumiți fișierul .env.sample la .env si întroduceți variabilele de mediu respective
 
 ### Instalare
 
@@ -25,29 +25,29 @@ npx prisma generate --schema=./packages/backend/prisma/schema.prisma
 ### Executarea programului
 
 ```
-redis-server -> intr-un terminal WSL !!!
+redis-server -> într-un terminal WSL !!!
 cd Highschool-Site-App
 npm run dev
 ```
 
 ## **Autori**
 
-- **axense234(Comanescu Andrei)**
+- **axense234(Comănescu Andrei)**
 
 ## **Istoria Versiunilor**
 
 - 1.1.0
-  - A doua versiune a site-ului,de data asta optimizat pentru toate dispozitivele
+  - A doua versiune a site-ului, de data asta optimizat pentru toate dispozitivele
 - 1.0.0
-  - Prima versiune a site-ului,versiuni viitoare for contine adaptabilitate pentru telefoane/tablete/etc..
+  - Prima versiune a site-ului, versiuni viitoare for conține adaptabilitate pentru telefoane/tablete/etc..
   - Vezi [istoria schimbarilor](https://github.com/axense234/Highschool-Site-App/commits/master) sau Vezi [istoria versiunilor](https://github.com/axense234/Highschool-Site-App/releases)
 - 1.0.0
-  - Versiune Initiala
+  - Versiune Inițială
 
-## **Licenta**
+## **Licență**
 
-Acest proiect foloseste licenta GNU,vedeti fisierul LICENSE.md pentru mai multe detalii.
+Acest proiect foloseste licența GNU, vedeți fișierul LICENSE.md pentru mai multe detalii.
 
-## **Inspirari**
+## **Inspirări**
 
-- Inspirat de [**_site-ul scolii mele_**](https://sites.google.com/ltibp.ro/licionbarbu/acasa?authuser=0)
+- Inspirat de [**_site-ul școlii mele_**](https://sites.google.com/ltibp.ro/licionbarbu/acasa?authuser=0)

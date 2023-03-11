@@ -62,10 +62,13 @@ const Profile: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Vasile Barbu" Pitesti - Profilul Tau' />
+      <Meta title='Liceul Teoretic "Vasile Barbu" Pitești - Profilul Tău' />
       <main className={profileStyles.profileContainer}>
-        <HomeTitle title='Profilul Tau(ADMIN)' quote='Smecherie pe felie.' />
-        <Overlay title='Esti sigur ca vrei sa iesi din cont?' />
+        <HomeTitle
+          title='Profilul Tău(ADMIN)'
+          quote='Creează anunțuri/profesori,ieși din cont...'
+        />
+        <Overlay title='Ești sigur că vrei să ieși din cont?' />
         <div className={profileStyles.profileContainer__content}>
           {loadingProfile === "IDLE" || loadingProfile === "PENDING" ? (
             <SectionLoading padding='12.5rem 5rem' />
