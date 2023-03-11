@@ -87,7 +87,7 @@ const Profile: FC = () => {
               >
                 <nav className={profileStyles.profileContainer__options}>
                   {profileOptions.map((option) => {
-                    if (option.label === "Iesi din Cont") {
+                    if (option.label === "Ieși din Cont") {
                       return (
                         <button
                           type='button'

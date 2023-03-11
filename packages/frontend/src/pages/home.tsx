@@ -26,7 +26,7 @@ const Home: FC = () => {
       />
       <main className={homeStyles.homeContainer}>
         <HomeTitle
-          title='Liceul Teoretic "Ion Barbu" Pitești'
+          title='Liceul Teoretic "Vasile Barbu" Pitești'
           quote='Învățătura este comoara ce nu poate fi furată.'
         />
         <HomeInfo />
