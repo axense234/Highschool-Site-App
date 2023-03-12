@@ -9,7 +9,7 @@ const Footer: FC = () => {
   return (
     <footer className={footerStyles.footerContainer}>
       <Logo />
-      <p>Copyright &copy; 2023 Liceul Teoretic "Vasile Barbu", Pitești</p>
+      <p>Copyright &copy; 2023 Liceul Teoretic "Ion Barbu", Pitești</p>
     </footer>
   );
 };

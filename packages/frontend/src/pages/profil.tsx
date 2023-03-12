@@ -62,7 +62,7 @@ const Profile: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Vasile Barbu" Pitești - Profilul Tău' />
+      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Profilul Tău' />
       <main className={profileStyles.profileContainer}>
         <HomeTitle
           title='Profilul Tău(ADMIN)'

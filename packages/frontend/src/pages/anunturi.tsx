@@ -30,7 +30,7 @@ const Announcements: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Vasile Barbu" Pitești - Anunțuri'
+        title='Liceul Teoretic "Ion Barbu" Pitești - Anunțuri'
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina de anunțuri.'
       />
       <main className={announcementsStyles.announcementsContainer}>

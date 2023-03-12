@@ -1,4 +1,4 @@
-# Highschool Site App -> Vasile Barbu
+# Highschool Site App -> Ion Barbu
 
 Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp având competiție cu alți copii prin participarea la concursul "Scoala între viziune si misiune", secțiunea a doua.
 

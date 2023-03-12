@@ -20,13 +20,13 @@ const Home: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Vasile Barbu" Pitești - Acasă.'
+        title='Liceul Teoretic "Ion Barbu" Pitești - Acasă.'
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina acasă.'
         imageUrls={imageUrls}
       />
       <main className={homeStyles.homeContainer}>
         <HomeTitle
-          title='Liceul Teoretic "Vasile Barbu" Pitești'
+          title='Liceul Teoretic "Ion Barbu" Pitești'
           quote='Învățătura este comoara ce nu poate fi furată.'
         />
         <HomeInfo />

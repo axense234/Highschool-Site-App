@@ -54,7 +54,7 @@ const Profesori: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Vasile Barbu" Pitești - Profesorii Noștri' />
+      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Profesorii Noștri' />
       <main className={profesoriStyles.profesoriContainer}>
         <HomeTitle
           title='Profesorii Noștri'

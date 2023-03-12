@@ -1,4 +1,4 @@
-# Highschool Site App(Vasile Barbu)
+# Highschool Site App(Ion Barbu)
 
 - ## [**_The Website/Website-ul_**](https://highschool-site-app-ca.netlify.app/)
 

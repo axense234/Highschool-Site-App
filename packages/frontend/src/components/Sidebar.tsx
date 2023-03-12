@@ -45,7 +45,7 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
           title='Închide meniul de navigare'
         />
       </div>
-      <h1>Liceul Teoretic "Vasile Barbu" Pitești</h1>
+      <h1>Liceul Teoretic "Ion Barbu" Pitești</h1>
       <div className={sidebarStyles.sidebarContainer__pageLinks}>
         {sidebarPageLinks.map((pageLink) => {
           if (pageLink.label === "Profil" && !profile.username) {

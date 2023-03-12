@@ -40,7 +40,7 @@ const Login: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Vasile Barbu" Pitești - Intră în Contul Admin' />
+      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Intră în Contul Admin' />
       <main className={loginStyles.loginContainer}>
         <HomeTitle
           title='Intră în cont(ADMIN)'

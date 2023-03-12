@@ -1,4 +1,4 @@
-# Highschool Site App -> Vasile Barbu
+# Highschool Site App -> Ion Barbu
 
 A Fullstack Mern Typescript with Sass and Redux project with the purpose of improving my overall web developer skills and to compete against other people in a highschool competition("Scoala intre viziune si misiune" -> in romanian).
 

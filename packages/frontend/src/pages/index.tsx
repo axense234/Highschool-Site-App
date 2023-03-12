@@ -18,7 +18,7 @@ const About: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Vasile Barbu" Pitești - Despre Proiect.'
+        title='Liceul Teoretic "Ion Barbu" Pitești - Despre Proiect.'
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina descrierii proiectului.'
       />
       <main className={aboutStyles.aboutContainer}>
