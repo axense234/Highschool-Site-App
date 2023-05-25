@@ -14,6 +14,7 @@
   @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
     padding-bottom: 20rem;
     padding-top: 10rem;
+    padding: 7.5rem 0rem;
   }
 
   h1 {
@@ -25,6 +26,7 @@
 
     @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
       font-size: 2rem;
+      width: 100%;
     }
   }
 
@@ -35,6 +37,7 @@
 
     @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
       font-size: 1.35rem;
+      width: 100%;
     }
   }
 }

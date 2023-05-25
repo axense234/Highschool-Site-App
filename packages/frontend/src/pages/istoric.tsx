@@ -29,6 +29,15 @@ const Istoric: FC = () => {
         <section className={istoricStyles.istoricContainer__content}>
           <h2>Istoric</h2>
           <div className={istoricStyles.istoricContainer__info}>
+            <Image
+              title="Ion Barbu"
+              className="hidden"
+              ref={ref}
+              width={218}
+              height={335}
+              alt="Ion Barbu"
+              src="https://res.cloudinary.com/birthdayreminder/image/upload/v1684921668/Highschool%20Site%20App/ion_barbu_dk87mu.jpg"
+            />
             <ul className={istoricStyles.istoricContainer__pinpoints}>
               {istoricPinpoints.map((pinpoint) => {
                 return (
@@ -39,15 +48,6 @@ const Istoric: FC = () => {
                 );
               })}
             </ul>
-            <Image
-              title="Ion Barbu"
-              className="hidden"
-              ref={ref}
-              width={218}
-              height={335}
-              alt="Ion Barbu"
-              src="https://res.cloudinary.com/birthdayreminder/image/upload/v1684921668/Highschool%20Site%20App/ion_barbu_dk87mu.jpg"
-            />
           </div>
         </section>
       </main>

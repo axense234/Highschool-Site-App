@@ -10,4 +10,31 @@
       font-size: 0.75rem;
     }
   }
+
+  @media all and (max-width: getScreenSize("tablet")) {
+    address,
+    a,
+    span {
+      font-size: 1rem;
+    }
+
+    padding: 7.5rem 1rem;
+  }
+
+  @media all and (max-width: getScreenSize("mobileM")) {
+    address,
+    a,
+    span {
+      font-size: 0.75rem;
+    }
+
+    a {
+      display: block;
+    }
+  }
+
+  #{&}__logo {
+    @include flexCenter(column);
+    gap: 1rem;
+  }
 }

@@ -333,7 +333,7 @@ export const sidebarSocialMediaLinks: sidebarLink[] = [
   {
     id: 4,
     label: "Concurs",
-    dest: "https://cnodobescu.ro/2023/02/16/concursul-regional-cultural-artistic-scoala-intre-viziune-si-misiune/",
+    dest: "https://infoeducatie.ro/",
     logoUrl: TbOlympics({}),
   },
 ];

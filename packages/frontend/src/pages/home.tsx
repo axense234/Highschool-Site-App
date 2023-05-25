@@ -9,6 +9,7 @@ import HomeFacilities from "@/components/Home/HomeFacilities";
 import HomeBac from "@/components/Home/HomeBac";
 import HomeOfferings from "@/components/Home/HomeOfferings";
 import Meta from "@/components/Meta";
+import HomeLocation from "@/components/Home/HomeLocation";
 // Data
 import { facilityImages } from "@/data";
 
@@ -27,10 +28,11 @@ const Home: FC = () => {
       <main className={homeStyles.homeContainer}>
         <HomeTitle
           title='Liceul Teoretic "Ion Barbu" Pitești'
-          quote='Învățătura este comoara ce nu poate fi furată.'
+          quote="Învățătura este comoara ce nu poate fi furată."
         />
         <HomeInfo />
         <HomeFacilities />
+        <HomeLocation />
         <HomeBac />
         <HomeOfferings />
       </main>

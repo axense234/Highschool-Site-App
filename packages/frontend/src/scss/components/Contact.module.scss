@@ -23,9 +23,28 @@
     justify-content: space-between;
     width: 75%;
 
+    @media all and (max-width: getScreenSize("laptopL")) {
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
+
     iframe {
       border-radius: 1rem;
       width: 50%;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        width: 100%;
+        height: 40rem;
+      }
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        height: 30rem;
+      }
     }
   }
 
@@ -45,6 +64,10 @@
       font-size: 2rem;
       text-decoration: none;
       text-align: center;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 1.5rem;
+      }
     }
   }
 }

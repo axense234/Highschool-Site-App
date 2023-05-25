@@ -24,12 +24,26 @@
     align-items: flex-start;
     justify-content: space-between;
 
+    @media all and (max-width: getScreenSize("laptop")) {
+      flex-direction: column;
+      align-items: center;
+      gap: 5rem;
+    }
+
     img {
       width: 40%;
       height: auto;
       border-radius: 1rem;
 
       transition: opacity 0.1s transform 0.1s;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        width: 50%;
+      }
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+      }
     }
   }
 
@@ -40,13 +54,33 @@
     justify-content: center;
     max-width: 50%;
 
+    @media all and (max-width: getScreenSize("laptopL")) {
+      max-width: 40%;
+    }
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      max-width: 100%;
+    }
+
     span {
       font-size: 2.5rem;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        font-size: 2rem;
+      }
     }
 
     p {
       margin-left: 1.75rem;
       font-size: 1.25rem;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        font-size: 1rem;
+      }
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        margin-left: 1rem;
+      }
     }
 
     li {
