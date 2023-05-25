@@ -1,0 +1,50 @@
+@use "../abstracts" as *;
+
+.contactContainer {
+  @include pageLayout();
+
+  #{&}__contact {
+    @include homePageSection(getColor("silver-20"), column);
+    gap: 4rem;
+
+    h2 {
+      font-size: 3.5rem;
+      letter-spacing: 3px;
+      text-align: center;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+  #{&}__content {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 75%;
+
+    iframe {
+      border-radius: 1rem;
+      width: 50%;
+    }
+  }
+
+  #{&}__tel {
+    @include flexCenter(row);
+    gap: 1rem;
+  }
+
+  #{&}__info {
+    @include flexCenter(column);
+    align-items: flex-start;
+    justify-content: center;
+
+    address,
+    a,
+    span {
+      font-size: 2rem;
+      text-decoration: none;
+      text-align: center;
+    }
+  }
+}

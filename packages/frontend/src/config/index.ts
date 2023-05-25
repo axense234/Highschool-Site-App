@@ -1,7 +1,8 @@
 const env = process.env.NODE_ENV;
+console.log(env);
 
 const baseUrl =
-  env === "development"
+  env === "development" || env === "test"
     ? "http://localhost:4000"
     : "https://highschool-site-app-server-ca.onrender.com";
 

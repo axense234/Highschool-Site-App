@@ -4,8 +4,11 @@ import express, { Response, Request } from "express";
 require("express-async-errors");
 // Dotenv
 import * as dotenv from "dotenv";
+import path from "path";
 // Security Middleware
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
 // DB
 import { connectToPostgres } from "./db/postgres";
 import { connectToRedis } from "./db/redis";
@@ -17,14 +20,25 @@ import usersRouter from "./routers/users";
 // Middleware
 import errorHandlerMiddleware from "./middleware/errorHandler";
 
-dotenv.config();
+dotenv.config({ path: path.resolve("../../", ".env") });
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.SERVER_PORT || 4000;
+console.log(process.env.SERVER_PORT);
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.raw());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://highschool-site-app-ca.netlify.app",
+    ],
+    credentials: true,
+  })
+);
+app.use(morgan("dev"));
 
 app.get("/", (req: Request, res: Response) => {
   return res.status(200).json({ msg: "Working." });

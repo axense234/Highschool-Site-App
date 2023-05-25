@@ -1,5 +1,5 @@
 // React
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 // Components
 import Meta from "@/components/Meta";
 // SCSS
@@ -10,6 +10,8 @@ import {
   defaultTemplateTeacher,
   profileOptions,
 } from "@/data";
+// Hooks
+import useAuthorization from "@/hooks/useAuthorization";
 // Components
 import SectionLoading from "@/components/SectionLoading";
 import HomeTitle from "@/components/Home/HomeTitle";
@@ -30,11 +32,13 @@ import { setTemplateAnnouncement } from "@/redux/slices/announcementsSlice";
 import { setTemplateTeacher } from "@/redux/slices/teachersSlice";
 
 const Profile: FC = () => {
+  useAuthorization()
   const profile = useAppSelector(selectProfile);
   const loadingProfile = useAppSelector(selectLoadingProfile);
   const dispatch = useAppDispatch();
 
   const optionsContent = useAppSelector(selectOptionsContent);
+
 
   let renderedOptionsContent;
 

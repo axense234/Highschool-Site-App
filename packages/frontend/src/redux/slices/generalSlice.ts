@@ -59,7 +59,8 @@ export const loginUser = createAsyncThunk<
   try {
     const { data } = await axiosInstance.post(
       "/utilizatori/login",
-      templateUser
+      templateUser,
+      { withCredentials: true }
     );
     console.log("logged in");
     console.log(data.user);
@@ -74,7 +75,9 @@ export const getProfile = createAsyncThunk<
   string | undefined
 >("general/getProfile", async (userId = "false") => {
   try {
-    const { data } = await axiosInstance.get(`/utilizatori/${userId}`);
+    const { data } = await axiosInstance.get(`/utilizatori/${userId}`, {
+      withCredentials: true,
+    });
     return data.user as Utilizator;
   } catch (error) {
     return error as AxiosError;
@@ -100,7 +103,9 @@ export const logoutProfile = createAsyncThunk<string | AxiosError>(
   "general/logoutProfile",
   async () => {
     try {
-      const { data } = await axiosInstance.get("/utilizatori/optiuni/logout");
+      const { data } = await axiosInstance.get("/utilizatori/optiuni/logout", {
+        withCredentials: true,
+      });
       return data.msg as string;
     } catch (error) {
       return error as AxiosError;
@@ -163,9 +168,12 @@ const generalSlice = createSlice({
       })
       .addCase(getProfile.pending, (state, action) => {
         state.loadingProfile = "PENDING";
+        console.log("lol");
       })
       .addCase(getProfile.fulfilled, (state, action) => {
         const profile = action.payload as Utilizator;
+        console.log(profile);
+        console.log("nush");
 
         if (profile) {
           state.profile = profile;
@@ -205,10 +213,10 @@ const generalSlice = createSlice({
         state.loadingProfile = "FAILED";
       })
       .addCase(logoutProfile.fulfilled, (state, action) => {
+        window.location.href = `${baseSiteUrl}/home`;
         console.log(action.payload);
         state.profile = defaultProfile;
         state.templateProfile = defaultTemplateProfile;
-        window.location.href = `${baseSiteUrl}/home`;
       });
   },
 });

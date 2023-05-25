@@ -2,9 +2,11 @@
 // Types
 import {
   AboutTechnologyType,
+  DocumentOrLaw,
   facilityImageType,
   facilityRoomType,
   infoSectionType,
+  IstoricPinPoint,
   MaterieType,
   offeringItemType,
   OverlayType,
@@ -17,14 +19,113 @@ import {
 // React Icons
 import { AiFillHome } from "react-icons/ai";
 import { FcAbout } from "react-icons/fc";
-import { MdAnnouncement, MdPeople } from "react-icons/md";
+import { MdAnnouncement, MdContactSupport, MdPeople } from "react-icons/md";
 import { CgProfile, CgFacebook } from "react-icons/cg";
-import { FaSchool } from "react-icons/fa";
+import { FaHistory, FaSchool } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import { TbOlympics } from "react-icons/tb";
 import { BiLogIn } from "react-icons/bi";
+import { IoSchoolSharp } from "react-icons/io5";
+import { HiDocumentText } from "react-icons/hi2";
 // Prisma Types
 import { Anunt, Profesor, Utilizator } from "@prisma/client";
+
+export const documentsAndLawsInfo: DocumentOrLaw[] = [
+  {
+    id: 1,
+    label: "CODURI DE ETICĂ",
+    pdfURLs: [
+      "https://drive.google.com/file/d/12nQpQqbqyBTIFHHjcL9H24mHzyWX54-Z/preview",
+      "https://drive.google.com/file/d/1sq-M3hLtYDA7IwscyuGWpEzHlurcz9UJ/preview",
+    ],
+  },
+  {
+    id: 2,
+    label: "ORGANIGRAMĂ",
+    pdfURLs: [
+      "https://drive.google.com/file/d/1Id9F-iRRY74ZGnwS-mO71zVJ1kb6OKZK/preview",
+    ],
+  },
+  {
+    id: 3,
+    label: "REGULAMENT DE ORGANIZARE ŞI FUNCŢIONARE",
+    pdfURLs: [
+      "https://drive.google.com/file/d/1Z8v7M0KSRYF3DbpV6S03HZ2r5yf1lCDF/preview",
+    ],
+  },
+  {
+    id: 4,
+    label: "REGULAMENT INTERN Liceul Teoretic „Ion Barbu” Piteşti",
+    pdfURLs: [
+      "https://drive.google.com/file/d/1Z8Yud0d8iquDHI-xIKTkWiXE31cxdmGH/preview",
+    ],
+  },
+  {
+    id: 5,
+    label: "BURSE PENTRU ELEVII LICEULUI",
+    pdfURLs: [
+      "https://drive.google.com/file/d/1WrPZg1fUlZcl5UHd-nH1XQSVKgsi1EDx/preview",
+    ],
+  },
+  {
+    id: 6,
+    label:
+      'ORDIN Nr. 5.034 pentru aprobarea Metodologiei de organizare a Programului national "Scoala altfel"',
+    pdfURLs: [
+      "https://drive.google.com/file/d/1YARkCaM4IWodJHYk7vcVUYiDxDOyPJVL/preview",
+    ],
+  },
+];
+
+export const istoricPinpoints: IstoricPinPoint[] = [
+  {
+    id: 1,
+    timePeriod: "1952",
+    content:
+      "Înființarea primei școli secundare de nivel gimnazial în Pitești.",
+  },
+  {
+    id: 2,
+    timePeriod: "1968",
+    content: "Transformarea școlii secundare în Liceul Teoretic Ion Barbu.",
+  },
+  {
+    id: 3,
+    timePeriod: "Anii 1970",
+    content:
+      "Consolidarea poziției liceului ca una dintre instituțiile de învățământ de prestigiu din Pitești și județul Argeș.",
+  },
+  {
+    id: 4,
+    timePeriod: "Anii 1980",
+    content:
+      "Extinderea infrastructurii liceului pentru a face față cerințelor în creștere ale elevilor și profesorilor.",
+  },
+  {
+    id: 5,
+    timePeriod: "1990-2000",
+    content:
+      "Adaptarea curriculumului școlar la noile cerințe și schimbări educaționale din sistemul de învățământ din România.",
+  },
+  {
+    id: 6,
+    timePeriod: "Anii 2000",
+    content:
+      "Participarea și obținerea de rezultate remarcabile la competiții școlare și olimpiade naționale și internaționale.",
+  },
+  {
+    id: 7,
+    timePeriod: "2010-2020",
+    content:
+      "Modernizarea și dotarea infrastructurii liceului cu echipamente și tehnologii avansate pentru sprijinirea procesului de învățare.",
+  },
+  {
+    id: 8,
+    timePeriod: "2023",
+    content:
+      "Liceul Teoretic Ion Barbu Pitesti continuă să se mențină în topul instituțiilor de învățământ din Pitești și se angajează să ofere o educație de calitate, pregătind elevii pentru provocările viitorului.",
+  },
+];
 
 export const aboutTechnologiesUsedFrontend: AboutTechnologyType[] = [
   {
@@ -189,11 +290,25 @@ export const profileOptions: profileOption[] = [
 
 export const sidebarPageLinks: sidebarLink[] = [
   { id: 1, label: "Acasă", dest: "/home", logoUrl: AiFillHome({}) },
-  { id: 2, label: "Despre Proiect", dest: "/", logoUrl: FcAbout({}) },
-  { id: 3, label: "Anunțuri", dest: "/anunturi", logoUrl: MdAnnouncement({}) },
-  { id: 4, label: "Profesori", dest: "/profesori", logoUrl: MdPeople({}) },
-  { id: 5, label: "Intră în cont", dest: "/login", logoUrl: BiLogIn({}) },
-  { id: 6, label: "Profil", dest: "/profil", logoUrl: CgProfile({}) },
+  { id: 2, label: "Anunțuri", dest: "/anunturi", logoUrl: MdAnnouncement({}) },
+  { id: 3, label: "Contact", dest: "/contact", logoUrl: MdContactSupport({}) },
+  {
+    id: 4,
+    label: "Oferta educațională",
+    dest: "/oferta",
+    logoUrl: IoSchoolSharp({}),
+  },
+  {
+    id: 5,
+    label: "Legi și Documente",
+    dest: "/documente",
+    logoUrl: HiDocumentText({}),
+  },
+  { id: 6, label: "Profesori", dest: "/profesori", logoUrl: MdPeople({}) },
+  { id: 7, label: "Istoric", dest: "/istoric", logoUrl: FaHistory({}) },
+  { id: 8, label: "Despre Proiect", dest: "/", logoUrl: FcAbout({}) },
+  { id: 9, label: "Intră în cont", dest: "/login", logoUrl: BiLogIn({}) },
+  { id: 10, label: "Profil", dest: "/profil", logoUrl: CgProfile({}) },
 ];
 
 export const sidebarSocialMediaLinks: sidebarLink[] = [

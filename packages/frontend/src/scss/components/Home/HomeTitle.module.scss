@@ -2,14 +2,14 @@
 
 .homeContainer__title {
   @include homePageSection(getColor("silver-10"), column);
-  background-image: url("https://res.cloudinary.com/birthdayreminder/image/upload/v1677321887/Highschool%20Site%20App/liceul_barbu_snz8cx.jpg");
+  background-image: url("https://res.cloudinary.com/birthdayreminder/image/upload/v1678691260/Highschool%20Site%20App/IMG-20230313-WA0004_e5vfrt.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: 50%;
-  background-blend-mode: darken;
   padding-bottom: 20rem;
   padding-top: 17.5rem;
+  background-blend-mode: darken;
 
   @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
     padding-bottom: 20rem;

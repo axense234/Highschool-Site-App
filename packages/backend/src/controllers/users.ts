@@ -1,14 +1,17 @@
 // Express
 import { Request, Response } from "express";
+// Others
 import { StatusCodes } from "http-status-codes";
+import * as uuid from "uuid";
+import { encryptPassword } from "../utils/bcrypt";
 // Prisma
 import { setariUtilizatorClient, utlizatorClient } from "../db/postgres";
-import { encryptPassword } from "../utils/bcrypt";
 
 // ADD USER TO REQUEST(need feedback)
 declare module "express-serve-static-core" {
   export interface Request {
     user: any;
+    cookies: any;
   }
 }
 
@@ -35,6 +38,14 @@ const getUserByIdOrJWT = async (req: Request, res: Response) => {
     req.params.userId === "false" || !req.params.userId
       ? req.user.userId
       : req.params.userId;
+
+  if (req.cookies.uniqueIdentifier === undefined) {
+    const uniqueIdentifier = uuid.v4();
+    res.cookie("uniqueIdentifier", uniqueIdentifier, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+    });
+  }
 
   if (!userId) {
     return res
@@ -71,21 +82,17 @@ const updateUserByIdOrJWT = async (req: Request, res: Response) => {
   userBody.rolUtilizator = "ADMIN";
 
   if (!userBody.username || !userBody.email || !userBody.password) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({
-        msg: "Vă rog să introduceți un username, un email si o parolă.",
-        user: {},
-      });
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Vă rog să introduceți un username, un email si o parolă.",
+      user: {},
+    });
   }
 
   if (userBody.password && userBody.password === "PAROLA") {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({
-        msg: "Vă rog să introduceți altă parola înafară de PAROLA",
-        user: {},
-      });
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Vă rog să introduceți altă parola înafară de PAROLA",
+      user: {},
+    });
   }
 
   if (userBody.password) {

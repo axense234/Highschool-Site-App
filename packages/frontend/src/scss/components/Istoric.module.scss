@@ -1,0 +1,61 @@
+@use "../abstracts" as *;
+
+.istoricContainer {
+  @include pageLayout();
+
+  h2 {
+    font-size: 5rem;
+    letter-spacing: 3px;
+    text-align: center;
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      font-size: 2.5rem;
+    }
+  }
+
+  #{&}__content {
+    @include homePageSection(getColor("silver-0"), column);
+    gap: 2rem;
+  }
+
+  #{&}__info {
+    @include flexCenter(row);
+    width: 85%;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    img {
+      width: 40%;
+      height: auto;
+      border-radius: 1rem;
+
+      transition: opacity 0.1s transform 0.1s;
+    }
+  }
+
+  #{&}__pinpoints {
+    @include flexCenter(column);
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 50%;
+
+    span {
+      font-size: 2.5rem;
+    }
+
+    p {
+      margin-left: 1.75rem;
+      font-size: 1.25rem;
+    }
+
+    li {
+      max-width: 90%;
+      transition: transform 0.2s ease-in;
+
+      :hover {
+        transform: translateX(1rem);
+      }
+    }
+  }
+}

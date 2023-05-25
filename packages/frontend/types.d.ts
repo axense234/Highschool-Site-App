@@ -10,6 +10,18 @@ type sidebarLink = {
   dest: string;
 };
 
+type DocumentOrLaw = {
+  id: number;
+  label: string;
+  pdfURLs: string[];
+};
+
+type IstoricPinPoint = {
+  id: number;
+  timePeriod: string | number;
+  content: string;
+};
+
 type infoSectionType = {
   id: number;
   logoUrl: string;
@@ -162,4 +174,6 @@ export {
   FormModalProps,
   VideoContainerProps,
   AboutTechnologyType,
+  IstoricPinPoint,
+  DocumentOrLaw,
 };

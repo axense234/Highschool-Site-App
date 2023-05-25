@@ -33,7 +33,7 @@ const createUser = async (req: Request, res: Response) => {
   console.log(createdUser, createdSettings);
 
   const token = createJWT(createdUser.username, createdUser.utilizator_uid);
-  await cacheJWT(token);
+  await cacheJWT(token, req.cookies.uniqueIdentifier);
 
   return res.status(StatusCodes.CREATED).json({
     token,
@@ -71,7 +71,7 @@ const loginUser = async (req: Request, res: Response) => {
   }
 
   const token = createJWT(foundUser.username, foundUser.utilizator_uid);
-  await cacheJWT(token);
+  await cacheJWT(token, req.cookies.uniqueIdentifier);
 
   // Temporarily changing the foundUser user role
   foundUser.rolUtilizator = rolUtilizator;
@@ -85,7 +85,7 @@ const loginUser = async (req: Request, res: Response) => {
 
 // LOG OUT USER
 const logoutUser = async (req: Request, res: Response) => {
-  await deleteCachedJWT("ltvbp_jwt");
+  await deleteCachedJWT(`${req.cookies.uniqueIdentifier}:hsa-jwt`);
   return res
     .status(StatusCodes.OK)
     .json({ msg: "Successfully logged out!", user: {} });

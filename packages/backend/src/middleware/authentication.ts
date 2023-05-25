@@ -17,7 +17,7 @@ const authenticationMiddleware = async (
   next: NextFunction
 ) => {
   const { authorization } = req.headers;
-  const jwtFromRedis = await getCachedJWT();
+  const jwtFromRedis = await getCachedJWT(req.cookies.uniqueIdentifier);
 
   if (
     (!authorization || !authorization.startsWith("Bearer ")) &&
