@@ -1,16 +1,17 @@
 # Highschool Site App -> Ion Barbu
 
-Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp având competiție cu alți copii prin participarea la concursul "Scoala între viziune si misiune", secțiunea a doua.
+Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp construind un proiect bun pentru un portofolio viitor.
 
 ## **Descriere**
 
-Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp având competiție cu alți copii prin participarea la concursul "Scoala între viziune si misiune", secțiunea a doua. Proiectul m-a forțat să învăț mai în detaliu arhitectura "monorepo" cu Lerna și să creez fișiere README.md mai bune, în diferite limbi. Proiectul mi-a luat peste 30 de ore la momentul scrierii, ceea ce a fost destul de greu.
+Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp construind un proiect bun pentru un portofolio viitor. Proiectul m-a forțat să învăț mai în detaliu arhitectura "monorepo" cu Lerna și să creez fișiere README.md mai bune, în diferite limbi. Proiectul mi-a luat peste 30 de ore la momentul scrierii, ceea ce a fost destul de neplăcut dar na.
 
 ## **Incepeti**
 
 ### **Dependențe(pachete)**
 
 - Verificați fișierul package.json pentru detalii.
+- NodeJS instalat, Redis instalat(dacă folosiți o instanță Redis locală)
 - Dacă folosiți ca sistem de operare Windows, o să aveți nevoie de Linux, deoarece aveți nevoie de Redis, puteți instala Linux pe Windows urmând acest [**_tutorial_**](https://learn.microsoft.com/en-us/windows/wsl/install).
 - Redenumiți fișierul .env.sample la .env si întroduceți variabilele de mediu respective
 
@@ -18,15 +19,24 @@ Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi
 
 ```
 git clone https://github.com/axense234/Highschool-Site-App.git
+cd Highschool-Site-App
 npm install
 npx prisma generate --schema=./packages/backend/prisma/schema.prisma
 ```
 
 ### Executarea programului
 
+- urmați acești pași **după ce completați variabilele în .env** !!!
+- dacă folosiți o instanță Redis **internă**:
+
 ```
-redis-server -> într-un terminal WSL !!!
-cd Highschool-Site-App
+redis-server -> într-un terminal WSL dacă folosiți Windows !!!
+npm run dev
+```
+
+- dacă folosiți o instanță Redis **externă**:
+
+```
 npm run dev
 ```
 
@@ -36,6 +46,8 @@ npm run dev
 
 ## **Istoria Versiunilor**
 
+- 1.2.0
+  - A treia versiune a site-ului, de data asta complet si focusat pe tema unui site de liceu
 - 1.1.0
   - A doua versiune a site-ului, de data asta optimizat pentru toate dispozitivele
 - 1.0.0
