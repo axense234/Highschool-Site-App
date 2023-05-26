@@ -17,6 +17,7 @@ import authRouter from "./routers/auth";
 import announcementsRouter from "./routers/announcements";
 import teachersRouter from "./routers/teachers";
 import usersRouter from "./routers/users";
+import emailRouter from "./routers/email";
 // Middleware
 import errorHandlerMiddleware from "./middleware/errorHandler";
 
@@ -44,7 +45,13 @@ app.get("/", (req: Request, res: Response) => {
   return res.status(200).json({ msg: "Working." });
 });
 
-app.use("/", [announcementsRouter, teachersRouter, usersRouter, authRouter]);
+app.use("/", [
+  announcementsRouter,
+  teachersRouter,
+  usersRouter,
+  authRouter,
+  emailRouter,
+]);
 app.use(errorHandlerMiddleware);
 
 const startServer = async () => {

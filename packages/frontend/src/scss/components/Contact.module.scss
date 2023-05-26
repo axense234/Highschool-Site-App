@@ -70,4 +70,64 @@
       }
     }
   }
+
+  #{&}__email {
+    @extend .contactContainer__contact;
+    @include homePageSection(getColor("silver-10"), column);
+  }
+
+  #{&}__emailForm {
+    @include flexCenter(column);
+    width: 80%;
+    align-items: flex-start;
+    gap: 2rem;
+
+    button {
+      @include formButton(30%, 1.5rem);
+      margin-top: 0;
+    }
+  }
+
+  #{&}__emailContent {
+    @include flexCenter(row);
+    width: 100%;
+    gap: 5rem;
+    align-items: flex-start;
+
+    img {
+      width: 50%;
+      height: auto;
+      border-radius: 1rem;
+    }
+  }
+
+  #{&}__control {
+    @include flexCenter(column);
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+
+    label {
+      font-size: 2rem;
+    }
+
+    input {
+      @include controlInput(1.5rem, 100%);
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      min-height: 7.5rem;
+      max-height: 10rem;
+      padding: 0.25rem;
+      border-radius: 1rem;
+      border: 3px solid getColor("silver-50");
+      font-size: 1.25rem;
+
+      &:focus-visible {
+        outline: 3px solid getColor("silver-50");
+      }
+    }
+  }
 }

@@ -4,6 +4,7 @@ import { Utilizator } from "@prisma/client";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // Types
 import {
+  EmailFormTemplate,
   errorPayloadType,
   formModalType,
   objectKeyValueType,
@@ -18,7 +19,12 @@ import { State } from "../api/store";
 // Config
 import { baseSiteUrl } from "@/config";
 // Data
-import { defaultOverlay, defaultProfile, defaultTemplateProfile } from "@/data";
+import {
+  defaultEmailFormTemplate,
+  defaultOverlay,
+  defaultProfile,
+  defaultTemplateProfile,
+} from "@/data";
 
 type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -29,6 +35,7 @@ type initialStateType = {
   optionsContent: string;
   overlay: OverlayType;
   editMode: boolean;
+  emailFormTemplate: EmailFormTemplate;
 };
 
 const initialState: initialStateType = {
@@ -49,6 +56,8 @@ const initialState: initialStateType = {
   overlay: defaultOverlay,
   // Edit mode(used in combination with cardModalId)
   editMode: false,
+  // Email Form Template
+  emailFormTemplate: defaultEmailFormTemplate,
 };
 
 // THUNKS
@@ -113,6 +122,18 @@ export const logoutProfile = createAsyncThunk<string | AxiosError>(
   }
 );
 
+export const sendEmail = createAsyncThunk<
+  string | AxiosError,
+  EmailFormTemplate
+>("general/sendEmail", async (templateEmail) => {
+  try {
+    const { data } = await axiosInstance.post("/optiuni/email", templateEmail);
+    return data.msg as string;
+  } catch (error) {
+    return error as AxiosError;
+  }
+});
+
 const generalSlice = createSlice({
   name: "general",
   initialState,
@@ -137,6 +158,15 @@ const generalSlice = createSlice({
     },
     setEditMode(state, action: PayloadAction<boolean>) {
       state.editMode = action.payload;
+    },
+    setEmailFormTemplate(state, action: PayloadAction<objectKeyValueType>) {
+      state.emailFormTemplate = {
+        ...state.emailFormTemplate,
+        [action.payload.key]: action.payload.value,
+      };
+    },
+    clearEmailFormTemplate(state, action: PayloadAction) {
+      state.emailFormTemplate = defaultEmailFormTemplate;
     },
   },
   extraReducers(builder) {
@@ -217,6 +247,21 @@ const generalSlice = createSlice({
         console.log(action.payload);
         state.profile = defaultProfile;
         state.templateProfile = defaultTemplateProfile;
+      })
+      .addCase(sendEmail.fulfilled, (state, action) => {
+        const responseMessage = action.payload as string;
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          const data = axiosError.response?.data as errorPayloadType;
+          state.formModal.showModal = true;
+          state.formModal.msg = data.msg;
+          state.formModal.color = "red";
+        } else {
+          state.formModal.showModal = true;
+          state.formModal.msg = responseMessage;
+          state.formModal.color = "green";
+        }
       });
   },
 });
@@ -240,6 +285,9 @@ export const selectOverlay = (state: State) => state.general.overlay;
 
 export const selectEditMode = (state: State) => state.general.editMode;
 
+export const selectEmailFormTemplate = (state: State) =>
+  state.general.emailFormTemplate;
+
 export const {
   updateTemplateProfile,
   updateGeneralFormModal,
@@ -247,6 +295,8 @@ export const {
   setOptionsContent,
   updateOverlay,
   setEditMode,
+  setEmailFormTemplate,
+  clearEmailFormTemplate,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

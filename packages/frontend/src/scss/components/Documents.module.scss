@@ -41,7 +41,7 @@
 
     li {
       font-size: 1.25rem;
-      :hover {
+      &:hover {
         text-decoration: underline;
         font-style: italic;
       }

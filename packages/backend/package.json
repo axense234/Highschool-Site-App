@@ -33,6 +33,7 @@
     "@types/express-session": "^1.17.7",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
+    "@types/nodemailer": "^6.4.8",
     "@types/uuid": "^9.0.1",
     "dotenv": "^16.0.3",
     "morgan": "^1.10.0",

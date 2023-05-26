@@ -3,6 +3,7 @@
 import {
   AboutTechnologyType,
   DocumentOrLaw,
+  EmailFormTemplate,
   facilityImageType,
   facilityRoomType,
   infoSectionType,
@@ -223,6 +224,13 @@ export const aboutTechnologiesUsedBackend: AboutTechnologyType[] = [
     techUrl: "https://redis.io/",
   },
 ];
+
+export const defaultEmailFormTemplate: EmailFormTemplate = {
+  emailAddress: "",
+  message: "",
+  sender: "",
+  subject: "",
+};
 
 export const defaultTemplateProfile: templateUser = {
   email: "",

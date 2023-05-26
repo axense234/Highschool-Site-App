@@ -1,5 +1,7 @@
 // React
 import { FC } from "react";
+// React icons
+import { MdArrowUpward } from "react-icons/md";
 // SCSS
 import footerStyles from "../scss/components/Footer.module.scss";
 import contactStyles from "../scss/components/Contact.module.scss";
@@ -7,6 +9,10 @@ import contactStyles from "../scss/components/Contact.module.scss";
 import Logo from "./Logo";
 
 const Footer: FC = () => {
+  const handleGoUp = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer className={footerStyles.footerContainer}>
       <div className={footerStyles.footerContainer__logo}>
@@ -20,6 +26,9 @@ const Footer: FC = () => {
         </div>
       </div>
       <p>Copyright &copy; 2023 Proiect: Highschool Site App</p>
+      <div className={footerStyles.footerContainer__goUp}>
+        <MdArrowUpward onClick={() => handleGoUp()} />
+      </div>
     </footer>
   );
 };

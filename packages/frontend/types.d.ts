@@ -10,6 +10,13 @@ type sidebarLink = {
   dest: string;
 };
 
+type EmailFormTemplate = {
+  sender: string;
+  emailAddress: string;
+  subject: string;
+  message: string;
+};
+
 type DocumentOrLaw = {
   id: number;
   label: string;
@@ -176,4 +183,5 @@ export {
   AboutTechnologyType,
   IstoricPinPoint,
   DocumentOrLaw,
+  EmailFormTemplate,
 };

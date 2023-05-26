@@ -1,12 +1,42 @@
 // React
-import { FC } from "react";
+import { FC, SyntheticEvent } from "react";
+// Next
+import Image from "next/image";
+// Animations
+import { useInView } from "react-intersection-observer";
 // SCSS
 import contactStyles from "../scss/components/Contact.module.scss";
 // Components
 import HomeTitle from "@/components/Home/HomeTitle";
 import Meta from "@/components/Meta";
+import FormModal from "@/components/FormModal";
+// Redux Toolkit
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  clearEmailFormTemplate,
+  selectEmailFormTemplate,
+  sendEmail,
+  setEmailFormTemplate,
+} from "@/redux/slices/generalSlice";
+// Hooks
+import usePopInAnimation from "@/hooks/usePopInAnimation";
 
 const Contact: FC = () => {
+  const emailForm = useAppSelector(selectEmailFormTemplate);
+  const dispatch = useAppDispatch();
+
+  const { refForm, refImage, refTitle } = useAnimations();
+
+  const onEmailControlChange = (key: string, value: string) => {
+    dispatch(setEmailFormTemplate({ key, value }));
+  };
+
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(sendEmail(emailForm));
+    dispatch(clearEmailFormTemplate());
+  };
+
   return (
     <>
       <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Contact' />
@@ -15,7 +45,7 @@ const Contact: FC = () => {
           title="Contactați-ne"
           quote="Comunicarea este cheia relațiilor umane."
         />
-        <section className={contactStyles.contactContainer__contact}>
+        <section className={contactStyles.contactContainer__contact} id="info">
           <h2>Informații de contact</h2>
           <div className={contactStyles.contactContainer__content}>
             <div className={contactStyles.contactContainer__info}>
@@ -37,9 +67,100 @@ const Contact: FC = () => {
             />
           </div>
         </section>
+        <section className={contactStyles.contactContainer__email} id="email">
+          <h2 ref={refTitle} className="hidden">
+            Trimite-ne un email!
+          </h2>
+          <div className={contactStyles.contactContainer__emailContent}>
+            <form
+              className={`${contactStyles.contactContainer__emailForm} hidden`}
+              onSubmit={(e) => handleSubmit(e)}
+              ref={refForm}
+              style={{ transitionDelay: "150ms" }}
+            >
+              <FormModal type="general" />
+              <div className={contactStyles.contactContainer__control}>
+                <label htmlFor="sender">Numele expeditorului:</label>
+                <input
+                  type="text"
+                  id="sender"
+                  name="sender"
+                  value={emailForm.sender}
+                  required
+                  onChange={(e) =>
+                    onEmailControlChange("sender", e.target.value)
+                  }
+                />
+              </div>
+              <div className={contactStyles.contactContainer__control}>
+                <label htmlFor="emailAddress">
+                  Adresa de email a expeditorului:
+                </label>
+                <input
+                  type="email"
+                  id="emailAddress"
+                  name="emailAddress"
+                  value={emailForm.emailAddress}
+                  required
+                  onChange={(e) =>
+                    onEmailControlChange("emailAddress", e.target.value)
+                  }
+                />
+              </div>
+              <div className={contactStyles.contactContainer__control}>
+                <label htmlFor="subject">Subiect:</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={emailForm.subject}
+                  required
+                  onChange={(e) =>
+                    onEmailControlChange("subject", e.target.value)
+                  }
+                />
+              </div>
+              <div className={contactStyles.contactContainer__control}>
+                <label htmlFor="message">Mesaj:</label>
+                <textarea
+                  name="message"
+                  id="message"
+                  value={emailForm.message}
+                  required
+                  onChange={(e) =>
+                    onEmailControlChange("message", e.target.value)
+                  }
+                />
+              </div>
+              <button type="submit">Trimite</button>
+            </form>
+            <Image
+              alt="Imagine Email"
+              ref={refImage}
+              width="800"
+              aria-label="Imagine Email"
+              title="Imagine Liceu Contact Email"
+              height="600"
+              style={{ transitionDelay: "300ms" }}
+              className="hidden"
+              src="https://res.cloudinary.com/birthdayreminder/image/upload/v1685089011/Highschool%20Site%20App/caruselimage2_ebsysm.jpg"
+            />
+          </div>
+        </section>
       </main>
     </>
   );
+};
+
+const useAnimations = () => {
+  const { ref: refTitle, inView: inViewTitle, entry: entryTitle } = useInView();
+  usePopInAnimation("showHorizontal", inViewTitle, entryTitle);
+  const { ref: refForm, inView: inViewForm, entry: entryForm } = useInView();
+  usePopInAnimation("showHorizontal", inViewForm, entryForm);
+  const { ref: refImage, inView: inViewImage, entry: entryImage } = useInView();
+  usePopInAnimation("showHorizontal", inViewImage, entryImage);
+
+  return { refTitle, refForm, refImage };
 };
 
 export default Contact;

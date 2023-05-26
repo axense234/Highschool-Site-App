@@ -18,7 +18,10 @@ const Documents: FC = () => {
           title="Legi și Documente"
           quote="Documentele - amprenta legii și justiției."
         />
-        <section className={documentsStyles.documentsContainer__content}>
+        <section
+          className={documentsStyles.documentsContainer__content}
+          id="map"
+        >
           <h2>Documente</h2>
           <div className={documentsStyles.documentsContainer__info}>
             <ul className={documentsStyles.documentsContainer__map}>
@@ -30,7 +33,10 @@ const Documents: FC = () => {
                 );
               })}
             </ul>
-            <div className={documentsStyles.documentsContainer__documents}>
+            <div
+              className={documentsStyles.documentsContainer__documents}
+              id="documents"
+            >
               {documentsAndLawsInfo.map((document) => {
                 return <Document key={document.id} {...document} />;
               })}
