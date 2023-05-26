@@ -4,11 +4,11 @@
   "workspaces": [
     "packages/*"
   ],
+  "version": "1.0.0",
   "prisma.schema": "./packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "lerna run dev",
     "build": "lerna run build",
-    "update": "lerna bootstrap --hoist",
     "clean": "lerna clean"
   },
   "devDependencies": {

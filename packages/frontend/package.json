@@ -7,5 +7,9 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "author": "axense234"
+  "author": "axense234",
+  "dependencies": {
+    "vasile-barbu": "file:../../package.json"
+  }
+  
 }
