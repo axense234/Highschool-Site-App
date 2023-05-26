@@ -119,10 +119,10 @@
 
     .announcementsContainer__announcementTitle {
       h3 {
-        font-size: 2.5rem;
+        font-size: 1.75rem;
 
         @media all and (max-width: getScreenSize("laptop")) {
-          font-size: 2rem;
+          font-size: 1.35rem;
           text-align: center;
         }
       }
@@ -146,7 +146,7 @@
 
   #{&}__announcementTitle {
     @include flexCenter(row);
-    gap: 5rem;
+    gap: 3rem;
     width: 100%;
     justify-content: flex-start;
     position: relative;
@@ -160,7 +160,7 @@
     }
 
     svg {
-      font-size: 3rem;
+      font-size: 2.5rem;
       z-index: 2;
     }
 
