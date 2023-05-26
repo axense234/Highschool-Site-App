@@ -23,7 +23,8 @@
     "express-async-errors": "^3.1.1",
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
-    "redis": "^4.6.5"
+    "redis": "^4.6.5",
+    "cookie-parser": "^1.4.6"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
