@@ -13,7 +13,7 @@
     "arrow-body-style": "off",
     "no-param-reassign": "off",
     "no-shadow": "off",
-    "no-console": "off",
+    "no-console": "warn",
     "quotes": "off",
     "linebreak-style": "off",
     "implicit-arrow-linebreak": "off",

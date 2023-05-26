@@ -47,7 +47,6 @@ const Overlay: FC<OverlayProps> = ({ title }) => {
         dispatch(updateOverlay(defaultOverlay));
         break;
       default:
-        console.log("defaaaaaaaaaaaault");
         break;
     }
   };
@@ -58,13 +57,13 @@ const Overlay: FC<OverlayProps> = ({ title }) => {
         <h2>{title}</h2>
         <div className={overlayStyles.overlayContainer__buttons}>
           <button
-            type='button'
+            type="button"
             onClick={() => dispatch(updateOverlay(defaultOverlay))}
           >
             Nu
           </button>
           <button
-            type='button'
+            type="button"
             disabled={secondsLeft !== 0}
             onClick={() => handleOnOverlayConfirmation()}
           >

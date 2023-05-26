@@ -51,7 +51,6 @@ export const getAllTeachers = createAsyncThunk<Profesor[] | AxiosError>(
       const { data } = await axiosInstance.get("/profesori");
       return data.teachers as Profesor[];
     } catch (error) {
-      console.log(error);
       return error as AxiosError;
     }
   }
@@ -68,7 +67,6 @@ export const createCloudinaryImageForTeacher = createAsyncThunk(
         "https://api.cloudinary.com/v1_1/birthdayreminder/image/upload",
         formData
       );
-      console.log(data.secure_url);
       return data.secure_url;
     } catch (error) {
       return error;
@@ -161,8 +159,6 @@ const teachersSlice = createSlice({
       .addCase(createTeacher.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
         const axiosError = action.payload as AxiosError;
-
-        console.log(axiosError);
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
           const data = axiosError.response?.data as errorPayloadType;

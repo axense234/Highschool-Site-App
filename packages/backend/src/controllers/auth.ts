@@ -30,8 +30,6 @@ const createUser = async (req: Request, res: Response) => {
     data: { utilizator_uid: createdUser.utilizator_uid },
   });
 
-  console.log(createdUser, createdSettings);
-
   const token = createJWT(createdUser.username, createdUser.utilizator_uid);
   await cacheJWT(token, req.cookies.uniqueIdentifier);
 

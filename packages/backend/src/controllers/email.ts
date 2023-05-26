@@ -24,8 +24,6 @@ const sendEmail = async (req: Request, res: Response) => {
 
   const emailRes = await transporter.sendMail(mailOptions);
 
-  console.log(emailRes);
-
   if (emailRes.rejected.length === 1 && emailRes.accepted.length === 0) {
     return res
       .status(StatusCodes.OK)

@@ -71,8 +71,6 @@ export const loginUser = createAsyncThunk<
       templateUser,
       { withCredentials: true }
     );
-    console.log("logged in");
-    console.log(data.user);
     return data.user as Utilizator;
   } catch (error: any) {
     return error as AxiosError;
@@ -178,8 +176,6 @@ const generalSlice = createSlice({
         const profile = action.payload as Utilizator;
         const axiosError = action.payload as AxiosError;
 
-        console.log(axiosError.response?.status);
-
         if (axiosError.response?.status !== 200 && axiosError.response) {
           const data = axiosError.response?.data as errorPayloadType;
           state.formModal.showModal = true;
@@ -198,12 +194,9 @@ const generalSlice = createSlice({
       })
       .addCase(getProfile.pending, (state, action) => {
         state.loadingProfile = "PENDING";
-        console.log("lol");
       })
       .addCase(getProfile.fulfilled, (state, action) => {
         const profile = action.payload as Utilizator;
-        console.log(profile);
-        console.log("nush");
 
         if (profile) {
           state.profile = profile;
@@ -244,7 +237,6 @@ const generalSlice = createSlice({
       })
       .addCase(logoutProfile.fulfilled, (state, action) => {
         window.location.href = `${baseSiteUrl}/home`;
-        console.log(action.payload);
         state.profile = defaultProfile;
         state.templateProfile = defaultTemplateProfile;
       })
