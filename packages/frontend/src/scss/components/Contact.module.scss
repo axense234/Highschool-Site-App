@@ -98,7 +98,7 @@
 
   #{&}__emailContent {
     @include flexCenter(row);
-    width: 100%;
+    width: 80%;
     gap: 5rem;
     align-items: flex-start;
 
@@ -138,6 +138,7 @@
 
     input {
       @include controlInput(1.5rem, 100%);
+      max-width: 35rem;
 
       @media all and (max-width: getScreenSize("mobileL")) {
         font-size: 1.25rem;
@@ -147,6 +148,7 @@
     textarea {
       width: 100%;
       max-width: 100%;
+      max-width: 35rem;
       min-height: 7.5rem;
       max-height: 10rem;
       padding: 0.25rem;
