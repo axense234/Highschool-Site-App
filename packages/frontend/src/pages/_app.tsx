@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 // React
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // Global SCSS
 import "@/scss/abstracts/globals.scss";
 // Next
@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
   return (
-    <div className='app-container'>
+    <div className="app-container">
       <Provider store={store}>
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <SidebarMenu setShowSidebar={setShowSidebar} />

@@ -13,12 +13,11 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ setShowSidebar }) => {
   return (
     <div
       className={menuStyles.sidebarMenuContainer}
-      title='Deschide meniul de navigare'
+      title="Deschide meniul de navigare"
     >
       <AiOutlineMenu
         onClick={() => {
           setShowSidebar(true);
-          console.log("menu clicked");
         }}
       />
     </div>

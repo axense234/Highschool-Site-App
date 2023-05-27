@@ -1,5 +1,4 @@
 const env = process.env.NODE_ENV;
-console.log(env);
 
 const baseUrl =
   env === "development" || env === "test"

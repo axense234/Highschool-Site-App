@@ -77,7 +77,6 @@ const updateUserByIdOrJWT = async (req: Request, res: Response) => {
       : req.params.userId;
 
   const userBody = req.body;
-  console.log(userBody);
 
   userBody.rolUtilizator = "ADMIN";
 

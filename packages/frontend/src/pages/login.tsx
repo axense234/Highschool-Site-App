@@ -35,7 +35,6 @@ const Login: FC = () => {
     e.preventDefault();
 
     dispatch(loginUser(templateProfile));
-    console.log("login submit");
   };
 
   return (
@@ -43,8 +42,8 @@ const Login: FC = () => {
       <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Intră în Contul Admin' />
       <main className={loginStyles.loginContainer}>
         <HomeTitle
-          title='Intră în cont(ADMIN)'
-          quote='Intrați în cont pentru a avea mai multe opțiuni de editare.'
+          title="Intră în cont(ADMIN)"
+          quote="Intrați în cont pentru a avea mai multe opțiuni de editare."
         />
         <section className={loginStyles.loginContainer__formContainer}>
           <h2>Conectează-te la contul tău</h2>
@@ -52,17 +51,17 @@ const Login: FC = () => {
             className={loginStyles.loginContainer__form}
             onSubmit={(e) => handleOnFormSubmit(e)}
           >
-            <FormModal type='general' />
+            <FormModal type="general" />
             <div className={loginStyles.loginContainer__control}>
-              <label htmlFor='email'>Email:</label>
+              <label htmlFor="email">Email:</label>
               <input
-                type='email'
+                type="email"
                 value={templateProfile.email}
                 onChange={(e) => onEmailChange(e.target.value)}
               />
             </div>
             <div className={loginStyles.loginContainer__control}>
-              <label htmlFor='parola'>Parolă:</label>
+              <label htmlFor="parola">Parolă:</label>
               <div className={loginStyles.loginContainer__passwordControl}>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -77,19 +76,19 @@ const Login: FC = () => {
               </div>
             </div>
             <div className={loginStyles.loginContainer__control}>
-              <label htmlFor='parola'>Rol(ADMIN):</label>
+              <label htmlFor="parola">Rol(ADMIN):</label>
               <select
-                name='rol'
-                id='rol'
+                name="rol"
+                id="rol"
                 value={templateProfile.rolUtilizator}
                 onChange={(e) => onRolUtilizatorChange(e.target.value)}
               >
-                <option value='ADMIN'>ADMIN</option>
-                <option value='UTILIZATOR'>UTILIZATOR</option>
-                <option value='ELEV'>ELEV</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="UTILIZATOR">UTILIZATOR</option>
+                <option value="ELEV">ELEV</option>
               </select>
             </div>
-            <button type='submit'>Intră în cont</button>
+            <button type="submit">Intră în cont</button>
           </form>
         </section>
       </main>
