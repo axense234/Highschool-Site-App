@@ -82,7 +82,8 @@ export const createAnnouncement = createAsyncThunk<
   try {
     const { data } = await axiosInstance.post(
       "/anunturi/create",
-      templateAnnouncement
+      templateAnnouncement,
+      { withCredentials: true }
     );
     return data.announcement as Anunt;
   } catch (error) {
