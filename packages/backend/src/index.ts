@@ -25,7 +25,6 @@ dotenv.config({ path: path.resolve("../../", ".env") });
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 4000;
-console.log(process.env.SERVER_PORT);
 
 app.use(cookieParser());
 app.use(express.json());
