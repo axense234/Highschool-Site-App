@@ -97,7 +97,8 @@ export const deleteAnnouncementById = createAsyncThunk<
 >("announcements/deleteAnnouncement", async (announcementId) => {
   try {
     const { data } = await axiosInstance.delete(
-      `/anunturi/anunt/delete/${announcementId}`
+      `/anunturi/anunt/delete/${announcementId}`,
+      { withCredentials: true }
     );
     return data.announcement as Anunt;
   } catch (error) {
@@ -112,7 +113,8 @@ export const updateAnnouncementById = createAsyncThunk<
   try {
     const { data } = await axiosInstance.patch(
       `/anunturi/anunt/update/${templateAnnouncement.anunt_uid}`,
-      templateAnnouncement
+      templateAnnouncement,
+      { withCredentials: true }
     );
     return data.announcement as Anunt;
   } catch (error) {

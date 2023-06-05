@@ -1,5 +1,11 @@
 // React/Prisma Types
-import { Anunt, Materii, Profesor, Utilizator } from "@prisma/client";
+import {
+  Anunt,
+  Materii,
+  Profesor,
+  Utilizator,
+  CategorieAnunt,
+} from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
 // Types
@@ -78,6 +84,11 @@ type MaterieType = {
   nume: Materii;
 };
 
+type CategorieType = {
+  id: number;
+  nume: CategorieAnunt;
+};
+
 type OverlayType = {
   overlayFunctionUsed: string;
   showOverlay: boolean;
@@ -91,6 +102,10 @@ type AboutTechnologyType = {
 };
 
 // Interfaces
+interface MoveAnnouncementsModalProps {
+  show: boolean;
+}
+
 interface MetaProps {
   keywords?: string;
   desc?: string;
@@ -184,4 +199,6 @@ export {
   IstoricPinPoint,
   DocumentOrLaw,
   EmailFormTemplate,
+  CategorieType,
+  MoveAnnouncementsModalProps,
 };

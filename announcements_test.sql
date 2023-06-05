@@ -1,0 +1,14 @@
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('106a049f-040c-4c88-b4b0-76dbaf9ac0a7', 'Art Show', 'School fundraiser on 12/5/2021 at 10am', 'ELEVI');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('6a3ebcdf-a3a6-4f8d-9e09-cae35ac2e2e0', 'Science Fair', 'PTA meeting on 10/15/2021 at 6pm', 'PROFESORI');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('4098c497-b098-4b07-9050-b1e76be0d38d', 'PTA Meeting', 'School fundraiser on 12/5/2021 at 10am', 'PROFESORI');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('41f216e6-e2ad-4839-b2e1-3d952882e823', 'Sports Day', 'PTA meeting on 10/15/2021 at 6pm', 'ELEVI');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('292ede41-8f3a-4511-b567-447abeef94f5', 'Spring Fling Dance', 'School fundraiser on 12/5/2021 at 10am', 'SPECIAL');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('f360c820-0e38-4cd4-8697-7961d615573e', 'Winter Concert', 'School picture day on 9/30/2021', 'PROFESORI');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('bcf5d535-95fa-4d1c-938f-c3f650b7a361', 'Parent-Teacher Conference', 'PTA meeting on 10/15/2021 at 6pm', 'PROFESORI');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('f7842f4c-519c-4015-9e44-5fd14ffc3c23', 'Parent-Teacher Conference', 'School picture day on 9/30/2021', 'SPECIAL');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('b83a7816-28b8-4a36-ab22-6acabca5890d', 'PTA Meeting', 'School fundraiser on 12/5/2021 at 10am', 'SPECIAL');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('0ba721de-781e-4c0a-8090-3fc64c10bb51', 'PTA Meeting', 'School picture day on 9/30/2021', 'ELEVI');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('5031a747-0732-4bf8-abe8-e6984389a3b4', 'PTA Meeting', 'PTA meeting on 10/15/2021 at 6pm', 'SPECIAL');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('0f8467ef-555a-4d21-b409-cd8630558c4d', 'Art Show', 'PTA meeting on 10/15/2021 at 6pm', 'SPECIAL');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('178b6700-b16b-4231-9235-0f70ab85691c', 'Science Fair', 'School closed due to inclement weather', 'GENERAL');
+insert into "Anunt" (anunt_uid, titlu, descriere, categorie) values ('f2856517-827f-40a9-9090-ecdbe38a3d79', 'Winter Concert', 'PTA meeting on 10/15/2021 at 6pm', 'PROFESORI');

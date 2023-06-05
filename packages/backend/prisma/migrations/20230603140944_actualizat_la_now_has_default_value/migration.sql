@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Anunt" ALTER COLUMN "actualizatLa" SET DEFAULT CURRENT_TIMESTAMP;

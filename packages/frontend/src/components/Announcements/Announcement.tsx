@@ -41,6 +41,8 @@ const Announcement: FC<Anunt> = ({
   videoUrl,
   pozitionareVideoInAnunt,
   anunt_uid,
+  actualizatLa,
+  creatLa,
 }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
@@ -116,48 +118,11 @@ const Announcement: FC<Anunt> = ({
           if (!overlay.showOverlay) {
             dispatch(setCardModalId(""));
             dispatch(setEditMode(false));
+            setToggle(false);
           }
         }}
         onSubmit={(e) => handleUpdateAnnouncement(e)}
       >
-        {imagineUrl && (
-          <div
-            className={
-              announcementsStyles.announcementsContainer__announcementImage
-            }
-          >
-            <Image
-              src={templateAnnouncement.imagineUrl as string}
-              alt={titlu}
-              width={100}
-              height={100}
-              title={titlu}
-            />
-            <div
-              className={
-                announcementsStyles.announcementsContainer__announcementImageOverlay
-              }
-            >
-              <input
-                type='file'
-                name='announcementImage'
-                id='announcementImage'
-                onChange={(e) => {
-                  if (e.target.files) {
-                    handleImageChange(e.target.files[0]);
-                  }
-                }}
-                ref={hiddenFileInputRef}
-              />
-              <button
-                type='button'
-                onClick={() => hiddenFileInputRef.current?.click()}
-              >
-                <FiPlus />
-              </button>
-            </div>
-          </div>
-        )}
         <div
           className={
             announcementsStyles.announcementsContainer__announcementInfo
@@ -168,17 +133,17 @@ const Announcement: FC<Anunt> = ({
               announcementsStyles.announcementsContainer__announcementTitle
             }
           >
-            <EditFormModal type='announcements' />
+            <EditFormModal type="announcements" />
+            <MdArrowDropDownCircle
+              onClick={() => setToggle(false)}
+              title="Inchide"
+            />
             <input
-              type='text'
+              type="text"
               value={templateAnnouncement.titlu}
               onChange={(e) => {
                 onTitluChange(e.target.value);
               }}
-            />
-            <MdArrowDropDownCircle
-              onClick={() => setToggle(false)}
-              title='Inchide'
             />
           </div>
           {pozitionareVideoInAnunt === "inceput" && (
@@ -191,12 +156,56 @@ const Announcement: FC<Anunt> = ({
               onVideoUrlChange={onVideoUrlChange}
             />
           )}
-          <textarea
-            value={templateAnnouncement.descriere}
-            onChange={(e) => {
-              onDescriereChange(e.target.value);
-            }}
-          />
+          <div
+            className={
+              announcementsStyles.announcementsContainer__announcementContent
+            }
+          >
+            <textarea
+              value={templateAnnouncement.descriere}
+              onChange={(e) => {
+                onDescriereChange(e.target.value);
+              }}
+            />
+            {imagineUrl && (
+              <div
+                className={
+                  announcementsStyles.announcementsContainer__announcementImage
+                }
+              >
+                <Image
+                  src={templateAnnouncement.imagineUrl as string}
+                  alt={titlu}
+                  width={100}
+                  height={100}
+                  title={titlu}
+                />
+                <div
+                  className={
+                    announcementsStyles.announcementsContainer__announcementImageOverlay
+                  }
+                >
+                  <input
+                    type="file"
+                    name="announcementImage"
+                    id="announcementImage"
+                    onChange={(e) => {
+                      if (e.target.files) {
+                        handleImageChange(e.target.files[0]);
+                      }
+                    }}
+                    ref={hiddenFileInputRef}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => hiddenFileInputRef.current?.click()}
+                  >
+                    <FiPlus />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
           {pozitionareVideoInAnunt === "final" && (
             <VideoContainer
               titlu={templateAnnouncement.titlu}
@@ -206,13 +215,13 @@ const Announcement: FC<Anunt> = ({
           )}
         </div>
         <button
-          type='submit'
-          title='Salveaza.'
+          type="submit"
+          title="Salveaza."
           className={announcementsStyles.saveButton}
         >
           <FcCheckmark />
         </button>
-        <CardModal cardId={anunt_uid} componentType='announcement' />
+        <CardModal cardId={anunt_uid} componentType="announcement" />
       </form>
     );
   }
@@ -226,6 +235,7 @@ const Announcement: FC<Anunt> = ({
         onMouseLeave={() => {
           if (!overlay.showOverlay) {
             dispatch(setCardModalId(""));
+            setToggle(false);
           }
         }}
       >
@@ -234,14 +244,32 @@ const Announcement: FC<Anunt> = ({
             announcementsStyles.announcementsContainer__announcementTitle
           }
         >
-          <h3>{titlu}</h3>
           <MdArrowDropDownCircle
             onClick={() => setToggle(true)}
-            title='Deschide'
+            title="Deschide"
           />
+          <h4>{titlu}</h4>
+          <div
+            className={
+              announcementsStyles.announcementsContainer__announcementTime
+            }
+          >
+            <p title="Creat la" aria-label="Creat la">
+              Creat la:{" "}
+              <time dateTime={new Date(creatLa).toLocaleDateString()}>
+                {new Date(creatLa).toLocaleDateString()}
+              </time>
+            </p>
+            <p title="Actualizat la" aria-label="Actualizat la">
+              Actualizat la:{" "}
+              <time dateTime={new Date(creatLa).toLocaleDateString()}>
+                {new Date(actualizatLa).toLocaleDateString()}
+              </time>
+            </p>
+          </div>
         </div>
-        <p>{descriere.slice(0, 100)}...</p>
-        <CardModal cardId={anunt_uid} componentType='announcement' />
+        <p>{descriere.slice(0, 200)}...</p>
+        <CardModal cardId={anunt_uid} componentType="announcement" />
       </article>
     );
   }
@@ -253,18 +281,10 @@ const Announcement: FC<Anunt> = ({
       onMouseLeave={() => {
         if (!overlay.showOverlay) {
           dispatch(setCardModalId(""));
+          setToggle(false);
         }
       }}
     >
-      {imagineUrl && (
-        <Image
-          src={imagineUrl as string}
-          alt={titlu}
-          width={100}
-          height={100}
-          title={titlu}
-        />
-      )}
       <div
         className={announcementsStyles.announcementsContainer__announcementInfo}
       >
@@ -273,11 +293,30 @@ const Announcement: FC<Anunt> = ({
             announcementsStyles.announcementsContainer__announcementTitle
           }
         >
-          <h3>{titlu}</h3>
           <MdArrowDropDownCircle
             onClick={() => setToggle(false)}
-            title='Inchide'
+            title="Inchide"
+            style={{ transform: "rotate(270deg)" }}
           />
+          <h4>{titlu}</h4>
+        </div>
+        <div
+          className={
+            announcementsStyles.announcementsContainer__announcementTime
+          }
+        >
+          <p title="Creat la" aria-label="Creat la">
+            Creat la:{" "}
+            <time dateTime={new Date(creatLa).toLocaleDateString()}>
+              {new Date(creatLa).toLocaleDateString()}
+            </time>
+          </p>
+          <p title="Actualizat la" aria-label="Actualizat la">
+            Actualizat la:{" "}
+            <time dateTime={new Date(creatLa).toLocaleDateString()}>
+              {new Date(actualizatLa).toLocaleDateString()}
+            </time>
+          </p>
         </div>
         {pozitionareVideoInAnunt === "inceput" &&
           templateAnnouncement.videoUrl && (
@@ -287,11 +326,26 @@ const Announcement: FC<Anunt> = ({
                 (videoUrl as string)
               }
               title={titlu}
-              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
           )}
-        <p>{descriere}</p>
+        <div
+          className={
+            announcementsStyles.announcementsContainer__announcementContent
+          }
+        >
+          <p>{descriere}</p>
+          {imagineUrl && (
+            <Image
+              src={imagineUrl as string}
+              alt={titlu}
+              width={100}
+              height={100}
+              title={titlu}
+            />
+          )}
+        </div>
         {pozitionareVideoInAnunt === "final" &&
           templateAnnouncement.videoUrl && (
             <iframe
@@ -300,12 +354,12 @@ const Announcement: FC<Anunt> = ({
                 (videoUrl as string)
               }
               title={titlu}
-              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
           )}
       </div>
-      <CardModal cardId={anunt_uid} componentType='announcement' />
+      <CardModal cardId={anunt_uid} componentType="announcement" />
     </article>
   );
 };
@@ -317,18 +371,18 @@ const VideoContainer: FC<VideoContainerProps> = ({
 }) => {
   return (
     <div className={announcementsStyles.announcementsContainer__videoContainer}>
-      <label htmlFor='videoUrl'>Video URL: </label>
+      <label htmlFor="videoUrl">Video URL: </label>
       <input
-        type='url'
+        type="url"
         value={workingVideoUrl}
-        name='videoUrl'
-        id='videoUrl'
+        name="videoUrl"
+        id="videoUrl"
         onChange={(e) => onVideoUrlChange(e.target.value)}
       />
       <iframe
         src={workingVideoUrl as string}
         title={titlu}
-        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       />
     </div>

@@ -2,6 +2,7 @@
 // Types
 import {
   AboutTechnologyType,
+  CategorieType,
   DocumentOrLaw,
   EmailFormTemplate,
   facilityImageType,
@@ -29,7 +30,7 @@ import { BiLogIn } from "react-icons/bi";
 import { IoSchoolSharp } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 // Prisma Types
-import { Anunt, Profesor, Utilizator } from "@prisma/client";
+import { Anunt, CategorieAnunt, Profesor, Utilizator } from "@prisma/client";
 
 export const documentsAndLawsInfo: DocumentOrLaw[] = [
   {
@@ -250,6 +251,9 @@ export const defaultTemplateAnnouncement: templateAnnouncement = {
   titlu: "",
   videoUrl: "",
   id: "",
+  categorie: "GENERAL",
+  actualizatLa: new Date(),
+  creatLa: new Date(),
 };
 
 export const defaultTemplateTeacher: templateTeacher = {
@@ -279,6 +283,13 @@ export const materii: MaterieType[] = [
   { id: 16, nume: "RELIGIE" },
   { id: 17, nume: "ROMANA" },
   { id: 18, nume: "SPORT" },
+];
+
+export const categoriiAnunturi: CategorieType[] = [
+  { id: 1, nume: "GENERAL" },
+  { id: 2, nume: "ELEVI" },
+  { id: 3, nume: "PROFESORI" },
+  { id: 4, nume: "SPECIAL" },
 ];
 
 export const defaultProfile: Utilizator = {
@@ -476,9 +487,13 @@ export const templateAnnouncements: Anunt[] = [
     titlu: "Anunț 1",
     imagineUrl: "https://picsum.photos/500/500.jpg",
     pozitionareVideoInAnunt: "inceput",
+    actualizatLa: new Date(),
+    creatLa: new Date(),
+    categorie: "GENERAL",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
+
   {
     anunt_uid: "blah blah",
     id: "blah blah",
@@ -487,6 +502,9 @@ export const templateAnnouncements: Anunt[] = [
     titlu: "Anunț 2",
     imagineUrl: "https://picsum.photos/500/500.jpg",
     pozitionareVideoInAnunt: "inceput",
+    actualizatLa: new Date(),
+    creatLa: new Date(),
+    categorie: "GENERAL",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
@@ -498,6 +516,9 @@ export const templateAnnouncements: Anunt[] = [
     titlu: "Anunț 3",
     imagineUrl: "https://picsum.photos/500/500.jpg",
     pozitionareVideoInAnunt: "final",
+    actualizatLa: new Date(),
+    creatLa: new Date(),
+    categorie: "GENERAL",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
@@ -509,6 +530,9 @@ export const templateAnnouncements: Anunt[] = [
     titlu: "Anunț 4",
     imagineUrl: "https://picsum.photos/500/500.jpg",
     pozitionareVideoInAnunt: "final",
+    actualizatLa: new Date(),
+    creatLa: new Date(),
+    categorie: "GENERAL",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
@@ -520,6 +544,9 @@ export const templateAnnouncements: Anunt[] = [
     titlu: "Anunț 5",
     imagineUrl: "https://picsum.photos/500/500.jpg",
     pozitionareVideoInAnunt: "inceput",
+    actualizatLa: new Date(),
+    creatLa: new Date(),
+    categorie: "GENERAL",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },

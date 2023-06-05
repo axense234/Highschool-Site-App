@@ -8,15 +8,17 @@ datasource db {
 }
 
 model Anunt {
-  anunt_uid String @id @unique @default(uuid())
-  id        String @default("")
-  titlu     String
-  descriere String
-
+  anunt_uid               String         @id @unique @default(uuid())
+  id                      String         @default("")
+  titlu                   String
+  descriere               String
   imagineUrl              String?
   videoUrl                String?
   // final -> dupa descriere,inceput -> inainte de descriere
-  pozitionareVideoInAnunt String? @default("inceput")
+  pozitionareVideoInAnunt String?        @default("inceput")
+  categorie               CategorieAnunt @default(GENERAL)
+  creatLa                 DateTime       @default(now())
+  actualizatLa            DateTime       @default(now()) @updatedAt
 }
 
 model SetariUtilizator {
@@ -28,8 +30,7 @@ model SetariUtilizator {
 }
 
 model Utilizator {
-  utilizator_uid String @id @unique @default(uuid())
-
+  utilizator_uid   String            @id @unique @default(uuid())
   username         String            @unique
   email            String            @unique
   password         String
@@ -38,9 +39,8 @@ model Utilizator {
 }
 
 model Profesor {
-  profesor_uid String @id @unique @default(uuid())
-  id           String @default("")
-
+  profesor_uid     String  @id @unique @default(uuid())
+  id               String  @default("")
   imagineProfilUrl String? @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
   username         String
   profesorDe       Materii
@@ -75,4 +75,11 @@ enum RolUtilizator {
   ADMIN
   PROFESOR
   UTILIZATOR
+}
+
+enum CategorieAnunt {
+  GENERAL
+  SPECIAL
+  PROFESORI
+  ELEVI
 }

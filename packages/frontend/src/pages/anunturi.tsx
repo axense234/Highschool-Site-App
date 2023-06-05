@@ -7,19 +7,21 @@ import HomeTitle from "@/components/Home/HomeTitle";
 import Meta from "@/components/Meta";
 import SectionLoading from "@/components/SectionLoading";
 import Overlay from "@/components/Overlay";
-import Announcement from "@/components/Announcements/Announcement";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   getAllAnnouncements,
-  selectAllAnnouncements,
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
+import { categoriiAnunturi } from "@/data";
+import Category from "@/components/Announcements/Category";
 
 const Announcements: FC = () => {
   const dispatch = useAppDispatch();
-  const announcements = useAppSelector(selectAllAnnouncements);
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
+
+  const isLoadingAnnouncements =
+    loadingAnnouncements === "PENDING" || loadingAnnouncements === "IDLE";
 
   useEffect(() => {
     if (loadingAnnouncements === "IDLE") {
@@ -34,17 +36,16 @@ const Announcements: FC = () => {
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina de anunțuri.'
       />
       <main className={announcementsStyles.announcementsContainer}>
-        <Overlay title='Ești sigur că vrei să ștergi anunțul?' />
+        <Overlay title="Ești sigur că vrei să ștergi anunțul?" />
         <HomeTitle
-          title='Anunțuri'
-          quote='Anunțuri generale despre diverse activități.'
+          title="Anunțuri"
+          quote="Anunțuri generale despre diverse activități."
         />
         <section
           className={announcementsStyles.announcementsContainer__content}
         >
           <h2>Anunțuri in momentul actual</h2>
-          {loadingAnnouncements === "PENDING" ||
-          loadingAnnouncements === "IDLE" ? (
+          {isLoadingAnnouncements ? (
             <SectionLoading />
           ) : (
             <div
@@ -52,13 +53,8 @@ const Announcements: FC = () => {
                 announcementsStyles.announcementsContainer__announcements
               }
             >
-              {announcements.map((announcement) => {
-                return (
-                  <Announcement
-                    {...announcement}
-                    key={announcement.anunt_uid}
-                  />
-                );
+              {categoriiAnunturi.map((categorie) => {
+                return <Category {...categorie} key={categorie.id} />;
               })}
             </div>
           )}

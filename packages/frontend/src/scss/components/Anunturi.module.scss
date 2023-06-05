@@ -49,8 +49,34 @@
     }
   }
 
-  #{&}__announcement {
+  #{&}__category {
+    @include flexCenter(column);
+    align-items: flex-start;
+    width: 100%;
+    gap: 3rem;
+    list-style: none;
+
+    li {
+      width: 100%;
+    }
+  }
+
+  #{&}__categoryTitle {
     @include flexCenter(row);
+    justify-content: flex-start;
+    gap: 1rem;
+    font-size: 2.5rem;
+    width: 100%;
+    border: 3px solid getColor("silver-50");
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: getColor("silver-white");
+    letter-spacing: 3px;
+    padding-left: 1rem;
+  }
+
+  #{&}__announcement {
+    @include flexCenter(column);
     align-items: flex-start;
     justify-content: space-between;
     border: 5px solid getColor("silver-30");
@@ -58,7 +84,12 @@
     padding: 1rem 2rem;
     border-radius: 1rem;
     background-color: getColor("silver-white");
-    gap: 5rem;
+    gap: 1rem;
+    margin-left: 2.5rem;
+
+    p {
+      font-size: 1.25rem;
+    }
 
     transition: transform 0.1s ease-in;
 
@@ -69,7 +100,7 @@
     }
 
     &:hover {
-      transform: translateX(1rem);
+      transform: translateX(0.25rem);
       box-shadow: $itemBoxShadowOnHover;
 
       @media all and (max-width: getScreenSize("mobileL")) {
@@ -77,13 +108,28 @@
       }
     }
 
-    img {
-      width: 40%;
-      height: auto;
-      border-radius: 2rem;
+    // img {
+    //   width: 40%;
+    //   height: auto;
+    //   border-radius: 2rem;
 
-      @media all and (max-width: getScreenSize("laptop")) {
-        width: 100%;
+    //   @media all and (max-width: getScreenSize("laptop")) {
+    //     width: 100%;
+    //   }
+    // }
+  }
+
+  #{&}__announcementTime {
+    @include flexCenter(row);
+    align-self: center;
+    gap: 2rem;
+    color: getColor("silver-20");
+    margin-left: auto;
+
+    p {
+      transition: color 0.1s ease-in;
+      &:hover {
+        color: getColor("silver-50");
       }
     }
   }
@@ -91,18 +137,19 @@
   #{&}__announcementInfo {
     @include flexCenter(column);
     align-items: flex-start;
-    gap: 3rem;
-    width: 60%;
+    gap: 1rem;
+    width: 100%;
 
     @media all and (max-width: getScreenSize("laptop")) {
       width: 100%;
     }
 
     iframe {
-      width: 70%;
+      width: 100%;
       height: auto;
-      min-height: 20rem;
+      min-height: 30rem;
       border-radius: 1rem;
+      margin: 2rem 0;
 
       @media all and (max-width: getScreenSize("laptop")) {
         width: 100%;
@@ -117,9 +164,16 @@
       }
     }
 
+    .announcementsContainer__announcementTime {
+      margin-left: 0;
+    }
+
     .announcementsContainer__announcementTitle {
-      h3 {
-        font-size: 1.35rem;
+      width: 100%;
+      h4 {
+        font-size: 2.5rem;
+        width: 100%;
+        text-align: center;
 
         @media all and (max-width: getScreenSize("laptop")) {
           font-size: 1.15rem;
@@ -129,8 +183,8 @@
     }
 
     textarea {
-      max-width: 100%;
-      min-width: 100%;
+      max-width: 50%;
+      min-width: 50%;
       min-height: 15rem;
       max-height: 20rem;
       padding: 0.25rem;
@@ -146,13 +200,14 @@
 
   #{&}__announcementTitle {
     @include flexCenter(row);
-    gap: 1.2rem;
+    gap: 1.5rem;
     width: 100%;
     justify-content: flex-start;
     position: relative;
 
-    h3 {
-      font-size: 1.35rem;
+    h4 {
+      font-size: 1.5rem;
+      max-width: 90%;
 
       @media all and (max-width: getScreenSize("laptop")) {
         font-size: 1.15rem;
@@ -165,16 +220,32 @@
     }
 
     input {
-      @include controlInput(2.25rem, 50%);
+      @include controlInput(2.25rem, 85%);
       text-align: center;
+      align-self: center;
+    }
+  }
+
+  #{&}__announcementContent {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin: 3rem 0;
+
+    img {
+      min-width: 45%;
+      max-height: 30rem;
+      height: auto;
+      border-radius: 0.5rem;
     }
   }
 
   #{&}__announcementImage {
     @include flexCenter(column);
     position: relative;
-    width: 40%;
-    border-radius: 2rem;
+    width: 45%;
+    border-radius: 0.5rem;
 
     @media all and (max-width: getScreenSize("laptop")) {
       width: 100%;
@@ -190,7 +261,7 @@
     @include flexCenter(column);
     position: absolute;
     width: 100%;
-    border-radius: 2rem;
+    border-radius: 0.5rem;
     height: 100%;
     background-color: rgba($color: getColor("silver-30"), $alpha: 0.5);
     border: 3px solid getColor("silver-30");
