@@ -14,7 +14,6 @@ model Anunt {
   descriere               String
   imagineUrl              String?
   videoUrl                String?
-  // final -> dupa descriere,inceput -> inainte de descriere
   pozitionareVideoInAnunt String?        @default("inceput")
   categorie               CategorieAnunt @default(GENERAL)
   creatLa                 DateTime       @default(now())

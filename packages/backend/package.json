@@ -1,5 +1,5 @@
 {
-  "name": "@vasile-barbu/backend",
+  "name": "@ion-barbu/backend",
   "version": "1.0.0",
   "ttypescript": {
     "tsconfig": "tsconfig.json"
