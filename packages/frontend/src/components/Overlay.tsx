@@ -1,7 +1,5 @@
 // React
 import { FC, useRef } from "react";
-// Types
-import { OverlayProps } from "types";
 // SCSS
 import overlayStyles from "../scss/components/Overlay.module.scss";
 // Hooks
@@ -16,17 +14,23 @@ import {
   setCardModalId,
   updateOverlay,
 } from "@/redux/slices/generalSlice";
-import { deleteAnnouncementById } from "@/redux/slices/announcementsSlice";
+import {
+  deleteAnnouncementById,
+  updateAnnouncementById,
+  selectTemplateAnnouncement,
+} from "@/redux/slices/announcementsSlice";
 import { deleteTeacherById } from "@/redux/slices/teachersSlice";
 // Data
 import { defaultOverlay } from "@/data";
 
-const Overlay: FC<OverlayProps> = ({ title }) => {
+const Overlay: FC = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
-  const { overlayFunctionUsed, showOverlay } = useAppSelector(selectOverlay);
+  const { overlayFunctionUsed, showOverlay, title } =
+    useAppSelector(selectOverlay);
   const cardModalId = useAppSelector(selectCardModalId);
+  const templateAnnouncement = useAppSelector(selectTemplateAnnouncement);
 
   useOverlayTransition(showOverlay, overlayRef);
   const secondsLeft = useCountdown(2, showOverlay);
@@ -43,6 +47,11 @@ const Overlay: FC<OverlayProps> = ({ title }) => {
         break;
       case "deleteTeacher":
         dispatch(deleteTeacherById(cardModalId));
+        dispatch(setCardModalId(""));
+        dispatch(updateOverlay(defaultOverlay));
+        break;
+      case "moveAnnouncement":
+        dispatch(updateAnnouncementById(templateAnnouncement));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));
         break;

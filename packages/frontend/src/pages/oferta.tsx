@@ -5,8 +5,11 @@ import offerStyles from "../scss/components/Offer.module.scss";
 // Components
 import Meta from "@/components/Meta";
 import HomeTitle from "@/components/Home/HomeTitle";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Offer: FC = () => {
+  useGetPathname();
   return (
     <>
       <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Ofertă educațională' />

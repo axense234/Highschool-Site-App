@@ -30,15 +30,17 @@ import {
 } from "@/redux/slices/generalSlice";
 import { setTemplateAnnouncement } from "@/redux/slices/announcementsSlice";
 import { setTemplateTeacher } from "@/redux/slices/teachersSlice";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Profile: FC = () => {
-  useAuthorization()
+  useAuthorization();
+  useGetPathname();
   const profile = useAppSelector(selectProfile);
   const loadingProfile = useAppSelector(selectLoadingProfile);
   const dispatch = useAppDispatch();
 
   const optionsContent = useAppSelector(selectOptionsContent);
-
 
   let renderedOptionsContent;
 
@@ -69,13 +71,13 @@ const Profile: FC = () => {
       <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Profilul Tău' />
       <main className={profileStyles.profileContainer}>
         <HomeTitle
-          title='Profilul Tău(ADMIN)'
-          quote='Creează anunțuri/profesori,ieși din cont...'
+          title="Profilul Tău(ADMIN)"
+          quote="Creează anunțuri/profesori,ieși din cont..."
         />
-        <Overlay title='Ești sigur că vrei să ieși din cont?' />
+        <Overlay />
         <div className={profileStyles.profileContainer__content}>
           {loadingProfile === "IDLE" || loadingProfile === "PENDING" ? (
-            <SectionLoading padding='12.5rem 5rem' />
+            <SectionLoading padding="12.5rem 5rem" />
           ) : (
             <div className={profileStyles.profileContainer__wrapper}>
               <section
@@ -94,13 +96,14 @@ const Profile: FC = () => {
                     if (option.label === "Ieși din Cont") {
                       return (
                         <button
-                          type='button'
+                          type="button"
                           key={option.id}
                           onClick={() =>
                             dispatch(
                               updateOverlay({
                                 overlayFunctionUsed: "logout",
                                 showOverlay: true,
+                                title: "Ești sigur că vrei să ieși din cont?",
                               })
                             )
                           }
@@ -111,7 +114,7 @@ const Profile: FC = () => {
                     }
                     return (
                       <button
-                        type='button'
+                        type="button"
                         key={option.id}
                         onClick={() =>
                           dispatch(setOptionsContent(option.content))

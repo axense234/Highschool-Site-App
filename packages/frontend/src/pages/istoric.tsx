@@ -13,8 +13,11 @@ import Meta from "@/components/Meta";
 import { istoricPinpoints } from "@/data";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Istoric: FC = () => {
+  useGetPathname();
+
   const { ref, inView, entry } = useInView();
   usePopInAnimation("showHorizontal", inView, entry);
 

@@ -1,5 +1,5 @@
 // React
-import { FC } from "react";
+import { FC, useEffect } from "react";
 // SCSS
 import homeStyles from "../scss/components/Home.module.scss";
 // Components
@@ -12,8 +12,12 @@ import Meta from "@/components/Meta";
 import HomeLocation from "@/components/Home/HomeLocation";
 // Data
 import { facilityImages } from "@/data";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Home: FC = () => {
+  useGetPathname();
+
   const imageUrls = facilityImages.map((facImage) => {
     return facImage.logoUrl;
   });

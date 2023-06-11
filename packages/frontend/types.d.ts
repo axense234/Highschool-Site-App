@@ -9,6 +9,20 @@ import {
 import { JSX, Dispatch, SetStateAction } from "react";
 
 // Types
+type IndividualPageData = {
+  id: number;
+  searchbarPlaceholder: string;
+  pageDest: string;
+  recommendations: PageData[];
+};
+
+type PageData = {
+  id: number | string;
+  label: string | CategorieAnunt;
+  dest: string;
+  type?: string;
+};
+
 type sidebarLink = {
   id: number;
   label?: string;
@@ -28,6 +42,18 @@ type DocumentOrLaw = {
   label: string;
   pdfURLs: string[];
 };
+
+type SortByOption = {
+  id: number;
+  label: string;
+  value?: string;
+};
+
+type FunctionUsedOnPageNavSubmit = AsyncThunk<
+  AxiosError<unknown, any> | Anunt[] | Profesor[],
+  GetAllQueryParams,
+  AsyncThunkConfig
+>;
 
 type IstoricPinPoint = {
   id: number;
@@ -87,11 +113,16 @@ type MaterieType = {
 type CategorieType = {
   id: number;
   nume: CategorieAnunt;
+  dest?: string;
+  label?: string | CategorieAnunt;
 };
+
+type GetAllQueryParams = { sortByOption: string; query: string };
 
 type OverlayType = {
   overlayFunctionUsed: string;
   showOverlay: boolean;
+  title: string;
 };
 
 type AboutTechnologyType = {
@@ -102,8 +133,18 @@ type AboutTechnologyType = {
 };
 
 // Interfaces
+interface SearchbarProps {
+  showSearchbar: boolean;
+  setShowSearchbar: Dispatch<SetStateAction<boolean>>;
+}
+
+interface SearchButtonProps {
+  setShowSearchbar: Dispatch<SetStateAction<boolean>>;
+}
+
 interface MoveAnnouncementsModalProps {
   show: boolean;
+  cardModalId: string;
 }
 
 interface MetaProps {
@@ -142,8 +183,8 @@ interface SectionLoadingProps {
   padding?: string;
 }
 
-interface OverlayProps {
-  title: string;
+interface PageNavProps {
+  componentType: "teacher" | "announcement";
 }
 
 interface CardModalProps {
@@ -187,7 +228,6 @@ export {
   profileOption,
   ThemeType,
   SectionLoadingProps,
-  OverlayProps,
   CardModalProps,
   MaterieType,
   templateAnnouncement,
@@ -201,4 +241,12 @@ export {
   EmailFormTemplate,
   CategorieType,
   MoveAnnouncementsModalProps,
+  PageNavProps,
+  SortByOption,
+  FunctionUsedOnPageNavSubmit,
+  GetAllQueryParams,
+  SearchButtonProps,
+  SearchbarProps,
+  PageData,
+  IndividualPageData,
 };

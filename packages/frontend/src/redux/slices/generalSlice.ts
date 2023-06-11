@@ -7,6 +7,7 @@ import {
   EmailFormTemplate,
   errorPayloadType,
   formModalType,
+  GetAllQueryParams,
   objectKeyValueType,
   OverlayType,
   templateUser,
@@ -21,6 +22,7 @@ import { baseSiteUrl } from "@/config";
 // Data
 import {
   defaultEmailFormTemplate,
+  defaultGetAllQueryParams,
   defaultOverlay,
   defaultProfile,
   defaultTemplateProfile,
@@ -35,7 +37,11 @@ type initialStateType = {
   optionsContent: string;
   overlay: OverlayType;
   editMode: boolean;
+  getAllQueryParams: GetAllQueryParams;
+  toggleMoveAnnouncementModal: boolean;
   emailFormTemplate: EmailFormTemplate;
+  currentPathname: string;
+  searchbarQuery: string;
 };
 
 const initialState: initialStateType = {
@@ -56,8 +62,16 @@ const initialState: initialStateType = {
   overlay: defaultOverlay,
   // Edit mode(used in combination with cardModalId)
   editMode: false,
+  // Query params for Announcements/Teachers
+  getAllQueryParams: defaultGetAllQueryParams,
+  // Toggle for the Move Announcement Modal(Card Modal)
+  toggleMoveAnnouncementModal: false,
   // Email Form Template
   emailFormTemplate: defaultEmailFormTemplate,
+  // Current pathname
+  currentPathname: "",
+  // The query for the searchbar
+  searchbarQuery: "",
 };
 
 // THUNKS
@@ -165,6 +179,21 @@ const generalSlice = createSlice({
     },
     clearEmailFormTemplate(state, action: PayloadAction) {
       state.emailFormTemplate = defaultEmailFormTemplate;
+    },
+    updateToggleMoveAnnouncementModal(state, action: PayloadAction) {
+      state.toggleMoveAnnouncementModal = !state.toggleMoveAnnouncementModal;
+    },
+    updateGetAllQueryParams(state, action: PayloadAction<objectKeyValueType>) {
+      state.getAllQueryParams = {
+        ...state.getAllQueryParams,
+        [action.payload.key]: action.payload.value,
+      };
+    },
+    setCurrentPathname(state, action: PayloadAction<string>) {
+      state.currentPathname = action.payload;
+    },
+    updateSearchbarQuery(state, action: PayloadAction<string>) {
+      state.searchbarQuery = action.payload;
     },
   },
   extraReducers(builder) {
@@ -280,6 +309,18 @@ export const selectEditMode = (state: State) => state.general.editMode;
 export const selectEmailFormTemplate = (state: State) =>
   state.general.emailFormTemplate;
 
+export const selectToggleMoveAnnouncementModal = (state: State) =>
+  state.general.toggleMoveAnnouncementModal;
+
+export const selectGetAllQueryParams = (state: State) =>
+  state.general.getAllQueryParams;
+
+export const selectCurrentPathname = (state: State) =>
+  state.general.currentPathname;
+
+export const selectSearchbarQuery = (state: State) =>
+  state.general.searchbarQuery;
+
 export const {
   updateTemplateProfile,
   updateGeneralFormModal,
@@ -289,6 +330,10 @@ export const {
   setEditMode,
   setEmailFormTemplate,
   clearEmailFormTemplate,
+  updateToggleMoveAnnouncementModal,
+  updateGetAllQueryParams,
+  setCurrentPathname,
+  updateSearchbarQuery,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

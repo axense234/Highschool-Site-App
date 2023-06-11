@@ -6,7 +6,14 @@ import { profesorClient } from "../db/postgres";
 
 // GET ALL TEACHERS
 const getAllTeachers = async (req: Request, res: Response) => {
-  const foundTeachers = await profesorClient.findMany({});
+  const { limit, sortByOption = "username", query } = req.query;
+  const foundTeachers = await profesorClient.findMany({
+    take: Number(limit) || 40,
+    orderBy: { [sortByOption as string]: "asc" },
+    where: {
+      username: { contains: query as string, mode: "insensitive" },
+    },
+  });
 
   if (foundTeachers.length < 1) {
     return res.status(StatusCodes.NOT_FOUND).json({

@@ -10,6 +10,7 @@ import {
 } from "@reduxjs/toolkit";
 // Types
 import {
+  GetAllQueryParams,
   errorPayloadType,
   formModalType,
   objectKeyValueType,
@@ -32,6 +33,7 @@ type initialStateType = {
   loadingTeachers: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   templateTeacher: templateTeacher;
   formModal: formModalType;
+  foundTeacherId: string;
 };
 
 const initialState = teachersAdapter.getInitialState({
@@ -41,20 +43,25 @@ const initialState = teachersAdapter.getInitialState({
     showModal: false,
     msg: "",
   },
+  foundTeacherId: "",
 }) as EntityState<Profesor> & initialStateType;
 
 // THUNKS
-export const getAllTeachers = createAsyncThunk<Profesor[] | AxiosError>(
-  "teachers/getAllTeachers",
-  async () => {
-    try {
-      const { data } = await axiosInstance.get("/profesori");
-      return data.teachers as Profesor[];
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const getAllTeachers = createAsyncThunk<
+  Profesor[] | AxiosError,
+  GetAllQueryParams
+>("teachers/getAllTeachers", async ({ sortByOption, query }) => {
+  try {
+    const { data } = await axiosInstance.get(
+      `/profesori?sortByOption=${sortByOption || "username"}&query=${
+        query || ""
+      }`
+    );
+    return data.teachers as Profesor[];
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
 export const createCloudinaryImageForTeacher = createAsyncThunk(
   "teachers/createCloudinaryImageForTeacher",
@@ -134,6 +141,9 @@ const teachersSlice = createSlice({
     setTemplateTeacher(state, action: PayloadAction<templateTeacher>) {
       state.templateTeacher = action.payload;
     },
+    setFoundTeacherId(state, action: PayloadAction<string>) {
+      state.foundTeacherId = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -210,10 +220,14 @@ export const selectTemplateTeacher = (state: State) =>
 export const selectTeachersFormModal = (state: State) =>
   state.teachers.formModal;
 
+export const selectFoundTeacherId = (state: State) =>
+  state.teachers.foundTeacherId;
+
 export const {
   updateTemplateTeacher,
   updateTeachersFormModal,
   setTemplateTeacher,
+  setFoundTeacherId,
 } = teachersSlice.actions;
 
 export default teachersSlice.reducer;

@@ -20,8 +20,10 @@ import {
 } from "@/redux/slices/generalSlice";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Contact: FC = () => {
+  useGetPathname();
   const emailForm = useAppSelector(selectEmailFormTemplate);
   const dispatch = useAppDispatch();
 

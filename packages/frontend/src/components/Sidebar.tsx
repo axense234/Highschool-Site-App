@@ -10,10 +10,19 @@ import sidebarStyles from "../scss/components/Sidebar.module.scss";
 import { sidebarPageLinks, sidebarSocialMediaLinks } from "@/data";
 // Components
 import Logo from "./Logo";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { selectProfile } from "@/redux/slices/generalSlice";
 // Hooks
 import useGetProfile from "@/hooks/useGetProfile";
+// Redux
+import {
+  getAllAnnouncements,
+  selectLoadingAnnouncements,
+} from "@/redux/slices/announcementsSlice";
+import {
+  getAllTeachers,
+  selectLoadingTeachers,
+} from "@/redux/slices/teachersSlice";
 
 interface SidebarProps {
   showSidebar: boolean;
@@ -22,7 +31,11 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
   const sidebarRef = useRef<HTMLElement>(null);
+
+  const dispatch = useAppDispatch();
   const profile = useAppSelector(selectProfile);
+  const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
+  const loadingTeachers = useAppSelector(selectLoadingTeachers);
 
   useGetProfile();
 
@@ -36,13 +49,22 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
     }
   }, [showSidebar]);
 
+  useEffect(() => {
+    if (loadingAnnouncements === "IDLE") {
+      dispatch(getAllAnnouncements({ query: "", sortByOption: "titlu" }));
+    }
+    if (loadingTeachers === "IDLE") {
+      dispatch(getAllTeachers({ query: "", sortByOption: "username" }));
+    }
+  }, []);
+
   return (
     <aside className={sidebarStyles.sidebarContainer} ref={sidebarRef}>
       <div className={sidebarStyles.sidebarContainer__title}>
         <Logo />
         <AiFillCloseCircle
           onClick={() => setShowSidebar(false)}
-          title='Închide meniul de navigare'
+          title="Închide meniul de navigare"
         />
       </div>
       <h1>Liceul Teoretic "Ion Barbu" Pitești</h1>
@@ -71,7 +93,7 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
               href={socialMediaLink.dest}
               key={socialMediaLink.id}
               title={socialMediaLink.label}
-              target='_blank'
+              target="_blank"
             >
               <i>{socialMediaLink.logoUrl}</i>
             </Link>

@@ -16,15 +16,18 @@ import SectionLoading from "@/components/SectionLoading";
 import CardModal from "@/components/CardModal";
 import Overlay from "@/components/Overlay";
 import EditFormModal from "@/components/EditFormModal";
+import PageNav from "@/components/PageNav";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   createCloudinaryImageForTeacher,
   getAllTeachers,
   selectAllTeachers,
+  selectFoundTeacherId,
   selectLoadingTeachers,
   selectTeacherById,
   selectTemplateTeacher,
+  setFoundTeacherId,
   setTemplateTeacher,
   updateTeacherById,
   updateTemplateTeacher,
@@ -48,7 +51,7 @@ const Profesori: FC = () => {
 
   useEffect(() => {
     if (loadingTeachers === "IDLE") {
-      dispatch(getAllTeachers());
+      dispatch(getAllTeachers({ query: "", sortByOption: "" }));
     }
   }, []);
 
@@ -57,12 +60,13 @@ const Profesori: FC = () => {
       <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Profesorii Noștri' />
       <main className={profesoriStyles.profesoriContainer}>
         <HomeTitle
-          title='Profesorii Noștri'
-          quote='Omul fără învățătură e ca pământul fără ploaie.'
+          title="Profesorii Noștri"
+          quote="Omul fără învățătură e ca pământul fără ploaie."
         />
-        <Overlay title='Ești sigur că vrei să ștergi profesorul?' />
+        <Overlay />
         <section className={profesoriStyles.profesoriContainer__content}>
           <h2>Profesorii noștri</h2>
+          <PageNav componentType="teacher" />
           {loadingTeachers === "IDLE" || loadingTeachers === "PENDING" ? (
             <SectionLoading />
           ) : (
@@ -93,8 +97,10 @@ const Profesor: FC<Profesor> = ({
   const teacher = useAppSelector((state: State) =>
     selectTeacherById(state, cardModalId)
   );
+  const foundTeachearId = useAppSelector(selectFoundTeacherId);
 
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
+  const teacherRef = useRef<HTMLElement>(null);
   const editModeAvailable = profesor_uid === cardModalId && editMode;
 
   // For edit mode
@@ -131,6 +137,16 @@ const Profesor: FC<Profesor> = ({
     }
   }, [teacher?.username]);
 
+  useEffect(() => {
+    if (foundTeachearId === profesor_uid) {
+      window.scrollBy({
+        behavior: "smooth",
+        top: teacherRef.current?.getBoundingClientRect().top,
+      });
+    }
+    dispatch(setFoundTeacherId(""));
+  }, [foundTeachearId]);
+
   if (editModeAvailable) {
     return (
       <article
@@ -143,7 +159,7 @@ const Profesor: FC<Profesor> = ({
           }
         }}
       >
-        <EditFormModal type='teachers' />
+        <EditFormModal type="teachers" />
         <div className={profesoriStyles.profesoriContainer__profesorImage}>
           <Image
             src={
@@ -159,9 +175,9 @@ const Profesor: FC<Profesor> = ({
             className={profesoriStyles.profesoriContainer__profesorImageOverlay}
           >
             <input
-              type='file'
-              name='profesorImage'
-              id='profesorImage'
+              type="file"
+              name="profesorImage"
+              id="profesorImage"
               ref={hiddenFileInputRef}
               onChange={(e) => {
                 if (e.target.files) {
@@ -170,7 +186,7 @@ const Profesor: FC<Profesor> = ({
               }}
             />
             <button
-              type='button'
+              type="button"
               onClick={() => hiddenFileInputRef.current?.click()}
             >
               <FiPlus />
@@ -182,17 +198,17 @@ const Profesor: FC<Profesor> = ({
           onSubmit={(e) => handleUpdateTeacher(e)}
         >
           <input
-            type='text'
-            name='username'
-            id='username'
+            type="text"
+            name="username"
+            id="username"
             value={templateTeacher.username}
             onChange={(e) => onUsernameChange(e.target.value)}
           />
           <div className={profesoriStyles.profesoriContainer__control}>
-            <label htmlFor='materii'>Profesor de:</label>
+            <label htmlFor="materii">Profesor de:</label>
             <select
-              name='materii'
-              id='materii'
+              name="materii"
+              id="materii"
               value={templateTeacher.profesorDe}
               onChange={(e) => onMaterieChange(e.target.value as Materii)}
             >
@@ -213,11 +229,11 @@ const Profesor: FC<Profesor> = ({
               ? `${descriere.slice(0, 200)}...`
               : descriere}
           </textarea>
-          <button type='submit' title='Salveaza.'>
+          <button type="submit" title="Salveaza.">
             <FcCheckmark />
           </button>
         </form>
-        <CardModal cardId={profesor_uid} componentType='teacher' />
+        <CardModal cardId={profesor_uid} componentType="teacher" />
       </article>
     );
   }
@@ -231,6 +247,7 @@ const Profesor: FC<Profesor> = ({
           dispatch(setCardModalId(""));
         }
       }}
+      ref={teacherRef}
     >
       <Image
         src={
@@ -251,7 +268,7 @@ const Profesor: FC<Profesor> = ({
             : descriere}
         </p>
       </div>
-      <CardModal cardId={profesor_uid} componentType='teacher' />
+      <CardModal cardId={profesor_uid} componentType="teacher" />
     </article>
   );
 };

@@ -7,16 +7,22 @@ import HomeTitle from "@/components/Home/HomeTitle";
 import Meta from "@/components/Meta";
 import SectionLoading from "@/components/SectionLoading";
 import Overlay from "@/components/Overlay";
+import Category from "@/components/Announcements/Category";
+import PageNav from "@/components/PageNav";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   getAllAnnouncements,
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
+// Data
 import { categoriiAnunturi } from "@/data";
-import Category from "@/components/Announcements/Category";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Announcements: FC = () => {
+  useGetPathname();
+
   const dispatch = useAppDispatch();
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
 
@@ -25,7 +31,7 @@ const Announcements: FC = () => {
 
   useEffect(() => {
     if (loadingAnnouncements === "IDLE") {
-      dispatch(getAllAnnouncements());
+      dispatch(getAllAnnouncements({ query: "", sortByOption: "titlu" }));
     }
   }, []);
 
@@ -36,7 +42,7 @@ const Announcements: FC = () => {
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina de anunțuri.'
       />
       <main className={announcementsStyles.announcementsContainer}>
-        <Overlay title="Ești sigur că vrei să ștergi anunțul?" />
+        <Overlay />
         <HomeTitle
           title="Anunțuri"
           quote="Anunțuri generale despre diverse activități."
@@ -44,7 +50,8 @@ const Announcements: FC = () => {
         <section
           className={announcementsStyles.announcementsContainer__content}
         >
-          <h2>Anunțuri in momentul actual</h2>
+          <h2 id="announcements">Anunțuri in momentul actual</h2>
+          <PageNav componentType="announcement" />
           {isLoadingAnnouncements ? (
             <SectionLoading />
           ) : (

@@ -1,5 +1,7 @@
 // Prisma
-import { Anunt } from "@prisma/client";
+import { Anunt, CategorieAnunt } from "@prisma/client";
+// React
+import { RefObject } from "react";
 // Redux Toolkit
 import {
   createSlice,
@@ -10,6 +12,7 @@ import {
 } from "@reduxjs/toolkit";
 // Types
 import {
+  GetAllQueryParams,
   errorPayloadType,
   formModalType,
   objectKeyValueType,
@@ -29,6 +32,8 @@ type initialStateType = {
   loadingAnnouncements: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   templateAnnouncement: templateAnnouncement;
   formModal: formModalType;
+  categoryToggles: CategorieAnunt[];
+  foundAnnouncementId: string;
 };
 
 const announcementsAdapter = createEntityAdapter<Anunt>({
@@ -42,20 +47,24 @@ const initialState = announcementsAdapter.getInitialState({
     msg: "",
     showModal: false,
   },
+  foundAnnouncementId: "",
+  categoryToggles: [],
 }) as EntityState<Anunt> & initialStateType;
 
 // THUNKS
-export const getAllAnnouncements = createAsyncThunk<Anunt[] | AxiosError>(
-  "announcements/getAllAnnouncements",
-  async () => {
-    try {
-      const { data } = await axiosInstance.get("/anunturi");
-      return data.announcements as Anunt[];
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const getAllAnnouncements = createAsyncThunk<
+  Anunt[] | AxiosError,
+  GetAllQueryParams
+>("announcements/getAllAnnouncements", async ({ sortByOption, query }) => {
+  try {
+    const { data } = await axiosInstance.get(
+      `/anunturi?sortByOption=${sortByOption || "titlu"}&query=${query || ""}`
+    );
+    return data.announcements as Anunt[];
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
 export const createCloudinaryImageForAnnouncement = createAsyncThunk(
   "announcements/createCloudinaryImageForAnnouncement",
@@ -144,6 +153,20 @@ const announcementsSlice = createSlice({
     ) {
       state.templateAnnouncement = action.payload;
     },
+    addCategoryToggle(state, action: PayloadAction<CategorieAnunt>) {
+      state.categoryToggles = [...state.categoryToggles, action.payload];
+    },
+    removeCategoryToggle(state, action: PayloadAction<CategorieAnunt>) {
+      state.categoryToggles = state.categoryToggles.filter(
+        (cat) => cat !== action.payload
+      );
+    },
+    clearCategoryToggles(state, action: PayloadAction) {
+      state.categoryToggles = [];
+    },
+    setFoundAnnouncementId(state, action: PayloadAction<string>) {
+      state.foundAnnouncementId = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -152,16 +175,19 @@ const announcementsSlice = createSlice({
       })
       .addCase(getAllAnnouncements.fulfilled, (state, action) => {
         const announcements = action.payload as Anunt[];
+
         if (announcements.length >= 1) {
           announcements.map((announcement) => {
             announcement.id = announcement.anunt_uid;
             return announcement;
           });
+          announcementsAdapter.removeAll(state);
           announcementsAdapter.upsertMany(state, announcements);
+          state.loadingAnnouncements = "SUCCEDED";
         } else {
           announcementsAdapter.upsertMany(state, templateAnnouncements);
+          state.loadingAnnouncements = "SUCCEDED";
         }
-        state.loadingAnnouncements = "SUCCEDED";
       })
       .addCase(getAllAnnouncements.rejected, (state, action) => {
         state.loadingAnnouncements = "FAILED";
@@ -228,10 +254,20 @@ export const selectTemplateAnnouncement = (state: State) =>
 export const selectAnnouncementsFormModal = (state: State) =>
   state.announcements.formModal;
 
+export const selectCategoryToggles = (state: State) =>
+  state.announcements.categoryToggles;
+
+export const selectFoundAnnouncementId = (state: State) =>
+  state.announcements.foundAnnouncementId;
+
 export const {
   updateTemplateAnnouncement,
   updateAnnouncementsFormModal,
   setTemplateAnnouncement,
+  addCategoryToggle,
+  removeCategoryToggle,
+  setFoundAnnouncementId,
+  clearCategoryToggles,
 } = announcementsSlice.actions;
 
 export default announcementsSlice.reducer;

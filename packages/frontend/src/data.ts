@@ -7,13 +7,17 @@ import {
   EmailFormTemplate,
   facilityImageType,
   facilityRoomType,
+  GetAllQueryParams,
+  IndividualPageData,
   infoSectionType,
   IstoricPinPoint,
   MaterieType,
   offeringItemType,
   OverlayType,
+  PageData,
   profileOption,
   sidebarLink,
+  SortByOption,
   templateAnnouncement,
   templateTeacher,
   templateUser,
@@ -30,7 +34,14 @@ import { BiLogIn } from "react-icons/bi";
 import { IoSchoolSharp } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 // Prisma Types
-import { Anunt, CategorieAnunt, Profesor, Utilizator } from "@prisma/client";
+import { Anunt, Profesor, Utilizator } from "@prisma/client";
+
+export const categoriiAnunturi: CategorieType[] = [
+  { id: 1, nume: "GENERAL", dest: "GENERAL", label: "GENERAL" },
+  { id: 2, nume: "ELEVI", dest: "ELEVI", label: "ELEVI" },
+  { id: 3, nume: "PROFESORI", dest: "PROFESORI", label: "PROFESORI" },
+  { id: 4, nume: "SPECIAL", dest: "SPECIAL", label: "SPECIAL" },
+];
 
 export const documentsAndLawsInfo: DocumentOrLaw[] = [
   {
@@ -77,6 +88,194 @@ export const documentsAndLawsInfo: DocumentOrLaw[] = [
       "https://drive.google.com/file/d/1YARkCaM4IWodJHYk7vcVUYiDxDOyPJVL/preview",
     ],
   },
+];
+
+export const individualPagesData: IndividualPageData[] = [
+  // Home Page
+  {
+    id: 1000,
+    recommendations: [
+      {
+        id: 1,
+        dest: "/home/#differences",
+        label: "Acasă - Ce ne diferențiază?",
+      },
+      {
+        id: 2,
+        dest: "/home/#facilities",
+        label: "Acasă - Dotarea Liceului",
+      },
+      {
+        id: 3,
+        dest: "/home/#location",
+        label: "Acasă - Localizarea Liceului",
+      },
+      {
+        id: 4,
+        dest: "/home/#bac",
+        label: "Acasă - Promovabilitatea la Bacalaureat",
+      },
+      {
+        id: 5,
+        dest: "/home/#offerings",
+        label: "Acasă - Ce oferim?",
+      },
+    ],
+    pageDest: "/home",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Acasă:",
+  },
+  // Announcements Page
+  {
+    id: 1001,
+    recommendations: (categoriiAnunturi as PageData[]).map((cat) => {
+      return {
+        id: (cat.id as number) + 100,
+        dest: `/anunturi/#${cat.dest}`,
+        label: `Anunțuri ${cat.label}`,
+      };
+    }),
+    pageDest: "/anunturi",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Anunțuri:",
+  },
+  // Contact Page
+  {
+    id: 1002,
+    recommendations: [
+      {
+        id: 6,
+        dest: "/contact/#info",
+        label: "Contact - Informații de contact",
+      },
+      {
+        id: 7,
+        dest: "/contact/#email",
+        label: "Contact - Trimite-ne un email!",
+      },
+    ],
+    pageDest: "/contact",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Contact:",
+  },
+  // Education Offer Page
+  {
+    id: 1003,
+    recommendations: [],
+    pageDest: "/oferta",
+    searchbarPlaceholder:
+      "Căutați în tot site-ul și pagina Oferta educațională:",
+  },
+  // Documents Page
+  {
+    id: 1004,
+    recommendations: (documentsAndLawsInfo as unknown as PageData[]).map(
+      (doc) => {
+        return {
+          id: (doc.id as number) + 200,
+          dest: `/documente/#${doc.label}`,
+          label: doc.label,
+        };
+      }
+    ),
+    pageDest: "/documente",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Legi și Documente:",
+  },
+  // Teachers Page
+  {
+    id: 1005,
+    recommendations: [],
+    pageDest: "/profesori",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Profesori:",
+  },
+  // History Page
+  {
+    id: 1006,
+    recommendations: [],
+    pageDest: "/istoric",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Istoric:",
+  },
+  // About Project Page
+  {
+    id: 1007,
+    recommendations: [
+      {
+        id: 8,
+        dest: "/#aboutMe",
+        label: "Despre Proiect - Cine sunt eu?",
+      },
+      {
+        id: 9,
+        dest: "/#siteMotives",
+        label: "Despre Proiect - De ce am făcut acest site?",
+      },
+      {
+        id: 10,
+        dest: "/#pagesInfo",
+        label: "Despre Proiect - Informații despre Paginile Site-ului",
+      },
+      {
+        id: 11,
+        dest: "/#adminInfo",
+        label: "Despre Proiect - Informații despre Contul Admin",
+      },
+      {
+        id: 12,
+        dest: "/#technologiesUsed",
+        label: "Despre Proiect - Tehnologiile Folosite",
+      },
+    ],
+    pageDest: "/",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Despre Proiect:",
+  },
+  // Login Page
+  {
+    id: 1008,
+    recommendations: [],
+    pageDest: "/login",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Intră în cont:",
+  },
+  // Profile Page
+  {
+    id: 1009,
+    recommendations: [],
+    pageDest: "/profil",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Profilul Tău:",
+  },
+];
+
+export const pagesData: PageData[] = [
+  { id: 2001, label: "Pagină - Acasă", dest: "/home" },
+  { id: 2002, label: "Pagină - Anunțuri", dest: "/anunturi" },
+  { id: 2003, label: "Pagină - Contact", dest: "/contact" },
+  {
+    id: 2004,
+    label: "Pagină - Oferta educațională",
+    dest: "/oferta",
+  },
+  {
+    id: 2005,
+    label: "Pagină - Legi și Documente",
+    dest: "/documente",
+  },
+  { id: 2006, label: "Pagină - Profesori", dest: "/profesori" },
+  { id: 2007, label: "Pagină - Istoric", dest: "/istoric" },
+  { id: 2008, label: "Pagină - Despre Proiect", dest: "/" },
+  { id: 2009, label: "Pagină - Intră în cont", dest: "/login" },
+  { id: 2010, label: "Pagină - Profil", dest: "/profil" },
+];
+
+export const defaultGetAllQueryParams: GetAllQueryParams = {
+  query: "",
+  sortByOption: "",
+};
+
+export const sortByAnnouncementOptions: SortByOption[] = [
+  { id: 1, label: "Titlu Anunț", value: "titlu" },
+  { id: 2, label: "Descriere Anunț", value: "descriere" },
+  { id: 3, label: "Anunțuri Recente", value: "creatLa" },
+];
+
+export const sortByTeacherOptions: SortByOption[] = [
+  { id: 1, label: "Nume Profesor", value: "username" },
+  { id: 2, label: "Descriere Profesor", value: "descriere" },
 ];
 
 export const istoricPinpoints: IstoricPinPoint[] = [
@@ -242,6 +441,7 @@ export const defaultTemplateProfile: templateUser = {
 export const defaultOverlay: OverlayType = {
   overlayFunctionUsed: "logout",
   showOverlay: false,
+  title: "",
 };
 
 export const defaultTemplateAnnouncement: templateAnnouncement = {
@@ -283,13 +483,6 @@ export const materii: MaterieType[] = [
   { id: 16, nume: "RELIGIE" },
   { id: 17, nume: "ROMANA" },
   { id: 18, nume: "SPORT" },
-];
-
-export const categoriiAnunturi: CategorieType[] = [
-  { id: 1, nume: "GENERAL" },
-  { id: 2, nume: "ELEVI" },
-  { id: 3, nume: "PROFESORI" },
-  { id: 4, nume: "SPECIAL" },
 ];
 
 export const defaultProfile: Utilizator = {

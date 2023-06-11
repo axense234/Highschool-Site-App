@@ -6,10 +6,16 @@ import { anuntClient } from "../db/postgres";
 
 // GET ALL ANNOUNCEMENTS
 const getAllAnnouncements = async (req: Request, res: Response) => {
-  const { limit } = req.query;
+  const { limit, sortByOption = "titlu", query } = req.query;
   const foundAnnouncements = await anuntClient.findMany({
     take: Number(limit) || 40,
+    orderBy: { [sortByOption as string]: "asc" },
+    where: {
+      titlu: { contains: query as string, mode: "insensitive" },
+    },
   });
+
+  console.log(foundAnnouncements.length);
 
   if (foundAnnouncements.length < 1) {
     return res

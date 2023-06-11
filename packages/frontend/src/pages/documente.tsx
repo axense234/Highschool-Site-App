@@ -8,8 +8,11 @@ import documentsStyles from "../scss/components/Documents.module.scss";
 // Components
 import HomeTitle from "@/components/Home/HomeTitle";
 import Meta from "@/components/Meta";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Documents: FC = () => {
+  useGetPathname();
   return (
     <>
       <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Legi și Documente' />

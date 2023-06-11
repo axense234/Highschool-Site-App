@@ -13,8 +13,11 @@ import {
   aboutTechnologiesUsedBackend,
   aboutTechnologiesUsedFrontend,
 } from "@/data";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const About: FC = () => {
+  useGetPathname();
   return (
     <>
       <Meta
@@ -31,7 +34,7 @@ const About: FC = () => {
           id="generalInfo"
         >
           <h2>Informații generale.</h2>
-          <div className={aboutStyles.aboutContainer__me}>
+          <div className={aboutStyles.aboutContainer__me} id="aboutMe">
             <h3>1.Cine sunt eu?</h3>
             <p>
               Mă numesc Comănescu Andrei, am 17 ani, vin de la Liceul Teoretic
@@ -55,7 +58,7 @@ const About: FC = () => {
               probleme în C++, tutoriale.
             </p>
           </div>
-          <div className={aboutStyles.aboutContainer__site}>
+          <div className={aboutStyles.aboutContainer__site} id="siteMotives">
             <h3>2.De ce am făcut acest site?</h3>
             <p>
               Am făcut acest site pentru a-mi arăta cunoștințele referitoare la

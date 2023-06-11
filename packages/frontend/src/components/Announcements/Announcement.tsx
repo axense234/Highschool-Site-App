@@ -26,7 +26,9 @@ import {
 import {
   createCloudinaryImageForAnnouncement,
   selectAnnouncementById,
+  selectFoundAnnouncementId,
   selectTemplateAnnouncement,
+  setFoundAnnouncementId,
   setTemplateAnnouncement,
   updateAnnouncementById,
   updateTemplateAnnouncement,
@@ -46,6 +48,7 @@ const Announcement: FC<Anunt> = ({
 }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
+  const annRef = useRef<HTMLElement>(null);
 
   const dispatch = useAppDispatch();
   const overlay = useAppSelector(selectOverlay);
@@ -54,6 +57,7 @@ const Announcement: FC<Anunt> = ({
   const announcement = useAppSelector((state: State) =>
     selectAnnouncementById(state, cardModalId)
   );
+  const foundAnnouncementId = useAppSelector(selectFoundAnnouncementId);
 
   const editModeAvailable = anunt_uid === cardModalId && editMode;
 
@@ -108,6 +112,17 @@ const Announcement: FC<Anunt> = ({
       dispatch(setTemplateAnnouncement(announcement));
     }
   }, [announcement?.titlu]);
+
+  useEffect(() => {
+    if (foundAnnouncementId === anunt_uid) {
+      setToggle(true);
+      window.scrollBy({
+        behavior: "smooth",
+        top: annRef.current?.getBoundingClientRect().top,
+      });
+    }
+    dispatch(setFoundAnnouncementId(""));
+  }, [foundAnnouncementId]);
 
   if (editModeAvailable) {
     return (
@@ -238,6 +253,7 @@ const Announcement: FC<Anunt> = ({
             setToggle(false);
           }
         }}
+        ref={annRef}
       >
         <div
           className={
@@ -284,6 +300,7 @@ const Announcement: FC<Anunt> = ({
           setToggle(false);
         }
       }}
+      ref={annRef}
     >
       <div
         className={announcementsStyles.announcementsContainer__announcementInfo}

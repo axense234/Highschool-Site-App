@@ -6,7 +6,6 @@ import { BsBoxArrowInUpLeft } from "react-icons/bs";
 import { VscTriangleDown } from "react-icons/vsc";
 // Types
 import { CardModalProps, MoveAnnouncementsModalProps } from "types";
-import { CategorieAnunt } from "@prisma/client";
 // SCSS
 import cardStyles from "../scss/components/CardModal.module.scss";
 // Hooks
@@ -17,9 +16,11 @@ import {
   selectCardModalId,
   selectEditMode,
   selectProfile,
+  selectToggleMoveAnnouncementModal,
   setCardModalId,
   setEditMode,
   updateOverlay,
+  updateToggleMoveAnnouncementModal,
 } from "@/redux/slices/generalSlice";
 import { updateTemplateAnnouncement } from "@/redux/slices/announcementsSlice";
 // Data
@@ -29,11 +30,10 @@ const CardModal: FC<CardModalProps> = ({ cardId, componentType }) => {
   const cardModalRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
-  const [toggleMoveAnn, setToggleMoveAnn] = useState<boolean>(false);
-
   const cardModalId = useAppSelector(selectCardModalId);
   const profile = useAppSelector(selectProfile);
   const editMode = useAppSelector(selectEditMode);
+  const toggleMoveModal = useAppSelector(selectToggleMoveAnnouncementModal);
 
   const showModal =
     cardModalId === cardId && profile.rolUtilizator === "ADMIN" && !editMode;
@@ -53,6 +53,9 @@ const CardModal: FC<CardModalProps> = ({ cardId, componentType }) => {
               updateOverlay({
                 overlayFunctionUsed: functionUsed,
                 showOverlay: true,
+                title: `Ești sigur că vrei să ștergi ${
+                  componentType === "announcement" ? "anunțul" : "profesorul"
+                }?`,
               })
             );
             dispatch(setCardModalId(cardModalId));
@@ -69,11 +72,14 @@ const CardModal: FC<CardModalProps> = ({ cardId, componentType }) => {
       </button>
       {componentType === "announcement" && (
         <div className={cardStyles.modalContainer__moveAnnouncement}>
-          <MoveAnnouncementModal show={toggleMoveAnn} />
+          <MoveAnnouncementModal
+            show={toggleMoveModal}
+            cardModalId={cardModalId}
+          />
           <button type="button" title="Mișcă card-ul.">
             <BsBoxArrowInUpLeft
               onClick={() => {
-                setToggleMoveAnn(!toggleMoveAnn);
+                dispatch(updateToggleMoveAnnouncementModal());
                 dispatch(setCardModalId(cardModalId));
               }}
             />
@@ -84,28 +90,43 @@ const CardModal: FC<CardModalProps> = ({ cardId, componentType }) => {
   );
 };
 
-const MoveAnnouncementModal: FC<MoveAnnouncementsModalProps> = ({ show }) => {
+const MoveAnnouncementModal: FC<MoveAnnouncementsModalProps> = ({
+  show,
+  cardModalId,
+}) => {
   const dispatch = useAppDispatch();
   const modalRef = useRef<HTMLDivElement>(null);
 
   useModalTransition(show, modalRef);
 
-  const onCategoryChange = (cat: CategorieAnunt) => {
-    dispatch(updateTemplateAnnouncement({ key: "categorie", value: cat }));
-  };
-
   return (
     <div
       className={cardStyles.modalContainer__moveAnnouncementModal}
       ref={modalRef}
+      onMouseLeave={() => dispatch(updateToggleMoveAnnouncementModal())}
     >
       <ul className={cardStyles.modalContainer__categoryList}>
         {categoriiAnunturi.map((categorie) => {
           return (
             <li
               key={categorie.id}
-              onClick={() => onCategoryChange(categorie.nume)}
               title={`Mută la ${categorie.nume}`}
+              onClick={() => {
+                dispatch(
+                  updateTemplateAnnouncement({
+                    key: "categorie",
+                    value: categorie.nume as string,
+                  })
+                );
+                dispatch(
+                  updateOverlay({
+                    overlayFunctionUsed: "moveAnnouncement",
+                    showOverlay: true,
+                    title: `Ești sigur că vrei să muți anunțul la ${categorie.nume}?`,
+                  })
+                );
+                dispatch(setCardModalId(cardModalId));
+              }}
             >
               {categorie.nume}
             </li>

@@ -12,15 +12,23 @@ import store from "@/redux/api/store";
 import Sidebar from "@/components/Sidebar";
 import SidebarMenu from "@/components/SidebarMenu";
 import Footer from "@/components/Footer";
+import SearchButton from "@/components/SearchButton";
+import Searchbar from "@/components/Searchbar";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
+  const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
 
   return (
     <div className="app-container">
       <Provider store={store}>
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         <SidebarMenu setShowSidebar={setShowSidebar} />
+        <Searchbar
+          setShowSearchbar={setShowSearchbar}
+          showSearchbar={showSearchbar}
+        />
+        <SearchButton setShowSearchbar={setShowSearchbar} />
         <Component {...pageProps} />
         <Footer />
       </Provider>
