@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import * as uuid from "uuid";
 import { encryptPassword } from "../utils/bcrypt";
 // Prisma
-import { setariUtilizatorClient, utlizatorClient } from "../db/postgres";
+import { utlizatorClient } from "../db/postgres";
 
 // ADD USER TO REQUEST(need feedback)
 declare module "express-serve-static-core" {
@@ -133,17 +133,6 @@ const deleteUserByIdOrJWT = async (req: Request, res: Response) => {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Could not any userId in the request params!", user: {} });
-  }
-
-  const deletedSettings = await setariUtilizatorClient.delete({
-    where: { utilizator_uid: userId },
-  });
-
-  if (!deletedSettings) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: `Could not find settings with user id: ${userId} to delete!`,
-      user: {},
-    });
   }
 
   const deletedUser = await utlizatorClient.delete({

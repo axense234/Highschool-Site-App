@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 // Prisma
-import { setariUtilizatorClient, utlizatorClient } from "../db/postgres";
+import { utlizatorClient } from "../db/postgres";
 import { encryptPassword, verifyPassword } from "../utils/bcrypt";
 // Utils
 import { createJWT } from "../utils/jwt";
@@ -25,10 +25,6 @@ const createUser = async (req: Request, res: Response) => {
       user: {},
     });
   }
-
-  const createdSettings = await setariUtilizatorClient.create({
-    data: { utilizator_uid: createdUser.utilizator_uid },
-  });
 
   const token = createJWT(createdUser.username, createdUser.utilizator_uid);
   await cacheJWT(token, req.cookies.uniqueIdentifier);
