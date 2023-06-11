@@ -21,21 +21,12 @@ model Anunt {
   actualizatLa            DateTime       @default(now()) @updatedAt
 }
 
-model SetariUtilizator {
-  setari_uid     String     @id @unique @default(uuid())
-  utilizator_uid String     @unique
-  utilizator     Utilizator @relation(fields: [utilizator_uid], references: [utilizator_uid])
-
-  darkMode Boolean? @default(false)
-}
-
 model Utilizator {
-  utilizator_uid   String            @id @unique @default(uuid())
-  username         String            @unique
-  email            String            @unique
-  password         String
-  rolUtilizator    RolUtilizator     @default(UTILIZATOR)
-  setariUtilizator SetariUtilizator?
+  utilizator_uid String        @id @unique @default(uuid())
+  username       String        @unique
+  email          String        @unique
+  password       String
+  rolUtilizator  RolUtilizator @default(UTILIZATOR)
 }
 
 model Profesor {

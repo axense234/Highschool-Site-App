@@ -12,7 +12,12 @@ const Offer: FC = () => {
   useGetPathname();
   return (
     <>
-      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Ofertă educațională' />
+      <Meta
+        title='Liceul Teoretic "Ion Barbu" Pitești - Ofertă educațională'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0016_unzyje.jpg",
+        ]}
+      />
       <main className={offerStyles.offerContainer}>
         <HomeTitle
           title="Oferta educațională pentru anul școlar 2023-2024"

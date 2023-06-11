@@ -2,6 +2,7 @@
 // Types
 import {
   AboutTechnologyType,
+  BackgroundImageUrl,
   CategorieType,
   DocumentOrLaw,
   EmailFormTemplate,
@@ -35,6 +36,59 @@ import { IoSchoolSharp } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 // Prisma Types
 import { Anunt, Profesor, Utilizator } from "@prisma/client";
+
+export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
+  {
+    pagePath: "/home",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1678691260/Highschool%20Site%20App/IMG-20230313-WA0004_e5vfrt.jpg",
+  },
+  {
+    pagePath: "/anunturi",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0012_e117jz.jpg",
+  },
+  {
+    pagePath: "/contact",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0021_ime128.jpg",
+  },
+  {
+    pagePath: "/oferta",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0016_unzyje.jpg",
+  },
+  {
+    pagePath: "/documente",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0020_xyq6ms.jpg",
+  },
+  {
+    pagePath: "/profesori",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0023_fixi8s.jpg",
+  },
+  {
+    pagePath: "/istoric",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502835/Highschool%20Site%20App/IMG-20230608-WA0009_jihe2r.jpg",
+  },
+  {
+    pagePath: "/",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504249/Highschool%20Site%20App/Captur%C4%83_ecran_8_rqirc7.png",
+  },
+  {
+    pagePath: "/login",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504535/Highschool%20Site%20App/nighthighschool_v8xnie.jpg",
+  },
+  {
+    pagePath: "/profil",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg",
+  },
+];
 
 export const categoriiAnunturi: CategorieType[] = [
   { id: 1, nume: "GENERAL", dest: "GENERAL", label: "GENERAL" },

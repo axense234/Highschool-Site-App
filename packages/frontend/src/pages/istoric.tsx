@@ -23,7 +23,12 @@ const Istoric: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Istoric' />
+      <Meta
+        title='Liceul Teoretic "Ion Barbu" Pitești - Istoric'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502835/Highschool%20Site%20App/IMG-20230608-WA0009_jihe2r.jpg",
+        ]}
+      />
       <main className={istoricStyles.istoricContainer}>
         <HomeTitle
           title="Istoria Noastră"

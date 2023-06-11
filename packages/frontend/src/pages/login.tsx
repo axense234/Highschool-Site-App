@@ -15,8 +15,12 @@ import {
   selectTemplateProfile,
   updateTemplateProfile,
 } from "@/redux/slices/generalSlice";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Login: FC = () => {
+  useGetPathname();
+
   const dispatch = useAppDispatch();
   const templateProfile = useAppSelector(selectTemplateProfile);
 
@@ -39,7 +43,12 @@ const Login: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Intră în Contul Admin' />
+      <Meta
+        title='Liceul Teoretic "Ion Barbu" Pitești - Intră în Contul Admin'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504535/Highschool%20Site%20App/nighthighschool_v8xnie.jpg",
+        ]}
+      />
       <main className={loginStyles.loginContainer}>
         <HomeTitle
           title="Intră în cont(ADMIN)"

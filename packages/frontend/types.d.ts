@@ -9,6 +9,11 @@ import {
 import { JSX, Dispatch, SetStateAction } from "react";
 
 // Types
+type BackgroundImageUrl = {
+  pagePath: string;
+  backgroundUrl: string;
+};
+
 type IndividualPageData = {
   id: number;
   searchbarPlaceholder: string;
@@ -249,4 +254,5 @@ export {
   SearchbarProps,
   PageData,
   IndividualPageData,
+  BackgroundImageUrl,
 };

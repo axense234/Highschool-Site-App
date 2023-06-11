@@ -23,6 +23,9 @@ const About: FC = () => {
       <Meta
         title='Liceul Teoretic "Ion Barbu" Pitești - Despre Proiect.'
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina descrierii proiectului.'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504249/Highschool%20Site%20App/Captur%C4%83_ecran_8_rqirc7.png",
+        ]}
       />
       <main className={aboutStyles.aboutContainer}>
         <HomeTitle

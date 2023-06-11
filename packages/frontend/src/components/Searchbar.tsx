@@ -185,10 +185,11 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
           </form>
           {(shownRecommendations?.length as number) >= 1 && (
             <ul className={searchbarStyles.searchbarContainer__recommendations}>
-              {shownRecommendations?.slice(0, 8).map((rec) => {
+              {shownRecommendations?.slice(0, 8).map((rec, index) => {
                 return (
                   <li
-                    key={rec.id}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
                     aria-label={rec.label}
                     title={rec.label}
                     onClick={() => handleOnRecommendationClick(rec)}

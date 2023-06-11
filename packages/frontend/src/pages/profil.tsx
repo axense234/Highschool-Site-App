@@ -68,7 +68,12 @@ const Profile: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Profilul Tău' />
+      <Meta
+        title='Liceul Teoretic "Ion Barbu" Pitești - Profilul Tău'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg",
+        ]}
+      />
       <main className={profileStyles.profileContainer}>
         <HomeTitle
           title="Profilul Tău(ADMIN)"

@@ -15,7 +15,12 @@ const Documents: FC = () => {
   useGetPathname();
   return (
     <>
-      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Legi și Documente' />
+      <Meta
+        title='Liceul Teoretic "Ion Barbu" Pitești - Legi și Documente'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0020_xyq6ms.jpg",
+        ]}
+      />
       <main className={documentsStyles.documentsContainer}>
         <HomeTitle
           title="Legi și Documente"

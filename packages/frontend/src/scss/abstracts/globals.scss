@@ -5,6 +5,15 @@
   font-family: "Kanit", sans-serif;
 }
 
+@keyframes shakeAnimation {
+  from {
+    transform: rotate(-5deg) scale(1.1);
+  }
+  to {
+    transform: rotate(5deg) scale(1.1);
+  }
+}
+
 body,
 html {
   width: 100%;
@@ -81,4 +90,8 @@ svg {
 .activeProfileOption {
   background-color: #606060 !important;
   border: 2px solid black;
+}
+
+.shaking {
+  animation: shakeAnimation 0.15s alternate infinite;
 }

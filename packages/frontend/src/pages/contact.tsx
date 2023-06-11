@@ -41,7 +41,12 @@ const Contact: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Contact' />
+      <Meta
+        title='Liceul Teoretic "Ion Barbu" Pitești - Contact'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0021_ime128.jpg",
+        ]}
+      />
       <main className={contactStyles.contactContainer}>
         <HomeTitle
           title="Contactați-ne"

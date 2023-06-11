@@ -1,5 +1,5 @@
 // React
-import { FC, useEffect, useRef, SyntheticEvent } from "react";
+import { FC, useEffect, useRef, SyntheticEvent, useState } from "react";
 // Prisma Types
 import { Materii, Profesor } from "@prisma/client";
 // React Icons
@@ -43,8 +43,12 @@ import {
 import { materii } from "@/data";
 // Store
 import { State } from "@/redux/api/store";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 
 const Profesori: FC = () => {
+  useGetPathname();
+
   const teachers = useAppSelector(selectAllTeachers);
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
   const dispatch = useAppDispatch();
@@ -57,7 +61,12 @@ const Profesori: FC = () => {
 
   return (
     <>
-      <Meta title='Liceul Teoretic "Ion Barbu" Pitești - Profesorii Noștri' />
+      <Meta
+        title='Liceul Teoretic "Ion Barbu" Pitești - Profesorii Noștri'
+        imageUrls={[
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0023_fixi8s.jpg",
+        ]}
+      />
       <main className={profesoriStyles.profesoriContainer}>
         <HomeTitle
           title="Profesorii Noștri"
@@ -101,6 +110,7 @@ const Profesor: FC<Profesor> = ({
 
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
   const teacherRef = useRef<HTMLElement>(null);
+
   const editModeAvailable = profesor_uid === cardModalId && editMode;
 
   // For edit mode
@@ -138,13 +148,21 @@ const Profesor: FC<Profesor> = ({
   }, [teacher?.username]);
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
     if (foundTeachearId === profesor_uid) {
       window.scrollBy({
         behavior: "smooth",
         top: teacherRef.current?.getBoundingClientRect().top,
       });
+      (teacherRef.current as HTMLElement).classList.add("shaking");
+      timeout = setTimeout(() => {
+        dispatch(setFoundTeacherId(""));
+        (teacherRef.current as HTMLElement).classList.remove("shaking");
+      }, 1000);
     }
-    dispatch(setFoundTeacherId(""));
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [foundTeachearId]);
 
   if (editModeAvailable) {
@@ -241,7 +259,9 @@ const Profesor: FC<Profesor> = ({
   return (
     <article
       className={profesoriStyles.profesoriContainer__profesor}
-      onMouseEnter={() => dispatch(setCardModalId(profesor_uid))}
+      onMouseEnter={() => {
+        dispatch(setCardModalId(profesor_uid));
+      }}
       onMouseLeave={() => {
         if (!overlay.showOverlay) {
           dispatch(setCardModalId(""));

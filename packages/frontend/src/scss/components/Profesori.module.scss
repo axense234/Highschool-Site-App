@@ -68,7 +68,6 @@
     gap: 2.5rem;
     border-radius: 1rem;
     border: 1.5px solid getColor("silver-50");
-
     transition: transform 0.1s ease-in;
 
     @media all and (max-width: (getScreenSize("laptopL") + 240px)) {

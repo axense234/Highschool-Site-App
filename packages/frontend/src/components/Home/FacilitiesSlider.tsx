@@ -80,8 +80,8 @@ const FacilitiesSlider: FC = () => {
         {facilityImages.map((image, imageIndex) => {
           return (
             <input
-              type='radio'
-              name='imageId'
+              type="radio"
+              name="imageId"
               value={imageIndex}
               title={image.id.toString()}
               key={image.id}
@@ -89,6 +89,7 @@ const FacilitiesSlider: FC = () => {
                 setStopAutoImages(true);
                 setImageId(imageIndex);
               }}
+              checked={imageId === image.id - 1}
             />
           );
         })}
@@ -113,8 +114,8 @@ const SliderButtons: FC<SliderButtonsProps> = ({
       ref={sliderButtonsRef}
     >
       <button
-        type='button'
-        title='Inapoi'
+        type="button"
+        title="Inapoi"
         onClick={() => {
           setStopAutoImages(true);
           handlePrevImage();
@@ -123,8 +124,8 @@ const SliderButtons: FC<SliderButtonsProps> = ({
         &lt;
       </button>
       <button
-        type='button'
-        title='Inainte'
+        type="button"
+        title="Inainte"
         onClick={() => {
           setStopAutoImages(true);
           handleNextImage();

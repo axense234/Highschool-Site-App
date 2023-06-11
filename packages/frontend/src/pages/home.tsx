@@ -27,7 +27,10 @@ const Home: FC = () => {
       <Meta
         title='Liceul Teoretic "Ion Barbu" Pitești - Acasă.'
         desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina acasă.'
-        imageUrls={imageUrls}
+        imageUrls={[
+          ...imageUrls,
+          "https://res.cloudinary.com/birthdayreminder/image/upload/v1678691260/Highschool%20Site%20App/IMG-20230313-WA0004_e5vfrt.jpg",
+        ]}
       />
       <main className={homeStyles.homeContainer}>
         <HomeTitle

@@ -2,7 +2,6 @@
 
 .homeContainer__title {
   @include homePageSection(getColor("silver-10"), column);
-  background-image: url("https://res.cloudinary.com/birthdayreminder/image/upload/v1678691260/Highschool%20Site%20App/IMG-20230313-WA0004_e5vfrt.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -10,6 +9,7 @@
   padding-bottom: 20rem;
   padding-top: 17.5rem;
   background-blend-mode: darken;
+  border-bottom: 2px solid black;
 
   @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
     padding-bottom: 20rem;
