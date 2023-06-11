@@ -1,9 +1,3 @@
-/*
-  Warnings:
-
-  - Added the required column `actualizatLa` to the `Anunt` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- CreateEnum
 CREATE TYPE "CategorieAnunt" AS ENUM ('GENERAL', 'SPECIAL', 'PROFESORI', 'ELEVI');
 
