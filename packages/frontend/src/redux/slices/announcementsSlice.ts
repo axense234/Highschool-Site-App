@@ -184,9 +184,6 @@ const announcementsSlice = createSlice({
           announcementsAdapter.removeAll(state);
           announcementsAdapter.upsertMany(state, announcements);
           state.loadingAnnouncements = "SUCCEDED";
-        } else {
-          announcementsAdapter.upsertMany(state, templateAnnouncements);
-          state.loadingAnnouncements = "SUCCEDED";
         }
       })
       .addCase(getAllAnnouncements.rejected, (state, action) => {

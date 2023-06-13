@@ -158,8 +158,6 @@ const teachersSlice = createSlice({
             return teacher;
           });
           teachersAdapter.upsertMany(state, teachers);
-        } else {
-          teachersAdapter.upsertMany(state, templateTeachers);
         }
         state.loadingTeachers = "SUCCEDED";
       })
