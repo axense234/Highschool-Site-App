@@ -15,7 +15,7 @@ model Anunt {
   imagineUrl              String?
   videoUrl                String?
   pozitionareVideoInAnunt String?        @default("inceput")
-  categorie               CategorieAnunt @default(GENERAL)
+  categorie               CategorieAnunt @default(GENERALE)
   creatLa                 DateTime       @default(now())
   actualizatLa            DateTime       @default(now()) @updatedAt
 }
@@ -68,8 +68,8 @@ enum RolUtilizator {
 }
 
 enum CategorieAnunt {
-  GENERAL
-  SPECIAL
+  GENERALE
+  SPECIALE
   PROFESORI
   ELEVI
 }

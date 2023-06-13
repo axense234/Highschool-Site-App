@@ -91,10 +91,10 @@ export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
 ];
 
 export const categoriiAnunturi: CategorieType[] = [
-  { id: 1, nume: "GENERAL", dest: "GENERAL", label: "GENERAL" },
+  { id: 1, nume: "GENERALE", dest: "GENERAL", label: "GENERAL" },
   { id: 2, nume: "ELEVI", dest: "ELEVI", label: "ELEVI" },
   { id: 3, nume: "PROFESORI", dest: "PROFESORI", label: "PROFESORI" },
-  { id: 4, nume: "SPECIAL", dest: "SPECIAL", label: "SPECIAL" },
+  { id: 4, nume: "SPECIALE", dest: "SPECIAL", label: "SPECIAL" },
 ];
 
 export const documentsAndLawsInfo: DocumentOrLaw[] = [
@@ -505,7 +505,7 @@ export const defaultTemplateAnnouncement: templateAnnouncement = {
   titlu: "",
   videoUrl: "",
   id: "",
-  categorie: "GENERAL",
+  categorie: "GENERALE",
   actualizatLa: new Date(),
   creatLa: new Date(),
 };
@@ -736,7 +736,7 @@ export const templateAnnouncements: Anunt[] = [
     pozitionareVideoInAnunt: "inceput",
     actualizatLa: new Date(),
     creatLa: new Date(),
-    categorie: "GENERAL",
+    categorie: "GENERALE",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
@@ -751,7 +751,7 @@ export const templateAnnouncements: Anunt[] = [
     pozitionareVideoInAnunt: "inceput",
     actualizatLa: new Date(),
     creatLa: new Date(),
-    categorie: "GENERAL",
+    categorie: "GENERALE",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
@@ -765,7 +765,7 @@ export const templateAnnouncements: Anunt[] = [
     pozitionareVideoInAnunt: "final",
     actualizatLa: new Date(),
     creatLa: new Date(),
-    categorie: "GENERAL",
+    categorie: "GENERALE",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
@@ -779,7 +779,7 @@ export const templateAnnouncements: Anunt[] = [
     pozitionareVideoInAnunt: "final",
     actualizatLa: new Date(),
     creatLa: new Date(),
-    categorie: "GENERAL",
+    categorie: "GENERALE",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },
@@ -793,7 +793,7 @@ export const templateAnnouncements: Anunt[] = [
     pozitionareVideoInAnunt: "inceput",
     actualizatLa: new Date(),
     creatLa: new Date(),
-    categorie: "GENERAL",
+    categorie: "GENERALE",
     videoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
   },

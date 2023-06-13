@@ -4,7 +4,7 @@
   "ttypescript": {
     "tsconfig": "tsconfig.json"
   },
-  "prisma.schema": "./packages/backend/prisma/schema.prisma",
+  "schema.prisma": "./packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "npm install && npx tsc && npx prisma migrate deploy production;",
