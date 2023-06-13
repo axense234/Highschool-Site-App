@@ -34,7 +34,6 @@ import { setTemplateTeacher } from "@/redux/slices/teachersSlice";
 import useGetPathname from "@/hooks/useGetPathname";
 
 const Profile: FC = () => {
-  useAuthorization();
   useGetPathname();
   const profile = useAppSelector(selectProfile);
   const loadingProfile = useAppSelector(selectLoadingProfile);
@@ -43,6 +42,7 @@ const Profile: FC = () => {
   const optionsContent = useAppSelector(selectOptionsContent);
 
   let renderedOptionsContent;
+  useAuthorization();
 
   switch (optionsContent) {
     case "settings":

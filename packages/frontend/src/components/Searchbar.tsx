@@ -87,7 +87,8 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
     .concat(
       pagesData.filter((page) => {
         return (
-          page.dest !== pathname && (profile.email || page.dest !== "/profil")
+          page.dest !== pathname &&
+          (profile.rolUtilizator === "ADMIN" || page.dest !== "/profil")
         );
       })
     )

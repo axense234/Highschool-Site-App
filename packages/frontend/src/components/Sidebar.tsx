@@ -70,7 +70,10 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
       <h1>Liceul Teoretic "Ion Barbu" Pitești</h1>
       <div className={sidebarStyles.sidebarContainer__pageLinks}>
         {sidebarPageLinks.map((pageLink) => {
-          if (pageLink.label === "Profil" && !profile.username) {
+          if (
+            pageLink.label === "Profil" &&
+            profile.rolUtilizator !== "ADMIN"
+          ) {
             return null;
           }
           return (
