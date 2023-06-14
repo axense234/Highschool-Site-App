@@ -4,7 +4,7 @@ import { FC, SyntheticEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 // Types
-import { IndividualPageData, PageData, SearchbarProps } from "types";
+import { PageData, SearchbarProps } from "types";
 import { CategorieAnunt } from "@prisma/client";
 // React Icons
 import { IoMdArrowBack } from "react-icons/io";

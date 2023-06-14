@@ -1,5 +1,5 @@
 // React
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef } from "react";
 // Types
 import { SearchButtonProps } from "types";
 // React Icons
@@ -8,24 +8,25 @@ import { BiSearch } from "react-icons/bi";
 import searchButtonStyles from "../scss/components/SearchButton.module.scss";
 
 const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
-  const [userClicked, setUserClicked] = useState<"false" | "true">("false");
+  const searchButtonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const clicked = localStorage.getItem("SearchButtonClicked");
-    setUserClicked((clicked as "true") || "false");
+    if (clicked) {
+      (searchButtonRef.current as HTMLDivElement).style.animation = "none";
+    }
   }, []);
 
   return (
     <div
       className={searchButtonStyles.searchButtonContainer}
-      style={{ animation: JSON.parse(userClicked) && "none" }}
+      ref={searchButtonRef}
     >
       <BiSearch
         aria-label="Căutați in site"
         title="Căutați in site"
         onClick={() => {
           localStorage.setItem("SearchButtonClicked", "true");
-          setUserClicked("true");
           setShowSearchbar(true);
         }}
       />

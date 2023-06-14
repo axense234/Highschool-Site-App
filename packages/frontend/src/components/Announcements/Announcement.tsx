@@ -35,7 +35,6 @@ import {
 } from "@/redux/slices/announcementsSlice";
 // Store
 import { State } from "@/redux/api/store";
-import { blurImagePlaceholder } from "@/data";
 
 const Announcement: FC<Anunt> = ({
   descriere,

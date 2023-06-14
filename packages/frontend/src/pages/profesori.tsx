@@ -40,7 +40,7 @@ import {
   setEditMode,
 } from "@/redux/slices/generalSlice";
 // Data
-import { blurImagePlaceholder, materii } from "@/data";
+import { materii } from "@/data";
 // Store
 import { State } from "@/redux/api/store";
 // Hooks

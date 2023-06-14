@@ -37,9 +37,6 @@ import { HiDocumentText } from "react-icons/hi2";
 // Prisma Types
 import { Anunt, Profesor, Utilizator } from "@prisma/client";
 
-export const blurImagePlaceholder =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
-
 export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
   {
     pagePath: "/home",
