@@ -201,6 +201,7 @@ const teachersSlice = createSlice({
           teachersAdapter.addOne(state, teacher);
           window.location.href = `${baseSiteUrl}/profesori`;
         }
+        state.loadingCreateTeacher = "SUCCEDED";
       })
       .addCase(deleteTeacherById.pending, (state, action) => {
         state.loadingDeleteTeacher = "PENDING";

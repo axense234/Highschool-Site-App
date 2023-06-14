@@ -234,8 +234,8 @@ const announcementsSlice = createSlice({
           announcement.id = announcement.anunt_uid;
           announcementsAdapter.addOne(state, announcement);
           window.location.href = `${baseSiteUrl}/anunturi`;
-          state.loadingCreateAnnouncement = "SUCCEDED";
         }
+        state.loadingCreateAnnouncement = "PENDING";
       })
       .addCase(deleteAnnouncementById.pending, (state, action) => {
         state.loadingDeleteAnnouncement = "PENDING";
