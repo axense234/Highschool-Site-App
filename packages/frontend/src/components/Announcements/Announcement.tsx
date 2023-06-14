@@ -195,8 +195,6 @@ const Announcement: FC<Anunt> = ({
                   width={1000}
                   height={1000}
                   title={titlu}
-                  placeholder="blur"
-                  blurDataURL={blurImagePlaceholder}
                 />
                 <div
                   className={
@@ -363,8 +361,6 @@ const Announcement: FC<Anunt> = ({
               width={1000}
               height={1000}
               title={titlu}
-              placeholder="blur"
-              blurDataURL={blurImagePlaceholder}
             />
           )}
         </div>

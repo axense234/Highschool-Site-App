@@ -188,8 +188,6 @@ const Profesor: FC<Profesor> = ({
             width={500}
             height={500}
             title={templateTeacher.username}
-            placeholder="blur"
-            blurDataURL={blurImagePlaceholder}
           />
           <div
             className={profesoriStyles.profesoriContainer__profesorImageOverlay}
@@ -280,8 +278,6 @@ const Profesor: FC<Profesor> = ({
         width={500}
         height={500}
         title={username}
-        placeholder="blur"
-        blurDataURL={blurImagePlaceholder}
       />
       <div className={profesoriStyles.profesoriContainer__profesorInfo}>
         <h3>{username}</h3>
