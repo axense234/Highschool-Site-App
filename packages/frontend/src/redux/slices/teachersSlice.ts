@@ -246,10 +246,10 @@ export const selectLoadingCreateTeacher = (state: State) =>
   state.teachers.loadingCreateTeacher;
 
 export const selectLoadingUpdateTeacher = (state: State) =>
-  state.teachers.loadingCreateTeacher;
+  state.teachers.loadingUpdateTeacher;
 
 export const selectLoadingDeleteTeacher = (state: State) =>
-  state.teachers.loadingCreateTeacher;
+  state.teachers.loadingDeleteTeacher;
 
 export const selectLoadingCreateCloudinaryImageForTeacher = (state: State) =>
   state.teachers.loadingCreateCloudinaryImageForTeacher;
