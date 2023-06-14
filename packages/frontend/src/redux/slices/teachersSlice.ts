@@ -32,6 +32,13 @@ const teachersAdapter = createEntityAdapter<Profesor>({
 type initialStateType = {
   loadingTeachers: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingCreateTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingDeleteTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingUpdateTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingCreateCloudinaryImageForTeacher:
+    | "IDLE"
+    | "PENDING"
+    | "SUCCEDED"
+    | "FAILED";
   templateTeacher: templateTeacher;
   formModal: formModalType;
   foundTeacherId: string;
@@ -39,6 +46,10 @@ type initialStateType = {
 
 const initialState = teachersAdapter.getInitialState({
   loadingTeachers: "IDLE",
+  loadingCreateTeacher: "IDLE",
+  loadingDeleteTeacher: "IDLE",
+  loadingUpdateTeacher: "IDLE",
+  loadingCreateCloudinaryImageForTeacher: "IDLE",
   templateTeacher: defaultTemplateTeacher,
   formModal: {
     showModal: false,
@@ -89,7 +100,8 @@ export const createTeacher = createAsyncThunk<
   try {
     const { data } = await axiosInstance.post(
       "/profesori/create",
-      templateTeacher
+      templateTeacher,
+      { withCredentials: true }
     );
     return data.teacher as Profesor;
   } catch (error) {
@@ -103,7 +115,8 @@ export const deleteTeacherById = createAsyncThunk<
 >("teachers/deleteTeacherById", async (teacherId) => {
   try {
     const { data } = await axiosInstance.delete(
-      `/profesori/profesor/delete/${teacherId}`
+      `/profesori/profesor/delete/${teacherId}`,
+      { withCredentials: true }
     );
     return data.teacher as Profesor;
   } catch (error) {
@@ -162,8 +175,12 @@ const teachersSlice = createSlice({
         }
         state.loadingTeachers = "SUCCEDED";
       })
+      .addCase(createCloudinaryImageForTeacher.pending, (state, action) => {
+        state.loadingCreateCloudinaryImageForTeacher = "PENDING";
+      })
       .addCase(createCloudinaryImageForTeacher.fulfilled, (state, action) => {
         state.templateTeacher.imagineProfilUrl = action.payload;
+        state.loadingCreateCloudinaryImageForTeacher = "SUCCEDED";
       })
       .addCase(createTeacher.pending, (state, action) => {
         state.loadingCreateTeacher = "PENDING";
@@ -183,12 +200,20 @@ const teachersSlice = createSlice({
           window.location.href = `${baseSiteUrl}/profesori`;
         }
       })
+      .addCase(deleteTeacherById.pending, (state, action) => {
+        state.loadingDeleteTeacher = "PENDING";
+      })
       .addCase(deleteTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
 
         if (teacher) {
           teachersAdapter.removeOne(state, teacher.profesor_uid);
         }
+
+        state.loadingDeleteTeacher = "SUCCEDED";
+      })
+      .addCase(updateTeacherById.pending, (state, action) => {
+        state.loadingUpdateTeacher = "PENDING";
       })
       .addCase(updateTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -206,6 +231,7 @@ const teachersSlice = createSlice({
             changes: teacher,
           });
         }
+        state.loadingUpdateTeacher = "PENDING";
       });
   },
 });
@@ -218,6 +244,15 @@ export const selectLoadingTeachers = (state: State) =>
 
 export const selectLoadingCreateTeacher = (state: State) =>
   state.teachers.loadingCreateTeacher;
+
+export const selectLoadingUpdateTeacher = (state: State) =>
+  state.teachers.loadingCreateTeacher;
+
+export const selectLoadingDeleteTeacher = (state: State) =>
+  state.teachers.loadingCreateTeacher;
+
+export const selectLoadingCreateCloudinaryImageForTeacher = (state: State) =>
+  state.teachers.loadingCreateCloudinaryImageForTeacher;
 
 export const selectTemplateTeacher = (state: State) =>
   state.teachers.templateTeacher;

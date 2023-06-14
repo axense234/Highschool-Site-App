@@ -4,19 +4,24 @@ import { FC, SyntheticEvent } from "react";
 import { materii } from "@/data";
 // SCSS
 import profileStyles from "../../scss/components/Profile.module.scss";
+// Components
+import FormModal from "../FormModal";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   createCloudinaryImageForTeacher,
   createTeacher,
+  selectLoadingCreateCloudinaryImageForTeacher,
   selectTemplateTeacher,
   updateTemplateTeacher,
 } from "@/redux/slices/teachersSlice";
-import FormModal from "../FormModal";
 
 const ProfileCreateTeacher: FC = () => {
   const dispatch = useAppDispatch();
   const templateTeacher = useAppSelector(selectTemplateTeacher);
+  const loadingCreateCloudinaryImageForTeacher = useAppSelector(
+    selectLoadingCreateCloudinaryImageForTeacher
+  );
 
   const onUsernameChange = (username: string) => {
     dispatch(updateTemplateTeacher({ key: "username", value: username }));
@@ -45,22 +50,22 @@ const ProfileCreateTeacher: FC = () => {
       className={profileStyles.profileContainer__settings}
       onSubmit={(e) => handleCreateTeacher(e)}
     >
-      <FormModal type='teachers' />
+      <FormModal type="teachers" />
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='username'>Nume si Prenume:</label>
+        <label htmlFor="username">Nume si Prenume:</label>
         <input
-          type='text'
-          name='username'
-          id='username'
+          type="text"
+          name="username"
+          id="username"
           value={templateTeacher.username}
           onChange={(e) => onUsernameChange(e.target.value)}
         />
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='materie'>Materie:</label>
+        <label htmlFor="materie">Materie:</label>
         <select
-          name='materie'
-          id='materie'
+          name="materie"
+          id="materie"
           value={templateTeacher.profesorDe}
           onChange={(e) => onMaterieChange(e.target.value)}
         >
@@ -74,20 +79,20 @@ const ProfileCreateTeacher: FC = () => {
         </select>
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='descriere'>Descriere:</label>
+        <label htmlFor="descriere">Descriere:</label>
         <textarea
-          name='descriere'
-          id='descriere'
+          name="descriere"
+          id="descriere"
           value={templateTeacher.descriere}
           onChange={(e) => onDescriereChange(e.target.value)}
         />
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='imagineProfil'>Imagine Profil(optional):</label>
+        <label htmlFor="imagineProfil">Imagine Profil(optional):</label>
         <input
-          type='file'
-          name='imagineProfil'
-          id='imagineProfil'
+          type="file"
+          name="imagineProfil"
+          id="imagineProfil"
           onChange={(e) => {
             if (e.target.files) {
               onImagineProfilChange(e.target.files[0]);
@@ -95,7 +100,14 @@ const ProfileCreateTeacher: FC = () => {
           }}
         />
       </div>
-      <button type='submit'>Creeaza Profesor</button>
+      <button
+        type="submit"
+        disabled={loadingCreateCloudinaryImageForTeacher === "PENDING"}
+      >
+        {loadingCreateCloudinaryImageForTeacher === "PENDING"
+          ? "Se încarcă imaginea..."
+          : "Creați un Profesor"}
+      </button>
     </form>
   );
 };

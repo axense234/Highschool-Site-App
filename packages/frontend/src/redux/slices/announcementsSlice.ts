@@ -31,6 +31,14 @@ import { baseSiteUrl } from "@/config";
 type initialStateType = {
   loadingAnnouncements: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingCreateAnnouncement: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingUpdateAnnouncement: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingDeleteAnnouncement: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingMoveAnnouncement: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingCreateCloudinaryImageForAnnouncement:
+    | "IDLE"
+    | "PENDING"
+    | "SUCCEDED"
+    | "FAILED";
   templateAnnouncement: templateAnnouncement;
   formModal: formModalType;
   categoryToggles: CategorieAnunt[];
@@ -44,6 +52,10 @@ const announcementsAdapter = createEntityAdapter<Anunt>({
 const initialState = announcementsAdapter.getInitialState({
   loadingAnnouncements: "IDLE",
   loadingCreateAnnouncement: "IDLE",
+  loadingUpdateAnnouncement: "IDLE",
+  loadingDeleteAnnouncement: "IDLE",
+  loadingMoveAnnouncement: "IDLE",
+  loadingCreateCloudinaryImageForAnnouncement: "IDLE",
   templateAnnouncement: defaultTemplateAnnouncement,
   formModal: {
     msg: "",
@@ -192,9 +204,16 @@ const announcementsSlice = createSlice({
         state.loadingAnnouncements = "FAILED";
       })
       .addCase(
+        createCloudinaryImageForAnnouncement.pending,
+        (state, action) => {
+          state.loadingCreateCloudinaryImageForAnnouncement = "PENDING";
+        }
+      )
+      .addCase(
         createCloudinaryImageForAnnouncement.fulfilled,
         (state, action) => {
           state.templateAnnouncement.imagineUrl = action.payload;
+          state.loadingCreateCloudinaryImageForAnnouncement = "SUCCEDED";
         }
       )
       .addCase(createAnnouncement.pending, (state, action) => {
@@ -216,12 +235,20 @@ const announcementsSlice = createSlice({
           state.loadingCreateAnnouncement = "SUCCEDED";
         }
       })
+      .addCase(deleteAnnouncementById.pending, (state, action) => {
+        state.loadingDeleteAnnouncement = "PENDING";
+      })
       .addCase(deleteAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
 
         if (announcement) {
           announcementsAdapter.removeOne(state, announcement.anunt_uid);
         }
+
+        state.loadingDeleteAnnouncement = "SUCCEDED";
+      })
+      .addCase(updateAnnouncementById.pending, (state, action) => {
+        state.loadingUpdateAnnouncement = "PENDING";
       })
       .addCase(updateAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -239,6 +266,7 @@ const announcementsSlice = createSlice({
             changes: announcement,
           });
         }
+        state.loadingUpdateAnnouncement = "SUCCEDED";
       });
   },
 });
@@ -253,6 +281,16 @@ export const selectLoadingAnnouncements = (state: State) =>
 
 export const selectLoadingCreateAnnouncement = (state: State) =>
   state.announcements.loadingCreateAnnouncement;
+
+export const selectLoadingUpdateAnnouncement = (state: State) =>
+  state.announcements.loadingUpdateAnnouncement;
+
+export const selectLoadingDeleteAnnouncement = (state: State) =>
+  state.announcements.loadingDeleteAnnouncement;
+
+export const selectLoadingCreateCloudinaryImageForAnnouncement = (
+  state: State
+) => state.announcements.loadingCreateCloudinaryImageForAnnouncement;
 
 export const selectTemplateAnnouncement = (state: State) =>
   state.announcements.templateAnnouncement;

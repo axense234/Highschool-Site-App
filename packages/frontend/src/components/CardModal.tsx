@@ -1,5 +1,5 @@
 // React
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
 // React Icons
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { BsBoxArrowInUpLeft } from "react-icons/bs";

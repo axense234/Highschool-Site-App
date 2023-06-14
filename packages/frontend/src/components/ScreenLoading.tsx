@@ -1,5 +1,5 @@
 // React
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 // React Spinners
 import { PulseLoader } from "react-spinners";
 // SCSS
@@ -12,25 +12,62 @@ import {
   selectLoadingLoginProfile,
   selectLoadingUpdateProfile,
 } from "@/redux/slices/generalSlice";
-import { selectLoadingCreateAnnouncement } from "@/redux/slices/announcementsSlice";
-import { selectLoadingCreateTeacher } from "@/redux/slices/teachersSlice";
+import {
+  selectLoadingCreateAnnouncement,
+  selectLoadingDeleteAnnouncement,
+  selectLoadingUpdateAnnouncement,
+} from "@/redux/slices/announcementsSlice";
+import {
+  selectLoadingCreateTeacher,
+  selectLoadingDeleteTeacher,
+  selectLoadingUpdateTeacher,
+} from "@/redux/slices/teachersSlice";
 
 const ScreenLoading: FC = () => {
   const screenLoadingRef = useRef<HTMLDivElement>(null);
+  const [showLoading, setShowLoading] = useState<boolean>(false);
+
   const loadingLoginProfile = useAppSelector(selectLoadingLoginProfile);
   const loadingUpdateProfile = useAppSelector(selectLoadingUpdateProfile);
+
+  const loadingUpdateAnnouncement = useAppSelector(
+    selectLoadingUpdateAnnouncement
+  );
+  const loadingDeleteAnnouncement = useAppSelector(
+    selectLoadingDeleteAnnouncement
+  );
   const loadingCreateAnnouncement = useAppSelector(
     selectLoadingCreateAnnouncement
   );
+
   const loadingCreateTeacher = useAppSelector(selectLoadingCreateTeacher);
+  const loadingUpdateTeacher = useAppSelector(selectLoadingUpdateTeacher);
+  const loadingDeleteTeacher = useAppSelector(selectLoadingDeleteTeacher);
 
-  const show =
-    loadingLoginProfile === "PENDING" ||
-    loadingUpdateProfile === "PENDING" ||
-    loadingCreateAnnouncement === "PENDING" ||
-    loadingCreateTeacher === "PENDING";
+  useEffect(() => {
+    const show =
+      loadingLoginProfile === "PENDING" ||
+      loadingUpdateProfile === "PENDING" ||
+      loadingCreateAnnouncement === "PENDING" ||
+      loadingCreateTeacher === "PENDING" ||
+      loadingUpdateAnnouncement === "PENDING" ||
+      loadingDeleteAnnouncement === "PENDING" ||
+      loadingUpdateTeacher === "PENDING" ||
+      loadingDeleteTeacher === "PENDING";
 
-  useOverlayTransition(show, screenLoadingRef);
+    setShowLoading(show);
+  }, [
+    loadingLoginProfile,
+    loadingUpdateProfile,
+    loadingCreateAnnouncement,
+    loadingCreateTeacher,
+    loadingUpdateAnnouncement,
+    loadingDeleteAnnouncement,
+    loadingUpdateTeacher,
+    loadingDeleteTeacher,
+  ]);
+
+  useOverlayTransition(showLoading, screenLoadingRef);
 
   return (
     <div

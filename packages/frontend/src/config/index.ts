@@ -8,6 +8,6 @@ const baseUrl =
 const baseSiteUrl =
   env === "development"
     ? "http://localhost:3000"
-    : "https://highschool-site-app-ca.netlify.app/";
+    : "https://highschool-site-app-ca.netlify.app";
 
 export { baseUrl, baseSiteUrl };

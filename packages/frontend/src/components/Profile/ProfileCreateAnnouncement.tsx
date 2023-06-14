@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   createAnnouncement,
   createCloudinaryImageForAnnouncement,
+  selectLoadingCreateCloudinaryImageForAnnouncement,
   selectTemplateAnnouncement,
   updateTemplateAnnouncement,
 } from "@/redux/slices/announcementsSlice";
@@ -18,8 +19,11 @@ import FormModal from "../FormModal";
 import { categoriiAnunturi } from "@/data";
 
 const ProfileCreateAnnouncement: FC = () => {
-  const templateAnnouncement = useAppSelector(selectTemplateAnnouncement);
   const dispatch = useAppDispatch();
+  const templateAnnouncement = useAppSelector(selectTemplateAnnouncement);
+  const loadingCreateCloudinaryImageForAnnouncement = useAppSelector(
+    selectLoadingCreateCloudinaryImageForAnnouncement
+  );
 
   const onTitluChange = (titlu: string) => {
     dispatch(updateTemplateAnnouncement({ key: "titlu", value: titlu }));
@@ -132,7 +136,14 @@ const ProfileCreateAnnouncement: FC = () => {
           <option value="inceput">Inainte de descriere.</option>
         </select>
       </div>
-      <button type="submit">Creeaza Anunt</button>
+      <button
+        type="submit"
+        disabled={loadingCreateCloudinaryImageForAnnouncement === "PENDING"}
+      >
+        {loadingCreateCloudinaryImageForAnnouncement === "PENDING"
+          ? "Se încarcă imaginea..."
+          : "Creați un Anunț"}
+      </button>
     </form>
   );
 };
