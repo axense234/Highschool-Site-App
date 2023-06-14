@@ -30,6 +30,7 @@ import { baseSiteUrl } from "@/config";
 
 type initialStateType = {
   loadingAnnouncements: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingCreateAnnouncement: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   templateAnnouncement: templateAnnouncement;
   formModal: formModalType;
   categoryToggles: CategorieAnunt[];
@@ -42,6 +43,7 @@ const announcementsAdapter = createEntityAdapter<Anunt>({
 
 const initialState = announcementsAdapter.getInitialState({
   loadingAnnouncements: "IDLE",
+  loadingCreateAnnouncement: "IDLE",
   templateAnnouncement: defaultTemplateAnnouncement,
   formModal: {
     msg: "",
@@ -195,6 +197,9 @@ const announcementsSlice = createSlice({
           state.templateAnnouncement.imagineUrl = action.payload;
         }
       )
+      .addCase(createAnnouncement.pending, (state, action) => {
+        state.loadingCreateAnnouncement = "PENDING";
+      })
       .addCase(createAnnouncement.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
         const axiosError = action.payload as AxiosError;
@@ -208,6 +213,7 @@ const announcementsSlice = createSlice({
           announcement.id = announcement.anunt_uid;
           announcementsAdapter.addOne(state, announcement);
           window.location.href = `${baseSiteUrl}/anunturi`;
+          state.loadingCreateAnnouncement = "SUCCEDED";
         }
       })
       .addCase(deleteAnnouncementById.fulfilled, (state, action) => {
@@ -244,6 +250,9 @@ export const {
 
 export const selectLoadingAnnouncements = (state: State) =>
   state.announcements.loadingAnnouncements;
+
+export const selectLoadingCreateAnnouncement = (state: State) =>
+  state.announcements.loadingCreateAnnouncement;
 
 export const selectTemplateAnnouncement = (state: State) =>
   state.announcements.templateAnnouncement;

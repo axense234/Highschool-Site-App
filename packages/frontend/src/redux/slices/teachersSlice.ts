@@ -31,6 +31,7 @@ const teachersAdapter = createEntityAdapter<Profesor>({
 
 type initialStateType = {
   loadingTeachers: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingCreateTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   templateTeacher: templateTeacher;
   formModal: formModalType;
   foundTeacherId: string;
@@ -164,6 +165,9 @@ const teachersSlice = createSlice({
       .addCase(createCloudinaryImageForTeacher.fulfilled, (state, action) => {
         state.templateTeacher.imagineProfilUrl = action.payload;
       })
+      .addCase(createTeacher.pending, (state, action) => {
+        state.loadingCreateTeacher = "PENDING";
+      })
       .addCase(createTeacher.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
         const axiosError = action.payload as AxiosError;
@@ -211,6 +215,9 @@ export const { selectAll: selectAllTeachers, selectById: selectTeacherById } =
 
 export const selectLoadingTeachers = (state: State) =>
   state.teachers.loadingTeachers;
+
+export const selectLoadingCreateTeacher = (state: State) =>
+  state.teachers.loadingCreateTeacher;
 
 export const selectTemplateTeacher = (state: State) =>
   state.teachers.templateTeacher;

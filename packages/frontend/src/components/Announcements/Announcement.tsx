@@ -357,9 +357,11 @@ const Announcement: FC<Anunt> = ({
             <Image
               src={imagineUrl as string}
               alt={titlu}
-              width={100}
-              height={100}
+              width={1000}
+              height={1000}
               title={titlu}
+              placeholder="blur"
+              blurDataURL={imagineUrl as string}
             />
           )}
         </div>

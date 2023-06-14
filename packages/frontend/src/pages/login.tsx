@@ -65,7 +65,7 @@ const Login: FC = () => {
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
-                value={templateProfile.email}
+                value={templateProfile.email || ""}
                 onChange={(e) => onEmailChange(e.target.value)}
               />
             </div>
@@ -74,7 +74,7 @@ const Login: FC = () => {
               <div className={loginStyles.loginContainer__passwordControl}>
                 <input
                   type={showPassword ? "text" : "password"}
-                  value={templateProfile.password}
+                  value={templateProfile.password || ""}
                   onChange={(e) => onPasswordChange(e.target.value)}
                 />
                 {showPassword ? (
@@ -89,7 +89,7 @@ const Login: FC = () => {
               <select
                 name="rol"
                 id="rol"
-                value={templateProfile.rolUtilizator}
+                value={templateProfile.rolUtilizator || "ADMIN"}
                 onChange={(e) => onRolUtilizatorChange(e.target.value)}
               >
                 <option value="ADMIN">ADMIN</option>

@@ -20,7 +20,7 @@ const useAuthorization = () => {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, [profile]);
 
   if (isLoading) {
     return <SectionLoading />;

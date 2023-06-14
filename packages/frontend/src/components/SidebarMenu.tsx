@@ -1,5 +1,5 @@
 // React
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
 // React Icons
 import { AiOutlineMenu } from "react-icons/ai";
 // SCSS
@@ -10,23 +10,24 @@ interface SidebarMenuProps {
 }
 
 const SidebarMenu: FC<SidebarMenuProps> = ({ setShowSidebar }) => {
-  const [userClicked, setUserClicked] = useState<"false" | "true">("false");
+  const sidebarMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const clicked = localStorage.getItem("SidebarMenuClicked");
-    setUserClicked((clicked as "true") || "false");
+    if (clicked) {
+      (sidebarMenuRef.current as HTMLDivElement).style.animation = "none";
+    }
   }, []);
 
   return (
     <div
       className={menuStyles.sidebarMenuContainer}
       title="Deschide meniul de navigare"
-      style={{ animation: JSON.parse(userClicked) && "none" }}
+      ref={sidebarMenuRef}
     >
       <AiOutlineMenu
         onClick={() => {
           localStorage.setItem("SidebarMenuClicked", "true");
-          setUserClicked("true");
           setShowSidebar(true);
         }}
       />

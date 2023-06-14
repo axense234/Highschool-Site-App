@@ -15,8 +15,6 @@ const getAllAnnouncements = async (req: Request, res: Response) => {
     },
   });
 
-  console.log(foundAnnouncements.length);
-
   if (foundAnnouncements.length < 1) {
     return res
       .status(StatusCodes.NOT_FOUND)

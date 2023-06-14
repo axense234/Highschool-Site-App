@@ -185,9 +185,14 @@ const Profesor: FC<Profesor> = ({
               "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
             }
             alt={templateTeacher.username}
-            width={100}
-            height={100}
+            width={500}
+            height={500}
             title={templateTeacher.username}
+            placeholder="blur"
+            blurDataURL={
+              (templateTeacher.imagineProfilUrl as string) ||
+              "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+            }
           />
           <div
             className={profesoriStyles.profesoriContainer__profesorImageOverlay}
@@ -275,9 +280,14 @@ const Profesor: FC<Profesor> = ({
           "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
         }
         alt={username}
-        width={100}
-        height={100}
+        width={500}
+        height={500}
         title={username}
+        placeholder="blur"
+        blurDataURL={
+          (templateTeacher.imagineProfilUrl as string) ||
+          "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+        }
       />
       <div className={profesoriStyles.profesoriContainer__profesorInfo}>
         <h3>{username}</h3>

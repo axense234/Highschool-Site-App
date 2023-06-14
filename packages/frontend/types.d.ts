@@ -138,6 +138,10 @@ type AboutTechnologyType = {
 };
 
 // Interfaces
+interface ScreenLoadingProps {
+  show: boolean;
+}
+
 interface SearchbarProps {
   showSearchbar: boolean;
   setShowSearchbar: Dispatch<SetStateAction<boolean>>;
@@ -255,4 +259,5 @@ export {
   PageData,
   IndividualPageData,
   BackgroundImageUrl,
+  ScreenLoadingProps,
 };

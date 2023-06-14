@@ -14,6 +14,7 @@ import SidebarMenu from "@/components/SidebarMenu";
 import Footer from "@/components/Footer";
 import SearchButton from "@/components/SearchButton";
 import Searchbar from "@/components/Searchbar";
+import ScreenLoading from "@/components/ScreenLoading";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <SearchButton setShowSearchbar={setShowSearchbar} />
         <Component {...pageProps} />
         <Footer />
+        <ScreenLoading />
       </Provider>
     </div>
   );

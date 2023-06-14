@@ -30,6 +30,8 @@ import {
 
 type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingLoginProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingUpdateProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   profile: Utilizator;
   templateProfile: templateUser;
   formModal: formModalType;
@@ -46,6 +48,8 @@ type initialStateType = {
 
 const initialState: initialStateType = {
   loadingProfile: "IDLE",
+  loadingLoginProfile: "IDLE",
+  loadingUpdateProfile: "IDLE",
   profile: defaultProfile,
   // For the login page
   templateProfile: defaultTemplateProfile,
@@ -199,7 +203,7 @@ const generalSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(loginUser.pending, (state, action) => {
-        state.loadingProfile = "PENDING";
+        state.loadingLoginProfile = "PENDING";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         const profile = action.payload as Utilizator;
@@ -215,11 +219,10 @@ const generalSlice = createSlice({
           state.templateProfile = defaultTemplateProfile;
           window.location.href = `${baseSiteUrl}/profil`;
         }
-
-        state.loadingProfile = "SUCCEDED";
+        state.loadingLoginProfile = "SUCCEDED";
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loadingProfile = "FAILED";
+        state.loadingLoginProfile = "FAILED";
       })
       .addCase(getProfile.pending, (state, action) => {
         state.loadingProfile = "PENDING";
@@ -239,7 +242,7 @@ const generalSlice = createSlice({
         state.loadingProfile = "FAILED";
       })
       .addCase(updateProfile.pending, (state, action) => {
-        state.loadingProfile = "PENDING";
+        state.loadingUpdateProfile = "PENDING";
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         const profile = action.payload as Utilizator;
@@ -259,10 +262,10 @@ const generalSlice = createSlice({
           state.templateProfile.password = "PAROLA";
         }
 
-        state.loadingProfile = "SUCCEDED";
+        state.loadingUpdateProfile = "SUCCEDED";
       })
       .addCase(updateProfile.rejected, (state, action) => {
-        state.loadingProfile = "FAILED";
+        state.loadingUpdateProfile = "FAILED";
       })
       .addCase(logoutProfile.fulfilled, (state, action) => {
         window.location.href = `${baseSiteUrl}/home`;
@@ -296,6 +299,12 @@ export const selectFormModal = (state: State) => state.general.formModal;
 
 export const selectLoadingProfile = (state: State) =>
   state.general.loadingProfile;
+
+export const selectLoadingLoginProfile = (state: State) =>
+  state.general.loadingLoginProfile;
+
+export const selectLoadingUpdateProfile = (state: State) =>
+  state.general.loadingUpdateProfile;
 
 export const selectCardModalId = (state: State) => state.general.cardModalId;
 
