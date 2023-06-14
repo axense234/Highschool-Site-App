@@ -35,6 +35,7 @@ import {
 } from "@/redux/slices/announcementsSlice";
 // Store
 import { State } from "@/redux/api/store";
+import { blurImagePlaceholder } from "@/data";
 
 const Announcement: FC<Anunt> = ({
   descriere,
@@ -191,9 +192,11 @@ const Announcement: FC<Anunt> = ({
                 <Image
                   src={templateAnnouncement.imagineUrl as string}
                   alt={titlu}
-                  width={100}
-                  height={100}
+                  width={1000}
+                  height={1000}
                   title={titlu}
+                  placeholder="blur"
+                  blurDataURL={blurImagePlaceholder}
                 />
                 <div
                   className={
@@ -361,7 +364,7 @@ const Announcement: FC<Anunt> = ({
               height={1000}
               title={titlu}
               placeholder="blur"
-              blurDataURL={imagineUrl as string}
+              blurDataURL={blurImagePlaceholder}
             />
           )}
         </div>

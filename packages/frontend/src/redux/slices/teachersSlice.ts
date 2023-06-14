@@ -184,6 +184,8 @@ const teachersSlice = createSlice({
       })
       .addCase(createTeacher.pending, (state, action) => {
         state.loadingCreateTeacher = "PENDING";
+        (state as unknown as State).general.screenLoadingMessage =
+          "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
       })
       .addCase(createTeacher.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -202,6 +204,8 @@ const teachersSlice = createSlice({
       })
       .addCase(deleteTeacherById.pending, (state, action) => {
         state.loadingDeleteTeacher = "PENDING";
+        (state as unknown as State).general.screenLoadingMessage =
+          "Încercăm să ștergem un profesor, vă rugăm să așteptați...";
       })
       .addCase(deleteTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -214,6 +218,8 @@ const teachersSlice = createSlice({
       })
       .addCase(updateTeacherById.pending, (state, action) => {
         state.loadingUpdateTeacher = "PENDING";
+        (state as unknown as State).general.screenLoadingMessage =
+          "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
       })
       .addCase(updateTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;

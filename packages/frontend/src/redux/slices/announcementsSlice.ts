@@ -218,6 +218,8 @@ const announcementsSlice = createSlice({
       )
       .addCase(createAnnouncement.pending, (state, action) => {
         state.loadingCreateAnnouncement = "PENDING";
+        (state as unknown as State).general.screenLoadingMessage =
+          "Încercăm să creăm un anunț, vă rugăm să așteptați...";
       })
       .addCase(createAnnouncement.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -237,6 +239,8 @@ const announcementsSlice = createSlice({
       })
       .addCase(deleteAnnouncementById.pending, (state, action) => {
         state.loadingDeleteAnnouncement = "PENDING";
+        (state as unknown as State).general.screenLoadingMessage =
+          "Încercăm să ștergem un anunț, vă rugăm să așteptați...";
       })
       .addCase(deleteAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -249,6 +253,8 @@ const announcementsSlice = createSlice({
       })
       .addCase(updateAnnouncementById.pending, (state, action) => {
         state.loadingUpdateAnnouncement = "PENDING";
+        (state as unknown as State).general.screenLoadingMessage =
+          "Încercăm să actualizăm un anunț, vă rugăm să așteptați...";
       })
       .addCase(updateAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;

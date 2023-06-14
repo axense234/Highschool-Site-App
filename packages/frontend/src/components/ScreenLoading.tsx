@@ -11,6 +11,7 @@ import { useAppSelector } from "@/hooks/redux";
 import {
   selectLoadingLoginProfile,
   selectLoadingUpdateProfile,
+  selectScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import {
   selectLoadingCreateAnnouncement,
@@ -26,6 +27,7 @@ import {
 const ScreenLoading: FC = () => {
   const screenLoadingRef = useRef<HTMLDivElement>(null);
   const [showLoading, setShowLoading] = useState<boolean>(false);
+  const screenLoadingMessage = useAppSelector(selectScreenLoadingMessage);
 
   const loadingLoginProfile = useAppSelector(selectLoadingLoginProfile);
   const loadingUpdateProfile = useAppSelector(selectLoadingUpdateProfile);
@@ -75,7 +77,7 @@ const ScreenLoading: FC = () => {
       ref={screenLoadingRef}
     >
       <div className={screenLoadingStyles.screenLoadingContainer__content}>
-        <h3>Se încarcă, vă rugăm să așteptați!</h3>
+        <h3>{screenLoadingMessage}</h3>
         <PulseLoader size={35} />
       </div>
     </div>

@@ -44,6 +44,7 @@ type initialStateType = {
   emailFormTemplate: EmailFormTemplate;
   currentPathname: string;
   searchbarQuery: string;
+  screenLoadingMessage: string;
 };
 
 const initialState: initialStateType = {
@@ -76,6 +77,8 @@ const initialState: initialStateType = {
   currentPathname: "",
   // The query for the searchbar
   searchbarQuery: "",
+  // The text displayed upon various ScreenLoading instances
+  screenLoadingMessage: "Se încarcă, vă rugăm să așteptați!",
 };
 
 // THUNKS
@@ -204,6 +207,8 @@ const generalSlice = createSlice({
     builder
       .addCase(loginUser.pending, (state, action) => {
         state.loadingLoginProfile = "PENDING";
+        state.screenLoadingMessage =
+          "Încercăm să intrăm în contul tău, vă rugăm să așteptați...        ";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         const profile = action.payload as Utilizator;
@@ -243,6 +248,8 @@ const generalSlice = createSlice({
       })
       .addCase(updateProfile.pending, (state, action) => {
         state.loadingUpdateProfile = "PENDING";
+        state.screenLoadingMessage =
+          "Încercăm să vă actualizăm contul, vă rugăm să așteptați...        ";
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         const profile = action.payload as Utilizator;
@@ -329,6 +336,9 @@ export const selectCurrentPathname = (state: State) =>
 
 export const selectSearchbarQuery = (state: State) =>
   state.general.searchbarQuery;
+
+export const selectScreenLoadingMessage = (state: State) =>
+  state.general.screenLoadingMessage;
 
 export const {
   updateTemplateProfile,

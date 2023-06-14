@@ -40,7 +40,7 @@ import {
   setEditMode,
 } from "@/redux/slices/generalSlice";
 // Data
-import { materii } from "@/data";
+import { blurImagePlaceholder, materii } from "@/data";
 // Store
 import { State } from "@/redux/api/store";
 // Hooks
@@ -189,10 +189,7 @@ const Profesor: FC<Profesor> = ({
             height={500}
             title={templateTeacher.username}
             placeholder="blur"
-            blurDataURL={
-              (templateTeacher.imagineProfilUrl as string) ||
-              "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-            }
+            blurDataURL={blurImagePlaceholder}
           />
           <div
             className={profesoriStyles.profesoriContainer__profesorImageOverlay}
@@ -284,10 +281,7 @@ const Profesor: FC<Profesor> = ({
         height={500}
         title={username}
         placeholder="blur"
-        blurDataURL={
-          (templateTeacher.imagineProfilUrl as string) ||
-          "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-        }
+        blurDataURL={blurImagePlaceholder}
       />
       <div className={profesoriStyles.profesoriContainer__profesorInfo}>
         <h3>{username}</h3>
