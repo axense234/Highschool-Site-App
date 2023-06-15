@@ -42,6 +42,7 @@ type initialStateType = {
   templateTeacher: templateTeacher;
   formModal: formModalType;
   foundTeacherId: string;
+  screenLoadingMessageForTeachers: string;
 };
 
 const initialState = teachersAdapter.getInitialState({
@@ -184,7 +185,9 @@ const teachersSlice = createSlice({
         state.loadingCreateCloudinaryImageForTeacher = "SUCCEDED";
       })
       .addCase(createTeacher.pending, (state, action) => {
-        // "Încercăm să creăm un profesor, vă rugăm să așteptați...";
+        state.loadingCreateTeacher = "PENDING";
+        state.screenLoadingMessageForTeachers =
+          "Încercăm să creăm un profesor, vă rugăm să așteptați...";
       })
       .addCase(createTeacher.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -200,10 +203,14 @@ const teachersSlice = createSlice({
           teachersAdapter.addOne(state, teacher);
           window.location.href = `${baseSiteUrl}/profesori`;
         }
+
+        state.screenLoadingMessageForTeachers = "";
         state.loadingCreateTeacher = "SUCCEDED";
       })
       .addCase(deleteTeacherById.pending, (state, action) => {
-        // "Încercăm să ștergem un profesor, vă rugăm să așteptați...";
+        state.loadingCreateTeacher = "PENDING";
+        state.screenLoadingMessageForTeachers =
+          "Încercăm să ștergem un profesor, vă rugăm să așteptați...";
       })
       .addCase(deleteTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -212,10 +219,13 @@ const teachersSlice = createSlice({
           teachersAdapter.removeOne(state, teacher.profesor_uid);
         }
 
+        state.screenLoadingMessageForTeachers = "";
         state.loadingDeleteTeacher = "SUCCEDED";
       })
       .addCase(updateTeacherById.pending, (state, action) => {
-        // "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
+        state.loadingCreateTeacher = "PENDING";
+        state.screenLoadingMessageForTeachers =
+          "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
       })
       .addCase(updateTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -233,6 +243,8 @@ const teachersSlice = createSlice({
             changes: teacher,
           });
         }
+
+        state.screenLoadingMessageForTeachers = "";
         state.loadingUpdateTeacher = "PENDING";
       });
   },
@@ -255,6 +267,9 @@ export const selectLoadingDeleteTeacher = (state: State) =>
 
 export const selectLoadingCreateCloudinaryImageForTeacher = (state: State) =>
   state.teachers.loadingCreateCloudinaryImageForTeacher;
+
+export const selectScreenLoadingMessageForTeachers = (state: State) =>
+  state.teachers.screenLoadingMessageForTeachers;
 
 export const selectTemplateTeacher = (state: State) =>
   state.teachers.templateTeacher;

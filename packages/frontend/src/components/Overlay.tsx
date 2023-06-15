@@ -12,7 +12,6 @@ import {
   selectCardModalId,
   selectOverlay,
   setCardModalId,
-  setScreenLoadingMessage,
   updateOverlay,
 } from "@/redux/slices/generalSlice";
 import {
@@ -42,31 +41,16 @@ const Overlay: FC = () => {
         dispatch(logoutProfile());
         break;
       case "deleteAnnouncement":
-        dispatch(
-          setScreenLoadingMessage(
-            "Încercăm să ștergem un anunț, vă rugăm să așteptați..."
-          )
-        );
         dispatch(deleteAnnouncementById(cardModalId));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));
         break;
       case "deleteTeacher":
-        dispatch(
-          setScreenLoadingMessage(
-            "Încercăm să ștergem un profesor, vă rugăm să așteptați..."
-          )
-        );
         dispatch(deleteTeacherById(cardModalId));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));
         break;
       case "moveAnnouncement":
-        dispatch(
-          setScreenLoadingMessage(
-            "Încercăm să mutăm un anunț, vă rugăm să așteptați..."
-          )
-        );
         dispatch(updateAnnouncementById(templateAnnouncement));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));

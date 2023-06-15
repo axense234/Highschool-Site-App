@@ -17,7 +17,6 @@ import {
 import FormModal from "../FormModal";
 // Data
 import { categoriiAnunturi } from "@/data";
-import { setScreenLoadingMessage } from "@/redux/slices/generalSlice";
 
 const ProfileCreateAnnouncement: FC = () => {
   const dispatch = useAppDispatch();
@@ -57,11 +56,6 @@ const ProfileCreateAnnouncement: FC = () => {
   const handleCreateAnnouncement = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(
-      setScreenLoadingMessage(
-        "Încercăm să creăm un anunț, vă rugăm să așteptați..."
-      )
-    );
     dispatch(createAnnouncement(templateAnnouncement));
   };
 

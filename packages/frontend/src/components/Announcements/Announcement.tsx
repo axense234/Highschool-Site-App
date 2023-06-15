@@ -22,7 +22,6 @@ import {
   selectCardModalId,
   setCardModalId,
   setEditMode,
-  setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import {
   createCloudinaryImageForAnnouncement,
@@ -85,11 +84,6 @@ const Announcement: FC<Anunt> = ({
 
   const handleUpdateAnnouncement = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(
-      setScreenLoadingMessage(
-        "Încercăm să actualizăm un anunț, vă rugăm să așteptați..."
-      )
-    );
 
     dispatch(updateAnnouncementById(templateAnnouncement));
 
