@@ -241,7 +241,7 @@ const announcementsSlice = createSlice({
         console.log(action.error);
       })
       .addCase(deleteAnnouncementById.pending, (state, action) => {
-        state.loadingCreateAnnouncement = "PENDING";
+        state.loadingDeleteAnnouncement = "PENDING";
         state.screenLoadingMessageForAnnouncements =
           "Încercăm să ștergem un anunț, vă rugăm să așteptați...";
       })
@@ -256,7 +256,7 @@ const announcementsSlice = createSlice({
         state.loadingDeleteAnnouncement = "SUCCEDED";
       })
       .addCase(updateAnnouncementById.pending, (state, action) => {
-        state.loadingCreateAnnouncement = "PENDING";
+        state.loadingUpdateAnnouncement = "PENDING";
         state.screenLoadingMessageForAnnouncements =
           "Încercăm să actualizăm un anunț, vă rugăm să așteptați...";
       })

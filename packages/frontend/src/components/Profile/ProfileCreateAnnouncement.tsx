@@ -60,7 +60,11 @@ const ProfileCreateAnnouncement: FC = () => {
   const handleCreateAnnouncement = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(setScreenLoadingMessage("test ann"));
+    dispatch(
+      setScreenLoadingMessage(
+        "Încercăm să creăm un anunț, vă rugăm să așteptați..."
+      )
+    );
     dispatch(createAnnouncement(templateAnnouncement));
   };
 

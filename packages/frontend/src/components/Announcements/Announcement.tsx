@@ -86,7 +86,11 @@ const Announcement: FC<Anunt> = ({
   const handleUpdateAnnouncement = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(setScreenLoadingMessage("test update ann"));
+    dispatch(
+      setScreenLoadingMessage(
+        "Încercăm să actualizăm un anunț, vă rugăm să așteptați..."
+      )
+    );
     dispatch(updateAnnouncementById(templateAnnouncement));
 
     if (templateAnnouncement.titlu && templateAnnouncement.descriere) {

@@ -209,7 +209,7 @@ const teachersSlice = createSlice({
         state.loadingCreateTeacher = "SUCCEDED";
       })
       .addCase(deleteTeacherById.pending, (state, action) => {
-        state.loadingCreateTeacher = "PENDING";
+        state.loadingDeleteTeacher = "PENDING";
         state.screenLoadingMessageForTeachers =
           "Încercăm să ștergem un profesor, vă rugăm să așteptați...";
       })
@@ -224,7 +224,7 @@ const teachersSlice = createSlice({
         state.loadingDeleteTeacher = "SUCCEDED";
       })
       .addCase(updateTeacherById.pending, (state, action) => {
-        state.loadingCreateTeacher = "PENDING";
+        state.loadingUpdateTeacher = "PENDING";
         state.screenLoadingMessageForTeachers =
           "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
       })

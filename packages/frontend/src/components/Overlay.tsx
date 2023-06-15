@@ -42,19 +42,31 @@ const Overlay: FC = () => {
         dispatch(logoutProfile());
         break;
       case "deleteAnnouncement":
-        dispatch(setScreenLoadingMessage("test del ann"));
+        dispatch(
+          setScreenLoadingMessage(
+            "Încercăm să ștergem un anunț, vă rugăm să așteptați..."
+          )
+        );
         dispatch(deleteAnnouncementById(cardModalId));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));
         break;
       case "deleteTeacher":
-        dispatch(setScreenLoadingMessage("test del teacher"));
+        dispatch(
+          setScreenLoadingMessage(
+            "Încercăm să ștergem un profesor, vă rugăm să așteptați..."
+          )
+        );
         dispatch(deleteTeacherById(cardModalId));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));
         break;
       case "moveAnnouncement":
-        dispatch(setScreenLoadingMessage("test move ann"));
+        dispatch(
+          setScreenLoadingMessage(
+            "Încercăm să mutăm un anunț, vă rugăm să așteptați..."
+          )
+        );
         dispatch(updateAnnouncementById(templateAnnouncement));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));

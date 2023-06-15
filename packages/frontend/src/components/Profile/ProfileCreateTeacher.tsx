@@ -43,7 +43,11 @@ const ProfileCreateTeacher: FC = () => {
   const handleCreateTeacher = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(setScreenLoadingMessage("test teacher"));
+    dispatch(
+      setScreenLoadingMessage(
+        "Încercăm să creăm un profesor, vă rugăm să așteptați..."
+      )
+    );
     dispatch(createTeacher(templateTeacher));
   };
 
