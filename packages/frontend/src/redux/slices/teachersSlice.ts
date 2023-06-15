@@ -22,7 +22,7 @@ import axiosInstance from "@/utils/axios";
 // Store
 import { State } from "../api/store";
 // Data
-import { defaultTemplateTeacher, templateTeachers } from "@/data";
+import { defaultTemplateTeacher } from "@/data";
 import { baseSiteUrl } from "@/config";
 
 const teachersAdapter = createEntityAdapter<Profesor>({
@@ -131,7 +131,8 @@ export const updateTeacherById = createAsyncThunk<
   try {
     const { data } = await axiosInstance.patch(
       `/profesori/profesor/update/${templateTeacher.profesor_uid}`,
-      templateTeacher
+      templateTeacher,
+      { withCredentials: true }
     );
     return data.teacher as Profesor;
   } catch (error) {
@@ -183,9 +184,7 @@ const teachersSlice = createSlice({
         state.loadingCreateCloudinaryImageForTeacher = "SUCCEDED";
       })
       .addCase(createTeacher.pending, (state, action) => {
-        state.loadingCreateTeacher = "PENDING";
-        (state as unknown as State).general.screenLoadingMessage =
-          "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
+        // "Încercăm să creăm un profesor, vă rugăm să așteptați...";
       })
       .addCase(createTeacher.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -204,9 +203,7 @@ const teachersSlice = createSlice({
         state.loadingCreateTeacher = "SUCCEDED";
       })
       .addCase(deleteTeacherById.pending, (state, action) => {
-        state.loadingDeleteTeacher = "PENDING";
-        (state as unknown as State).general.screenLoadingMessage =
-          "Încercăm să ștergem un profesor, vă rugăm să așteptați...";
+        // "Încercăm să ștergem un profesor, vă rugăm să așteptați...";
       })
       .addCase(deleteTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;
@@ -218,9 +215,7 @@ const teachersSlice = createSlice({
         state.loadingDeleteTeacher = "SUCCEDED";
       })
       .addCase(updateTeacherById.pending, (state, action) => {
-        state.loadingUpdateTeacher = "PENDING";
-        (state as unknown as State).general.screenLoadingMessage =
-          "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
+        // "Încercăm să actualizăm un profesor, vă rugăm să așteptați...";
       })
       .addCase(updateTeacherById.fulfilled, (state, action) => {
         const teacher = action.payload as Profesor;

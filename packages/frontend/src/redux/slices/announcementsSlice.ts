@@ -1,7 +1,5 @@
 // Prisma
 import { Anunt, CategorieAnunt } from "@prisma/client";
-// React
-import { RefObject } from "react";
 // Redux Toolkit
 import {
   createSlice,
@@ -24,7 +22,7 @@ import axiosInstance from "@/utils/axios";
 // State
 import { State } from "../api/store";
 // Data
-import { defaultTemplateAnnouncement, templateAnnouncements } from "@/data";
+import { defaultTemplateAnnouncement } from "@/data";
 // Config
 import { baseSiteUrl } from "@/config";
 
@@ -217,9 +215,7 @@ const announcementsSlice = createSlice({
         }
       )
       .addCase(createAnnouncement.pending, (state, action) => {
-        state.loadingCreateAnnouncement = "PENDING";
-        (state as unknown as State).general.screenLoadingMessage =
-          "Încercăm să creăm un anunț, vă rugăm să așteptați...";
+        // "Încercăm să creăm un anunț, vă rugăm să așteptați...";
       })
       .addCase(createAnnouncement.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -238,9 +234,7 @@ const announcementsSlice = createSlice({
         state.loadingCreateAnnouncement = "PENDING";
       })
       .addCase(deleteAnnouncementById.pending, (state, action) => {
-        state.loadingDeleteAnnouncement = "PENDING";
-        (state as unknown as State).general.screenLoadingMessage =
-          "Încercăm să ștergem un anunț, vă rugăm să așteptați...";
+        // "Încercăm să ștergem un anunț, vă rugăm să așteptați...";
       })
       .addCase(deleteAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -252,9 +246,7 @@ const announcementsSlice = createSlice({
         state.loadingDeleteAnnouncement = "SUCCEDED";
       })
       .addCase(updateAnnouncementById.pending, (state, action) => {
-        state.loadingUpdateAnnouncement = "PENDING";
-        (state as unknown as State).general.screenLoadingMessage =
-          "Încercăm să actualizăm un anunț, vă rugăm să așteptați...";
+        // "Încercăm să actualizăm un anunț, vă rugăm să așteptați...";
       })
       .addCase(updateAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;

@@ -119,7 +119,8 @@ export const updateProfile = createAsyncThunk<
   try {
     const { data } = await axiosInstance.patch(
       `/utilizatori/update/${templateUser.utilizator_uid as string}`,
-      templateUser
+      templateUser,
+      { withCredentials: true }
     );
     return data.user as Utilizator;
   } catch (error) {
@@ -201,6 +202,9 @@ const generalSlice = createSlice({
     },
     updateSearchbarQuery(state, action: PayloadAction<string>) {
       state.searchbarQuery = action.payload;
+    },
+    setScreenLoadingMessage(state, action: PayloadAction<string>) {
+      state.screenLoadingMessage = action.payload;
     },
   },
   extraReducers(builder) {
@@ -353,6 +357,7 @@ export const {
   updateGetAllQueryParams,
   setCurrentPathname,
   updateSearchbarQuery,
+  setScreenLoadingMessage,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

@@ -15,6 +15,7 @@ import {
   selectTemplateTeacher,
   updateTemplateTeacher,
 } from "@/redux/slices/teachersSlice";
+import { setScreenLoadingMessage } from "@/redux/slices/generalSlice";
 
 const ProfileCreateTeacher: FC = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +42,12 @@ const ProfileCreateTeacher: FC = () => {
 
   const handleCreateTeacher = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    dispatch(
+      setScreenLoadingMessage(
+        "Încercăm să creăm un profesor, vă rugăm să așteptați..."
+      )
+    );
 
     dispatch(createTeacher(templateTeacher));
   };
