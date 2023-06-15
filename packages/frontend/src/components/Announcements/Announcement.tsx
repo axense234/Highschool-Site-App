@@ -22,6 +22,7 @@ import {
   selectCardModalId,
   setCardModalId,
   setEditMode,
+  setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import {
   createCloudinaryImageForAnnouncement,
@@ -85,6 +86,7 @@ const Announcement: FC<Anunt> = ({
   const handleUpdateAnnouncement = (e: SyntheticEvent) => {
     e.preventDefault();
 
+    dispatch(setScreenLoadingMessage("test update ann"));
     dispatch(updateAnnouncementById(templateAnnouncement));
 
     if (templateAnnouncement.titlu && templateAnnouncement.descriere) {

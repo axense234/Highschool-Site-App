@@ -246,7 +246,7 @@ const teachersSlice = createSlice({
         }
 
         state.screenLoadingMessageForTeachers = "";
-        state.loadingUpdateTeacher = "PENDING";
+        state.loadingUpdateTeacher = "SUCCEDED";
       });
   },
 });

@@ -229,7 +229,7 @@ const generalSlice = createSlice({
           window.location.href = `${baseSiteUrl}/profil`;
         }
         state.screenLoadingMessage = "";
-        state.loadingLoginProfile = "PENDING";
+        state.loadingLoginProfile = "SUCCEDED";
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loadingLoginProfile = "FAILED";
