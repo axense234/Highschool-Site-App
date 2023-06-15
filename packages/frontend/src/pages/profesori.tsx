@@ -38,6 +38,7 @@ import {
   selectOverlay,
   setCardModalId,
   setEditMode,
+  setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 // Data
 import { materii } from "@/data";
@@ -135,6 +136,11 @@ const Profesor: FC<Profesor> = ({
   const handleUpdateTeacher = (e: SyntheticEvent) => {
     e.preventDefault();
 
+    dispatch(
+      setScreenLoadingMessage(
+        "Încercăm să actualizăm un profesor, vă rugăm să așteptați..."
+      )
+    );
     dispatch(updateTeacherById(templateTeacher));
     if (templateTeacher.username) {
       dispatch(setEditMode(false));
