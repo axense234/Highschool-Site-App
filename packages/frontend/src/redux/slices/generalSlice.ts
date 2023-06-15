@@ -203,6 +203,9 @@ const generalSlice = createSlice({
     updateSearchbarQuery(state, action: PayloadAction<string>) {
       state.searchbarQuery = action.payload;
     },
+    setScreenLoadingMessage(state, action: PayloadAction<string>) {
+      state.screenLoadingMessage = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -225,8 +228,8 @@ const generalSlice = createSlice({
           state.templateProfile = defaultTemplateProfile;
           window.location.href = `${baseSiteUrl}/profil`;
         }
-        state.loadingLoginProfile = "SUCCEDED";
         state.screenLoadingMessage = "";
+        state.loadingLoginProfile = "PENDING";
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loadingLoginProfile = "FAILED";
@@ -251,7 +254,7 @@ const generalSlice = createSlice({
       .addCase(updateProfile.pending, (state, action) => {
         state.loadingUpdateProfile = "PENDING";
         state.screenLoadingMessage =
-          "Încercăm să vă actualizăm contul, vă rugăm să așteptați...        ";
+          "Încercăm să vă actualizăm contul, vă rugăm să așteptați...";
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         const profile = action.payload as Utilizator;
@@ -356,6 +359,7 @@ export const {
   updateGetAllQueryParams,
   setCurrentPathname,
   updateSearchbarQuery,
+  setScreenLoadingMessage,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

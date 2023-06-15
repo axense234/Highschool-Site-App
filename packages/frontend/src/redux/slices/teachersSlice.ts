@@ -57,6 +57,7 @@ const initialState = teachersAdapter.getInitialState({
     msg: "",
   },
   foundTeacherId: "",
+  screenLoadingMessageForTeachers: "Se încarcă, vă rugăm să așteptați!",
 }) as EntityState<Profesor> & initialStateType;
 
 // THUNKS

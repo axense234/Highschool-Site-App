@@ -17,6 +17,10 @@ import {
 import FormModal from "../FormModal";
 // Data
 import { categoriiAnunturi } from "@/data";
+import {
+  selectScreenLoadingMessage,
+  setScreenLoadingMessage,
+} from "@/redux/slices/generalSlice";
 
 const ProfileCreateAnnouncement: FC = () => {
   const dispatch = useAppDispatch();
@@ -56,6 +60,7 @@ const ProfileCreateAnnouncement: FC = () => {
   const handleCreateAnnouncement = (e: SyntheticEvent) => {
     e.preventDefault();
 
+    dispatch(setScreenLoadingMessage("test ann"));
     dispatch(createAnnouncement(templateAnnouncement));
   };
 

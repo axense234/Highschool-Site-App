@@ -12,6 +12,7 @@ import {
   selectCardModalId,
   selectOverlay,
   setCardModalId,
+  setScreenLoadingMessage,
   updateOverlay,
 } from "@/redux/slices/generalSlice";
 import {
@@ -41,16 +42,19 @@ const Overlay: FC = () => {
         dispatch(logoutProfile());
         break;
       case "deleteAnnouncement":
+        dispatch(setScreenLoadingMessage("test del ann"));
         dispatch(deleteAnnouncementById(cardModalId));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));
         break;
       case "deleteTeacher":
+        dispatch(setScreenLoadingMessage("test del teacher"));
         dispatch(deleteTeacherById(cardModalId));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));
         break;
       case "moveAnnouncement":
+        dispatch(setScreenLoadingMessage("test move ann"));
         dispatch(updateAnnouncementById(templateAnnouncement));
         dispatch(setCardModalId(""));
         dispatch(updateOverlay(defaultOverlay));

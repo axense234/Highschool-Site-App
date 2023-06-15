@@ -17,13 +17,11 @@ import {
   selectLoadingCreateAnnouncement,
   selectLoadingDeleteAnnouncement,
   selectLoadingUpdateAnnouncement,
-  selectScreenLoadingMessageForAnnouncements,
 } from "@/redux/slices/announcementsSlice";
 import {
   selectLoadingCreateTeacher,
   selectLoadingDeleteTeacher,
   selectLoadingUpdateTeacher,
-  selectScreenLoadingMessageForTeachers,
 } from "@/redux/slices/teachersSlice";
 
 const ScreenLoading: FC = () => {
@@ -31,12 +29,6 @@ const ScreenLoading: FC = () => {
   const [showLoading, setShowLoading] = useState<boolean>(false);
   const screenLoadingMessageGeneral = useAppSelector(
     selectScreenLoadingMessage
-  );
-  const screenLoadingMessageAnnouncements = useAppSelector(
-    selectScreenLoadingMessageForAnnouncements
-  );
-  const screenLoadingMessageTeachers = useAppSelector(
-    selectScreenLoadingMessageForTeachers
   );
 
   const loadingLoginProfile = useAppSelector(selectLoadingLoginProfile);
@@ -87,11 +79,7 @@ const ScreenLoading: FC = () => {
       ref={screenLoadingRef}
     >
       <div className={screenLoadingStyles.screenLoadingContainer__content}>
-        <h3>
-          {screenLoadingMessageGeneral ||
-            screenLoadingMessageTeachers ||
-            screenLoadingMessageAnnouncements}
-        </h3>
+        <h3>{screenLoadingMessageGeneral}</h3>
         <PulseLoader size={35} />
       </div>
     </div>

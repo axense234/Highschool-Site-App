@@ -20,7 +20,7 @@ import {
 import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // State
-import { State } from "../api/store";
+import store, { State } from "../api/store";
 // Data
 import { defaultTemplateAnnouncement } from "@/data";
 // Config
@@ -235,8 +235,10 @@ const announcementsSlice = createSlice({
           announcementsAdapter.addOne(state, announcement);
           window.location.href = `${baseSiteUrl}/anunturi`;
         }
-        state.screenLoadingMessageForAnnouncements = "";
         state.loadingCreateAnnouncement = "SUCCEDED";
+      })
+      .addCase(createAnnouncement.rejected, (state, action) => {
+        console.log(action.error);
       })
       .addCase(deleteAnnouncementById.pending, (state, action) => {
         state.loadingCreateAnnouncement = "PENDING";
