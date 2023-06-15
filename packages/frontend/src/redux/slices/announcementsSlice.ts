@@ -41,7 +41,6 @@ type initialStateType = {
   formModal: formModalType;
   categoryToggles: CategorieAnunt[];
   foundAnnouncementId: string;
-  screenLoadingMessageForAnnouncements: string;
 };
 
 const announcementsAdapter = createEntityAdapter<Anunt>({
@@ -218,8 +217,6 @@ const announcementsSlice = createSlice({
       )
       .addCase(createAnnouncement.pending, (state, action) => {
         state.loadingCreateAnnouncement = "PENDING";
-        state.screenLoadingMessageForAnnouncements =
-          "Încercăm să creăm un anunț, vă rugăm să așteptați...";
       })
       .addCase(createAnnouncement.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -237,13 +234,8 @@ const announcementsSlice = createSlice({
         }
         state.loadingCreateAnnouncement = "SUCCEDED";
       })
-      .addCase(createAnnouncement.rejected, (state, action) => {
-        console.log(action.error);
-      })
       .addCase(deleteAnnouncementById.pending, (state, action) => {
         state.loadingDeleteAnnouncement = "PENDING";
-        state.screenLoadingMessageForAnnouncements =
-          "Încercăm să ștergem un anunț, vă rugăm să așteptați...";
       })
       .addCase(deleteAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -252,13 +244,10 @@ const announcementsSlice = createSlice({
           announcementsAdapter.removeOne(state, announcement.anunt_uid);
         }
 
-        state.screenLoadingMessageForAnnouncements = "";
         state.loadingDeleteAnnouncement = "SUCCEDED";
       })
       .addCase(updateAnnouncementById.pending, (state, action) => {
         state.loadingUpdateAnnouncement = "PENDING";
-        state.screenLoadingMessageForAnnouncements =
-          "Încercăm să actualizăm un anunț, vă rugăm să așteptați...";
       })
       .addCase(updateAnnouncementById.fulfilled, (state, action) => {
         const announcement = action.payload as Anunt;
@@ -276,8 +265,6 @@ const announcementsSlice = createSlice({
             changes: announcement,
           });
         }
-
-        state.screenLoadingMessageForAnnouncements = "";
         state.loadingUpdateAnnouncement = "SUCCEDED";
       });
   },
@@ -303,9 +290,6 @@ export const selectLoadingDeleteAnnouncement = (state: State) =>
 export const selectLoadingCreateCloudinaryImageForAnnouncement = (
   state: State
 ) => state.announcements.loadingCreateCloudinaryImageForAnnouncement;
-
-export const selectScreenLoadingMessageForAnnouncements = (state: State) =>
-  state.announcements.screenLoadingMessageForAnnouncements;
 
 export const selectTemplateAnnouncement = (state: State) =>
   state.announcements.templateAnnouncement;
