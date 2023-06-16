@@ -9,6 +9,18 @@
   border-radius: 1rem;
   background-color: getColor("silver-white");
   border: 3px solid getColor("silver-50");
+  gap: 1rem;
+
+  @media all and (max-width: getScreenSize("laptopL")) {
+    min-width: 100%;
+  }
+
+  @media all and (max-width: (getScreenSize("laptop") + 100px)) {
+    flex-direction: column;
+    border: 1px solid black;
+    height: auto;
+    padding: 1rem;
+  }
 
   #{&}__sortingOptions {
     @include flexCenter(row);
@@ -17,6 +29,10 @@
     border-radius: 1rem;
     background-color: getColor("silver-10");
     border: 3px solid getColor("silver-50");
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
   }
 
   #{&}__sortingOption {
@@ -28,11 +44,19 @@
 
     label {
       font-size: 1.25rem;
+
+      @media all and (max-width: getScreenSize("mobileM")) {
+        font-size: 1rem;
+      }
     }
 
     select {
       @include controlSelect();
       width: 50%;
+
+      @media all and (max-width: getScreenSize("mobileM")) {
+        font-size: 1rem;
+      }
 
       &:hover {
         transform: scale(1);
@@ -44,12 +68,20 @@
     @include flexCenter(row);
     position: relative;
 
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
+
     input {
       @include controlInput(1.5rem, 100%);
       transition: transform 0.1s ease-in;
       padding: 0.5rem;
       padding-right: 3rem;
       border-width: 3px;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 1.2rem;
+      }
 
       &:hover {
         transform: scale(1);

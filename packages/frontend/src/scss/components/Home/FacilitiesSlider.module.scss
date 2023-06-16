@@ -75,6 +75,7 @@
     input {
       transition: transform 0.1s ease-in;
       transform: scale(1.5);
+      cursor: pointer;
 
       &:hover {
         transform: scale(2);

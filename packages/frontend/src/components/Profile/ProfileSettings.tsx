@@ -42,35 +42,35 @@ const ProfileSettings: FC = () => {
       className={profileStyles.profileContainer__settings}
       onSubmit={(e) => handleFormSubmit(e)}
     >
-      <FormModal type='general' />
+      <FormModal type="general" />
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='username'>Change Username:</label>
+        <label htmlFor="username">Schimbă Username:</label>
         <input
-          type='text'
-          name='username'
-          id='username'
+          type="text"
+          name="username"
+          id="username"
           value={templateProfile.username}
           onChange={(e) => handleUsernameChange(e.target.value)}
         />
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='email'>Change Email:</label>
+        <label htmlFor="email">Schimbă Email:</label>
         <input
-          type='email'
-          name='email'
-          id='email'
+          type="email"
+          name="email"
+          id="email"
           value={templateProfile.email}
           onChange={(e) => handleEmailChange(e.target.value)}
         />
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor='password'>Change Password:</label>
+        <label htmlFor="password">Schimbă Parolă:</label>
         <div className={profileStyles.profileContainer__passwordControl}>
           <input
             type={showPassword ? "text" : "password"}
-            name='password'
-            id='password'
-            placeholder='ex: testing'
+            name="password"
+            id="password"
+            placeholder="ex: testing"
             value={templateProfile.password}
             onChange={(e) => handlePasswordChange(e.target.value)}
           />
@@ -81,7 +81,7 @@ const ProfileSettings: FC = () => {
           )}
         </div>
       </div>
-      <button type='submit'>Updateaza profilul</button>
+      <button type="submit">Actualizează profilul</button>
     </form>
   );
 };

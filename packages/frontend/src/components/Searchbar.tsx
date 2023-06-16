@@ -1,5 +1,5 @@
 // React
-import { FC, SyntheticEvent, useEffect, useRef, useState } from "react";
+import { FC, SyntheticEvent, useEffect, useRef } from "react";
 // Next
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -31,18 +31,12 @@ import {
   selectAllTeachers,
   setFoundTeacherId,
 } from "@/redux/slices/teachersSlice";
+import normalizeString from "@/utils/normalizeString";
 
 const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
   const searchbarRef = useRef<HTMLDivElement>(null);
 
   const categoryNames = categoriiAnunturi.map((cat) => cat.nume);
-
-  const normalizeString = (str: string) => {
-    return str
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  };
 
   const dispatch = useAppDispatch();
   const profile = useAppSelector(selectProfile);
@@ -125,7 +119,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
       const foundElement = announcements.find(
         (ann) =>
           normalizeString(ann.titlu) ===
-          rec.label.split("Anunț - ")[1].toLowerCase()
+          normalizeString(rec.label.split("Anunț - ")[1].toLowerCase())
       );
 
       dispatch(clearCategoryToggles());
@@ -146,7 +140,6 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
   const handleOnSearchbarSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    console.log(shownRecommendations[0]);
     handleOnRecommendationClick(shownRecommendations[0]);
 
     router.push(

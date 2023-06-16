@@ -277,9 +277,6 @@ const generalSlice = createSlice({
         state.screenLoadingMessage = "";
         state.loadingUpdateProfile = "SUCCEDED";
       })
-      .addCase(updateProfile.rejected, (state, action) => {
-        state.loadingUpdateProfile = "FAILED";
-      })
       .addCase(logoutProfile.fulfilled, (state, action) => {
         window.location.href = `${baseSiteUrl}/home`;
         state.profile = defaultProfile;

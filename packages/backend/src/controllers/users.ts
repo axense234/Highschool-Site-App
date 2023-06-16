@@ -89,7 +89,7 @@ const updateUserByIdOrJWT = async (req: Request, res: Response) => {
 
   if (userBody.password && userBody.password === "PAROLA") {
     return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Vă rog să introduceți altă parola înafară de PAROLA",
+      msg: "Vă rog să introduceți altă parola în afară de PAROLA",
       user: {},
     });
   }

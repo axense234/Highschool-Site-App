@@ -12,7 +12,6 @@ import {
   selectLoadingLoginProfile,
   selectLoadingUpdateProfile,
   selectScreenLoadingMessage,
-  setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import {
   selectLoadingCreateAnnouncement,

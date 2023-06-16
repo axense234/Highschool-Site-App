@@ -7,37 +7,80 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Anunt {
-  anunt_uid               String         @id @unique @default(uuid())
-  id                      String         @default("")
-  titlu                   String
-  descriere               String
-  imagineUrl              String?
-  videoUrl                String?
-  pozitionareVideoInAnunt String?        @default("inceput")
-  categorie               CategorieAnunt @default(GENERALE)
-  creatLa                 DateTime       @default(now())
-  actualizatLa            DateTime       @default(now()) @updatedAt
+model Announcement {
+  announcement_uid String               @id @unique @default(uuid())
+  id               String               @default("")
+  title            String
+  description      String
+  category         AnnouncementCategory @default(GENERALE)
+
+  img_url        String?
+  video_url      String?
+  video_pozition VideoPozition? @default(INCEPUT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
-model Utilizator {
-  utilizator_uid String        @id @unique @default(uuid())
-  username       String        @unique
-  email          String        @unique
-  password       String
-  rolUtilizator  RolUtilizator @default(UTILIZATOR)
+model Admin {
+  admin_uid String @id @unique @default(uuid())
+  id        String @default("")
+
+  profile_img_url String @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+
+  username String
+  email    String @unique
+  password String
 }
 
-model Profesor {
-  profesor_uid     String  @id @unique @default(uuid())
-  id               String  @default("")
-  imagineProfilUrl String? @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
-  username         String
-  profesorDe       Materii
-  descriere        String
+model Student {
+  student_uid String @id @unique @default(uuid())
+  id          String @default("")
+
+  profile_img_url String @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+
+  username String
+  email    String @unique
+  password String
 }
 
-enum Materii {
+model Teacher {
+  teacher_uid String @id @unique @default(uuid())
+  id          String @default("")
+
+  profile_img_url String   @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+  subject         Subjects
+
+  username    String
+  email       String @unique
+  description String
+}
+
+model StudentCatalogue {
+  catalogue_uid String @id @unique @default(uuid())
+  id            String @default("")
+
+  sections StudentCard[]
+}
+
+model StudentCard {
+  card_uid String @id @unique @default(uuid())
+  id       String @default("")
+
+  student_catalogue StudentCatalogue? @relation(fields: [catalogue_uid], references: [catalogue_uid])
+  catalogue_uid     String?
+}
+
+model StudentCardSection {
+  card_section_uid String @id @unique @default(uuid())
+  id               String @default("")
+
+  subject  Subjects
+  grades   String[]
+  absences String[]
+}
+
+enum Subjects {
   MATEMATICA
   FIZICA
   CHIMIE
@@ -61,15 +104,14 @@ enum Materii {
   RELIGIE
 }
 
-enum RolUtilizator {
-  ADMIN
-  PROFESOR
-  UTILIZATOR
-}
-
-enum CategorieAnunt {
+enum AnnouncementCategory {
   GENERALE
   SPECIALE
   PROFESORI
   ELEVI
+}
+
+enum VideoPozition {
+  INCEPUT
+  FINAL
 }

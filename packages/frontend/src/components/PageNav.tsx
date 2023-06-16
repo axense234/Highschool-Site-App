@@ -27,6 +27,8 @@ import {
   selectGetAllQueryParams,
   updateGetAllQueryParams,
 } from "@/redux/slices/generalSlice";
+// Utils
+import normalizeString from "@/utils/normalizeString";
 
 const PageNav: FC<PageNavProps> = ({ componentType }) => {
   const dispatch = useAppDispatch();
@@ -74,13 +76,11 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
             ? (element as Anunt).titlu
             : (element as Profesor).username;
 
-        return foundSearchableElement
-          .toLowerCase()
-          .includes(query.toLowerCase());
+        return normalizeString(foundSearchableElement).includes(
+          normalizeString(query)
+        );
       }
     );
-
-    console.log(foundElement);
 
     if (componentType === "announcement") {
       dispatch(clearCategoryToggles());

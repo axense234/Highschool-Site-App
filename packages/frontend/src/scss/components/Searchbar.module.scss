@@ -19,9 +19,20 @@
 
   transition: transform 0.1s ease-in;
 
+  @media all and (max-width: (getScreenSize("tablet") + 100px)) {
+    width: 100%;
+    height: 5rem;
+    border-bottom-left-radius: 0;
+    border-left: none;
+  }
+
   #{&}__content {
     @include flexCenter(row);
     width: 85%;
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 100%;
+    }
 
     button {
       @include flexCenter(row);
@@ -37,6 +48,10 @@
     @include flexCenter(row);
     width: 100%;
     position: relative;
+
+    @media all and (max-width: (getScreenSize("tablet") + 100px)) {
+      position: initial;
+    }
   }
 
   #{&}__recommendations {
@@ -54,6 +69,20 @@
     border: 3px solid black;
     border-top: none;
     z-index: 5;
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 90%;
+    }
+
+    @media all and (max-width: (getScreenSize("tablet") + 100px)) {
+      top: 5rem;
+      width: 100%;
+      left: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom-left-radius: 0rem;
+      border-bottom-right-radius: 0rem;
+    }
 
     li {
       @include flexCenter(row);
@@ -90,6 +119,10 @@
     position: relative;
     width: 70%;
     padding: 1rem 0.5rem;
+
+    @media all and (max-width: (getScreenSize("laptopL") + 200px)) {
+      width: 90%;
+    }
 
     input {
       @include controlInput(1.15rem, 100%);

@@ -17,8 +17,12 @@
     gap: 5rem;
     width: 100%;
 
-    @media all and (max-width: getScreenSize("mobileL")) {
-      padding: 7.5rem 0.5rem;
+    @media all and (max-width: getScreenSize("tablet")) {
+      padding: 7.5rem 2.5rem;
+    }
+
+    @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+      padding: 7.5rem 1rem;
     }
 
     h2 {
@@ -73,6 +77,12 @@
     background-color: getColor("silver-white");
     letter-spacing: 3px;
     padding-left: 1rem;
+
+    @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+      font-size: 1.5rem;
+      letter-spacing: 1.5px;
+      gap: 0.5rem;
+    }
   }
 
   #{&}__announcement {
@@ -86,9 +96,18 @@
     background-color: getColor("silver-white");
     gap: 1rem;
     margin-left: 2.5rem;
+    position: relative;
 
     p {
       font-size: 1.25rem;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        font-size: 1rem;
+      }
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 0.75rem;
+      }
     }
 
     transition: transform 0.1s ease-in;
@@ -97,6 +116,11 @@
       flex-direction: column;
       align-items: center;
       gap: 1rem;
+      margin-left: 1.5rem;
+    }
+
+    @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+      margin-left: 0.5rem;
     }
 
     &:hover {
@@ -111,13 +135,25 @@
 
   #{&}__announcementTime {
     @include flexCenter(row);
-    align-self: center;
+    align-self: flex-start;
     gap: 2rem;
     color: getColor("silver-20");
-    margin-left: auto;
+
+    @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+      margin-left: 0.3rem;
+    }
 
     p {
       transition: color 0.1s ease-in;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        font-size: 1rem;
+      }
+
+      @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+        font-size: 0.75rem;
+      }
+
       &:hover {
         color: getColor("silver-50");
       }
@@ -144,18 +180,32 @@
       @media all and (max-width: getScreenSize("laptop")) {
         width: 100%;
       }
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        min-height: 20rem;
+      }
     }
 
     p {
       font-size: 1.25rem;
 
-      @media all and (max-width: getScreenSize("mobileL")) {
+      @media all and (max-width: getScreenSize("laptop")) {
         font-size: 1rem;
+      }
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 0.75rem;
       }
     }
 
     .announcementsContainer__announcementTime {
       margin-left: 0;
+
+      p {
+        @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+          font-size: 0.75rem;
+        }
+      }
     }
 
     .announcementsContainer__announcementTitle {
@@ -166,8 +216,11 @@
         text-align: center;
 
         @media all and (max-width: getScreenSize("laptop")) {
-          font-size: 1.15rem;
-          text-align: center;
+          font-size: 1.75rem;
+        }
+
+        @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+          font-size: 1.5rem;
         }
       }
     }
@@ -193,7 +246,10 @@
     gap: 1.5rem;
     width: 100%;
     justify-content: flex-start;
-    position: relative;
+
+    @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+      gap: 0.5rem;
+    }
 
     h4 {
       font-size: 1.5rem;
@@ -202,11 +258,25 @@
       @media all and (max-width: getScreenSize("laptop")) {
         font-size: 1.15rem;
       }
+
+      @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+        max-width: none;
+      }
     }
 
     svg {
       font-size: 2.25rem;
       z-index: 2;
+
+      @media all and (max-width: (getScreenSize("tablet") - 200px)) {
+        position: absolute;
+        top: 0.25rem;
+        left: 0.25rem;
+      }
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 1.5rem;
+      }
     }
 
     input {
@@ -224,11 +294,30 @@
     margin: 3rem 0;
     gap: 1rem;
 
+    @media all and (max-width: getScreenSize("laptopL")) {
+      align-items: center;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      margin: 1rem 0;
+    }
+
     img {
       min-width: 45%;
       max-height: 30rem;
       height: auto;
       border-radius: 0.5rem;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        width: 100%;
+        max-height: 40rem;
+      }
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        max-height: 20rem;
+      }
     }
   }
 

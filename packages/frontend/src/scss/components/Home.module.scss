@@ -191,6 +191,14 @@
     min-height: 8rem;
     justify-content: space-between;
 
+    a {
+      transition: transform 0.1s ease-in;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
     @media all and (max-width: getScreenSize("mobileL")) {
       flex-direction: column;
       align-items: flex-start;
@@ -222,7 +230,7 @@
     }
 
     img {
-      width: 20%;
+      width: 100%;
       height: auto;
 
       @media all and (max-width: getScreenSize("tablet")) {

@@ -28,6 +28,7 @@ import {
   createCloudinaryImageForAnnouncement,
   selectAnnouncementById,
   selectFoundAnnouncementId,
+  selectLoadingCreateCloudinaryImageForAnnouncement,
   selectTemplateAnnouncement,
   setFoundAnnouncementId,
   setTemplateAnnouncement,
@@ -50,6 +51,9 @@ const Announcement: FC<Anunt> = ({
   const [toggle, setToggle] = useState<boolean>(false);
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
   const annRef = useRef<HTMLElement>(null);
+  const loadingCreateCloudinaryImageForAnnouncemnet = useAppSelector(
+    selectLoadingCreateCloudinaryImageForAnnouncement
+  );
 
   const dispatch = useAppDispatch();
   const overlay = useAppSelector(selectOverlay);
@@ -137,7 +141,10 @@ const Announcement: FC<Anunt> = ({
         className={announcementsStyles.announcementsContainer__announcement}
         onMouseEnter={() => dispatch(setCardModalId(anunt_uid))}
         onMouseLeave={() => {
-          if (!overlay.showOverlay) {
+          if (
+            !overlay.showOverlay ||
+            loadingCreateCloudinaryImageForAnnouncemnet !== "PENDING"
+          ) {
             dispatch(setCardModalId(""));
             dispatch(setEditMode(false));
             setToggle(false);
@@ -240,6 +247,7 @@ const Announcement: FC<Anunt> = ({
           type="submit"
           title="Salveaza."
           className={announcementsStyles.saveButton}
+          disabled={loadingCreateCloudinaryImageForAnnouncemnet === "PENDING"}
         >
           <FcCheckmark />
         </button>
@@ -264,6 +272,24 @@ const Announcement: FC<Anunt> = ({
       >
         <div
           className={
+            announcementsStyles.announcementsContainer__announcementTime
+          }
+        >
+          <p title="Creat la" aria-label="Creat la">
+            Creat la:{" "}
+            <time dateTime={new Date(creatLa).toLocaleDateString()}>
+              {new Date(creatLa).toLocaleDateString()}
+            </time>
+          </p>
+          <p title="Actualizat la" aria-label="Actualizat la">
+            Actualizat la:{" "}
+            <time dateTime={new Date(creatLa).toLocaleDateString()}>
+              {new Date(actualizatLa).toLocaleDateString()}
+            </time>
+          </p>
+        </div>
+        <div
+          className={
             announcementsStyles.announcementsContainer__announcementTitle
           }
         >
@@ -272,24 +298,6 @@ const Announcement: FC<Anunt> = ({
             title="Deschide"
           />
           <h4>{titlu}</h4>
-          <div
-            className={
-              announcementsStyles.announcementsContainer__announcementTime
-            }
-          >
-            <p title="Creat la" aria-label="Creat la">
-              Creat la:{" "}
-              <time dateTime={new Date(creatLa).toLocaleDateString()}>
-                {new Date(creatLa).toLocaleDateString()}
-              </time>
-            </p>
-            <p title="Actualizat la" aria-label="Actualizat la">
-              Actualizat la:{" "}
-              <time dateTime={new Date(creatLa).toLocaleDateString()}>
-                {new Date(actualizatLa).toLocaleDateString()}
-              </time>
-            </p>
-          </div>
         </div>
         <p>{descriere.slice(0, 200)}...</p>
         <CardModal cardId={anunt_uid} componentType="announcement" />
@@ -328,6 +336,7 @@ const Announcement: FC<Anunt> = ({
           className={
             announcementsStyles.announcementsContainer__announcementTime
           }
+          style={{ alignSelf: "center" }}
         >
           <p title="Creat la" aria-label="Creat la">
             Creat la:{" "}

@@ -71,6 +71,7 @@ type infoSectionType = {
   logoUrl: string;
   desc: string;
   title: string;
+  dest?: string;
 };
 
 type facilityImageType = {

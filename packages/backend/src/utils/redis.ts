@@ -2,7 +2,15 @@
 import { redisClient } from "../db/redis";
 
 const cacheJWT = async (jwt: string, uniqueIdentifier: string) => {
-  await redisClient.setEx(`${uniqueIdentifier}:hsa-jwt`, 10800, jwt);
+  console.log(
+    "cache jwt seconds: ",
+    Number(process.env.JWT_EXP_DURATION?.split("h")[0]) * 3600
+  );
+  await redisClient.setEx(
+    `${uniqueIdentifier}:hsa-jwt`,
+    Number(process.env.JWT_EXP_DURATION?.split("h")[0]) * 3600,
+    jwt
+  );
 };
 
 const getCachedJWT = async (uniqueIdentifier: string) => {

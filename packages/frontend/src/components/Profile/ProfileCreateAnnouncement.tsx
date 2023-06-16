@@ -124,7 +124,7 @@ const ProfileCreateAnnouncement: FC = () => {
         />
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor="imagine">Video URL(optional):</label>
+        <label htmlFor="imagine">Video URL(opțional):</label>
         <input
           type="url"
           name="videoUrl"
@@ -134,7 +134,7 @@ const ProfileCreateAnnouncement: FC = () => {
         />
       </div>
       <div className={profileStyles.profileContainer__settingsControl}>
-        <label htmlFor="pozVideo">Pozitionare Video in Anunt(optional):</label>
+        <label htmlFor="pozVideo">Poziționare Video în Anunț(opțional)</label>
         <select
           name="pozVideo"
           id="pozVideo"

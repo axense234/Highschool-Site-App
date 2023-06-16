@@ -66,12 +66,12 @@ export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
   {
     pagePath: "/profesori",
     backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0023_fixi8s.jpg",
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0004_mebbon.jpg",
   },
   {
     pagePath: "/istoric",
     backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502835/Highschool%20Site%20App/IMG-20230608-WA0009_jihe2r.jpg",
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0003_o4bv66.jpg",
   },
   {
     pagePath: "/",
@@ -697,6 +697,7 @@ export const offeringsList: offeringItemType[] = [
     logoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677318772/Highschool%20Site%20App/cisco_m3obd3.png",
     title: "CISCO",
+    dest: "https://www.netacad.com/",
   },
   {
     id: 2,
@@ -704,6 +705,7 @@ export const offeringsList: offeringItemType[] = [
     logoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677331057/Highschool%20Site%20App/oracle_rva8ki.webp",
     title: "ORACLE",
+    dest: "https://www.oracle.com/",
   },
   {
     id: 3,
@@ -711,6 +713,7 @@ export const offeringsList: offeringItemType[] = [
     logoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677330994/Highschool%20Site%20App/Office-365_o5eghb.webp",
     title: "OFFICE365",
+    dest: "https://www.microsoft.com/en-us/microsoft-365",
   },
   {
     id: 4,
@@ -718,6 +721,7 @@ export const offeringsList: offeringItemType[] = [
     logoUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1677330927/Highschool%20Site%20App/g-suite-icon-35_bgahox.webp",
     title: "G-SUITE",
+    dest: "https://workspace.google.com/",
   },
 ];
 

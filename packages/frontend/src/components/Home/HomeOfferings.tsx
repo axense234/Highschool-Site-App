@@ -2,6 +2,7 @@
 import { FC } from "react";
 // Next
 import Image from "next/image";
+import Link from "next/link";
 // Types
 import { OfferingItemProps } from "types";
 // Pop-in Animations
@@ -15,7 +16,7 @@ import usePopInAnimation from "@/hooks/usePopInAnimation";
 
 const HomeOfferings = () => {
   return (
-    <section className={homeStyles.homeContainer__offerings} id='offerings'>
+    <section className={homeStyles.homeContainer__offerings} id="offerings">
       <h2>Ce oferim?</h2>
       <ol className={homeStyles.homeContainer__offeringsList}>
         {offeringsList.map((offering, offIndex) => {
@@ -37,6 +38,7 @@ const OfferingItem: FC<OfferingItemProps> = ({
   title,
   logoUrl,
   listNumber,
+  dest,
 }) => {
   const { ref, inView, entry } = useInView();
   usePopInAnimation("showHorizontal", inView, entry);
@@ -48,7 +50,15 @@ const OfferingItem: FC<OfferingItemProps> = ({
       <p>
         {listNumber + 1}.{desc}
       </p>
-      <Image alt={title} src={logoUrl} title={title} width={200} height={100} />
+      <Link href={dest as string}>
+        <Image
+          alt={title}
+          src={logoUrl}
+          title={title}
+          width={200}
+          height={100}
+        />
+      </Link>
     </li>
   );
 };
