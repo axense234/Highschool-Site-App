@@ -1,0 +1,80 @@
+paths:
+ /students:
+  get:
+   description: Route for fetching all students.
+   tags:
+    - STUDENTS Routes
+   responses:
+    200:
+     description: Successfully found students.
+    404:
+     description: Could not find any students.
+ /students/student/{studentId}:
+  get:
+   description: Route for fetching a student by id.
+   tags:
+    - STUDENTS Routes
+   parameters:
+    - in: path
+      name: studentId
+      required: true
+      schema:
+       type: string
+      description: The id of the student you want to fetch.
+   responses:
+    200:
+     description: Successfully found a student by the given id.
+    400:
+     description: Please enter a valid student id.
+    404:
+     description: Could not find the student you were looking for with the given id.
+ /students/student/update/{studentId}:
+  patch:
+   description: Route for updating a student.
+   tags:
+    - STUDENTS Routes
+   parameters:
+    - in: path
+      name: studentId
+      required: true
+      description: The id of the student you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the student you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Student"
+      examples:
+       Student:
+        summary: Example for updating a student's username.
+        value:
+         username: Bob
+   responses:
+    200:
+     description: Successfully updated student by given id.
+    400:
+     description: Invalid student id and/or student body.
+    404:
+     description: Could not find the student you wanted to update by given id.
+ /students/student/delete/{studentId}:
+  delete:
+   description: Route for deleting a student.
+   tags:
+    - STUDENTS Routes
+   parameters:
+    - in: path
+      name: studentId
+      required: true
+      schema:
+       type: string
+      description: The id of the student you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a student.
+    400:
+     description: Invalid student id.
+    404:
+     description: Could not find the student you want to delete by given id.
+    

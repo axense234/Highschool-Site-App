@@ -1,19 +1,12 @@
 // Express
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-// Prisma Client
-import { profesorClient } from "../db/postgres";
+// Prisma
+import { teacherClient } from "../db/postgres";
 
 // GET ALL TEACHERS
 const getAllTeachers = async (req: Request, res: Response) => {
-  const { limit, sortByOption = "username", query } = req.query;
-  const foundTeachers = await profesorClient.findMany({
-    take: Number(limit) || 40,
-    orderBy: { [sortByOption as string]: "asc" },
-    where: {
-      username: { contains: query as string, mode: "insensitive" },
-    },
-  });
+  const foundTeachers = await teacherClient.findMany({});
 
   if (foundTeachers.length < 1) {
     return res.status(StatusCodes.NOT_FOUND).json({
@@ -29,47 +22,30 @@ const getAllTeachers = async (req: Request, res: Response) => {
   });
 };
 
-// CREATE TEACHERS
-const createTeacher = async (req: Request, res: Response) => {
-  const teacherBody = req.body;
+// GET TEACHER BY ID
+const getTeacherById = async (req: Request, res: Response) => {
+  const { teacherId } = req.params;
 
-  if (!teacherBody.username || !teacherBody.descriere) {
+  if (!teacherId) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Introduceți nume, prenume si o descriere.", teacher: {} });
+      .json({ msg: "Please enter a valid teacher id.", teacher: {} });
   }
 
-  const createdTeacher = await profesorClient.create({
-    data: { ...teacherBody },
+  const foundTeacher = await teacherClient.findUnique({
+    where: { teacher_uid: teacherId },
   });
 
-  if (!createdTeacher) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Could not create teacher,please make sure you entered the right properties!",
+  if (!foundTeacher) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find any teachers with id: ${teacherId}.`,
       teacher: {},
     });
   }
 
-  return res.status(StatusCodes.CREATED).json({
-    msg: `Successfully created a teacher with uid:${createdTeacher.profesor_uid}!`,
-    teacher: createdTeacher,
-  });
-};
-
-// DELETE ALL TEACHERS
-const deleteAllTeachers = async (req: Request, res: Response) => {
-  const deletedTeachers = await profesorClient.deleteMany({});
-
-  if (deletedTeachers.count < 1) {
-    return res.status(StatusCodes.NOT_FOUND).json({
-      msg: "Could not find any teachers to delete or something else went wrong!",
-      teachers: [],
-    });
-  }
-
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully deleted ${deletedTeachers.count} teachers!`,
-    teachers: deletedTeachers,
+    msg: `Successfully found teacher with id:${teacherId} and username:${foundTeacher.username}`,
+    teacher: foundTeacher,
   });
 };
 
@@ -83,8 +59,19 @@ const deleteTeacherById = async (req: Request, res: Response) => {
       .json({ msg: "Please provide a teacherId!", teacher: {} });
   }
 
-  const deletedTeacher = await profesorClient.delete({
-    where: { profesor_uid: teacherId },
+  const foundTeacher = await teacherClient.findUnique({
+    where: { teacher_uid: teacherId },
+  });
+
+  if (!foundTeacher) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find any teachers with id: ${teacherId}.`,
+      teacher: {},
+    });
+  }
+
+  const deletedTeacher = await teacherClient.delete({
+    where: { teacher_uid: teacherId },
   });
 
   if (!deletedTeacher) {
@@ -117,8 +104,19 @@ const updateTeacherById = async (req: Request, res: Response) => {
       .json({ msg: "Please provide a teacherId!", teacher: {} });
   }
 
-  const updatedTeacher = await profesorClient.update({
-    where: { profesor_uid: teacherId },
+  const foundTeacher = await teacherClient.findUnique({
+    where: { teacher_uid: teacherId },
+  });
+
+  if (!foundTeacher) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find any teachers with id: ${teacherId}.`,
+      teacher: {},
+    });
+  }
+
+  const updatedTeacher = await teacherClient.update({
+    where: { teacher_uid: teacherId },
     data: { ...teacherBody },
   });
 
@@ -136,10 +134,4 @@ const updateTeacherById = async (req: Request, res: Response) => {
 };
 
 // EXPORTS
-export {
-  getAllTeachers,
-  createTeacher,
-  deleteAllTeachers,
-  deleteTeacherById,
-  updateTeacherById,
-};
+export { getAllTeachers, getTeacherById, deleteTeacherById, updateTeacherById };

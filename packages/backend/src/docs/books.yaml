@@ -1,0 +1,103 @@
+paths:
+ /books:
+  get:
+   description: Route for fetching all books.
+   tags:
+    - BOOKS Routes
+   responses:
+    200:
+     description: Successfully found books.
+    404:
+     description: Could not find any books.
+ /books/book/{bookId}:
+  get:
+   description: Route for fetching a book by id.
+   tags:
+    - BOOKS Routes
+   parameters:
+    - in: path
+      name: bookId
+      required: true
+      schema:
+       type: string
+      description: The id of the book you want to fetch.
+   responses:
+    200:
+     description: Successfully found a book by the given id.
+    400:
+     description: Please enter a valid book id.
+    404:
+     description: Could not find the book you were looking for with the given id.
+ /books/book/create:
+  post:
+   description: Route for creating a book.
+   tags:
+    - BOOKS Routes
+   requestBody:
+    description: The body of the book you want to create.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Book"
+      examples:
+       Book:
+        summary: Example for creating a basic book.
+        value:
+         title: 3 Little Pigs
+         author: Margaret Austin
+         description: A book about 3 little pigs jumping around a cliff.
+   responses:
+    201:
+     description: Successfully created a book with the provided data.
+    400:
+     description: Invalid book body.
+ /books/book/update/{bookId}:
+  patch:
+   description: Route for updating a book.
+   tags:
+    - BOOKS Routes
+   parameters:
+    - in: path
+      name: bookId
+      required: true
+      description: The id of the book you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the book you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Book"
+      examples:
+       Book:
+        summary: Example of modifying a book's title.
+        value:
+         title: Updated Book
+   responses:
+    200:
+     description: Successfully updated book by given id.
+    400:
+     description: Invalid book id and/or book body.
+    404:
+     description: Could not find the book you wanted to update by given id.
+ /books/book/delete/{bookId}:
+  delete:
+   description: Route for deleting a book.
+   tags:
+    - BOOKS Routes
+   parameters:
+    - in: path
+      name: bookId
+      required: true
+      schema:
+       type: string
+      description: The id of the book you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a book.
+    400:
+     description: Invalid book id.
+    404:
+     description: Could not find the book you want to delete by given id.
+    

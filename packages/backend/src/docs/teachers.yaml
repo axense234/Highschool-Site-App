@@ -1,0 +1,81 @@
+paths:
+ /teachers:
+  get:
+   description: Route for fetching all teachers.
+   tags:
+    - TEACHERS Routes
+   responses:
+    200:
+     description: Successfully found teachers.
+    404:
+     description: Could not find any teachers.
+ /teachers/teacher/{teacherId}:
+  get:
+   description: Route for fetching a teacher by id.
+   tags:
+    - TEACHERS Routes
+   parameters:
+    - in: path
+      name: teacherId
+      required: true
+      schema:
+       type: string
+      description: The id of the teacher you want to fetch.
+   responses:
+    200:
+     description: Successfully found a teacher by the given id.
+    400:
+     description: Please enter a valid teacher id.
+    404:
+     description: Could not find the teacher you were looking for with the given id.
+ /teachers/teacher/update/{teacherId}:
+  patch:
+   description: Route for updating a teacher.
+   tags:
+    - TEACHERS Routes
+   parameters:
+    - in: path
+      name: teacherId
+      required: true
+      description: The id of the teacher you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the teacher you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Teacher"
+      examples:
+       Teacher:
+        summary: Example for updating a teacher's username and description.
+        value:
+         username: John Smith
+         description: Hello i am John Smith
+   responses:
+    200:
+     description: Successfully updated teacher by given id.
+    400:
+     description: Invalid teacher id and/or teacher body.
+    404:
+     description: Could not find the teacher you wanted to update by given id.
+ /teachers/teacher/delete/{teacherId}:
+  delete:
+   description: Route for deleting a teacher by id.
+   tags:
+    - TEACHERS Routes
+   parameters:
+    - in: path
+      name: teacherId
+      required: true
+      schema:
+       type: string
+      description: The id of the teacher you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a teacher.
+    400:
+     description: Invalid teacher id.
+    404:
+     description: Could not find the teacher you want to delete by given id.
+    

@@ -1,0 +1,106 @@
+paths:
+ /announcements:
+  get:
+   description: Route for fetching all announcements.
+   tags:
+    - ANNOUNCEMENTS Routes
+   responses:
+    200:
+     description: Successfully found announcements.
+    404:
+     description: Could not find any announcements.
+ /announcements/announcement/{announcementId}:
+  get:
+   description: Route for fetching an announcement by an id.
+   tags:
+    - ANNOUNCEMENTS Routes
+   parameters:
+    - in: path
+      name: announcementId
+      required: true
+      schema:
+       type: string
+      description: The id of the announcement you want to fetch.
+   responses:
+    200:
+     description: Successfully found an announcement by the given id.
+    400:
+     description: Please enter a valid announcement id.
+    404:
+     description: Could not find the announcement you were looking for with the given id.
+ /announcements/announcement/create:
+  post:
+   description: Route for creating an announcement.
+   tags:
+    - ANNOUNCEMENTS Routes
+   requestBody:
+    description: The body of the announcement you want to create.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Announcement"
+      examples:
+       Announcement:
+        summary: An example for a basic announcement.
+        value:
+         title: Announcement
+         description: My announcement blah blah blah.
+         category: GENERALE
+         img_url: ""
+         video_url: ""
+         video_pozition: INCEPUT
+   responses:
+    201:
+     description: Successfully created an announcement with the provided data.
+    400:
+     description: Invalid announcement body.
+ /announcements/announcement/update/{announcementId}:
+  patch:
+   description: Route for updating an announcement.
+   tags:
+    - ANNOUNCEMENTS Routes
+   parameters:
+    - in: path
+      name: announcementId
+      required: true
+      description: The id of the announcement you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the announcement you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Announcement"
+      examples:
+       Announcement:
+        summary: An example to modify an announcement title.
+        value:
+         title: Updated Announcement
+   responses:
+    200:
+     description: Successfully updated announcement by given id.
+    400:
+     description: Invalid announcement id and/or announcement body.
+    404:
+     description: Could not find the announcement you wanted to update by given id.
+ /announcements/announcement/delete/{announcementId}:
+  delete:
+   description: Route for deleting an announcement.
+   tags:
+    - ANNOUNCEMENTS Routes
+   parameters:
+    - in: path
+      name: announcementId
+      required: true
+      schema:
+       type: string
+      description: The id of the announcement you want to delete.
+   responses:
+    200:
+     description: Successfully deleted an announcement.
+    400:
+     description: Invalid announcement id.
+    404:
+     description: Could not find the announcement you want to delete by given id.
+    

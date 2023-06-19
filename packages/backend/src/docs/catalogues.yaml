@@ -1,0 +1,101 @@
+paths:
+ /catalogues:
+  get:
+   description: Route for fetching all catalogues.
+   tags:
+    - CATALOGUES Routes
+   responses:
+    200:
+     description: Successfully found catalogues.
+    404:
+     description: Could not find any catalogues.
+ /catalogues/catalogue/{catalogueId}:
+  get:
+   description: Route for fetching a catalogue by id.
+   tags:
+    - CATALOGUES Routes
+   parameters:
+    - in: path
+      name: catalogueId
+      required: true
+      schema:
+       type: string
+      description: The id of the catalogue you want to fetch.
+   responses:
+    200:
+     description: Successfully found a catalogue by the given id.
+    400:
+     description: Please enter a valid catalogue id.
+    404:
+     description: Could not find the catalogue you were looking for with the given id.
+ /catalogues/catalogue/create:
+  post:
+   description: Route for creating a catalogue.
+   tags:
+    - CATALOGUES Routes
+   requestBody:
+    description: The body of the catalogue you want to create.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Catalogue"
+      examples:
+       Catalogue:
+        summary: Create a basic catalogue.
+        value:
+         label: "10B"
+   responses:
+    201:
+     description: Successfully created a catalogue with the provided data.
+    400:
+     description: Invalid catalogue body.
+ /catalogues/catalogue/update/{catalogueId}:
+  patch:
+   description: Route for updating a catalogue.
+   tags:
+    - CATALOGUES Routes
+   parameters:
+    - in: path
+      name: catalogueId
+      required: true
+      description: The id of the catalogue you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the catalogue you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Catalogue"
+      examples:
+       Catalogue:
+        summary: Modify a catalogue's label.
+        value:
+         label: "10F"
+   responses:
+    200:
+     description: Successfully updated catalogue by given id.
+    400:
+     description: Invalid catalogue id and/or catalogue body.
+    404:
+     description: Could not find the catalogue you wanted to update by given id.
+ /catalogues/catalogue/delete/{catalogueId}:
+  delete:
+   description: Route for deleting a catalogue.
+   tags:
+    - CATALOGUES Routes
+   parameters:
+    - in: path
+      name: catalogueId
+      required: true
+      schema:
+       type: string
+      description: The id of the catalogue you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a catalogue.
+    400:
+     description: Invalid catalogue id.
+    404:
+     description: Could not find the catalogue you want to delete by given id.
+    

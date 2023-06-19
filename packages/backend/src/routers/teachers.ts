@@ -3,37 +3,21 @@ import express from "express";
 
 // Controllers and Middleware
 import {
-  createTeacher,
-  deleteAllTeachers,
   getAllTeachers,
   deleteTeacherById,
   updateTeacherById,
+  getTeacherById,
 } from "../controllers/teachers";
-import authenticationMiddleware from "../middleware/authentication";
 
 const router = express.Router();
 
-router.get("/profesori", getAllTeachers);
+router.get("/teachers", getAllTeachers);
 
-router.post("/profesori/create", authenticationMiddleware, createTeacher);
+router.get("/teachers/teacher/:teacherId", getTeacherById);
 
-router.delete(
-  "/profesori/delete/all",
-  authenticationMiddleware,
-  deleteAllTeachers
-);
+router.delete("/teachers/teacher/delete/:teacherId", deleteTeacherById);
 
-router.delete(
-  "/profesori/profesor/delete/:teacherId",
-  authenticationMiddleware,
-  deleteTeacherById
-);
-
-router.patch(
-  "/profesori/profesor/update/:teacherId",
-  authenticationMiddleware,
-  updateTeacherById
-);
+router.patch("/teachers/teacher/update/:teacherId", updateTeacherById);
 
 // EXPORTS
 export default router;

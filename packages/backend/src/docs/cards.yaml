@@ -1,0 +1,90 @@
+paths:
+ /cards:
+  get:
+   description: Route for fetching all student cards.
+   tags:
+    - CARDS Routes
+   responses:
+    200:
+     description: Successfully found cards.
+    404:
+     description: Could not find any cards.
+ /cards/card/{cardId}:
+  get:
+   description: Route for fetching a student card by id.
+   tags:
+    - CARDS Routes
+   parameters:
+    - in: path
+      name: cardId
+      required: true
+      schema:
+       type: string
+      description: The id of the card you want to fetch.
+   responses:
+    200:
+     description: Successfully found a student card by the given id.
+    400:
+     description: Please enter a valid student card id.
+    404:
+     description: Could not find the student card you were looking for with the given id.
+ /cards/card/create:
+  post:
+   description: Route for creating a student card.
+   tags:
+    - CARDS Routes
+   responses:
+    201:
+     description: Successfully created a student card.
+    400:
+     description: Invalid student card body.
+ /cards/card/update/{cardId}:
+  patch:
+   description: Route for updating a student card.
+   tags:
+    - CARDS Routes
+   parameters:
+    - in: path
+      name: cardId
+      required: true
+      description: The id of the student card you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the student card you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/StudentCard"
+      examples:
+       StudentCard:
+        summary: An example change a student card's student.
+        value:
+         student_uid: "studentId"
+   responses:
+    200:
+     description: Successfully updated student card by given id.
+    400:
+     description: Invalid student card id and/or student card body.
+    404:
+     description: Could not find the student card you wanted to update by given id.
+ /cards/card/delete/{cardId}:
+  delete:
+   description: Route for deleting a student card by id.
+   tags:
+    - CARDS Routes
+   parameters:
+    - in: path
+      name: cardId
+      required: true
+      schema:
+       type: string
+      description: The id of the student card you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a student card.
+    400:
+     description: Invalid student card id.
+    404:
+     description: Could not find the student card you want to delete by given id.
+    

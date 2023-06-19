@@ -6,6 +6,6 @@ import { sendEmail } from "../controllers/email";
 
 const router = express.Router();
 
-router.post("/optiuni/email", sendEmail);
+router.post("/options/email", sendEmail);
 
 export default router;

@@ -1,17 +1,16 @@
 // Express
 import express from "express";
 
-// Controllers and Middleware
-import { createUser, loginUser, logoutUser } from "../controllers/auth";
-import authenticationMiddleware from "../middleware/authentication";
+// Controllers and Middlewares
+import { loginUser, logoutUser, createUser } from "../controllers/auth";
 
 const router = express.Router();
 
-router.post("/utilizatori/create", createUser);
+router.post("/users/login", loginUser);
 
-router.post("/utilizatori/login", loginUser);
+router.delete("/users/options/logout", logoutUser);
 
-router.get("/utilizatori/optiuni/logout", logoutUser);
+router.post("/users/create/:userType", createUser);
 
 // Exports
 export default router;

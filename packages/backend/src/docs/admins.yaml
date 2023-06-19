@@ -1,0 +1,82 @@
+paths:
+ /admins:
+  get:
+   description: Route for fetching all admins.
+   tags:
+    - ADMINS Routes
+   responses:
+    200:
+     description: Successfully found admins.
+    404:
+     description: Could not find any admins.
+ /admins/admin/{adminId}:
+  get:
+   description: Route for fetching an admin by an id.
+   tags:
+    - ADMINS Routes
+   parameters:
+    - in: path
+      name: adminId
+      required: true
+      schema:
+       type: string
+      description: The id of the admin you want to fetch.
+   responses:
+    200:
+     description: Successfully found admin by the given id.
+    400:
+     description: Please enter a valid admin id.
+    404:
+     description: Could not find the admin you were looking for with the given id.
+ /admins/admin/update/{adminId}:
+  patch:
+   description: Route for updating an admin.
+   tags:
+    - ADMINS Routes
+   parameters:
+    - in: path
+      name: adminId
+      required: true
+      description: The id of the admin you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the admin you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Admin"
+      examples:
+       Admin:
+        summary: An example to update an admin.
+        value:
+         username: Bob
+         email: bob@gmail.com
+         password: bob123
+   responses:
+    200:
+     description: Successfully updated admin by given id.
+    400:
+     description: Invalid admin id and/or admin body.
+    404:
+     description: Could not find the admin you wanted to update by given id.
+ /admins/admin/delete/{adminId}:
+  delete:
+   description: Route for deleting a admin.
+   tags:
+    - ADMINS Routes
+   parameters:
+    - in: path
+      name: adminId
+      required: true
+      schema:
+       type: string
+      description: The id of the admin you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a admin.
+    400:
+     description: Invalid admin id.
+    404:
+     description: Could not find the admin you want to delete by given id.
+    

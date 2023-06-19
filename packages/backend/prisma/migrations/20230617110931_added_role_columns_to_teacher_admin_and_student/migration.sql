@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Admin" ADD COLUMN     "role" TEXT NOT NULL DEFAULT 'ADMIN';
+
+-- AlterTable
+ALTER TABLE "Student" ADD COLUMN     "role" TEXT NOT NULL DEFAULT 'STUDENT';
+
+-- AlterTable
+ALTER TABLE "Teacher" ADD COLUMN     "tag" TEXT NOT NULL DEFAULT 'TEACHER';

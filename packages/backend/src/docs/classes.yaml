@@ -1,0 +1,101 @@
+paths:
+ /classes:
+  get:
+   description: Route for fetching all classes.
+   tags:
+    - CLASSES Routes
+   responses:
+    200:
+     description: Successfully found classes.
+    404:
+     description: Could not find any classes.
+ /classes/class/{classId}:
+  get:
+   description: Route for fetching a class by id.
+   tags:
+    - CLASSES Routes
+   parameters:
+    - in: path
+      name: classId
+      required: true
+      schema:
+       type: string
+      description: The id of the class you want to fetch.
+   responses:
+    200:
+     description: Successfully found a class by the given id.
+    400:
+     description: Please enter a valid class id.
+    404:
+     description: Could not find the class you were looking for with the given id.
+ /classes/class/create:
+  post:
+   description: Route for creating a class.
+   tags:
+    - CLASSES Routes
+   requestBody:
+    description: The body of the class you want to create.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Class"
+      examples:
+       Class:
+        summary: Create a basic class with a label..
+        value:
+         label: 10B
+   responses:
+    201:
+     description: Successfully created a class with the provided data.
+    400:
+     description: Invalid class body.
+ /classes/class/update/{classId}:
+  patch:
+   description: Route for updating a class.
+   tags:
+    - CLASSES Routes
+   parameters:
+    - in: path
+      name: classId
+      required: true
+      description: The id of the class you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the class you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Class"
+      examples:
+       Class:
+        summary: An example to modify a class label.
+        value:
+         label: Updated Class Label
+   responses:
+    200:
+     description: Successfully updated a class by given id.
+    400:
+     description: Invalid class id and/or class body.
+    404:
+     description: Could not find the class you wanted to update by given id.
+ /classes/class/delete/{classId}:
+  delete:
+   description: Route for deleting a class.
+   tags:
+    - CLASSES Routes
+   parameters:
+    - in: path
+      name: classId
+      required: true
+      schema:
+       type: string
+      description: The id of the class you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a class.
+    400:
+     description: Invalid class id.
+    404:
+     description: Could not find the class you want to delete by given id.
+    

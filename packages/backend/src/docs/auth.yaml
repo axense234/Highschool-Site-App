@@ -1,0 +1,72 @@
+paths:
+ /users/login:
+  post:
+   description: Route for logging in an account(teacher, student or admin).
+   tags:
+    - AUTH Routes
+   requestBody:
+    description: The body of the login request.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Auth"
+      examples:
+       Auth:
+        summary: Log in a random account.
+        value:
+         password: bob123
+         email: bob123@gmail.com
+   responses:
+    200:
+     description: Successfully logged in.
+    400:
+     description: Invalid email or password.
+    401:
+     description: Incorrect password.
+    404:
+     description: We couldn't find the user you wanted to log into.
+ /users/options/logout:
+  delete:
+   description: Route for logging out.
+   tags:
+    - AUTH Routes
+   responses:
+    200:
+     description: Successfully logged out.
+ /users/create/{userType}:
+  post:
+   description: Route for creating an user.
+   tags:
+    - AUTH Routes
+   parameters:
+    - in: path
+      name: userType
+      required: true
+      description: The type of user you want to create.
+      schema:
+       type: string
+       enum:
+        - TEACHER
+        - STUDENT
+        - ADMIN
+   requestBody:
+    description: The body of the user you want to create.
+    required: true
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/User"
+      examples:
+       User:
+        summary: Creating a teacher.
+        value:
+         username: Koala Vison
+         email: koala123@testing.com
+         password: koala123
+         subject: MATEMATICA
+         description: Hello i am a math teacher.
+   responses:
+    201:
+     description: Successfully created a user.
+    400:
+     description: Could not create a user with the data provided

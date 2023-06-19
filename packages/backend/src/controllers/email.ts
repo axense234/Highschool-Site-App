@@ -1,6 +1,8 @@
 // Express
 import { Request, Response } from "express";
+// Status Codes
 import { StatusCodes } from "http-status-codes";
+// Node Mailer
 import * as nodemailer from "nodemailer";
 import { MailOptions } from "nodemailer/lib/json-transport";
 
@@ -16,17 +18,17 @@ const sendEmail = async (req: Request, res: Response) => {
   });
 
   const mailOptions: MailOptions = {
-    from: emailForm.emailAddress,
+    from: emailForm.emailAddress || "HSA API USER",
     to: process.env.EMAIL_ADDRESS_USER,
-    subject: emailForm.subject,
-    text: emailForm.message,
+    subject: emailForm.subject || "Undefined Subject",
+    text: emailForm.message || "Default message",
   };
 
   const emailRes = await transporter.sendMail(mailOptions);
 
   if (emailRes.rejected.length === 1 && emailRes.accepted.length === 0) {
     return res
-      .status(StatusCodes.OK)
+      .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Email-ul nu a putut fi trimis." });
   }
 

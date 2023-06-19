@@ -8,15 +8,18 @@ datasource db {
 }
 
 model Announcement {
-  announcement_uid String               @id @unique @default(uuid())
-  id               String               @default("")
-  title            String
-  description      String
-  category         AnnouncementCategory @default(GENERALE)
+  announcement_uid String @id @unique @default(uuid())
+  id               String @default("")
 
+  title          String
+  description    String
+  category       AnnouncementCategory @default(GENERALE)
   img_url        String?
   video_url      String?
-  video_pozition VideoPozition? @default(INCEPUT)
+  video_pozition VideoPozition?       @default(INCEPUT)
+
+  created_by_admin     Admin?  @relation(fields: [created_by_admin_uid], references: [admin_uid])
+  created_by_admin_uid String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -27,10 +30,18 @@ model Admin {
   id        String @default("")
 
   profile_img_url String @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+  username        String
+  email           String @unique
+  password        String
 
-  username String
-  email    String @unique
-  password String
+  books_created         Book[]
+  classes_created       Class[]
+  teachers_created      Teacher[]
+  announcements_created Announcement[]
+
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Student {
@@ -38,10 +49,18 @@ model Student {
   id          String @default("")
 
   profile_img_url String @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+  username        String
+  email           String @unique
+  password        String
 
-  username String
-  email    String @unique
-  password String
+  class            Class?       @relation(fields: [class_uid], references: [class_uid])
+  class_uid        String?
+  student_card     StudentCard?
+  student_card_uid String?
+
+  role      String   @default("STUDENT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Teacher {
@@ -50,34 +69,138 @@ model Teacher {
 
   profile_img_url String   @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
   subject         Subjects
+  username        String
+  email           String   @unique
+  password        String
+  description     String
 
-  username    String
-  email       String @unique
-  description String
+  created_by_admin     Admin?  @relation(fields: [created_by_admin_uid], references: [admin_uid])
+  created_by_admin_uid String?
+
+  books_created Book[]
+  classes       Class[]              @relation(name: "many")
+  sections      StudentCardSection[]
+
+  master_class         Class?
+  master_class_uid     String?
+  master_catalogue     StudentCatalogue?
+  master_catalogue_uid String?
+
+  role String      @default("TEACHER")
+  type TeacherType @default(CLASA)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Class {
+  class_uid String @id @unique @default(uuid())
+  id        String @default("")
+
+  label String @default("Class Label")
+
+  created_by_admin     Admin?  @relation(fields: [created_by_admin_uid], references: [admin_uid])
+  created_by_admin_uid String?
+
+  master_teacher     Teacher? @relation(fields: [master_teacher_uid], references: [teacher_uid])
+  master_teacher_uid String?  @unique
+
+  students Student[]
+  teachers Teacher[] @relation(name: "many")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model StudentCatalogue {
   catalogue_uid String @id @unique @default(uuid())
   id            String @default("")
 
+  label    String        @default("Nume Catalog")
   sections StudentCard[]
+
+  master_teacher     Teacher? @relation(fields: [master_teacher_uid], references: [teacher_uid])
+  master_teacher_uid String?  @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model StudentCard {
-  card_uid String @id @unique @default(uuid())
-  id       String @default("")
+  student_card_uid String @id @unique @default(uuid())
+  id               String @default("")
 
   student_catalogue StudentCatalogue? @relation(fields: [catalogue_uid], references: [catalogue_uid])
   catalogue_uid     String?
+
+  student     Student? @relation(fields: [student_uid], references: [student_uid])
+  student_uid String?  @unique
+
+  content StudentCardSection[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model StudentCardSection {
   card_section_uid String @id @unique @default(uuid())
   id               String @default("")
 
-  subject  Subjects
-  grades   String[]
-  absences String[]
+  student_card     StudentCard @relation(fields: [student_card_uid], references: [student_card_uid], onDelete: Cascade)
+  student_card_uid String
+
+  subject     Subjects
+  teacher     Teacher? @relation(fields: [teacher_uid], references: [teacher_uid])
+  teacher_uid String?
+
+  grades   Grade[]
+  absences Absence[]
+}
+
+model Absence {
+  absence_uid String @id @unique @default(uuid())
+  id          String @default("")
+
+  card_section     StudentCardSection? @relation(fields: [card_section_uid], references: [card_section_uid])
+  card_section_uid String?
+
+  date     DateTime @default(now())
+  reasoned Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Grade {
+  grade_uid String @id @unique @default(uuid())
+  id        String @default("")
+
+  card_section     StudentCardSection? @relation(fields: [card_section_uid], references: [card_section_uid])
+  card_section_uid String?
+
+  date  DateTime @default(now())
+  value Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Book {
+  book_uid String @id @unique @default(uuid())
+  id       String @default("")
+
+  created_by_teacher     Teacher? @relation(fields: [created_by_teacher_uid], references: [teacher_uid])
+  created_by_teacher_uid String?
+  created_by_admin       Admin?   @relation(fields: [created_by_admin_uid], references: [admin_uid])
+  created_by_admin_uid   String?
+
+  title        String  @default("Book Title")
+  author       String  @default("Book Author")
+  pdf_file_url String?
+  description  String  @default("Book Description")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 enum Subjects {
@@ -114,4 +237,9 @@ enum AnnouncementCategory {
 enum VideoPozition {
   INCEPUT
   FINAL
+}
+
+enum TeacherType {
+  CLASA
+  DIRIGINTE
 }

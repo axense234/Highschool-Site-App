@@ -1,0 +1,102 @@
+paths:
+ /sections:
+  get:
+   description: Route for fetching all card sections.
+   tags:
+    - CARD SECTIONS Routes
+   responses:
+    200:
+     description: Successfully found card sections.
+    404:
+     description: Could not find any card sections.
+ /sections/section/{sectionId}:
+  get:
+   description: Route for fetching a card section by id.
+   tags:
+    - CARD SECTIONS Routes
+   parameters:
+    - in: path
+      name: sectionId
+      required: true
+      schema:
+       type: string
+      description: The id of the card section you want to fetch.
+   responses:
+    200:
+     description: Successfully found a card section by the given id.
+    400:
+     description: Please enter a valid card section id.
+    404:
+     description: Could not find the card section you were looking for with the given id.
+ /sections/section/create:
+  post:
+   description: Route for creating a card section.
+   tags:
+    - CARD SECTIONS Routes
+   requestBody:
+    description: The body of the card section you want to create.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/CardSection"
+      examples:
+       CardSection:
+        summary: Create a basic card section on the MATEMATICA subject.
+        value:
+         student_card_uid: ""
+         subject: MATEMATICA
+   responses:
+    201:
+     description: Successfully created a card section with the provided data.
+    400:
+     description: Invalid card section body.
+ /sections/section/update/{sectionId}:
+  patch:
+   description: Route for updating a section.
+   tags:
+    - CARD SECTIONS Routes
+   parameters:
+    - in: path
+      name: sectionId
+      required: true
+      description: The id of the card section you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the card section you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/CardSection"
+      examples:
+       CardSection:
+        summary: An example to modify a card section subject.
+        value:
+         subject: ENGLEZA
+   responses:
+    200:
+     description: Successfully updated card section by given id.
+    400:
+     description: Invalid card section id and/or card section body.
+    404:
+     description: Could not find the card section you wanted to update by given id.
+ /sections/section/delete/{sectionId}:
+  delete:
+   description: Route for deleting a card section by id.
+   tags:
+    - CARD SECTIONS Routes
+   parameters:
+    - in: path
+      name: sectionId
+      required: true
+      schema:
+       type: string
+      description: The id of the card section you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a card section by id.
+    400:
+     description: Invalid card section id.
+    404:
+     description: Could not find the card section you want to delete by given id.
+    

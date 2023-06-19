@@ -2,18 +2,11 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 // Prisma
-import { anuntClient } from "../db/postgres";
+import { announcementClient } from "../db/postgres";
 
 // GET ALL ANNOUNCEMENTS
 const getAllAnnouncements = async (req: Request, res: Response) => {
-  const { limit, sortByOption = "titlu", query } = req.query;
-  const foundAnnouncements = await anuntClient.findMany({
-    take: Number(limit) || 40,
-    orderBy: { [sortByOption as string]: "asc" },
-    where: {
-      titlu: { contains: query as string, mode: "insensitive" },
-    },
-  });
+  const foundAnnouncements = await announcementClient.findMany({});
 
   if (foundAnnouncements.length < 1) {
     return res
@@ -28,18 +21,45 @@ const getAllAnnouncements = async (req: Request, res: Response) => {
   });
 };
 
+// GET ANNOUNCEMENT BY ID
+const getAnnouncementById = async (req: Request, res: Response) => {
+  const { announcementId } = req.params;
+
+  if (!announcementId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide an announcementId!", announcement: {} });
+  }
+
+  const foundAnnouncement = await announcementClient.findUnique({
+    where: { announcement_uid: announcementId },
+  });
+
+  if (!foundAnnouncement) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find any announcements with the id:${announcementId}.`,
+      announcement: {},
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    msg: `Successfully found announcement with id:${announcementId}.`,
+    announcement: foundAnnouncement,
+  });
+};
+
 // CREATE ANNOUNCEMENT
 const createAnnouncement = async (req: Request, res: Response) => {
   const announcementBody = req.body;
 
-  if (!announcementBody.titlu || !announcementBody.descriere) {
+  if (!announcementBody.title || !announcementBody.description) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       msg: "Introduceți titlul și descrierea anunțului.",
       announcement: {},
     });
   }
 
-  const createdAnnouncement = await anuntClient.create({
+  const createdAnnouncement = await announcementClient.create({
     data: { ...announcementBody },
   });
 
@@ -51,25 +71,8 @@ const createAnnouncement = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.CREATED).json({
-    msg: `Successfully created announcement with uid:${createdAnnouncement.anunt_uid} and title:${createdAnnouncement.titlu}!`,
+    msg: `Successfully created announcement with uid:${createdAnnouncement.announcement_uid} and title:${createdAnnouncement.title}!`,
     announcement: createdAnnouncement,
-  });
-};
-
-// DELETE ALL ANNOUNCEMENTS
-const deleteAllAnnouncements = async (req: Request, res: Response) => {
-  const deletedAnnouncements = await anuntClient.deleteMany({});
-
-  if (deletedAnnouncements.count < 1) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Error when deleting all announcements!",
-      announcements: [],
-    });
-  }
-
-  return res.status(StatusCodes.OK).json({
-    msg: `Successfully deleted all announcements(${deletedAnnouncements.count}!)`,
-    announcements: deletedAnnouncements,
   });
 };
 
@@ -83,8 +86,18 @@ const deleteAnnouncementById = async (req: Request, res: Response) => {
       .json({ msg: "Please provide an announcementId!", announcement: {} });
   }
 
-  const deletedAnnouncement = await anuntClient.delete({
-    where: { anunt_uid: announcementId },
+  const foundAnnouncement = await announcementClient.findUnique({
+    where: { announcement_uid: announcementId },
+  });
+
+  if (!foundAnnouncement) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Couldn't find any announcement with id:${announcementId}.`,
+    });
+  }
+
+  const deletedAnnouncement = await announcementClient.delete({
+    where: { announcement_uid: announcementId },
   });
 
   if (!deletedAnnouncement) {
@@ -95,7 +108,7 @@ const deleteAnnouncementById = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully deleted announcement with title:${deletedAnnouncement.titlu}!`,
+    msg: `Successfully deleted announcement with title:${deletedAnnouncement.title}!`,
     announcement: deletedAnnouncement,
   });
 };
@@ -105,21 +118,25 @@ const updateAnnouncementById = async (req: Request, res: Response) => {
   const { announcementId } = req.params;
   const announcementBody = req.body;
 
-  if (!announcementBody.titlu || !announcementBody.descriere) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Introduceți titlul si descrierea anunțului!",
-      announcement: {},
-    });
-  }
-
   if (!announcementId) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Please provide an announcementId!", announcement: {} });
   }
 
-  const updatedAnnouncement = await anuntClient.update({
-    where: { anunt_uid: announcementId },
+  const foundAnnouncement = await announcementClient.findUnique({
+    where: { announcement_uid: announcementId },
+  });
+
+  if (!foundAnnouncement) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Couldn't find any announcements with id:${announcementId}.`,
+      announcement: {},
+    });
+  }
+
+  const updatedAnnouncement = await announcementClient.update({
+    where: { announcement_uid: announcementId },
     data: { ...announcementBody },
   });
 
@@ -131,7 +148,7 @@ const updateAnnouncementById = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully updated announcement: ${updatedAnnouncement.titlu}!`,
+    msg: `Successfully updated announcement: ${updatedAnnouncement.title}!`,
     announcement: updatedAnnouncement,
   });
 };
@@ -140,7 +157,7 @@ const updateAnnouncementById = async (req: Request, res: Response) => {
 export {
   getAllAnnouncements,
   createAnnouncement,
-  deleteAllAnnouncements,
+  getAnnouncementById,
   deleteAnnouncementById,
   updateAnnouncementById,
 };

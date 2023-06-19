@@ -9,17 +9,28 @@ import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
+// Swagger
+import expressUI from "swagger-ui-express";
 // DB
 import { connectToPostgres } from "./db/postgres";
 import { connectToRedis } from "./db/redis";
 // Routers
-import authRouter from "./routers/auth";
+import absencesRouter from "./routers/absences";
+import adminsRouter from "./routers/admins";
 import announcementsRouter from "./routers/announcements";
-import teachersRouter from "./routers/teachers";
-import usersRouter from "./routers/users";
+import authRouter from "./routers/auth";
+import cardsRouter from "./routers/cards";
+import cardSectionsRouter from "./routers/cardSections";
+import cataloguesRouter from "./routers/catalogues";
 import emailRouter from "./routers/email";
+import gradesRouter from "./routers/grades";
+import studentsRouter from "./routers/students";
+import teachersRouter from "./routers/teachers";
+import booksRouter from "./routers/books";
+import classesRouter from "./routers/classes";
 // Middleware
 import errorHandlerMiddleware from "./middleware/errorHandler";
+import swaggerDocs from "./utils/swagger";
 
 dotenv.config({ path: path.resolve("../../", ".env") });
 
@@ -45,26 +56,33 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/", [
+  absencesRouter,
+  adminsRouter,
   announcementsRouter,
-  teachersRouter,
-  usersRouter,
   authRouter,
+  cardsRouter,
+  cardSectionsRouter,
+  cataloguesRouter,
   emailRouter,
+  gradesRouter,
+  studentsRouter,
+  teachersRouter,
+  booksRouter,
+  classesRouter,
 ]);
+app.use("/api/1.0.0/en/docs", expressUI.serve, expressUI.setup(swaggerDocs));
 app.use(errorHandlerMiddleware);
 
 const startServer = async () => {
   try {
     await connectToRedis().then(() => {
-      console.log("Connected to Redis! / Conectat la Redis!");
+      console.log("Connected to Redis!");
     });
     await connectToPostgres().then(() =>
-      console.log("Connected to PostgreSQL! / Conectat la PostgreSQL!")
+      console.log("Connected to PostgreSQL!")
     );
     app.listen(PORT, () => {
-      console.log(
-        `Server is listening on port:${PORT}... / Serverul asculta pe portul:${PORT}`
-      );
+      console.log(`Server is listening on port:${PORT}...`);
     });
   } catch (error) {
     console.log(error);

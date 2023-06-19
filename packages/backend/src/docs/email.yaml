@@ -1,0 +1,24 @@
+paths:
+ /options/email:
+  post:
+   description: Route for sending an email to a test email.
+   tags:
+    - EMAIL Routes
+   requestBody:
+    description: The body of the email.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Email"
+      examples:
+       Email:
+        summary: Example for creating a basic email.
+        value:
+         emailAddress: youremail@gmail.com
+         subject: Testing your HSA API
+         message: Hello i am testing your HSA API.
+   responses:
+    200:
+     description: Successfully send the email.
+    400:
+     description: The email could not be sent.

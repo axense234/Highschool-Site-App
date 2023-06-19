@@ -5,33 +5,26 @@ import express from "express";
 import {
   createAnnouncement,
   getAllAnnouncements,
-  deleteAllAnnouncements,
+  getAnnouncementById,
   deleteAnnouncementById,
   updateAnnouncementById,
 } from "../controllers/announcements";
-import authenticationMiddleware from "../middleware/authentication";
 
 const router = express.Router();
 
-router.get("/anunturi", getAllAnnouncements);
+router.get("/announcements", getAllAnnouncements);
 
-router.post("/anunturi/create", authenticationMiddleware, createAnnouncement);
+router.get("/announcements/announcement/:announcementId", getAnnouncementById);
 
-router.delete(
-  "/anunturi/delete/all",
-  authenticationMiddleware,
-  deleteAllAnnouncements
-);
+router.post("/announcements/announcement/create", createAnnouncement);
 
 router.delete(
-  "/anunturi/anunt/delete/:announcementId",
-  authenticationMiddleware,
+  "/announcements/announcement/delete/:announcementId",
   deleteAnnouncementById
 );
 
 router.patch(
-  "/anunturi/anunt/update/:announcementId",
-  authenticationMiddleware,
+  "/announcements/announcement/update/:announcementId",
   updateAnnouncementById
 );
 

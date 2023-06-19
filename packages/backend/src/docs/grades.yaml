@@ -1,0 +1,101 @@
+paths:
+ /grades:
+  get:
+   description: Route for fetching all grades.
+   tags:
+    - GRADES Routes
+   responses:
+    200:
+     description: Successfully found grades.
+    404:
+     description: Could not find any grades.
+ /grades/grade/{gradeId}:
+  get:
+   description: Route for fetching a grade by a id.
+   tags:
+    - GRADES Routes
+   parameters:
+    - in: path
+      name: gradeId
+      required: true
+      schema:
+       type: string
+      description: The id of the grade you want to fetch.
+   responses:
+    200:
+     description: Successfully found a grade by the given id.
+    400:
+     description: Please enter a valid grade id.
+    404:
+     description: Could not find the grade you were looking for with the given id.
+ /grades/grade/create:
+  post:
+   description: Route for creating a grade.
+   tags:
+    - GRADES Routes
+   requestBody:
+    description: The body of the grade you want to create.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Grade"
+      examples:
+       Grade:
+        summary: Create a basic grade.
+        value:
+         value: 3
+   responses:
+    201:
+     description: Successfully created a grade with the provided data.
+    400:
+     description: Invalid grade body.
+ /grades/grade/update/{gradeId}:
+  patch:
+   description: Route for updating a grade.
+   tags:
+    - GRADES Routes
+   parameters:
+    - in: path
+      name: gradeId
+      required: true
+      description: The id of the grade you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the grade you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Grade"
+      examples:
+       Grade:
+        summary: An example to modify a grade's value.
+        value:
+         value: 8
+   responses:
+    200:
+     description: Successfully updated grade by given id.
+    400:
+     description: Invalid grade id and/or grade body.
+    404:
+     description: Could not find the grade you wanted to update by given id.
+ /grades/grade/delete/{gradeId}:
+  delete:
+   description: Route for deleting a grade.
+   tags:
+    - GRADES Routes
+   parameters:
+    - in: path
+      name: gradeId
+      required: true
+      schema:
+       type: string
+      description: The id of the grade you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a grade.
+    400:
+     description: Invalid grade id.
+    404:
+     description: Could not find the grade you want to delete by given id.
+    

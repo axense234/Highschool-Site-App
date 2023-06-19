@@ -1,0 +1,103 @@
+paths:
+ /absences:
+  get:
+   description: Route for fetching all absences.
+   tags:
+    - ABSENCES Routes
+   responses:
+    200:
+     description: Successfully found absences.
+    404:
+     description: Could not find any absences.
+ /absences/absence/{absenceId}:
+  get:
+   description: Route for fetching an absence by an id.
+   tags:
+    - ABSENCES Routes
+   parameters:
+    - in: path
+      name: absenceId
+      required: true
+      schema:
+       type: string
+      description: The id of the absence you want to fetch.
+   responses:
+    200:
+     description: Successfully found absence by the given id.
+    400:
+     description: Please enter a valid absence id.
+    404:
+     description: Could not find the absence you were looking for with the given id.
+ /absences/absence/create:
+  post:
+   description: Route for creating an absence.
+   tags:
+    - ABSENCES Routes
+   requestBody:
+    description: The body of the absence you want to create.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Absence"
+      examples:
+       Absence:
+        summary: An example for a basic unreasoned absence.
+        value:
+         card_section_id: ""
+         date: "16/06/2023"
+         reasoned: false
+   responses:
+    201:
+     description: Successfully created an absence with the provided data.
+    400:
+     description: Invalid absence body.
+ /absences/absence/update/{absenceId}:
+  patch:
+   description: Route for updating an absences.
+   tags:
+    - ABSENCES Routes
+   parameters:
+    - in: path
+      name: absenceId
+      required: true
+      description: The id of the absence you want updated.
+      schema:
+       type: string
+   requestBody:
+    description: The body of the absence you want updated.
+    content:
+     application/json:
+      schema:
+       $ref: "#/components/schemas/Absence"
+      examples:
+       Absence:
+        summary: An example to reason an absence.
+        value:
+         reasoned: true
+   responses:
+    200:
+     description: Successfully updated absence by given id.
+    400:
+     description: Invalid absence id and/or absence body.
+    404:
+     description: Could not find the absence you wanted to update by given id.
+ /absences/absence/delete/{absenceId}:
+  delete:
+   description: Route for deleting a absence.
+   tags:
+    - ABSENCES Routes
+   parameters:
+    - in: path
+      name: absenceId
+      required: true
+      schema:
+       type: string
+      description: The id of the absence you want to delete.
+   responses:
+    200:
+     description: Successfully deleted a absence.
+    400:
+     description: Invalid absence id.
+    404:
+     description: Could not find the absence you want to delete by given id.
+    
