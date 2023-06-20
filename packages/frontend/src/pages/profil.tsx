@@ -1,9 +1,9 @@
 // React
 import { FC, useEffect } from "react";
 // Components
-import Meta from "@/components/Meta";
+import Meta from "@/components/others/Meta";
 // SCSS
-import profileStyles from "../scss/components/Profile.module.scss";
+import profileStyles from "../scss/components/pages/Profile.module.scss";
 // Data
 import {
   defaultTemplateAnnouncement,
@@ -13,12 +13,12 @@ import {
 // Hooks
 import useAuthorization from "@/hooks/useAuthorization";
 // Components
-import SectionLoading from "@/components/SectionLoading";
-import HomeTitle from "@/components/Home/HomeTitle";
-import Overlay from "@/components/Overlay";
-import ProfileSettings from "@/components/Profile/ProfileSettings";
-import ProfileCreateAnnouncement from "@/components/Profile/ProfileCreateAnnouncement";
-import ProfileCreateTeacher from "@/components/Profile/ProfileCreateTeacher";
+import SectionLoading from "@/components/loading/SectionLoading";
+import HomeTitle from "@/components/home/HomeTitle";
+import Overlay from "@/components/others/Overlay";
+import ProfileSettings from "@/components/profile/ProfileSettings";
+import ProfileCreateAnnouncement from "@/components/profile/ProfileCreateAnnouncement";
+import ProfileCreateTeacher from "@/components/profile/ProfileCreateTeacher";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {

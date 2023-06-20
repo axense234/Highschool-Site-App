@@ -1,0 +1,164 @@
+@use "../../abstracts" as *;
+
+.contactContainer {
+  @include pageLayout();
+
+  #{&}__contact {
+    @include homePageSection(getColor("silver-20"), column);
+    gap: 4rem;
+
+    h2 {
+      font-size: 3.5rem;
+      letter-spacing: 3px;
+      text-align: center;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+  #{&}__content {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 75%;
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
+
+    iframe {
+      border-radius: 1rem;
+      width: 50%;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        width: 100%;
+        height: 40rem;
+      }
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        height: 30rem;
+      }
+    }
+  }
+
+  #{&}__tel {
+    @include flexCenter(row);
+    gap: 1rem;
+  }
+
+  #{&}__info {
+    @include flexCenter(column);
+    align-items: flex-start;
+    justify-content: center;
+
+    address,
+    a,
+    span {
+      font-size: 2rem;
+      text-decoration: none;
+      text-align: center;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  #{&}__email {
+    @extend .contactContainer__contact;
+    @include homePageSection(getColor("silver-10"), column);
+  }
+
+  #{&}__emailForm {
+    @include flexCenter(column);
+    width: 80%;
+    align-items: flex-start;
+    gap: 2rem;
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 100%;
+    }
+
+    button {
+      @include formButton(30%, 1.5rem);
+      margin-top: 0;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        width: 100%;
+      }
+    }
+  }
+
+  #{&}__emailContent {
+    @include flexCenter(row);
+    width: 80%;
+    gap: 5rem;
+    align-items: flex-start;
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      align-items: center;
+      flex-direction: column;
+    }
+
+    img {
+      width: 50%;
+      height: auto;
+      border-radius: 1rem;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+      }
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        display: none;
+      }
+    }
+  }
+
+  #{&}__control {
+    @include flexCenter(column);
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+
+    label {
+      font-size: 1.5rem;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 1.35rem;
+      }
+    }
+
+    input {
+      @include controlInput(1.5rem, 100%);
+      max-width: 35rem;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 1.25rem;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      max-width: 35rem;
+      min-height: 7.5rem;
+      max-height: 10rem;
+      padding: 0.25rem;
+      border-radius: 1rem;
+      border: 3px solid getColor("silver-50");
+      font-size: 1.25rem;
+
+      &:focus-visible {
+        outline: 3px solid getColor("silver-50");
+      }
+    }
+  }
+}

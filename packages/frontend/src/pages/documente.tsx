@@ -4,10 +4,10 @@ import { FC } from "react";
 import { DocumentOrLaw } from "types";
 import { documentsAndLawsInfo } from "@/data";
 // SCSS
-import documentsStyles from "../scss/components/Documents.module.scss";
+import documentsStyles from "../scss/components/pages/Documents.module.scss";
 // Components
-import HomeTitle from "@/components/Home/HomeTitle";
-import Meta from "@/components/Meta";
+import HomeTitle from "@/components/home/HomeTitle";
+import Meta from "@/components/others/Meta";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 

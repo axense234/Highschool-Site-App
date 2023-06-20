@@ -1,27 +1,28 @@
-/* eslint-disable no-undef */
 // Types
 import {
   AboutTechnologyType,
   BackgroundImageUrl,
-  CategorieType,
+  CategoryType,
   DocumentOrLaw,
   EmailFormTemplate,
-  facilityImageType,
-  facilityRoomType,
+  FacilityImageType,
+  FacilityRoomType,
   GetAllQueryParams,
   IndividualPageData,
-  infoSectionType,
   IstoricPinPoint,
-  MaterieType,
-  offeringItemType,
+  SubjectType,
+  OfferingItemType,
   OverlayType,
   PageData,
-  profileOption,
-  sidebarLink,
+  ProfileOption,
+  SidebarLink,
   SortByOption,
-  templateAnnouncement,
-  templateTeacher,
-  templateUser,
+  TemplateAnnouncement,
+  TemplateTeacher,
+  TemplateUser,
+  InfoSectionType,
+  TypeNavOption,
+  SelectOptionType,
 } from "types";
 // React Icons
 import { AiFillHome } from "react-icons/ai";
@@ -32,71 +33,217 @@ import { FaHistory, FaSchool } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import { TbOlympics } from "react-icons/tb";
 import { BiLogIn } from "react-icons/bi";
-import { IoSchoolSharp } from "react-icons/io5";
+import { IoSchoolSharp, IoPeople } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
-// Prisma Types
-import { Anunt, Profesor, Utilizator } from "@prisma/client";
 
-export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
+// TEMPLATE DATA
+export const defaultEmailFormTemplate: EmailFormTemplate = {
+  emailAddress: "",
+  message: "",
+  sender: "",
+  subject: "",
+};
+
+export const defaultTemplateProfile: TemplateUser = {
+  email: "",
+  password: "PAROLA",
+  username: "",
+};
+
+export const defaultTemplateAnnouncement: TemplateAnnouncement = {
+  description: "",
+  img_url: "",
+  video_pozition: "FINAL",
+  title: "",
+  video_url: "",
+  id: "",
+  category: "GENERALE",
+  created_by_admin_uid: "",
+  updatedAt: new Date(),
+  createdAt: new Date(),
+};
+
+export const defaultTemplateTeacher: TemplateTeacher = {
+  id: "",
+  description: "",
+  subject: "SPORT",
+  username: "",
+  email: "",
+  master_catalogue_uid: "",
+  master_class_uid: "",
+  password: "PAROLA",
+  type: "CLASA",
+  role: "TEACHER",
+  profile_img_url:
+    "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+  created_by_admin_uid: "",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+export const defaultProfile: TemplateUser = {
+  email: "",
+  password: "",
+  username: "",
+};
+
+export const defaultOverlay: OverlayType = {
+  overlayFunctionUsed: "logout",
+  showOverlay: false,
+  title: "",
+};
+
+// OPTIONS DATA(EITHER PROFILE OR SORTING OPTIONS FOR A MODEL)
+export const defaultGetAllQueryParams: GetAllQueryParams = {
+  query: "",
+  sortByOption: "",
+};
+
+export const sortByAnnouncementOptions: SortByOption[] = [
+  { id: 1, label: "Titlu Anunț", value: "titlu" },
+  { id: 2, label: "Descriere Anunț", value: "descriere" },
+  { id: 3, label: "Anunțuri Recente", value: "creatLa" },
+];
+
+export const sortByTeacherOptions: SortByOption[] = [
+  { id: 1, label: "Nume Profesor", value: "username" },
+  { id: 2, label: "Descriere Profesor", value: "descriere" },
+];
+
+export const profileOptions: ProfileOption[] = [
+  { id: 1, label: "Setări Profil", content: "settings" },
+  { id: 2, label: "Ieși din Cont", content: "logout" },
+  { id: 3, label: "Creează Anunț", content: "createAnnouncement" },
+  { id: 4, label: "Creează Profesor", content: "createTeacher" },
+];
+
+export const announcementCategories: CategoryType[] = [
+  { id: 1, name: "GENERALE", dest: "GENERALE", label: "GENERALE" },
+  { id: 2, name: "ELEVI", dest: "ELEVI", label: "ELEVI" },
+  { id: 3, name: "PROFESORI", dest: "PROFESORI", label: "PROFESORI" },
+  { id: 4, name: "SPECIALE", dest: "SPECIALE", label: "SPECIALE" },
+];
+
+export const typeNavOptions: TypeNavOption[] = [
+  { id: 1, label: "ADMIN" },
   {
-    pagePath: "/home",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1678691260/Highschool%20Site%20App/IMG-20230313-WA0004_e5vfrt.jpg",
+    id: 2,
+    label: "ELEV",
+    steps: [
+      { id: 1, label: "PASUL 1" },
+      { id: 2, label: "PASUL 2" },
+    ],
   },
   {
-    pagePath: "/anunturi",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0012_e117jz.jpg",
-  },
-  {
-    pagePath: "/contact",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0021_ime128.jpg",
-  },
-  {
-    pagePath: "/oferta",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0016_unzyje.jpg",
-  },
-  {
-    pagePath: "/documente",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0020_xyq6ms.jpg",
-  },
-  {
-    pagePath: "/profesori",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0004_mebbon.jpg",
-  },
-  {
-    pagePath: "/istoric",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0003_o4bv66.jpg",
-  },
-  {
-    pagePath: "/",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504249/Highschool%20Site%20App/Captur%C4%83_ecran_8_rqirc7.png",
-  },
-  {
-    pagePath: "/login",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504535/Highschool%20Site%20App/nighthighschool_v8xnie.jpg",
-  },
-  {
-    pagePath: "/profil",
-    backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg",
+    id: 3,
+    label: "PROFESOR",
+    steps: [
+      { id: 1, label: "PASUL 1" },
+      { id: 2, label: "PASUL 2" },
+    ],
   },
 ];
 
-export const categoriiAnunturi: CategorieType[] = [
-  { id: 1, nume: "GENERALE", dest: "GENERAL", label: "GENERAL" },
-  { id: 2, nume: "ELEVI", dest: "ELEVI", label: "ELEVI" },
-  { id: 3, nume: "PROFESORI", dest: "PROFESORI", label: "PROFESORI" },
-  { id: 4, nume: "SPECIALE", dest: "SPECIAL", label: "SPECIAL" },
+export const possibleClassLabels: SelectOptionType[] = [
+  {
+    id: 1,
+    label: "9A",
+  },
+  {
+    id: 2,
+    label: "9B",
+  },
+  {
+    id: 3,
+    label: "9C",
+  },
+  {
+    id: 4,
+    label: "9D",
+  },
+  {
+    id: 5,
+    label: "9E",
+  },
+  {
+    id: 6,
+    label: "9F",
+  },
+  {
+    id: 7,
+    label: "10A",
+  },
+  {
+    id: 8,
+    label: "10B",
+  },
+  {
+    id: 9,
+    label: "10C",
+  },
+  {
+    id: 10,
+    label: "10D",
+  },
+  {
+    id: 11,
+    label: "10E",
+  },
+  {
+    id: 12,
+    label: "10F",
+  },
+  {
+    id: 13,
+    label: "11A",
+  },
+  {
+    id: 14,
+    label: "11B",
+  },
+  {
+    id: 15,
+    label: "11C",
+  },
+  {
+    id: 16,
+    label: "11D",
+  },
+  {
+    id: 17,
+    label: "11E",
+  },
+  {
+    id: 18,
+    label: "11F",
+  },
+  {
+    id: 19,
+    label: "12A",
+  },
+  {
+    id: 20,
+    label: "12B",
+  },
+  {
+    id: 21,
+    label: "12C",
+  },
+  {
+    id: 22,
+    label: "12D",
+  },
+  {
+    id: 23,
+    label: "12E",
+  },
+  {
+    id: 24,
+    label: "12F",
+  },
 ];
 
+// STATIC DATA AND DATA THAT MOST LIKELY WON'T CHANGE
 export const documentsAndLawsInfo: DocumentOrLaw[] = [
   {
     id: 1,
@@ -144,6 +291,352 @@ export const documentsAndLawsInfo: DocumentOrLaw[] = [
   },
 ];
 
+export const istoricPinpoints: IstoricPinPoint[] = [
+  {
+    id: 1,
+    timePeriod: "1952",
+    content:
+      "Înființarea primei școli secundare de nivel gimnazial în Pitești.",
+  },
+  {
+    id: 2,
+    timePeriod: "1968",
+    content: "Transformarea școlii secundare în Liceul Teoretic Ion Barbu.",
+  },
+  {
+    id: 3,
+    timePeriod: "Anii 1970",
+    content:
+      "Consolidarea poziției liceului ca una dintre instituțiile de învățământ de prestigiu din Pitești și județul Argeș.",
+  },
+  {
+    id: 4,
+    timePeriod: "Anii 1980",
+    content:
+      "Extinderea infrastructurii liceului pentru a face față cerințelor în creștere ale elevilor și profesorilor.",
+  },
+  {
+    id: 5,
+    timePeriod: "1990-2000",
+    content:
+      "Adaptarea curriculumului școlar la noile cerințe și schimbări educaționale din sistemul de învățământ din România.",
+  },
+  {
+    id: 6,
+    timePeriod: "Anii 2000",
+    content:
+      "Participarea și obținerea de rezultate remarcabile la competiții școlare și olimpiade naționale și internaționale.",
+  },
+  {
+    id: 7,
+    timePeriod: "2010-2020",
+    content:
+      "Modernizarea și dotarea infrastructurii liceului cu echipamente și tehnologii avansate pentru sprijinirea procesului de învățare.",
+  },
+  {
+    id: 8,
+    timePeriod: "2023",
+    content:
+      "Liceul Teoretic Ion Barbu Pitesti continuă să se mențină în topul instituțiilor de învățământ din Pitești și se angajează să ofere o educație de calitate, pregătind elevii pentru provocările viitorului.",
+  },
+];
+
+export const subjects: SubjectType[] = [
+  { id: 1, name: "BIOLOGIE" },
+  { id: 2, name: "CHIMIE" },
+  { id: 3, name: "DESEN" },
+  { id: 4, name: "ENGLEZA" },
+  { id: 5, name: "FIZICA" },
+  { id: 6, name: "FRANCEZA" },
+  { id: 7, name: "GEOGRAFIE" },
+  { id: 8, name: "GERMANA" },
+  { id: 9, name: "INFORMATICA" },
+  { id: 10, name: "INFORMATICA_OPTIONAL" },
+  { id: 11, name: "ISTORIE" },
+  { id: 12, name: "LATINA" },
+  { id: 13, name: "MATEMATICA" },
+  { id: 14, name: "MUZICA" },
+  { id: 15, name: "PSIHOLOGIE" },
+  { id: 16, name: "RELIGIE" },
+  { id: 17, name: "ROMANA" },
+  { id: 18, name: "SPORT" },
+];
+
+export const aboutTechnologiesUsedFrontend: AboutTechnologyType[] = [
+  {
+    id: 1,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764486/Icons%20and%20Stuff/HTML5_badge_ag98vs.webp",
+    label: "HTML",
+    techUrl: "https://www.w3schools.com/html/",
+  },
+  {
+    id: 2,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764497/Icons%20and%20Stuff/css-118-569410_pqbfyw.webp",
+    label: "CSS",
+    techUrl: "https://www.w3schools.com/css/",
+  },
+  {
+    id: 3,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063331/Icons%20and%20Stuff/typescript_logo_png_kl85ny.webp",
+    label: "Typescript",
+    techUrl: "https://www.typescriptlang.org/",
+  },
+  {
+    id: 4,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764549/Icons%20and%20Stuff/react_js_logo_icon512_b7nzgm.webp",
+    label: "React",
+    techUrl: "https://reactjs.org/",
+  },
+  {
+    id: 5,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674571442/Icons%20and%20Stuff/next-js-logo-7929BCD36F-seeklogo.com_vxm0md.webp",
+    label: "NextJS",
+    techUrl: "https://nextjs.org/",
+  },
+  {
+    id: 6,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063415/Icons%20and%20Stuff/sass-logo-2_xkltmh.webp",
+    label: "Sass",
+    techUrl: "https://sass-lang.com/",
+  },
+  {
+    id: 7,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764511/Icons%20and%20Stuff/redux-logo_ejnmb7.webp",
+    label: "Redux Toolkit",
+    techUrl: "https://redux-toolkit.js.org/",
+  },
+];
+
+export const aboutTechnologiesUsedBackend: AboutTechnologyType[] = [
+  {
+    id: 1,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764542/Icons%20and%20Stuff/nodejs-logo-png--435_xz77cw.webp",
+    label: "Node",
+    techUrl: "https://nodejs.org/en/",
+  },
+  {
+    id: 2,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764524/Icons%20and%20Stuff/express-js-icon-20_onazqf.webp",
+    label: "Express",
+    techUrl: "https://expressjs.com/",
+  },
+  {
+    id: 3,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063331/Icons%20and%20Stuff/typescript_logo_png_kl85ny.webp",
+    label: "Typescript",
+    techUrl: "https://www.typescriptlang.org/",
+  },
+  {
+    id: 4,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063477/Icons%20and%20Stuff/postgresql-logo-png-transparent_zxfyrt.webp",
+    label: "PostgreSQL",
+    techUrl: "https://www.postgresql.org/",
+  },
+  {
+    id: 5,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063501/Icons%20and%20Stuff/prisma-logo-3805665B69-seeklogo.com_cj8pk8.webp",
+    label: "Prisma",
+    techUrl: "https://www.prisma.io/",
+  },
+  {
+    id: 6,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063521/Icons%20and%20Stuff/redis-logo_i8mudb.webp",
+    label: "Redis",
+    techUrl: "https://redis.io/",
+  },
+];
+
+export const sidebarPageLinks: SidebarLink[] = [
+  { id: 1, label: "Acasă", dest: "/home", logoUrl: AiFillHome({}) },
+  { id: 2, label: "Anunțuri", dest: "/anunturi", logoUrl: MdAnnouncement({}) },
+  { id: 3, label: "Contact", dest: "/contact", logoUrl: MdContactSupport({}) },
+  {
+    id: 4,
+    label: "Oferta educațională",
+    dest: "/oferta",
+    logoUrl: IoSchoolSharp({}),
+  },
+  {
+    id: 5,
+    label: "Legi și Documente",
+    dest: "/documente",
+    logoUrl: HiDocumentText({}),
+  },
+  { id: 6, label: "Profesori", dest: "/profesori", logoUrl: MdPeople({}) },
+  { id: 7, label: "Istoric", dest: "/istoric", logoUrl: FaHistory({}) },
+  { id: 8, label: "Despre Proiect", dest: "/", logoUrl: FcAbout({}) },
+  { id: 9, label: "Intră în cont", dest: "/login", logoUrl: BiLogIn({}) },
+  {
+    id: 10,
+    label: "Crează-ți un cont",
+    dest: "/signup",
+    logoUrl: IoPeople({}),
+  },
+  { id: 11, label: "Profil", dest: "/profil", logoUrl: CgProfile({}) },
+];
+
+export const sidebarSocialMediaLinks: SidebarLink[] = [
+  {
+    id: 1,
+    label: "Facebook",
+    dest: "https://web.facebook.com/LiceulTeoreticIonBarbu/?locale=ro_RO&_rdc=1&_rdr",
+    logoUrl: CgFacebook({}),
+  },
+  {
+    id: 2,
+    label: "Site Original",
+    dest: "https://sites.google.com/ltibp.ro/licionbarbu/acasa?authuser=0",
+    logoUrl: FaSchool({}),
+  },
+  {
+    id: 3,
+    label: "Cod Sursa",
+    dest: "https://github.com/axense234/Highschool-Site-App",
+    logoUrl: BsGithub({}),
+  },
+  {
+    id: 4,
+    label: "Concurs",
+    dest: "https://infoeducatie.ro/",
+    logoUrl: TbOlympics({}),
+  },
+];
+
+export const infoSections: InfoSectionType[] = [
+  {
+    id: 1,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315508/Highschool%20Site%20App/pregatire.png",
+    desc: "Prestigiul liceului este demonstrat atat de numarul foarte mare de absolventi ai clasei a VIII-a care doresc sã urmeze cursurile acestui liceu, precum si de absolventii care au promovat in procent de aproape 90% examenele de bacalaureat.",
+    title: "Pregătire",
+  },
+  {
+    id: 2,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315525/Highschool%20Site%20App/infiintare.png",
+    desc: 'Liceul Teoretic "Ion Barbu" a fost infiintat la 1 septembrie 1971 sub denumirea de "Liceul real-umanist nr. 4" Pitesti. Particularitatea acestui liceu, in raport cu celelalte licee din judet, a constat in predarea intensiva a limbii germane, motiv pentru care liceul a devenit cunoscut (neoficial) sub numele de Liceul German.',
+    title: "Inființare",
+  },
+  {
+    id: 3,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315534/Highschool%20Site%20App/transformare.png",
+    desc: 'In septembrie 1977, cand toate liceele din Romania au fost transformate in licee industriale, Liceul German a devenit Liceul Industrial Nr. 5 Pitesti, fiind dat in patronatul Intreprinderii de Micromotoare Pitesti. In anul scolar 1990-1991, Liceul Industrial Nr. 5 a redevenit liceu teoretic primind, un an mai tarziu, numele actual – Liceul Teoretic "Ion Barbu" Pitești.',
+    title: "Transformare",
+  },
+  {
+    id: 4,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315668/Highschool%20Site%20App/com-locala_ubmszn.png",
+    desc: "A beneficiat de-a lungul anilor de resurse generoase din partea Primăriei municipiului Piteşti, a Inspectoratului Şcolar Judeţean, care au asigurat dotarea, modernizarea, întreţinerea şi repararea bazei materiale.",
+    title: "Comunitate Locala",
+  },
+];
+
+export const facilityImages: FacilityImageType[] = [
+  {
+    id: 1,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316598/Highschool%20Site%20App/fac1_rzomtk.jpg",
+    title: "Prima Clasă Renovată",
+  },
+  {
+    id: 2,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac2_q1eyam.jpg",
+    title: "A Doua Clasă Renovată",
+  },
+  {
+    id: 3,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac3_szle8n.jpg",
+    title: "A Treia Clasă Renovată",
+  },
+  {
+    id: 4,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac4_bcnwpg.jpg",
+    title: "A Patra Clasă Renovată",
+  },
+  {
+    id: 5,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac5_lu9ace.jpg",
+    title: "A Cincea Clasă Renovată",
+  },
+  {
+    id: 6,
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac6_b20wqj.jpg",
+    title: "A Șasea Clasă Renovată",
+  },
+];
+
+export const facilityRooms: FacilityRoomType[] = [
+  { id: 1, desc: "4 LABORATOARE DE INFORMATICĂ" },
+  { id: 2, desc: "CABINET DE LIMBA ROMANĂ" },
+  { id: 3, desc: "LABORATOR DE CHIMIE" },
+  { id: 4, desc: "LABORATOR DE FIZICĂ" },
+  { id: 5, desc: "LABORATOR DE BIOLOGIE" },
+  { id: 6, desc: "CABINET DE LIMBA GERMANĂ" },
+  { id: 7, desc: "CABINET DE LIMBA ENGLEZĂ" },
+  { id: 8, desc: "CABINET DE LIMBA FRANCEZĂ" },
+  { id: 10, desc: "SALĂ DE SPORT ȘI FITNESS" },
+  { id: 11, desc: "CABINET MEDICAL" },
+  { id: 12, desc: "CABINET PSIHOPEDAGOGIC" },
+  { id: 13, desc: "BIBLIOTECA ȘCOLARĂ" },
+  { id: 14, desc: "Conexiune Wi-Fi în perimetrul liceului" },
+];
+
+export const offeringsList: OfferingItemType[] = [
+  {
+    id: 1,
+    desc: "Suntem Academie CISCO.",
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677318772/Highschool%20Site%20App/cisco_m3obd3.png",
+    title: "CISCO",
+    dest: "https://www.netacad.com/",
+  },
+  {
+    id: 2,
+    desc: "Suntem Academie ORACLE.",
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677331057/Highschool%20Site%20App/oracle_rva8ki.webp",
+    title: "ORACLE",
+    dest: "https://www.oracle.com/",
+  },
+  {
+    id: 3,
+    desc: "Oferim acces la platforma OFFICE 365.",
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677330994/Highschool%20Site%20App/Office-365_o5eghb.webp",
+    title: "OFFICE365",
+    dest: "https://www.microsoft.com/en-us/microsoft-365",
+  },
+  {
+    id: 4,
+    desc: "Utilizăm platforma G-Suite for education.",
+    logoUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677330927/Highschool%20Site%20App/g-suite-icon-35_bgahox.webp",
+    title: "G-SUITE",
+    dest: "https://workspace.google.com/",
+  },
+];
+
+// GENERAL DATA ABOUT PAGES
 export const individualPagesData: IndividualPageData[] = [
   // Home Page
   {
@@ -181,7 +674,7 @@ export const individualPagesData: IndividualPageData[] = [
   // Announcements Page
   {
     id: 1001,
-    recommendations: (categoriiAnunturi as PageData[]).map((cat) => {
+    recommendations: (announcementCategories as PageData[]).map((cat) => {
       return {
         id: (cat.id as number) + 100,
         dest: `/anunturi/#${cat.dest}`,
@@ -313,540 +806,69 @@ export const pagesData: PageData[] = [
   { id: 2007, label: "Pagină - Istoric", dest: "/istoric" },
   { id: 2008, label: "Pagină - Despre Proiect", dest: "/" },
   { id: 2009, label: "Pagină - Intră în cont", dest: "/login" },
-  { id: 2010, label: "Pagină - Profil", dest: "/profil" },
+  { id: 2010, label: "Pagină - Crează-ți un cont", dest: "/signup" },
+  { id: 2011, label: "Pagină - Profil", dest: "/profil" },
 ];
 
-export const defaultGetAllQueryParams: GetAllQueryParams = {
-  query: "",
-  sortByOption: "",
-};
-
-export const sortByAnnouncementOptions: SortByOption[] = [
-  { id: 1, label: "Titlu Anunț", value: "titlu" },
-  { id: 2, label: "Descriere Anunț", value: "descriere" },
-  { id: 3, label: "Anunțuri Recente", value: "creatLa" },
-];
-
-export const sortByTeacherOptions: SortByOption[] = [
-  { id: 1, label: "Nume Profesor", value: "username" },
-  { id: 2, label: "Descriere Profesor", value: "descriere" },
-];
-
-export const istoricPinpoints: IstoricPinPoint[] = [
+export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
   {
-    id: 1,
-    timePeriod: "1952",
-    content:
-      "Înființarea primei școli secundare de nivel gimnazial în Pitești.",
+    pagePath: "/home",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1678691260/Highschool%20Site%20App/IMG-20230313-WA0004_e5vfrt.jpg",
   },
   {
-    id: 2,
-    timePeriod: "1968",
-    content: "Transformarea școlii secundare în Liceul Teoretic Ion Barbu.",
+    pagePath: "/anunturi",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0012_e117jz.jpg",
   },
   {
-    id: 3,
-    timePeriod: "Anii 1970",
-    content:
-      "Consolidarea poziției liceului ca una dintre instituțiile de învățământ de prestigiu din Pitești și județul Argeș.",
+    pagePath: "/contact",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0021_ime128.jpg",
   },
   {
-    id: 4,
-    timePeriod: "Anii 1980",
-    content:
-      "Extinderea infrastructurii liceului pentru a face față cerințelor în creștere ale elevilor și profesorilor.",
+    pagePath: "/oferta",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0016_unzyje.jpg",
   },
   {
-    id: 5,
-    timePeriod: "1990-2000",
-    content:
-      "Adaptarea curriculumului școlar la noile cerințe și schimbări educaționale din sistemul de învățământ din România.",
+    pagePath: "/documente",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0020_xyq6ms.jpg",
   },
   {
-    id: 6,
-    timePeriod: "Anii 2000",
-    content:
-      "Participarea și obținerea de rezultate remarcabile la competiții școlare și olimpiade naționale și internaționale.",
+    pagePath: "/profesori",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0004_mebbon.jpg",
   },
   {
-    id: 7,
-    timePeriod: "2010-2020",
-    content:
-      "Modernizarea și dotarea infrastructurii liceului cu echipamente și tehnologii avansate pentru sprijinirea procesului de învățare.",
+    pagePath: "/istoric",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0003_o4bv66.jpg",
   },
   {
-    id: 8,
-    timePeriod: "2023",
-    content:
-      "Liceul Teoretic Ion Barbu Pitesti continuă să se mențină în topul instituțiilor de învățământ din Pitești și se angajează să ofere o educație de calitate, pregătind elevii pentru provocările viitorului.",
+    pagePath: "/",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504249/Highschool%20Site%20App/Captur%C4%83_ecran_8_rqirc7.png",
+  },
+  {
+    pagePath: "/login",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504535/Highschool%20Site%20App/nighthighschool_v8xnie.jpg",
+  },
+  {
+    pagePath: "/signup",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921592/Highschool%20Site%20App/IMG-20230614-WA0020_paxhx6.jpg",
+  },
+  {
+    pagePath: "/profil",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg",
   },
 ];
 
-export const aboutTechnologiesUsedFrontend: AboutTechnologyType[] = [
-  {
-    id: 1,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764486/Icons%20and%20Stuff/HTML5_badge_ag98vs.webp",
-    label: "HTML",
-    techUrl: "https://www.w3schools.com/html/",
-  },
-  {
-    id: 2,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764497/Icons%20and%20Stuff/css-118-569410_pqbfyw.webp",
-    label: "CSS",
-    techUrl: "https://www.w3schools.com/css/",
-  },
-  {
-    id: 3,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063331/Icons%20and%20Stuff/typescript_logo_png_kl85ny.webp",
-    label: "Typescript",
-    techUrl: "https://www.typescriptlang.org/",
-  },
-  {
-    id: 4,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764549/Icons%20and%20Stuff/react_js_logo_icon512_b7nzgm.webp",
-    label: "React",
-    techUrl: "https://reactjs.org/",
-  },
-  {
-    id: 5,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674571442/Icons%20and%20Stuff/next-js-logo-7929BCD36F-seeklogo.com_vxm0md.webp",
-    label: "NextJS",
-    techUrl: "https://nextjs.org/",
-  },
-  {
-    id: 6,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063415/Icons%20and%20Stuff/sass-logo-2_xkltmh.webp",
-    label: "Sass",
-    techUrl: "https://sass-lang.com/",
-  },
-  {
-    id: 7,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764511/Icons%20and%20Stuff/redux-logo_ejnmb7.webp",
-    label: "Redux Toolkit",
-    techUrl: "https://redux-toolkit.js.org/",
-  },
-];
-
-export const aboutTechnologiesUsedBackend: AboutTechnologyType[] = [
-  {
-    id: 1,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764542/Icons%20and%20Stuff/nodejs-logo-png--435_xz77cw.webp",
-    label: "Node",
-    techUrl: "https://nodejs.org/en/",
-  },
-  {
-    id: 2,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1668764524/Icons%20and%20Stuff/express-js-icon-20_onazqf.webp",
-    label: "Express",
-    techUrl: "https://expressjs.com/",
-  },
-  {
-    id: 3,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063331/Icons%20and%20Stuff/typescript_logo_png_kl85ny.webp",
-    label: "Typescript",
-    techUrl: "https://www.typescriptlang.org/",
-  },
-  {
-    id: 4,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063477/Icons%20and%20Stuff/postgresql-logo-png-transparent_zxfyrt.webp",
-    label: "PostgreSQL",
-    techUrl: "https://www.postgresql.org/",
-  },
-  {
-    id: 5,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063501/Icons%20and%20Stuff/prisma-logo-3805665B69-seeklogo.com_cj8pk8.webp",
-    label: "Prisma",
-    techUrl: "https://www.prisma.io/",
-  },
-  {
-    id: 6,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1674063521/Icons%20and%20Stuff/redis-logo_i8mudb.webp",
-    label: "Redis",
-    techUrl: "https://redis.io/",
-  },
-];
-
-export const defaultEmailFormTemplate: EmailFormTemplate = {
-  emailAddress: "",
-  message: "",
-  sender: "",
-  subject: "",
-};
-
-export const defaultTemplateProfile: templateUser = {
-  email: "",
-  password: "PAROLA",
-  rolUtilizator: "ADMIN",
-};
-
-export const defaultOverlay: OverlayType = {
-  overlayFunctionUsed: "logout",
-  showOverlay: false,
-  title: "",
-};
-
-export const defaultTemplateAnnouncement: templateAnnouncement = {
-  descriere: "",
-  imagineUrl: "",
-  pozitionareVideoInAnunt: "final",
-  titlu: "",
-  videoUrl: "",
-  id: "",
-  categorie: "GENERALE",
-  actualizatLa: new Date(),
-  creatLa: new Date(),
-};
-
-export const defaultTemplateTeacher: templateTeacher = {
-  descriere: "",
-  id: "",
-  imagineProfilUrl: null,
-  profesorDe: "SPORT",
-  username: "",
-};
-
-export const materii: MaterieType[] = [
-  { id: 1, nume: "BIOLOGIE" },
-  { id: 2, nume: "CHIMIE" },
-  { id: 3, nume: "DESEN" },
-  { id: 4, nume: "ENGLEZA" },
-  { id: 5, nume: "FIZICA" },
-  { id: 6, nume: "FRANCEZA" },
-  { id: 7, nume: "GEOGRAFIE" },
-  { id: 8, nume: "GERMANA" },
-  { id: 9, nume: "INFORMATICA" },
-  { id: 10, nume: "INFORMATICA_OPTIONAL" },
-  { id: 11, nume: "ISTORIE" },
-  { id: 12, nume: "LATINA" },
-  { id: 13, nume: "MATEMATICA" },
-  { id: 14, nume: "MUZICA" },
-  { id: 15, nume: "PSIHOLOGIE" },
-  { id: 16, nume: "RELIGIE" },
-  { id: 17, nume: "ROMANA" },
-  { id: 18, nume: "SPORT" },
-];
-
-export const defaultProfile: Utilizator = {
-  email: "",
-  password: "",
-  rolUtilizator: "ADMIN",
-  username: "",
-  utilizator_uid: "",
-};
-
-export const profileOptions: profileOption[] = [
-  { id: 1, label: "Setări Profil", content: "settings" },
-  { id: 2, label: "Ieși din Cont", content: "logout" },
-  { id: 3, label: "Creează Anunț", content: "createAnnouncement" },
-  { id: 4, label: "Creează Profesor", content: "createTeacher" },
-];
-
-export const sidebarPageLinks: sidebarLink[] = [
-  { id: 1, label: "Acasă", dest: "/home", logoUrl: AiFillHome({}) },
-  { id: 2, label: "Anunțuri", dest: "/anunturi", logoUrl: MdAnnouncement({}) },
-  { id: 3, label: "Contact", dest: "/contact", logoUrl: MdContactSupport({}) },
-  {
-    id: 4,
-    label: "Oferta educațională",
-    dest: "/oferta",
-    logoUrl: IoSchoolSharp({}),
-  },
-  {
-    id: 5,
-    label: "Legi și Documente",
-    dest: "/documente",
-    logoUrl: HiDocumentText({}),
-  },
-  { id: 6, label: "Profesori", dest: "/profesori", logoUrl: MdPeople({}) },
-  { id: 7, label: "Istoric", dest: "/istoric", logoUrl: FaHistory({}) },
-  { id: 8, label: "Despre Proiect", dest: "/", logoUrl: FcAbout({}) },
-  { id: 9, label: "Intră în cont", dest: "/login", logoUrl: BiLogIn({}) },
-  { id: 10, label: "Profil", dest: "/profil", logoUrl: CgProfile({}) },
-];
-
-export const sidebarSocialMediaLinks: sidebarLink[] = [
-  {
-    id: 1,
-    label: "Facebook",
-    dest: "https://web.facebook.com/LiceulTeoreticIonBarbu/?locale=ro_RO&_rdc=1&_rdr",
-    logoUrl: CgFacebook({}),
-  },
-  {
-    id: 2,
-    label: "Site Original",
-    dest: "https://sites.google.com/ltibp.ro/licionbarbu/acasa?authuser=0",
-    logoUrl: FaSchool({}),
-  },
-  {
-    id: 3,
-    label: "Cod Sursa",
-    dest: "https://github.com/axense234/Highschool-Site-App",
-    logoUrl: BsGithub({}),
-  },
-  {
-    id: 4,
-    label: "Concurs",
-    dest: "https://infoeducatie.ro/",
-    logoUrl: TbOlympics({}),
-  },
-];
-
-export const infoSections: infoSectionType[] = [
-  {
-    id: 1,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315508/Highschool%20Site%20App/pregatire.png",
-    desc: "Prestigiul liceului este demonstrat atat de numarul foarte mare de absolventi ai clasei a VIII-a care doresc sã urmeze cursurile acestui liceu, precum si de absolventii care au promovat in procent de aproape 90% examenele de bacalaureat.",
-    title: "Pregătire",
-  },
-  {
-    id: 2,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315525/Highschool%20Site%20App/infiintare.png",
-    desc: 'Liceul Teoretic "Ion Barbu" a fost infiintat la 1 septembrie 1971 sub denumirea de "Liceul real-umanist nr. 4" Pitesti. Particularitatea acestui liceu, in raport cu celelalte licee din judet, a constat in predarea intensiva a limbii germane, motiv pentru care liceul a devenit cunoscut (neoficial) sub numele de Liceul German.',
-    title: "Inființare",
-  },
-  {
-    id: 3,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315534/Highschool%20Site%20App/transformare.png",
-    desc: 'In septembrie 1977, cand toate liceele din Romania au fost transformate in licee industriale, Liceul German a devenit Liceul Industrial Nr. 5 Pitesti, fiind dat in patronatul Intreprinderii de Micromotoare Pitesti. In anul scolar 1990-1991, Liceul Industrial Nr. 5 a redevenit liceu teoretic primind, un an mai tarziu, numele actual – Liceul Teoretic "Ion Barbu" Pitești.',
-    title: "Transformare",
-  },
-  {
-    id: 4,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677315668/Highschool%20Site%20App/com-locala_ubmszn.png",
-    desc: "A beneficiat de-a lungul anilor de resurse generoase din partea Primăriei municipiului Piteşti, a Inspectoratului Şcolar Judeţean, care au asigurat dotarea, modernizarea, întreţinerea şi repararea bazei materiale.",
-    title: "Comunitate Locala",
-  },
-];
-
-export const facilityImages: facilityImageType[] = [
-  {
-    id: 1,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316598/Highschool%20Site%20App/fac1_rzomtk.jpg",
-    title: "Prima Clasă Renovată",
-  },
-  {
-    id: 2,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac2_q1eyam.jpg",
-    title: "A Doua Clasă Renovată",
-  },
-  {
-    id: 3,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac3_szle8n.jpg",
-    title: "A Treia Clasă Renovată",
-  },
-  {
-    id: 4,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac4_bcnwpg.jpg",
-    title: "A Patra Clasă Renovată",
-  },
-  {
-    id: 5,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac5_lu9ace.jpg",
-    title: "A Cincea Clasă Renovată",
-  },
-  {
-    id: 6,
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677316599/Highschool%20Site%20App/fac6_b20wqj.jpg",
-    title: "A Șasea Clasă Renovată",
-  },
-];
-
-export const facilityRooms: facilityRoomType[] = [
-  { id: 1, desc: "4 LABORATOARE DE INFORMATICĂ" },
-  { id: 2, desc: "CABINET DE LIMBA ROMANĂ" },
-  { id: 3, desc: "LABORATOR DE CHIMIE" },
-  { id: 4, desc: "LABORATOR DE FIZICĂ" },
-  { id: 5, desc: "LABORATOR DE BIOLOGIE" },
-  { id: 6, desc: "CABINET DE LIMBA GERMANĂ" },
-  { id: 7, desc: "CABINET DE LIMBA ENGLEZĂ" },
-  { id: 8, desc: "CABINET DE LIMBA FRANCEZĂ" },
-  { id: 10, desc: "SALĂ DE SPORT ȘI FITNESS" },
-  { id: 11, desc: "CABINET MEDICAL" },
-  { id: 12, desc: "CABINET PSIHOPEDAGOGIC" },
-  { id: 13, desc: "BIBLIOTECA ȘCOLARĂ" },
-  { id: 14, desc: "Conexiune Wi-Fi în perimetrul liceului" },
-];
-
-export const offeringsList: offeringItemType[] = [
-  {
-    id: 1,
-    desc: "Suntem Academie CISCO.",
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677318772/Highschool%20Site%20App/cisco_m3obd3.png",
-    title: "CISCO",
-    dest: "https://www.netacad.com/",
-  },
-  {
-    id: 2,
-    desc: "Suntem Academie ORACLE.",
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677331057/Highschool%20Site%20App/oracle_rva8ki.webp",
-    title: "ORACLE",
-    dest: "https://www.oracle.com/",
-  },
-  {
-    id: 3,
-    desc: "Oferim acces la platforma OFFICE 365.",
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677330994/Highschool%20Site%20App/Office-365_o5eghb.webp",
-    title: "OFFICE365",
-    dest: "https://www.microsoft.com/en-us/microsoft-365",
-  },
-  {
-    id: 4,
-    desc: "Utilizăm platforma G-Suite for education.",
-    logoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677330927/Highschool%20Site%20App/g-suite-icon-35_bgahox.webp",
-    title: "G-SUITE",
-    dest: "https://workspace.google.com/",
-  },
-];
-
+// EXTRA VARIABLES
 export const AUTO_SLIDER_DELAY = 2000; // 2 seconds
-export const AUTO_SLIDER_RESTART = 4000; // 2 seconds
+export const AUTO_SLIDER_RESTART = 4000; // 4 seconds
 export const AUTO_SLIDER_FREQUENCY = 3000; // 3 seconds
-
-export const templateAnnouncements: Anunt[] = [
-  {
-    anunt_uid: "blah",
-    id: "blah",
-    descriere:
-      "Soarele apune încet peste orizont, aruncând o strălucire portocalie caldă pe cer. O adiere blândă foșnea printre frunzele copacilor, creând o melodie liniștitoare care umplea aerul. Mirosul de iarbă proaspătă și florile înflorite s-au amestecat, creând o aromă dulce care a persistat în nări. În depărtare, păsările ciripeau și cântau, adăugând atmosfera liniștită a momentului. Pe măsură ce noaptea se apropia, lumea din jur părea să încetinească și să respire adânc, pregătindu-se pentru calmul care avea să învăluie totul în curând.",
-    titlu: "Anunț 1",
-    imagineUrl: "https://picsum.photos/500/500.jpg",
-    pozitionareVideoInAnunt: "inceput",
-    actualizatLa: new Date(),
-    creatLa: new Date(),
-    categorie: "GENERALE",
-    videoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
-  },
-
-  {
-    anunt_uid: "blah blah",
-    id: "blah blah",
-    descriere:
-      "Soarele apune încet peste orizont, aruncând o strălucire portocalie caldă pe cer. O adiere blândă foșnea printre frunzele copacilor, creând o melodie liniștitoare care umplea aerul. Mirosul de iarbă proaspătă și florile înflorite s-au amestecat, creând o aromă dulce care a persistat în nări. În depărtare, păsările ciripeau și cântau, adăugând atmosfera liniștită a momentului. Pe măsură ce noaptea se apropia, lumea din jur părea să încetinească și să respire adânc, pregătindu-se pentru calmul care avea să învăluie totul în curând.",
-    titlu: "Anunț 2",
-    imagineUrl: "https://picsum.photos/500/500.jpg",
-    pozitionareVideoInAnunt: "inceput",
-    actualizatLa: new Date(),
-    creatLa: new Date(),
-    categorie: "GENERALE",
-    videoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
-  },
-  {
-    anunt_uid: "blah blah blah",
-    id: "blah blah blah",
-    descriere:
-      "Soarele apune încet peste orizont, aruncând o strălucire portocalie caldă pe cer. O adiere blândă foșnea printre frunzele copacilor, creând o melodie liniștitoare care umplea aerul. Mirosul de iarbă proaspătă și florile înflorite s-au amestecat, creând o aromă dulce care a persistat în nări. În depărtare, păsările ciripeau și cântau, adăugând atmosfera liniștită a momentului. Pe măsură ce noaptea se apropia, lumea din jur părea să încetinească și să respire adânc, pregătindu-se pentru calmul care avea să învăluie totul în curând.",
-    titlu: "Anunț 3",
-    imagineUrl: "https://picsum.photos/500/500.jpg",
-    pozitionareVideoInAnunt: "final",
-    actualizatLa: new Date(),
-    creatLa: new Date(),
-    categorie: "GENERALE",
-    videoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
-  },
-  {
-    anunt_uid: "blah blah blah blah",
-    id: "blah blah blah blah",
-    descriere:
-      "Soarele apune încet peste orizont, aruncând o strălucire portocalie caldă pe cer. O adiere blândă foșnea printre frunzele copacilor, creând o melodie liniștitoare care umplea aerul. Mirosul de iarbă proaspătă și florile înflorite s-au amestecat, creând o aromă dulce care a persistat în nări. În depărtare, păsările ciripeau și cântau, adăugând atmosfera liniștită a momentului. Pe măsură ce noaptea se apropia, lumea din jur părea să încetinească și să respire adânc, pregătindu-se pentru calmul care avea să învăluie totul în curând.",
-    titlu: "Anunț 4",
-    imagineUrl: "https://picsum.photos/500/500.jpg",
-    pozitionareVideoInAnunt: "final",
-    actualizatLa: new Date(),
-    creatLa: new Date(),
-    categorie: "GENERALE",
-    videoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
-  },
-  {
-    anunt_uid: "blah blah blah blah blah",
-    id: "blah blah blah blah blah",
-    descriere:
-      "Soarele apune încet peste orizont, aruncând o strălucire portocalie caldă pe cer. O adiere blândă foșnea printre frunzele copacilor, creând o melodie liniștitoare care umplea aerul. Mirosul de iarbă proaspătă și florile înflorite s-au amestecat, creând o aromă dulce care a persistat în nări. În depărtare, păsările ciripeau și cântau, adăugând atmosfera liniștită a momentului. Pe măsură ce noaptea se apropia, lumea din jur părea să încetinească și să respire adânc, pregătindu-se pentru calmul care avea să învăluie totul în curând.",
-    titlu: "Anunț 5",
-    imagineUrl: "https://picsum.photos/500/500.jpg",
-    pozitionareVideoInAnunt: "inceput",
-    actualizatLa: new Date(),
-    creatLa: new Date(),
-    categorie: "GENERALE",
-    videoUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1677488168/Highschool%20Site%20App/giphy_ajg10l.webp",
-  },
-];
-
-export const templateTeachers: Profesor[] = [
-  {
-    profesor_uid: "prof",
-    id: "prof",
-    username: "Elena Popescu",
-    descriere: "Sunt profesoară de Engleză!",
-    profesorDe: "ENGLEZA",
-    imagineProfilUrl:
-      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
-  },
-  {
-    profesor_uid: "prof prof",
-    id: "prof prof",
-    username: "Andrei Ionescu",
-    descriere: "Sunt profesor de Informatică!",
-    profesorDe: "INFORMATICA",
-    imagineProfilUrl:
-      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
-  },
-  {
-    profesor_uid: "prof prof prof",
-    id: "prof prof prof",
-    username: "Maria Dragomir",
-    descriere: "Sunt profesoară de Latină!",
-    profesorDe: "LATINA",
-    imagineProfilUrl:
-      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
-  },
-  {
-    profesor_uid: "prof prof prof prof",
-    id: "prof prof prof prof",
-    username: "Alexandru Vladescu",
-    descriere: "Sunt profesor de Istorie!",
-    profesorDe: "ISTORIE",
-    imagineProfilUrl:
-      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
-  },
-  {
-    profesor_uid: "prof prof prof prof prof",
-    id: "prof prof prof prof prof",
-    username: "Ana Stoica",
-    descriere: "Sunt profesoară de Geografie!",
-    profesorDe: "GEOGRAFIE",
-    imagineProfilUrl:
-      "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
-  },
-];

@@ -1,5 +1,5 @@
 // Prisma Types
-import { Profesor } from "@prisma/client";
+import { Teacher } from "@prisma/client";
 // Redux Toolkit
 import {
   createSlice,
@@ -11,10 +11,10 @@ import {
 // Types
 import {
   GetAllQueryParams,
-  errorPayloadType,
-  formModalType,
-  objectKeyValueType,
-  templateTeacher,
+  ErrorPayloadType,
+  FormModalType,
+  ObjectKeyValueType,
+  TemplateTeacher,
 } from "types";
 // Axios
 import axios, { AxiosError } from "axios";
@@ -25,11 +25,11 @@ import { State } from "../api/store";
 import { defaultTemplateTeacher } from "@/data";
 import { baseSiteUrl } from "@/config";
 
-const teachersAdapter = createEntityAdapter<Profesor>({
+const teachersAdapter = createEntityAdapter<Teacher>({
   sortComparer: (a, b) => a.username.localeCompare(b.username),
 });
 
-type initialStateType = {
+type InitialStateType = {
   loadingTeachers: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingCreateTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingDeleteTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -39,8 +39,8 @@ type initialStateType = {
     | "PENDING"
     | "SUCCEDED"
     | "FAILED";
-  templateTeacher: templateTeacher;
-  formModal: formModalType;
+  templateTeacher: TemplateTeacher;
+  formModal: FormModalType;
   foundTeacherId: string;
 };
 
@@ -56,24 +56,20 @@ const initialState = teachersAdapter.getInitialState({
     msg: "",
   },
   foundTeacherId: "",
-}) as EntityState<Profesor> & initialStateType;
+}) as EntityState<Teacher> & InitialStateType;
 
 // THUNKS
-export const getAllTeachers = createAsyncThunk<
-  Profesor[] | AxiosError,
-  GetAllQueryParams
->("teachers/getAllTeachers", async ({ sortByOption, query }) => {
-  try {
-    const { data } = await axiosInstance.get(
-      `/profesori?sortByOption=${sortByOption || "username"}&query=${
-        query || ""
-      }`
-    );
-    return data.teachers as Profesor[];
-  } catch (error) {
-    return error as AxiosError;
+export const getAllTeachers = createAsyncThunk<Teacher[] | AxiosError>(
+  "teachers/getAllTeachers",
+  async () => {
+    try {
+      const { data } = await axiosInstance.get(`/teachers`);
+      return data.teachers as Teacher[];
+    } catch (error) {
+      return error as AxiosError;
+    }
   }
-});
+);
 
 export const createCloudinaryImageForTeacher = createAsyncThunk(
   "teachers/createCloudinaryImageForTeacher",
@@ -94,47 +90,47 @@ export const createCloudinaryImageForTeacher = createAsyncThunk(
 );
 
 export const createTeacher = createAsyncThunk<
-  Profesor | AxiosError,
-  templateTeacher
+  Teacher | AxiosError,
+  TemplateTeacher
 >("teachers/createTeacher", async (templateTeacher) => {
   try {
     const { data } = await axiosInstance.post(
-      "/profesori/create",
+      "/teachers/teacher/create",
       templateTeacher,
       { withCredentials: true }
     );
-    return data.teacher as Profesor;
+    return data.teacher as Teacher;
   } catch (error) {
     return error as AxiosError;
   }
 });
 
-export const deleteTeacherById = createAsyncThunk<
-  Profesor | AxiosError,
-  string
->("teachers/deleteTeacherById", async (teacherId) => {
-  try {
-    const { data } = await axiosInstance.delete(
-      `/profesori/profesor/delete/${teacherId}`,
-      { withCredentials: true }
-    );
-    return data.teacher as Profesor;
-  } catch (error) {
-    return error as AxiosError;
+export const deleteTeacherById = createAsyncThunk<Teacher | AxiosError, string>(
+  "teachers/deleteTeacherById",
+  async (teacherId) => {
+    try {
+      const { data } = await axiosInstance.delete(
+        `/teachers/teacher/delete/${teacherId}`,
+        { withCredentials: true }
+      );
+      return data.teacher as Teacher;
+    } catch (error) {
+      return error as AxiosError;
+    }
   }
-});
+);
 
 export const updateTeacherById = createAsyncThunk<
-  Profesor | AxiosError,
-  templateTeacher
+  Teacher | AxiosError,
+  TemplateTeacher
 >("teachers/updateTeacherById", async (templateTeacher) => {
   try {
     const { data } = await axiosInstance.patch(
-      `/profesori/profesor/update/${templateTeacher.profesor_uid}`,
+      `/teachers/teacher/update/${templateTeacher.teacher_uid}`,
       templateTeacher,
       { withCredentials: true }
     );
-    return data.teacher as Profesor;
+    return data.teacher as Teacher;
   } catch (error) {
     return error as AxiosError;
   }
@@ -144,7 +140,7 @@ const teachersSlice = createSlice({
   name: "teachers",
   initialState,
   reducers: {
-    updateTemplateTeacher(state, action: PayloadAction<objectKeyValueType>) {
+    updateTemplateTeacher(state, action: PayloadAction<ObjectKeyValueType>) {
       state.templateTeacher = {
         ...state.templateTeacher,
         [action.payload.key]: action.payload.value,
@@ -153,7 +149,7 @@ const teachersSlice = createSlice({
     updateTeachersFormModal(state, action: PayloadAction<boolean>) {
       state.formModal.showModal = action.payload;
     },
-    setTemplateTeacher(state, action: PayloadAction<templateTeacher>) {
+    setTemplateTeacher(state, action: PayloadAction<TemplateTeacher>) {
       state.templateTeacher = action.payload;
     },
     setFoundTeacherId(state, action: PayloadAction<string>) {
@@ -166,10 +162,10 @@ const teachersSlice = createSlice({
         state.loadingTeachers = "PENDING";
       })
       .addCase(getAllTeachers.fulfilled, (state, action) => {
-        const teachers = action.payload as Profesor[];
+        const teachers = action.payload as Teacher[];
         if (teachers.length >= 1) {
           teachers.map((teacher) => {
-            teacher.id = teacher.profesor_uid;
+            teacher.id = teacher.teacher_uid;
             return teacher;
           });
           teachersAdapter.upsertMany(state, teachers);
@@ -180,23 +176,23 @@ const teachersSlice = createSlice({
         state.loadingCreateCloudinaryImageForTeacher = "PENDING";
       })
       .addCase(createCloudinaryImageForTeacher.fulfilled, (state, action) => {
-        state.templateTeacher.imagineProfilUrl = action.payload;
+        state.templateTeacher.profile_img_url = action.payload;
         state.loadingCreateCloudinaryImageForTeacher = "SUCCEDED";
       })
       .addCase(createTeacher.pending, (state, action) => {
         state.loadingCreateTeacher = "PENDING";
       })
       .addCase(createTeacher.fulfilled, (state, action) => {
-        const teacher = action.payload as Profesor;
+        const teacher = action.payload as Teacher;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as errorPayloadType;
+          const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
           state.formModal.color = "red";
         } else {
-          teacher.id = teacher.profesor_uid;
+          teacher.id = teacher.teacher_uid;
           teachersAdapter.addOne(state, teacher);
           window.location.href = `${baseSiteUrl}/profesori`;
         }
@@ -207,10 +203,10 @@ const teachersSlice = createSlice({
         state.loadingDeleteTeacher = "PENDING";
       })
       .addCase(deleteTeacherById.fulfilled, (state, action) => {
-        const teacher = action.payload as Profesor;
+        const teacher = action.payload as Teacher;
 
         if (teacher) {
-          teachersAdapter.removeOne(state, teacher.profesor_uid);
+          teachersAdapter.removeOne(state, teacher.teacher_uid);
         }
 
         state.loadingDeleteTeacher = "SUCCEDED";
@@ -219,22 +215,21 @@ const teachersSlice = createSlice({
         state.loadingUpdateTeacher = "PENDING";
       })
       .addCase(updateTeacherById.fulfilled, (state, action) => {
-        const teacher = action.payload as Profesor;
+        const teacher = action.payload as Teacher;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as errorPayloadType;
+          const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
           state.formModal.color = "red";
         } else {
-          teacher.id = teacher.profesor_uid;
+          teacher.id = teacher.teacher_uid;
           teachersAdapter.updateOne(state, {
-            id: teacher.profesor_uid,
+            id: teacher.teacher_uid,
             changes: teacher,
           });
         }
-
         state.loadingUpdateTeacher = "SUCCEDED";
       });
   },

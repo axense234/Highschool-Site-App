@@ -1,0 +1,26 @@
+@use "../../abstracts" as *;
+
+.sectionLoadingContainer {
+  @include homePageSection(getColor("silver-white"), column);
+  padding: 20rem 5rem;
+  border-radius: 1rem;
+  gap: 5rem;
+
+  @media all and (max-width: getScreenSize("laptop")) {
+    padding: 10rem 5rem;
+  }
+
+  p {
+    font-size: 5rem;
+    letter-spacing: 3px;
+    text-align: center;
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      font-size: 3rem;
+    }
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      font-size: 2rem;
+    }
+  }
+}

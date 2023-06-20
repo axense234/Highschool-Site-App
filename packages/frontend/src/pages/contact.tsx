@@ -5,11 +5,11 @@ import Image from "next/image";
 // Animations
 import { useInView } from "react-intersection-observer";
 // SCSS
-import contactStyles from "../scss/components/Contact.module.scss";
+import contactStyles from "../scss/components/pages/Contact.module.scss";
 // Components
-import HomeTitle from "@/components/Home/HomeTitle";
-import Meta from "@/components/Meta";
-import FormModal from "@/components/FormModal";
+import HomeTitle from "@/components/home/HomeTitle";
+import Meta from "@/components/others/Meta";
+import FormModal from "@/components/modals/FormModal";
 // Redux Toolkit
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {

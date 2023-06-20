@@ -4,10 +4,10 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 // SCSS
-import aboutStyles from "../scss/components/About.module.scss";
+import aboutStyles from "../scss/components/pages/About.module.scss";
 // Components
-import HomeTitle from "@/components/Home/HomeTitle";
-import Meta from "@/components/Meta";
+import HomeTitle from "@/components/home/HomeTitle";
+import Meta from "@/components/others/Meta";
 // Data
 import {
   aboutTechnologiesUsedBackend,

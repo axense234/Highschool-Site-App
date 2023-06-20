@@ -1,0 +1,77 @@
+// React
+import { FC, useState } from "react";
+// Types
+import { FormStepProps } from "types";
+// React Icons
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+// SCSS
+import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
+
+const AdminForm: FC<FormStepProps> = ({ pageType }) => {
+  const [showPass, setShowPass] = useState<boolean>(false);
+
+  return (
+    <form className={accountsFormStyles.accountsFormContainer__form}>
+      <div className={accountsFormStyles.accountsFormContainer__content}>
+        <div className={accountsFormStyles.accountsFormContainer__textControl}>
+          <label htmlFor="username">Username: </label>
+          <input
+            type="text"
+            id="username"
+            required
+            placeholder="ex: Irina Ionescu"
+          />
+        </div>
+        <div className={accountsFormStyles.accountsFormContainer__textControl}>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            required
+            placeholder="ex: irina@gmail.com"
+          />
+        </div>
+        <div className={accountsFormStyles.accountsFormContainer__passControl}>
+          <label htmlFor="pass">Parola:</label>
+          <div
+            className={
+              accountsFormStyles.accountsFormContainer__passControlInput
+            }
+          >
+            <input
+              type={showPass ? "text" : "password"}
+              id="pass"
+              required
+              placeholder="ex: irina*4134"
+            />
+            {!showPass ? (
+              <AiFillEye
+                onClick={() => setShowPass(true)}
+                title="Arată parola"
+                aria-label="Arată parola"
+              />
+            ) : (
+              <AiFillEyeInvisible
+                onClick={() => setShowPass(false)}
+                title="Ascunde parola"
+                aria-label="Ascunde parola"
+              />
+            )}
+          </div>
+        </div>
+        <div className={accountsFormStyles.accountsFormContainer__imageControl}>
+          <label htmlFor="img">Imagine de Profil:</label>
+          <input type="file" id="img" required={false} />
+        </div>
+      </div>
+      <button
+        type="submit"
+        className={accountsFormStyles.accountsFormContainer__formButton}
+      >
+        {pageType === "login" ? "Intrați în cont" : "Creați un cont"}
+      </button>
+    </form>
+  );
+};
+
+export default AdminForm;

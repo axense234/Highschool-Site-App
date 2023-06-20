@@ -9,12 +9,12 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import store from "@/redux/api/store";
 // Components
-import Sidebar from "@/components/Sidebar";
-import SidebarMenu from "@/components/SidebarMenu";
-import Footer from "@/components/Footer";
-import SearchButton from "@/components/SearchButton";
-import Searchbar from "@/components/Searchbar";
-import ScreenLoading from "@/components/ScreenLoading";
+import Sidebar from "@/components/navigation/Sidebar";
+import SidebarMenu from "@/components/navigation/SidebarMenu";
+import Footer from "@/components/others/Footer";
+import SearchButton from "@/components/navigation/SearchButton";
+import Searchbar from "@/components/navigation/Searchbar";
+import ScreenLoading from "@/components/loading/ScreenLoading";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);

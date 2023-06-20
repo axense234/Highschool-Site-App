@@ -1,7 +1,7 @@
 // React
 import { FC } from "react";
 // SCSS
-import homeStyles from "../../scss/components/Home.module.scss";
+import homeStyles from "../../scss/components/pages/Home.module.scss";
 // Data
 import { facilityRooms } from "@/data";
 // Components
@@ -9,7 +9,7 @@ import FacilitiesSlider from "./FacilitiesSlider";
 
 const HomeFacilities: FC = () => {
   return (
-    <section className={homeStyles.homeContainer__facilities} id='facilities'>
+    <section className={homeStyles.homeContainer__facilities} id="facilities">
       <FacilitiesSlider />
       <div className={homeStyles.homeContainer__facilitiesInfo}>
         <h2>Dotarea Liceului</h2>

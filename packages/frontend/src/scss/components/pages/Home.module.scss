@@ -1,0 +1,315 @@
+@use "../../abstracts" as *;
+
+.homeContainer {
+  @include pageLayout();
+
+  h2 {
+    font-size: $subtitleFontSize;
+    letter-spacing: 3px;
+    text-align: center;
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      font-size: 2.5rem;
+    }
+  }
+
+  #{&}__info {
+    @include homePageSection(getColor("silver-white"), column);
+    padding-top: 5rem;
+  }
+
+  #{&}__infoSections {
+    @include flexCenter(column);
+    margin-top: 3.5rem;
+    width: 100%;
+    gap: 10rem;
+  }
+
+  #{&}__infoSection {
+    @include flexCenter(row);
+    width: 80%;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+
+    @media all and (max-width: (getScreenSize("laptop") + 200px)) {
+      width: 90%;
+    }
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    img {
+      width: 30%;
+      height: auto;
+      border-radius: 5rem;
+      border: 3px solid black;
+
+      @media all and (max-width: (getScreenSize("laptop") + 200px)) {
+        width: 50%;
+      }
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 75%;
+      }
+
+      @media all and (max-width: getScreenSize("mobileS")) {
+        width: 100%;
+      }
+    }
+
+    p {
+      width: 65%;
+      font-size: $descFontSize;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 80%;
+      }
+
+      @media all and (max-width: (getScreenSize("tablet") - 50px)) {
+        font-size: 1.2rem;
+        width: 100%;
+      }
+    }
+  }
+
+  #{&}__facilities {
+    @include homePageSection(getColor("silver-10"), row);
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 5rem;
+
+    @media all and (max-width: (getScreenSize("laptop") + 200px)) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @media all and (max-width: getScreenSize("mobileM")) {
+      padding: 7.5rem 1rem;
+    }
+
+    @media all and (max-width: getScreenSize("mobileS")) {
+      padding: 7.5rem 0.5rem;
+    }
+  }
+
+  #{&}__facilitiesInfo {
+    background-color: getColor("silver-20");
+    padding: 2rem;
+    border-radius: 1rem;
+    @include flexCenter(column);
+    gap: 1rem;
+    align-items: flex-start;
+
+    @media all and (max-width: (getScreenSize("laptop") + 200px)) {
+      width: 80%;
+    }
+
+    @media all and (max-width: getScreenSize("tablet")) {
+      width: 100%;
+    }
+  }
+
+  #{&}__facilityRooms {
+    @include flexCenter(column);
+    align-items: flex-start;
+    width: 100%;
+    list-style: square;
+    gap: 1rem;
+
+    li {
+      padding: 0.25rem 0.5rem;
+      background-color: getColor("silver-30");
+      border-radius: 1rem;
+      width: 100%;
+
+      transition: transform 0.1s ease-in;
+      &:hover {
+        transform: translateX(1rem);
+      }
+    }
+  }
+
+  #{&}__bac {
+    @include homePageSection(getColor("silver-30"), column);
+    gap: 3rem;
+
+    h2 {
+      font-size: 4rem;
+      letter-spacing: 5px;
+
+      @media all and (max-width: 650px) {
+        font-size: 3rem;
+        letter-spacing: 3.5px;
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+    }
+
+    img {
+      border-radius: 1rem;
+      width: 60%;
+      height: auto;
+
+      @media all and (max-width: getScreenSize("laptop")) {
+        width: 100%;
+      }
+    }
+  }
+
+  #{&}__offerings {
+    @include homePageSection(getColor("silver-0"), column);
+    gap: 3rem;
+    justify-content: space-evenly;
+
+    h2 {
+      font-size: 4rem;
+      letter-spacing: 5px;
+
+      @media all and (max-width: 650px) {
+        font-size: 3rem;
+        letter-spacing: 3.5px;
+      }
+    }
+  }
+
+  #{&}__offeringsList {
+    @include flexCenter(column);
+    width: 100%;
+    gap: 5rem;
+  }
+
+  #{&}__offeringItem {
+    @include flexCenter(row);
+    width: 80%;
+    gap: 10rem;
+    min-height: 8rem;
+    justify-content: space-between;
+
+    a {
+      transition: transform 0.1s ease-in;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    @media all and (max-width: (getScreenSize("laptop") + 50px)) {
+      gap: 2.5rem;
+      width: 100%;
+    }
+
+    p {
+      width: 40%;
+      font-size: 2rem;
+
+      @media all and (max-width: (getScreenSize("laptop") + 50px)) {
+        width: 60%;
+      }
+
+      @media all and (max-width: getScreenSize("tablet")) {
+        font-size: 1.25rem;
+        width: auto;
+      }
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        width: 100%;
+        font-size: 1.5rem;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+
+      @media all and (max-width: getScreenSize("tablet")) {
+        width: 40%;
+      }
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        width: 75%;
+      }
+    }
+  }
+
+  #{&}__location {
+    @include homePageSection(getColor("silver-0"), column);
+    gap: 3rem;
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      padding: 7.5rem 1rem;
+    }
+  }
+
+  #{&}__locationContent {
+    @include flexCenter(row);
+    width: 100%;
+    justify-content: space-around;
+    gap: 3rem;
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      flex-direction: column;
+    }
+  }
+
+  #{&}__streetView {
+    @include flexCenter(column);
+    gap: 1rem;
+    align-items: flex-start;
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 100%;
+    }
+
+    iframe {
+      border: 2px solid black;
+      border-radius: 1rem;
+
+      @media all and (max-width: getScreenSize("laptopL")) {
+        width: 100%;
+      }
+    }
+  }
+
+  #{&}__locationTitle {
+    @include flexCenter(column);
+    width: 50%;
+    align-items: flex-start;
+
+    @media all and (max-width: getScreenSize("tablet")) {
+      width: 100%;
+      align-items: center;
+    }
+
+    h3 {
+      font-size: 2.5rem;
+    }
+
+    hr {
+      width: 100%;
+      background-color: black;
+      height: 6px;
+      border: none;
+      border-radius: 1rem;
+
+      @media all and (max-width: getScreenSize("tablet")) {
+        width: 75%;
+      }
+    }
+  }
+
+  #{&}__map {
+    @extend .homeContainer__streetView;
+  }
+}

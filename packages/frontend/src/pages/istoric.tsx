@@ -5,10 +5,10 @@ import Image from "next/image";
 // Intersection Observer
 import { useInView } from "react-intersection-observer";
 // SCSS
-import istoricStyles from "../scss/components/Istoric.module.scss";
+import istoricStyles from "../scss/components/pages/Istoric.module.scss";
 // Components
-import HomeTitle from "@/components/Home/HomeTitle";
-import Meta from "@/components/Meta";
+import HomeTitle from "@/components/home/HomeTitle";
+import Meta from "@/components/others/Meta";
 // Data
 import { istoricPinpoints } from "@/data";
 // Hooks

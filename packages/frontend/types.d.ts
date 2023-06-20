@@ -1,14 +1,133 @@
 // React/Prisma Types
 import {
-  Anunt,
-  Materii,
-  Profesor,
-  Utilizator,
-  CategorieAnunt,
+  Announcement,
+  Subjects,
+  Teacher,
+  Admin,
+  Student,
+  AnnouncementCategory,
 } from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
-// Types
+// TYPES/INTERFACES FOR TEMPLATE DATA
+type User = Admin | Student | Teacher;
+
+type EmailFormTemplate = {
+  sender: string;
+  emailAddress: string;
+  subject: string;
+  message: string;
+};
+
+interface TemplateAnnouncement extends Announcement {
+  announcement_uid?: string;
+}
+
+interface TemplateTeacher extends Teacher {
+  teacher_uid?: string;
+}
+
+interface TemplateUser {
+  username: string;
+  password: string;
+  email: string;
+}
+
+type OverlayType = {
+  overlayFunctionUsed: string;
+  showOverlay: boolean;
+  title: string;
+};
+
+// TYPES/INTERFACES FOR OPTIONS DATA
+type GetAllQueryParams = { sortByOption: string; query: string };
+
+type TypeNavOptionLabel = "ADMIN" | "ELEV" | "PROFESOR";
+
+type TypeNavOptionStep = {
+  id: number;
+  label: string;
+};
+
+type TypeNavOption = {
+  id: number;
+  label: TypeNavOptionLabel;
+  steps?: TypeNavOptionStep[];
+};
+
+type SortByOption = {
+  id: number;
+  label: string;
+  value?: string;
+};
+
+type ProfileOption = {
+  id: number;
+  label: string;
+  content: string;
+};
+
+type CategoryType = {
+  id: number;
+  name: AnnouncementCategory;
+  dest?: string;
+  label?: string | AnnouncementCategory;
+};
+
+// TYPES/INTERFACES FOR STATIC DATA
+type DocumentOrLaw = {
+  id: number;
+  label: string;
+  pdfURLs: string[];
+};
+
+type IstoricPinPoint = {
+  id: number;
+  timePeriod: string | number;
+  content: string;
+};
+
+type SubjectType = {
+  id: number;
+  name: Subjects;
+};
+
+type AboutTechnologyType = {
+  id: number;
+  logoUrl: string;
+  label: string;
+  techUrl: string;
+};
+
+type SidebarLink = {
+  id: number;
+  label?: string;
+  logoUrl: JSX.Element;
+  dest: string;
+};
+
+type InfoSectionType = {
+  id: number;
+  logoUrl: string;
+  desc: string;
+  title: string;
+  dest?: string;
+};
+
+type FacilityImageType = {
+  id: number;
+  logoUrl: string;
+  title: string;
+};
+
+type FacilityRoomType = {
+  id: number;
+  desc: string;
+};
+
+type OfferingItemType = InfoSectionType;
+
+// TYPES/INTERFACES FOR PAGE DATA
 type BackgroundImageUrl = {
   pagePath: string;
   backgroundUrl: string;
@@ -23,122 +142,34 @@ type IndividualPageData = {
 
 type PageData = {
   id: number | string;
-  label: string | CategorieAnunt;
+  label: string | AnnouncementCategory;
   dest: string;
   type?: string;
 };
 
-type sidebarLink = {
-  id: number;
-  label?: string;
-  logoUrl: JSX.Element;
-  dest: string;
-};
-
-type EmailFormTemplate = {
-  sender: string;
-  emailAddress: string;
-  subject: string;
-  message: string;
-};
-
-type DocumentOrLaw = {
-  id: number;
-  label: string;
-  pdfURLs: string[];
-};
-
-type SortByOption = {
-  id: number;
-  label: string;
-  value?: string;
-};
-
+// COMPONENT INTERFACES and TYPES/INTERFACES FOR REDUX
 type FunctionUsedOnPageNavSubmit = AsyncThunk<
-  AxiosError<unknown, any> | Anunt[] | Profesor[],
+  AxiosError<unknown, any> | Announcement[] | Teacher[],
   GetAllQueryParams,
   AsyncThunkConfig
 >;
 
-type IstoricPinPoint = {
-  id: number;
-  timePeriod: string | number;
-  content: string;
-};
-
-type infoSectionType = {
-  id: number;
-  logoUrl: string;
-  desc: string;
-  title: string;
-  dest?: string;
-};
-
-type facilityImageType = {
-  id: number;
-  logoUrl: string;
-  title: string;
-};
-
-type facilityRoomType = {
-  id: number;
-  desc: string;
-};
-
-type offeringItemType = infoSectionType;
-
-type objectKeyValueType = {
+type ObjectKeyValueType = {
   key: string;
   value: string;
 };
 
-type formModalType = {
+type FormModalType = {
   showModal: boolean;
   msg: string;
   color?: string;
 };
 
-type errorPayloadType = {
+type ErrorPayloadType = {
   msg: string;
-  user?: Utilizator;
+  user?: User;
 };
 
-type profileOption = {
-  id: number;
-  label: string;
-  content: string;
-};
-
-type ThemeType = "light" | "dark";
-
-type MaterieType = {
-  id: number;
-  nume: Materii;
-};
-
-type CategorieType = {
-  id: number;
-  nume: CategorieAnunt;
-  dest?: string;
-  label?: string | CategorieAnunt;
-};
-
-type GetAllQueryParams = { sortByOption: string; query: string };
-
-type OverlayType = {
-  overlayFunctionUsed: string;
-  showOverlay: boolean;
-  title: string;
-};
-
-type AboutTechnologyType = {
-  id: number;
-  logoUrl: string;
-  label: string;
-  techUrl: string;
-};
-
-// Interfaces
 interface ScreenLoadingProps {
   show: boolean;
 }
@@ -164,11 +195,11 @@ interface MetaProps {
   imageUrls?: string[];
 }
 
-interface InfoSectionProps extends infoSectionType {
+interface InfoSectionProps extends InfoSectionType {
   id?: number;
 }
 
-interface OfferingItemProps extends offeringItemType {
+interface OfferingItemProps extends OfferingItemType {
   id?: number;
   listNumber: number;
 }
@@ -184,10 +215,6 @@ interface HomeTitleProps {
   title: string;
   quote?: string;
 }
-interface templateUser extends Utilizator {
-  utilizator_uid?: string;
-  username?: string;
-}
 
 interface SectionLoadingProps {
   padding?: string;
@@ -202,46 +229,65 @@ interface CardModalProps {
   componentType: "teacher" | "announcement";
 }
 
-interface templateAnnouncement extends Anunt {
-  anunt_uid?: string;
-}
-
-interface templateTeacher extends Profesor {
-  profesor_uid?: string;
-}
-
 interface FormModalProps {
   type: "teachers" | "announcements" | "general";
 }
 
 interface VideoContainerProps {
   workingVideoUrl: string;
-  titlu: string;
+  title: string;
   onVideoUrlChange: (videoUrl: string) => void;
 }
 
+interface EditableAnnouncementProps {
+  templateAnnouncement: TemplateAnnouncement | undefined;
+  setToggle: Dispatch<SetStateAction<boolean>>;
+}
+
+interface InactiveAnnouncementProps {
+  announcement: Announcement | undefined;
+  setToggle: Dispatch<SetStateAction<boolean>>;
+  annRef: RefObject<HTMLElement>;
+}
+
+interface EditableTeacherProps {
+  templateTeacher: TemplateTeacher;
+}
+
+interface AccountsFormProps {
+  type: "signup" | "login";
+}
+
+interface FormStepProps {
+  step: number;
+  pageType: "signup" | "login";
+}
+
+type SelectOptionType = {
+  id: number;
+  label: string;
+};
+
 export {
-  sidebarLink,
+  SidebarLink,
   MetaProps,
-  infoSectionType,
+  InfoSectionType,
   InfoSectionProps,
-  facilityImageType,
-  facilityRoomType,
-  offeringItemType,
+  FacilityImageType,
+  FacilityRoomType,
+  OfferingItemType,
   OfferingItemProps,
   SliderButtonsProps,
   HomeTitleProps,
-  templateUser,
-  objectKeyValueType,
-  formModalType,
-  errorPayloadType,
-  profileOption,
-  ThemeType,
+  ObjectKeyValueType,
+  FormModalType,
+  ErrorPayloadType,
+  ProfileOption,
   SectionLoadingProps,
   CardModalProps,
-  MaterieType,
-  templateAnnouncement,
-  templateTeacher,
+  SubjectType,
+  TemplateAnnouncement,
+  TemplateTeacher,
   OverlayType,
   FormModalProps,
   VideoContainerProps,
@@ -249,7 +295,7 @@ export {
   IstoricPinPoint,
   DocumentOrLaw,
   EmailFormTemplate,
-  CategorieType,
+  CategoryType,
   MoveAnnouncementsModalProps,
   PageNavProps,
   SortByOption,
@@ -261,4 +307,15 @@ export {
   IndividualPageData,
   BackgroundImageUrl,
   ScreenLoadingProps,
+  TemplateUser,
+  EditableAnnouncementProps,
+  InactiveAnnouncementProps,
+  EditableTeacherProps,
+  User,
+  AccountsFormProps,
+  TypeNavOption,
+  TypeNavOptionStep,
+  TypeNavOptionLabel,
+  FormStepProps,
+  SelectOptionType,
 };

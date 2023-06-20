@@ -12,7 +12,7 @@ import {
   facilityImages,
 } from "@/data";
 // SCSS
-import facilitiesSliderStyles from "../../scss/components/Home/FacilitiesSlider.module.scss";
+import facilitiesSliderStyles from "../../scss/components/home/FacilitiesSlider.module.scss";
 // Hooks
 import useModalTransition from "@/hooks/useModalTransition";
 

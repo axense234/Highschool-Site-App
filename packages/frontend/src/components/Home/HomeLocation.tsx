@@ -1,7 +1,7 @@
 // React
 import { FC } from "react";
 // SCSS
-import homeLocationStyles from "../../scss/components/Home.module.scss";
+import homeLocationStyles from "../../scss/components/pages/Home.module.scss";
 
 const HomeLocation: FC = () => {
   return (

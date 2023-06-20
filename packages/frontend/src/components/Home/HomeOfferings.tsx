@@ -10,7 +10,7 @@ import { useInView } from "react-intersection-observer";
 // Data
 import { offeringsList } from "@/data";
 // SCSS
-import homeStyles from "../../scss/components/Home.module.scss";
+import homeStyles from "../../scss/components/pages/Home.module.scss";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
 

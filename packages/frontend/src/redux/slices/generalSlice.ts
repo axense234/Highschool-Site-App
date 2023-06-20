@@ -1,16 +1,15 @@
-// Prisma
-import { Utilizator } from "@prisma/client";
 // Redux Toolkit
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // Types
 import {
   EmailFormTemplate,
-  errorPayloadType,
-  formModalType,
+  ErrorPayloadType,
+  FormModalType,
   GetAllQueryParams,
-  objectKeyValueType,
+  ObjectKeyValueType,
   OverlayType,
-  templateUser,
+  TemplateUser,
+  User,
 } from "types";
 // Axios
 import { AxiosError } from "axios";
@@ -32,9 +31,9 @@ type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingLoginProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingUpdateProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
-  profile: Utilizator;
-  templateProfile: templateUser;
-  formModal: formModalType;
+  profile: TemplateUser;
+  templateProfile: TemplateUser;
+  formModal: FormModalType;
   cardModalId: string;
   optionsContent: string;
   overlay: OverlayType;
@@ -82,51 +81,49 @@ const initialState: initialStateType = {
 };
 
 // THUNKS
-export const loginUser = createAsyncThunk<
-  Utilizator | AxiosError,
-  templateUser
->("general/loginUser", async (templateUser) => {
-  try {
-    const { data } = await axiosInstance.post(
-      "/utilizatori/login",
-      templateUser,
-      { withCredentials: true }
-    );
-    return data.user as Utilizator;
-  } catch (error: any) {
-    return error as AxiosError;
+export const loginUser = createAsyncThunk<User | AxiosError, TemplateUser>(
+  "general/loginUser",
+  async (templateUser) => {
+    try {
+      const { data } = await axiosInstance.post("/users/login", templateUser, {
+        withCredentials: true,
+      });
+      return data.user as User;
+    } catch (error: any) {
+      return error as AxiosError;
+    }
   }
-});
+);
 
 export const getProfile = createAsyncThunk<
-  Utilizator | AxiosError,
+  User | AxiosError,
   string | undefined
 >("general/getProfile", async (userId = "false") => {
   try {
     const { data } = await axiosInstance.get(`/utilizatori/${userId}`, {
       withCredentials: true,
     });
-    return data.user as Utilizator;
+    return data.user as User;
   } catch (error) {
     return error as AxiosError;
   }
 });
 
-export const updateProfile = createAsyncThunk<
-  Utilizator | AxiosError,
-  templateUser
->("general/updateProfile", async (templateUser) => {
-  try {
-    const { data } = await axiosInstance.patch(
-      `/utilizatori/update/${templateUser.utilizator_uid as string}`,
-      templateUser,
-      { withCredentials: true }
-    );
-    return data.user as Utilizator;
-  } catch (error) {
-    return error as AxiosError;
+export const updateProfile = createAsyncThunk<User | AxiosError, TemplateUser>(
+  "general/updateProfile",
+  async (templateUser) => {
+    try {
+      const { data } = await axiosInstance.patch(
+        `/utilizatori/update/${templateUser.email as string}`,
+        templateUser,
+        { withCredentials: true }
+      );
+      return data.user as User;
+    } catch (error) {
+      return error as AxiosError;
+    }
   }
-});
+);
 
 export const logoutProfile = createAsyncThunk<string | AxiosError>(
   "general/logoutProfile",
@@ -158,7 +155,7 @@ const generalSlice = createSlice({
   name: "general",
   initialState,
   reducers: {
-    updateTemplateProfile(state, action: PayloadAction<objectKeyValueType>) {
+    updateTemplateProfile(state, action: PayloadAction<ObjectKeyValueType>) {
       state.templateProfile = {
         ...state.templateProfile,
         [action.payload.key]: action.payload.value,
@@ -179,7 +176,7 @@ const generalSlice = createSlice({
     setEditMode(state, action: PayloadAction<boolean>) {
       state.editMode = action.payload;
     },
-    setEmailFormTemplate(state, action: PayloadAction<objectKeyValueType>) {
+    setEmailFormTemplate(state, action: PayloadAction<ObjectKeyValueType>) {
       state.emailFormTemplate = {
         ...state.emailFormTemplate,
         [action.payload.key]: action.payload.value,
@@ -191,7 +188,7 @@ const generalSlice = createSlice({
     updateToggleMoveAnnouncementModal(state, action: PayloadAction) {
       state.toggleMoveAnnouncementModal = !state.toggleMoveAnnouncementModal;
     },
-    updateGetAllQueryParams(state, action: PayloadAction<objectKeyValueType>) {
+    updateGetAllQueryParams(state, action: PayloadAction<ObjectKeyValueType>) {
       state.getAllQueryParams = {
         ...state.getAllQueryParams,
         [action.payload.key]: action.payload.value,
@@ -215,11 +212,11 @@ const generalSlice = createSlice({
           "Încercăm să intrăm în contul tău, vă rugăm să așteptați...";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        const profile = action.payload as Utilizator;
+        const profile = action.payload as User;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as errorPayloadType;
+          const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
           state.formModal.color = "red";
@@ -238,7 +235,7 @@ const generalSlice = createSlice({
         state.loadingProfile = "PENDING";
       })
       .addCase(getProfile.fulfilled, (state, action) => {
-        const profile = action.payload as Utilizator;
+        const profile = action.payload as User;
 
         if (profile) {
           state.profile = profile;
@@ -257,11 +254,11 @@ const generalSlice = createSlice({
           "Încercăm să vă actualizăm contul, vă rugăm să așteptați...";
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
-        const profile = action.payload as Utilizator;
+        const profile = action.payload as User;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as errorPayloadType;
+          const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
           state.formModal.color = "red";
@@ -287,7 +284,7 @@ const generalSlice = createSlice({
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as errorPayloadType;
+          const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
           state.formModal.color = "red";

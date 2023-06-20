@@ -1,11 +1,11 @@
 // React
 import { FC, useRef } from "react";
 // Types
-import { CategorieType } from "types";
+import { CategoryType } from "types";
 // React Icons
 import { MdArrowDropDownCircle } from "react-icons/md";
 // SCSS
-import announcementsStyles from "@/scss/components/Anunturi.module.scss";
+import announcementsStyles from "@/scss/components/pages/Anunturi.module.scss";
 // Redux Toolkit
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -17,38 +17,38 @@ import {
 // Components
 import Announcement from "./Announcement";
 
-const Category: FC<CategorieType> = ({ nume: numeCategorie }) => {
+const Category: FC<CategoryType> = ({ name: categoryName }) => {
   const dispatch = useAppDispatch();
   const categoryRef = useRef<HTMLUListElement>(null);
   const announcements = useAppSelector(selectAllAnnouncements);
   const categoryToggles = useAppSelector(selectCategoryToggles);
-  const showCategory = categoryToggles.includes(numeCategorie);
+  const showCategory = categoryToggles.includes(categoryName);
 
   const functionUsedOnCategoryChange = showCategory
     ? removeCategoryToggle
     : addCategoryToggle;
 
   const accurateAnnouncements = announcements.filter((announcement) => {
-    return announcement.categorie === numeCategorie;
+    return announcement.category === categoryName;
   });
 
   return (
     <ul
       className={announcementsStyles.announcementsContainer__category}
       ref={categoryRef}
-      id={numeCategorie}
+      id={categoryName}
     >
       <div
         className={announcementsStyles.announcementsContainer__categoryTitle}
       >
         <MdArrowDropDownCircle
-          onClick={() => dispatch(functionUsedOnCategoryChange(numeCategorie))}
-          title={`Afiseaza Anunturi - ${numeCategorie}`}
+          onClick={() => dispatch(functionUsedOnCategoryChange(categoryName))}
+          title={`Afișează Anunțuri - ${categoryName}`}
           style={{
             transform: `${showCategory ? "rotate(270deg)" : "rotate(0deg)"}`,
           }}
         />
-        <h3>{numeCategorie}</h3>
+        <h3>{categoryName}</h3>
       </div>
       {showCategory &&
         accurateAnnouncements.map((announcement) => {

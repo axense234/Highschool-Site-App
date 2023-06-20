@@ -1,5 +1,5 @@
 // Prisma
-import { Anunt, CategorieAnunt } from "@prisma/client";
+import { Announcement, AnnouncementCategory } from "@prisma/client";
 // Redux Toolkit
 import {
   createSlice,
@@ -11,22 +11,22 @@ import {
 // Types
 import {
   GetAllQueryParams,
-  errorPayloadType,
-  formModalType,
-  objectKeyValueType,
-  templateAnnouncement,
+  ErrorPayloadType,
+  FormModalType,
+  ObjectKeyValueType,
+  TemplateAnnouncement,
 } from "types";
 // Axios
 import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // State
-import store, { State } from "../api/store";
+import { State } from "../api/store";
 // Data
 import { defaultTemplateAnnouncement } from "@/data";
 // Config
 import { baseSiteUrl } from "@/config";
 
-type initialStateType = {
+type InitialStateType = {
   loadingAnnouncements: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingCreateAnnouncement: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingUpdateAnnouncement: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -37,14 +37,14 @@ type initialStateType = {
     | "PENDING"
     | "SUCCEDED"
     | "FAILED";
-  templateAnnouncement: templateAnnouncement;
-  formModal: formModalType;
-  categoryToggles: CategorieAnunt[];
+  templateAnnouncement: TemplateAnnouncement;
+  formModal: FormModalType;
+  categoryToggles: AnnouncementCategory[];
   foundAnnouncementId: string;
 };
 
-const announcementsAdapter = createEntityAdapter<Anunt>({
-  sortComparer: (a, b) => a.titlu.localeCompare(b.titlu),
+const announcementsAdapter = createEntityAdapter<Announcement>({
+  sortComparer: (a, b) => a.title.localeCompare(b.title),
 });
 
 const initialState = announcementsAdapter.getInitialState({
@@ -62,18 +62,15 @@ const initialState = announcementsAdapter.getInitialState({
   foundAnnouncementId: "",
   categoryToggles: [],
   screenLoadingMessageForAnnouncements: "Se încarcă, vă rugăm să așteptați!",
-}) as EntityState<Anunt> & initialStateType;
+}) as EntityState<Announcement> & InitialStateType;
 
 // THUNKS
 export const getAllAnnouncements = createAsyncThunk<
-  Anunt[] | AxiosError,
-  GetAllQueryParams
->("announcements/getAllAnnouncements", async ({ sortByOption, query }) => {
+  Announcement[] | AxiosError
+>("announcements/getAllAnnouncements", async () => {
   try {
-    const { data } = await axiosInstance.get(
-      `/anunturi?sortByOption=${sortByOption || "titlu"}&query=${query || ""}`
-    );
-    return data.announcements as Anunt[];
+    const { data } = await axiosInstance.get(`/announcements`);
+    return data.announcements as Announcement[];
   } catch (error) {
     return error as AxiosError;
   }
@@ -98,47 +95,47 @@ export const createCloudinaryImageForAnnouncement = createAsyncThunk(
 );
 
 export const createAnnouncement = createAsyncThunk<
-  Anunt | AxiosError,
-  templateAnnouncement
+  Announcement | AxiosError,
+  TemplateAnnouncement
 >("announcements/createAnnouncement", async (templateAnnouncement) => {
   try {
     const { data } = await axiosInstance.post(
-      "/anunturi/create",
+      "/announcements/announcement/create",
       templateAnnouncement,
       { withCredentials: true }
     );
-    return data.announcement as Anunt;
+    return data.announcement as Announcement;
   } catch (error) {
     return error as AxiosError;
   }
 });
 
 export const deleteAnnouncementById = createAsyncThunk<
-  Anunt | AxiosError,
+  Announcement | AxiosError,
   string
 >("announcements/deleteAnnouncement", async (announcementId) => {
   try {
     const { data } = await axiosInstance.delete(
-      `/anunturi/anunt/delete/${announcementId}`,
+      `/announcements/announcement/delete/${announcementId}`,
       { withCredentials: true }
     );
-    return data.announcement as Anunt;
+    return data.announcement as Announcement;
   } catch (error) {
     return error as AxiosError;
   }
 });
 
 export const updateAnnouncementById = createAsyncThunk<
-  Anunt | AxiosError,
-  templateAnnouncement
+  Announcement | AxiosError,
+  TemplateAnnouncement
 >("announcements/updateAnnouncement", async (templateAnnouncement) => {
   try {
     const { data } = await axiosInstance.patch(
-      `/anunturi/anunt/update/${templateAnnouncement.anunt_uid}`,
+      `/announcements/announcement/update/${templateAnnouncement.announcement_uid}`,
       templateAnnouncement,
       { withCredentials: true }
     );
-    return data.announcement as Anunt;
+    return data.announcement as Announcement;
   } catch (error) {
     return error as AxiosError;
   }
@@ -150,7 +147,7 @@ const announcementsSlice = createSlice({
   reducers: {
     updateTemplateAnnouncement(
       state,
-      action: PayloadAction<objectKeyValueType>
+      action: PayloadAction<ObjectKeyValueType>
     ) {
       state.templateAnnouncement = {
         ...state.templateAnnouncement,
@@ -162,14 +159,14 @@ const announcementsSlice = createSlice({
     },
     setTemplateAnnouncement(
       state,
-      action: PayloadAction<templateAnnouncement>
+      action: PayloadAction<TemplateAnnouncement>
     ) {
       state.templateAnnouncement = action.payload;
     },
-    addCategoryToggle(state, action: PayloadAction<CategorieAnunt>) {
+    addCategoryToggle(state, action: PayloadAction<AnnouncementCategory>) {
       state.categoryToggles = [...state.categoryToggles, action.payload];
     },
-    removeCategoryToggle(state, action: PayloadAction<CategorieAnunt>) {
+    removeCategoryToggle(state, action: PayloadAction<AnnouncementCategory>) {
       state.categoryToggles = state.categoryToggles.filter(
         (cat) => cat !== action.payload
       );
@@ -187,17 +184,17 @@ const announcementsSlice = createSlice({
         state.loadingAnnouncements = "PENDING";
       })
       .addCase(getAllAnnouncements.fulfilled, (state, action) => {
-        const announcements = action.payload as Anunt[];
+        const announcements = action.payload as Announcement[];
 
         if (announcements.length >= 1) {
           announcements.map((announcement) => {
-            announcement.id = announcement.anunt_uid;
+            announcement.id = announcement.announcement_uid;
             return announcement;
           });
           announcementsAdapter.removeAll(state);
           announcementsAdapter.upsertMany(state, announcements);
-          state.loadingAnnouncements = "SUCCEDED";
         }
+        state.loadingAnnouncements = "SUCCEDED";
       })
       .addCase(getAllAnnouncements.rejected, (state, action) => {
         state.loadingAnnouncements = "FAILED";
@@ -211,7 +208,7 @@ const announcementsSlice = createSlice({
       .addCase(
         createCloudinaryImageForAnnouncement.fulfilled,
         (state, action) => {
-          state.templateAnnouncement.imagineUrl = action.payload;
+          state.templateAnnouncement.img_url = action.payload;
           state.loadingCreateCloudinaryImageForAnnouncement = "SUCCEDED";
         }
       )
@@ -219,16 +216,16 @@ const announcementsSlice = createSlice({
         state.loadingCreateAnnouncement = "PENDING";
       })
       .addCase(createAnnouncement.fulfilled, (state, action) => {
-        const announcement = action.payload as Anunt;
+        const announcement = action.payload as Announcement;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as errorPayloadType;
+          const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
           state.formModal.color = "red";
         } else {
-          announcement.id = announcement.anunt_uid;
+          announcement.id = announcement.announcement_uid;
           announcementsAdapter.addOne(state, announcement);
           window.location.href = `${baseSiteUrl}/anunturi`;
         }
@@ -238,10 +235,10 @@ const announcementsSlice = createSlice({
         state.loadingDeleteAnnouncement = "PENDING";
       })
       .addCase(deleteAnnouncementById.fulfilled, (state, action) => {
-        const announcement = action.payload as Anunt;
+        const announcement = action.payload as Announcement;
 
         if (announcement) {
-          announcementsAdapter.removeOne(state, announcement.anunt_uid);
+          announcementsAdapter.removeOne(state, announcement.announcement_uid);
         }
 
         state.loadingDeleteAnnouncement = "SUCCEDED";
@@ -250,18 +247,18 @@ const announcementsSlice = createSlice({
         state.loadingUpdateAnnouncement = "PENDING";
       })
       .addCase(updateAnnouncementById.fulfilled, (state, action) => {
-        const announcement = action.payload as Anunt;
+        const announcement = action.payload as Announcement;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as errorPayloadType;
+          const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
           state.formModal.color = "red";
         } else {
-          announcement.id = announcement.anunt_uid;
+          announcement.id = announcement.announcement_uid;
           announcementsAdapter.updateOne(state, {
-            id: announcement.anunt_uid,
+            id: announcement.announcement_uid,
             changes: announcement,
           });
         }

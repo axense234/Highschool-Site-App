@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "./redux";
 import { selectProfile } from "@/redux/slices/generalSlice";
 // Components
-import SectionLoading from "@/components/SectionLoading";
+import SectionLoading from "@/components/loading/SectionLoading";
 
 const useAuthorization = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const useAuthorization = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const isAuthenticated = profile.rolUtilizator === "ADMIN";
+    const isAuthenticated = profile;
 
     if (!isAuthenticated) {
       router.push("/home");

@@ -1,0 +1,78 @@
+@use "../../abstracts" as *;
+
+.modalContainer {
+  @include flexCenter(row);
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background-color: getColor("silver-white");
+  border-radius: 1rem;
+  padding: 0.5rem;
+  justify-content: space-evenly;
+  gap: 1rem;
+
+  opacity: 0;
+  display: none;
+  border: 2px solid black;
+
+  transition: opacity 0.1s ease-in;
+
+  button {
+    border: none;
+    background-color: inherit;
+    font-size: 2rem;
+
+    &:nth-of-type(1) {
+      color: red;
+    }
+
+    &:nth-of-type(2) {
+      color: green;
+    }
+  }
+
+  #{&}__moveAnnouncement {
+    @include flexCenter(column);
+    position: relative;
+
+    button {
+      color: blue;
+      font-weight: bolder;
+    }
+  }
+
+  #{&}__moveAnnouncementModal {
+    @include flexCenter(column);
+    position: absolute;
+    bottom: 3rem;
+    opacity: 0;
+
+    transition: opacity 0.1s ease-in;
+
+    svg {
+      font-size: 2rem;
+      margin-top: -0.75rem;
+    }
+  }
+
+  #{&}__categoryList {
+    @include flexCenter(column);
+    list-style: none;
+    background-color: getColor("silver-white");
+    padding: 1rem;
+    gap: 0.5rem;
+    border: 3px solid getColor("silver-50");
+    border-radius: 1rem;
+
+    li {
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      transition: transform 0.2s ease-in background-color 0.2s ease-in;
+
+      &:hover {
+        transform: scale(1.1) rotate(-5deg);
+        background-color: getColor("silver-30");
+      }
+    }
+  }
+}

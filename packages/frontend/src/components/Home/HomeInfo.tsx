@@ -7,7 +7,7 @@ import Image from "next/image";
 // Pop-in Animations
 import { useInView } from "react-intersection-observer";
 // SCSS
-import homeStyles from "../../scss/components/Home.module.scss";
+import homeStyles from "../../scss/components/pages/Home.module.scss";
 // Data
 import { infoSections } from "@/data";
 // Hooks
@@ -35,22 +35,6 @@ const InfoSection: FC<InfoSectionProps> = ({ logoUrl, title, desc }) => {
       className={`${homeStyles.homeContainer__infoSection} hidden`}
       ref={ref}
     >
-      {/* <iframe
-        src="https://onedrive.live.com/embed?resid=423722D2FD89604%211305&amp;authkey=!AJ1X-mxMe-R_2Kw&amp;em=2&amp;wdAr=1.7777777777777777"
-        width="476px"
-        height="288px"
-        title="PP"
-      >
-        Acesta este un document{" "}
-        <a target="_blank" href="https://office.com" rel="noreferrer">
-          Microsoft Office
-        </a>{" "}
-        încorporat, pe platformă{" "}
-        <a target="_blank" href="https://office.com/webapps" rel="noreferrer">
-          Office
-        </a>
-        .
-      </iframe> */}
       <Image
         src={logoUrl}
         alt={title}

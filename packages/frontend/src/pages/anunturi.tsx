@@ -1,14 +1,14 @@
 // React
 import { FC, useEffect } from "react";
 // SCSS
-import announcementsStyles from "../scss/components/Anunturi.module.scss";
+import announcementsStyles from "../scss/components/pages/Anunturi.module.scss";
 // Components
-import HomeTitle from "@/components/Home/HomeTitle";
-import Meta from "@/components/Meta";
-import SectionLoading from "@/components/SectionLoading";
-import Overlay from "@/components/Overlay";
-import Category from "@/components/Announcements/Category";
-import PageNav from "@/components/PageNav";
+import HomeTitle from "@/components/home/HomeTitle";
+import Meta from "@/components/others/Meta";
+import SectionLoading from "@/components/loading/SectionLoading";
+import Overlay from "@/components/others/Overlay";
+import Category from "@/components/announcements/Category";
+import PageNav from "@/components/navigation/PageNav";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -16,7 +16,7 @@ import {
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
 // Data
-import { categoriiAnunturi } from "@/data";
+import { announcementCategories } from "@/data";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 
@@ -31,7 +31,7 @@ const Announcements: FC = () => {
 
   useEffect(() => {
     if (loadingAnnouncements === "IDLE") {
-      dispatch(getAllAnnouncements({ query: "", sortByOption: "titlu" }));
+      dispatch(getAllAnnouncements());
     }
   }, []);
 
@@ -63,8 +63,8 @@ const Announcements: FC = () => {
                 announcementsStyles.announcementsContainer__announcements
               }
             >
-              {categoriiAnunturi.map((categorie) => {
-                return <Category {...categorie} key={categorie.id} />;
+              {announcementCategories.map((category) => {
+                return <Category {...category} key={category.id} />;
               })}
             </div>
           )}

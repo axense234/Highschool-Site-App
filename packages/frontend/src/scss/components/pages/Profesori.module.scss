@@ -1,0 +1,222 @@
+@use "../../abstracts" as *;
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.5);
+  }
+}
+
+.profesoriContainer {
+  @include pageLayout();
+
+  #{&}__content {
+    @include homePageSection(getColor("silver-0"), column);
+    width: 100%;
+    gap: 5rem;
+
+    @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+      padding: 7.5rem 0.5rem;
+    }
+
+    h2 {
+      font-size: 4rem;
+      letter-spacing: 5px;
+      text-align: center;
+
+      @media all and (max-width: 650px) {
+        font-size: 3rem;
+        letter-spacing: 3.5px;
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+    }
+  }
+
+  #{&}__profesori {
+    @include flexCenter(row);
+    padding: 5rem;
+    border-radius: 1rem;
+    background-color: getColor("silver-white");
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 4rem;
+    border: 3px solid getColor("silver-50");
+
+    @media all and (max-width: 875px) {
+      padding: 2rem;
+    }
+
+    @media all and (max-width: 500px) {
+      padding: 0.5rem;
+    }
+  }
+
+  #{&}__profesor {
+    @include flexCenter(column);
+    width: 30%;
+    min-height: 40rem;
+    background-color: getColor("silver-40");
+    padding: 2.5rem;
+    gap: 2.5rem;
+    border-radius: 1rem;
+    border: 1.5px solid getColor("silver-50");
+    transition: transform 0.1s ease-in;
+
+    @media all and (max-width: (getScreenSize("laptopL") + 240px)) {
+      width: 40%;
+    }
+
+    @media all and (max-width: getScreenSize("laptopL")) {
+      width: 45%;
+    }
+
+    @media all and (max-width: (getScreenSize("laptop") + 200px)) {
+      width: 80%;
+    }
+
+    @media all and (max-width: 875px) {
+      width: 100%;
+    }
+
+    img {
+      width: 75%;
+      height: auto;
+      border-radius: 50%;
+      border: 3px solid white;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: $itemBoxShadowOnHover;
+    }
+  }
+
+  #{&}__profesorInfo {
+    @include flexCenter(column);
+    width: 100%;
+    gap: 1rem;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+
+    h3 {
+      width: 100%;
+      font-size: 2.25rem;
+      letter-spacing: 3px;
+      text-align: center;
+      margin-bottom: 1rem;
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+      }
+    }
+
+    p {
+      font-size: 1.25rem;
+      text-align: start;
+      width: 100%;
+
+      &:nth-of-type(1) {
+        font-size: 1.5rem;
+        align-self: flex-start;
+
+        @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
+        font-size: 1rem;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      min-height: 7.5rem;
+      max-height: 10rem;
+      padding: 0.25rem;
+      border-radius: 1rem;
+      border: 3px solid getColor("silver-50");
+      font-size: 1.25rem;
+
+      &:focus-visible {
+        outline: 3px solid getColor("silver-50");
+      }
+    }
+
+    input {
+      @include controlInput(2.25rem, 100%);
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      font-size: 3rem;
+      border: none;
+
+      animation: pulse 0.5s alternate infinite;
+
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  #{&}__profesorImage {
+    @include flexCenter(column);
+    position: relative;
+    width: 100%;
+  }
+
+  #{&}__profesorImageOverlay {
+    @include flexCenter(column);
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba($color: getColor("silver-30"), $alpha: 0.5);
+
+    input {
+      display: none;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-size: 5rem;
+      color: getColor("silver-white");
+    }
+  }
+
+  #{&}__control {
+    @include flexCenter(row);
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+    label {
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    select {
+      @include controlSelect();
+    }
+  }
+}

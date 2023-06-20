@@ -1,0 +1,36 @@
+@use "../../abstracts" as *;
+
+@keyframes vibrate {
+  33% {
+    transform: translateX(-10%);
+  }
+  66% {
+    transform: translateX(0);
+  }
+  99% {
+    transform: translateX(10%);
+  }
+}
+
+.editFormModalContainer {
+  @include flexCenter(column);
+  width: 80%;
+  position: absolute;
+  top: 0.25rem;
+  background-color: rgba($color: getColor("silver-30"), $alpha: 0.6);
+  padding: 0.2rem;
+  border-radius: 1rem;
+  z-index: 3;
+  text-align: center;
+
+  animation: vibrate 0.5s linear 0.1s 2;
+
+  p {
+    font-size: 1.25rem;
+  }
+
+  opacity: 0;
+  display: none;
+
+  transition: opacity 0.1s ease-in;
+}

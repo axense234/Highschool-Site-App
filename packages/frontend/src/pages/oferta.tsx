@@ -1,10 +1,10 @@
 // React
 import { FC } from "react";
 // SCSS
-import offerStyles from "../scss/components/Offer.module.scss";
+import offerStyles from "../scss/components/pages/Offer.module.scss";
 // Components
-import Meta from "@/components/Meta";
-import HomeTitle from "@/components/Home/HomeTitle";
+import Meta from "@/components/others/Meta";
+import HomeTitle from "@/components/home/HomeTitle";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 

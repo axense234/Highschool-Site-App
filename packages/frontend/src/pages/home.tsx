@@ -1,15 +1,15 @@
 // React
-import { FC, useEffect } from "react";
+import { FC } from "react";
 // SCSS
-import homeStyles from "../scss/components/Home.module.scss";
+import homeStyles from "../scss/components/pages/Home.module.scss";
 // Components
-import HomeTitle from "@/components/Home/HomeTitle";
-import HomeInfo from "@/components/Home/HomeInfo";
-import HomeFacilities from "@/components/Home/HomeFacilities";
-import HomeBac from "@/components/Home/HomeBac";
-import HomeOfferings from "@/components/Home/HomeOfferings";
-import Meta from "@/components/Meta";
-import HomeLocation from "@/components/Home/HomeLocation";
+import HomeTitle from "@/components/home/HomeTitle";
+import HomeInfo from "@/components/home/HomeInfo";
+import HomeFacilities from "@/components/home/HomeFacilities";
+import HomeBac from "@/components/home/HomeBac";
+import HomeOfferings from "@/components/home/HomeOfferings";
+import Meta from "@/components/others/Meta";
+import HomeLocation from "@/components/home/HomeLocation";
 // Data
 import { facilityImages } from "@/data";
 // Hooks

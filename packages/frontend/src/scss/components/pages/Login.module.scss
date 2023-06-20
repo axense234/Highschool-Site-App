@@ -1,0 +1,86 @@
+@use "../../abstracts" as *;
+
+.loginContainer {
+  @include pageLayout();
+
+  #{&}__form {
+    @include flexCenter(column);
+    border: 3px solid getColor("silver-50");
+    background-color: getColor("silver-white");
+    width: 50%;
+    padding: 2rem 0.75rem;
+    border-radius: 1rem;
+
+    @media all and (max-width: 1650px) {
+      width: 75%;
+    }
+
+    @media all and (max-width: getScreenSize("laptop")) {
+      width: 100%;
+    }
+
+    &:hover {
+      box-shadow: $itemBoxShadowOnHover;
+    }
+
+    button {
+      @include formButton(75%, 2rem);
+
+      @media all and (max-width: 475px) {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  #{&}__control {
+    @include flexCenter(column);
+    gap: 0.35rem;
+    width: 75%;
+    align-items: flex-start;
+    margin: 0.5rem 0;
+
+    @media all and (max-width: 475px) {
+      width: 90%;
+    }
+
+    label {
+      font-size: 2.5rem;
+
+      @media all and (max-width: 475px) {
+        font-size: 1.2rem;
+      }
+    }
+
+    select {
+      @include controlSelect();
+
+      @media all and (max-width: 475px) {
+        width: 100%;
+      }
+    }
+
+    input {
+      @include controlInput(2rem, 100%);
+    }
+  }
+
+  #{&}__passwordControl {
+    @include flexCenter(row);
+    width: 100%;
+    position: relative;
+
+    input {
+      width: 100%;
+      &:hover {
+        transform: translateX(0);
+      }
+    }
+
+    svg {
+      position: absolute;
+      z-index: 3;
+      right: 1rem;
+      font-size: 1.5rem;
+    }
+  }
+}

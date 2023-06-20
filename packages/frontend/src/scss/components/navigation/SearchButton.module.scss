@@ -1,0 +1,38 @@
+@use "../../abstracts" as *;
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.25);
+  }
+}
+
+.searchButtonContainer {
+  @include flexCenter(row);
+  background-color: rgba($color: getColor("silver-white"), $alpha: 0.85);
+  padding: 0.25rem;
+  border-radius: 1rem;
+  border: 2px solid black;
+
+  font-size: 3rem;
+  position: fixed;
+  z-index: 1;
+  top: 1rem;
+  right: 1rem;
+
+  animation: pulse 0.4s alternate infinite;
+  transition: transform 0.1s ease-in;
+
+  svg {
+    &:hover {
+      transform: scale(1);
+    }
+  }
+
+  &:hover {
+    animation-play-state: paused;
+    transform: scale(1.1);
+  }
+}

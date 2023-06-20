@@ -7,10 +7,11 @@ import { HomeTitleProps } from "types";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
 // SCSS
-import homeTitleStyles from "../../scss/components/Home/HomeTitle.module.scss";
+import homeTitleStyles from "../../scss/components/home/HomeTitle.module.scss";
 // Redux
 import { useAppSelector } from "@/hooks/redux";
 import { selectCurrentPathname } from "@/redux/slices/generalSlice";
+// Data
 import { pageTitleBackgroundImageUrls } from "@/data";
 
 const HomeTitle: FC<HomeTitleProps> = ({ title, quote }) => {
