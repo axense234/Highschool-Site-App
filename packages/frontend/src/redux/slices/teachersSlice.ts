@@ -10,7 +10,6 @@ import {
 } from "@reduxjs/toolkit";
 // Types
 import {
-  GetAllQueryParams,
   ErrorPayloadType,
   FormModalType,
   ObjectKeyValueType,
@@ -23,7 +22,6 @@ import axiosInstance from "@/utils/axios";
 import { State } from "../api/store";
 // Data
 import { defaultTemplateTeacher } from "@/data";
-import { baseSiteUrl } from "@/config";
 
 const teachersAdapter = createEntityAdapter<Teacher>({
   sortComparer: (a, b) => a.username.localeCompare(b.username),
@@ -95,11 +93,11 @@ export const createTeacher = createAsyncThunk<
 >("teachers/createTeacher", async (templateTeacher) => {
   try {
     const { data } = await axiosInstance.post(
-      "/teachers/teacher/create",
+      "/users/create/TEACHER",
       templateTeacher,
       { withCredentials: true }
     );
-    return data.teacher as Teacher;
+    return data.user as Teacher;
   } catch (error) {
     return error as AxiosError;
   }
@@ -190,11 +188,13 @@ const teachersSlice = createSlice({
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
-          state.formModal.color = "red";
+          state.formModal.color = "#f53838";
         } else {
+          state.formModal.showModal = true;
+          state.formModal.msg = "Am creat un profesor cu success!";
+          state.formModal.color = "#90ee90";
           teacher.id = teacher.teacher_uid;
           teachersAdapter.addOne(state, teacher);
-          window.location.href = `${baseSiteUrl}/profesori`;
         }
 
         state.loadingCreateTeacher = "SUCCEDED";
@@ -222,7 +222,7 @@ const teachersSlice = createSlice({
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
-          state.formModal.color = "red";
+          state.formModal.color = "#f53838";
         } else {
           teacher.id = teacher.teacher_uid;
           teachersAdapter.updateOne(state, {

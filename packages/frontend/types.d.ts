@@ -27,6 +27,21 @@ interface TemplateTeacher extends Teacher {
   teacher_uid?: string;
 }
 
+interface TemplateAdmin extends Admin {
+  admin_uid?: string;
+  id?: string;
+  profile_img_url?: string;
+  role?: string;
+}
+interface TemplateStudent extends Student {
+  student_uid?: string;
+  id?: string;
+  profile_img_url?: string;
+  role?: string;
+  class_uid?: string;
+  student_card_uid?: string;
+}
+
 interface TemplateUser {
   username: string;
   password: string;
@@ -156,7 +171,7 @@ type FunctionUsedOnPageNavSubmit = AsyncThunk<
 
 type ObjectKeyValueType = {
   key: string;
-  value: string;
+  value: string | boolean;
 };
 
 type FormModalType = {
@@ -230,7 +245,7 @@ interface CardModalProps {
 }
 
 interface FormModalProps {
-  type: "teachers" | "announcements" | "general";
+  type: "teachers" | "announcements" | "general" | "students" | "admins";
 }
 
 interface VideoContainerProps {
@@ -260,7 +275,9 @@ interface AccountsFormProps {
 
 interface FormStepProps {
   step: number;
+  shown: boolean;
   pageType: "signup" | "login";
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 }
 
 type SelectOptionType = {
@@ -318,4 +335,6 @@ export {
   TypeNavOptionLabel,
   FormStepProps,
   SelectOptionType,
+  TemplateAdmin,
+  TemplateStudent,
 };

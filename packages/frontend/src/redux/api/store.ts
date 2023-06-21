@@ -4,12 +4,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import generalSliceReducer from "../slices/generalSlice";
 import announcementsSliceReducer from "../slices/announcementsSlice";
 import teachersSliceReducer from "../slices/teachersSlice";
+import adminsSliceReducer from "../slices/adminsSlice";
+import studentsSliceReducer from "../slices/studentsSlice";
 
 const store = configureStore({
   reducer: {
     general: generalSliceReducer,
     announcements: announcementsSliceReducer,
     teachers: teachersSliceReducer,
+    admins: adminsSliceReducer,
+    students: studentsSliceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

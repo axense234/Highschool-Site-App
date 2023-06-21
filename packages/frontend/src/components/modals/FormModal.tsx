@@ -22,11 +22,21 @@ import {
   selectAnnouncementsFormModal,
   updateAnnouncementsFormModal,
 } from "@/redux/slices/announcementsSlice";
+import {
+  selectAdminsFormModal,
+  updateAdminsFormModal,
+} from "@/redux/slices/adminsSlice";
+import {
+  selectStudentsFormModal,
+  updateStudentsFormModal,
+} from "@/redux/slices/studentsSlice";
 
 const FormModal: FC<FormModalProps> = ({ type }) => {
   const generalFormModal = useAppSelector(selectFormModal);
   const teachersFormModal = useAppSelector(selectTeachersFormModal);
   const announcementsFormModal = useAppSelector(selectAnnouncementsFormModal);
+  const adminsFormModal = useAppSelector(selectAdminsFormModal);
+  const studentsFormModal = useAppSelector(selectStudentsFormModal);
   const formModalRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
@@ -46,6 +56,14 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
       formModal = generalFormModal;
       updateFormModal = updateGeneralFormModal;
       break;
+    case "admins":
+      formModal = adminsFormModal;
+      updateFormModal = updateAdminsFormModal;
+      break;
+    case "students":
+      formModal = studentsFormModal;
+      updateFormModal = updateStudentsFormModal;
+      break;
     default:
       throw new Error("no form modal type");
   }
@@ -57,7 +75,7 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
     if (formModal.showModal) {
       timeout = setTimeout(() => {
         dispatch(updateFormModal(false));
-      }, 5000);
+      }, 2500);
     }
     return () => {
       clearTimeout(timeout);
@@ -70,7 +88,6 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
       ref={formModalRef}
       style={{
         backgroundColor: formModal.color,
-        color: formModal.color === "green" ? "black" : "white",
       }}
     >
       <p>{formModal.msg}</p>

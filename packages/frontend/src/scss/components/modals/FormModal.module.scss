@@ -14,15 +14,14 @@
 
 .formModalContainer {
   @include flexCenter(row);
-  border: 1px solid black;
   width: 75%;
   border-radius: 1rem;
-  border: 3px solid getColor("silver-50");
+  border: 2px solid black;
   padding: 2rem 1rem;
   font-size: 1.5rem;
   letter-spacing: 1px;
-  background-color: red;
-  color: white;
+  background-color: getColor("light-red");
+  color: black;
   align-self: center;
 
   opacity: 0;

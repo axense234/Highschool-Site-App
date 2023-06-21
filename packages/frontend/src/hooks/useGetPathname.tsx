@@ -10,9 +10,6 @@ const useGetPathname = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useRouter();
 
-  // eslint-disable-next-line node/no-unsupported-features/node-builtins
-  console.count("usegetpathname");
-
   useEffect(() => {
     dispatch(setCurrentPathname(pathname));
   }, []);

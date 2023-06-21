@@ -23,6 +23,8 @@ import {
   InfoSectionType,
   TypeNavOption,
   SelectOptionType,
+  TemplateAdmin,
+  TemplateStudent,
 } from "types";
 // React Icons
 import { AiFillHome } from "react-icons/ai";
@@ -42,6 +44,23 @@ export const defaultEmailFormTemplate: EmailFormTemplate = {
   message: "",
   sender: "",
   subject: "",
+};
+
+export const defaultTemplateAdmin: TemplateAdmin = {
+  email: "adminemail@gmail.com",
+  password: "PAROLA",
+  username: "ADMIN X",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+export const defaultTemplateStudent: TemplateStudent = {
+  email: "studentemail@gmail.com",
+  password: "PAROLA",
+  username: "STUDENT X",
+  class_label: "9A",
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 export const defaultTemplateProfile: TemplateUser = {
@@ -65,18 +84,18 @@ export const defaultTemplateAnnouncement: TemplateAnnouncement = {
 
 export const defaultTemplateTeacher: TemplateTeacher = {
   id: "",
-  description: "",
+  description: "O descriere scurta.",
   subject: "SPORT",
-  username: "",
-  email: "",
+  username: "TEACHER X",
+  email: "teacheremail@gmail.com",
   master_catalogue_uid: "",
   master_class_uid: "",
   password: "PAROLA",
-  type: "CLASA",
+  master: false,
+  master_class_label: "9A",
   role: "TEACHER",
   profile_img_url:
     "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
-  created_by_admin_uid: "",
   createdAt: new Date(),
   updatedAt: new Date(),
 };

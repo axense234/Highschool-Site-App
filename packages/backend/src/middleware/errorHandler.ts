@@ -15,9 +15,8 @@ const errorHandlerMiddleware: ErrorRequestHandler = async (
     code: err.code || StatusCodes.INTERNAL_SERVER_ERROR,
   };
 
-  console.log(err);
   if (customError.code === "P2002") {
-    customError.msg = `Please provider a different email!`;
+    customError.msg = `Introduceți un email unic!`;
     customError.code = StatusCodes.BAD_REQUEST;
   }
 

@@ -23,13 +23,34 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
 
   switch (currentType) {
     case "ADMIN":
-      shownForm = <AdminForm step={currentStep} pageType={type} />;
+      shownForm = (
+        <AdminForm
+          step={currentStep}
+          setCurrentStep={setCurrentStep}
+          pageType={type}
+          shown
+        />
+      );
       break;
     case "ELEV":
-      shownForm = <StudentForm step={currentStep} pageType={type} />;
+      shownForm = (
+        <StudentForm
+          step={currentStep}
+          setCurrentStep={setCurrentStep}
+          pageType={type}
+          shown
+        />
+      );
       break;
     case "PROFESOR":
-      shownForm = <TeacherForm step={currentStep} pageType={type} />;
+      shownForm = (
+        <TeacherForm
+          step={currentStep}
+          setCurrentStep={setCurrentStep}
+          pageType={type}
+          shown
+        />
+      );
       break;
     default:
       break;
@@ -60,7 +81,7 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
           })}
         </ul>
       </nav>
-      {(foundCurrentTypeSteps?.length as number) >= 1 && (
+      {(foundCurrentTypeSteps?.length as number) >= 1 && type === "signup" && (
         <nav className={accountsFormStyles.accountsFormContainer__stepNav}>
           <ul className={accountsFormStyles.accountsFormContainer__stepNavList}>
             {foundCurrentTypeSteps?.map((step) => {
@@ -79,8 +100,14 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
         </nav>
       )}
       <div className={accountsFormStyles.accountsFormContainer__formContainer}>
-        <h2>Introduceți informațiile respective</h2>
-        {shownForm}
+        <div
+          className={
+            accountsFormStyles.accountsFormContainer__formContainerWrapper
+          }
+        >
+          <h2>Introduceți informațiile respective</h2>
+          {shownForm}
+        </div>
       </div>
     </section>
   );

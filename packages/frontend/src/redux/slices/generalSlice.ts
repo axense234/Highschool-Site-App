@@ -219,11 +219,11 @@ const generalSlice = createSlice({
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
-          state.formModal.color = "red";
+          state.formModal.color = "#f53838";
         } else {
-          state.profile = profile;
-          state.templateProfile = defaultTemplateProfile;
-          window.location.href = `${baseSiteUrl}/profil`;
+          state.formModal.showModal = true;
+          state.formModal.msg = "Am intrat in cont cu success!";
+          state.formModal.color = "#90ee90";
         }
         state.screenLoadingMessage = "";
         state.loadingLoginProfile = "SUCCEDED";
@@ -261,11 +261,11 @@ const generalSlice = createSlice({
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
-          state.formModal.color = "red";
+          state.formModal.color = "#f53838";
         } else {
           state.formModal.showModal = true;
           state.formModal.msg = `Am updatat ${profile.username}!`;
-          state.formModal.color = "green";
+          state.formModal.color = "#90ee90";
           state.profile = profile;
           state.templateProfile = profile;
           state.templateProfile.password = "PAROLA";
@@ -287,11 +287,11 @@ const generalSlice = createSlice({
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
-          state.formModal.color = "red";
+          state.formModal.color = "#f53838";
         } else {
           state.formModal.showModal = true;
           state.formModal.msg = responseMessage;
-          state.formModal.color = "green";
+          state.formModal.color = "#90ee90";
         }
       });
   },

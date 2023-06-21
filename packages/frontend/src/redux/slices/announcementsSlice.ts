@@ -223,7 +223,7 @@ const announcementsSlice = createSlice({
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
-          state.formModal.color = "red";
+          state.formModal.color = "#f53838";
         } else {
           announcement.id = announcement.announcement_uid;
           announcementsAdapter.addOne(state, announcement);
@@ -254,7 +254,7 @@ const announcementsSlice = createSlice({
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
           state.formModal.msg = data.msg;
-          state.formModal.color = "red";
+          state.formModal.color = "#f53838";
         } else {
           announcement.id = announcement.announcement_uid;
           announcementsAdapter.updateOne(state, {
