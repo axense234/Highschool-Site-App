@@ -59,6 +59,14 @@ svg {
   transition: all 1s;
 }
 
+.hiddenHorizontal {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-10rem);
+
+  transition: all 1s;
+}
+
 .showVertical {
   opacity: 1;
   filter: blur(0);

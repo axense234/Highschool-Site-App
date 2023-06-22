@@ -10,12 +10,30 @@ import { typeNavOptions } from "@/data";
 import AdminForm from "./AdminForm";
 import StudentForm from "./StudentForm";
 import TeacherForm from "./TeacherForm";
+import ForgotPassForm from "./ForgotPassword";
+import ResetPassForm from "./ResetPassForm";
+// Redux
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  selectEmailCurrentType,
+  setEmailCurrentType,
+} from "@/redux/slices/generalSlice";
 
 const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
-  const [currentType, setCurrentType] = useState<TypeNavOptionLabel>("ELEV");
+  const dispatch = useAppDispatch();
+  const [currentType, setCurrentType] = useState<TypeNavOptionLabel>(
+    type === "reset-pass" ? "RESETARE PAROLA" : "ELEV"
+  );
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  const foundCurrentTypeSteps = typeNavOptions.find(
+  const emailCurrentType = useAppSelector(selectEmailCurrentType);
+
+  const usedTypeNavOptions =
+    type === "reset-pass"
+      ? typeNavOptions.filter((option) => option.label === "RESETARE PAROLA")
+      : typeNavOptions.filter((option) => option.label !== "RESETARE PAROLA");
+
+  const foundCurrentTypeSteps = usedTypeNavOptions.find(
     (option) => option.label === currentType
   )?.steps;
 
@@ -27,6 +45,7 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
         <AdminForm
           step={currentStep}
           setCurrentStep={setCurrentStep}
+          setCurrentType={setCurrentType}
           pageType={type}
           shown
         />
@@ -37,6 +56,7 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
         <StudentForm
           step={currentStep}
           setCurrentStep={setCurrentStep}
+          setCurrentType={setCurrentType}
           pageType={type}
           shown
         />
@@ -47,10 +67,17 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
         <TeacherForm
           step={currentStep}
           setCurrentStep={setCurrentStep}
+          setCurrentType={setCurrentType}
           pageType={type}
           shown
         />
       );
+      break;
+    case "PAROLA UITATA":
+      shownForm = <ForgotPassForm />;
+      break;
+    case "RESETARE PAROLA":
+      shownForm = <ResetPassForm />;
       break;
     default:
       break;
@@ -60,7 +87,7 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
     <section className={accountsFormStyles.accountsFormContainer}>
       <nav className={accountsFormStyles.accountsFormContainer__typeNav}>
         <ul className={accountsFormStyles.accountsFormContainer__typeNavList}>
-          {typeNavOptions.map((option) => {
+          {usedTypeNavOptions.map((option) => {
             return (
               <li
                 key={option.id}
@@ -69,10 +96,21 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
                 onClick={() => {
                   setCurrentStep(1);
                   setCurrentType(option.label);
+                  if (type !== "reset-pass") {
+                    dispatch(
+                      setEmailCurrentType(
+                        option.label as "ADMIN" | "ELEV" | "PROFESOR"
+                      )
+                    );
+                  }
                 }}
                 style={{
                   backgroundColor:
-                    currentType === option.label ? "#90EE90" : "#e6e6e6",
+                    currentType === option.label ||
+                    option.label === "RESETARE PAROLA" ||
+                    emailCurrentType === option.label
+                      ? "#90EE90"
+                      : "#e6e6e6",
                 }}
               >
                 {option.label}
@@ -91,6 +129,10 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
                   title={step.label}
                   aria-label={step.label}
                   onClick={() => setCurrentStep(step.id)}
+                  style={{
+                    backgroundColor:
+                      currentStep === step.id ? "#90EE90" : "#e6e6e6",
+                  }}
                 >
                   {step.label}
                 </li>

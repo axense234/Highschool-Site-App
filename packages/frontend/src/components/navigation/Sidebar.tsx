@@ -12,8 +12,6 @@ import { sidebarPageLinks, sidebarSocialMediaLinks } from "@/data";
 import Logo from "../others/Logo";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { selectProfile } from "@/redux/slices/generalSlice";
-// Hooks
-import useGetProfile from "@/hooks/useGetProfile";
 // Redux
 import {
   getAllAnnouncements,
@@ -36,8 +34,6 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
   const profile = useAppSelector(selectProfile);
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
-
-  useGetProfile();
 
   useEffect(() => {
     // eslint-disable-next-line no-undef

@@ -1,5 +1,7 @@
 // React
-import { FC, SyntheticEvent, useEffect, useRef, useState } from "react";
+import { FC, SyntheticEvent, useState } from "react";
+// Next
+import Link from "next/link";
 // Types
 import { FormStepProps } from "types";
 // React Icons
@@ -21,12 +23,10 @@ import {
 } from "@/redux/slices/generalSlice";
 // Components
 import FormModal from "../modals/FormModal";
-import useFormTransition from "@/hooks/useFormTransition";
 
-const AdminForm: FC<FormStepProps> = ({ pageType }) => {
-  const [showPass, setShowPass] = useState<boolean>(false);
-  const adminFormRef = useRef<HTMLFormElement>(null);
+const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
   const dispatch = useAppDispatch();
+  const [showPass, setShowPass] = useState<boolean>(false);
 
   const formButtonMessage =
     pageType === "login" ? "Intrați în cont" : "Creați un cont";
@@ -71,13 +71,10 @@ const AdminForm: FC<FormStepProps> = ({ pageType }) => {
     }
   };
 
-  useFormTransition(adminFormRef);
-
   return (
     <form
-      className={accountsFormStyles.accountsFormContainer__form}
+      className={`${accountsFormStyles.accountsFormContainer__form}`}
       onSubmit={(e) => handleSubmitAdmin(e)}
-      ref={adminFormRef}
     >
       <FormModal type={pageType === "login" ? "general" : "admins"} />
       <div className={accountsFormStyles.accountsFormContainer__content}>
@@ -160,6 +157,18 @@ const AdminForm: FC<FormStepProps> = ({ pageType }) => {
           ? "Se încarcă imaginea..."
           : formButtonMessage}
       </button>
+      <div className={accountsFormStyles.accountsFormContainer__linksContainer}>
+        <Link href={pageType === "login" ? "/signup" : "/login"}>
+          {pageType === "login"
+            ? "Nu aveți un cont? Creați unul aici!"
+            : "Aveți un cont? Intrați în el aici!"}
+        </Link>
+        {pageType === "login" && (
+          <button type="button" onClick={() => setCurrentType("PAROLA UITATA")}>
+            Am uitat parola contului.
+          </button>
+        )}
+      </div>
     </form>
   );
 };

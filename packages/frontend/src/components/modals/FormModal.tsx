@@ -75,7 +75,7 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
     if (formModal.showModal) {
       timeout = setTimeout(() => {
         dispatch(updateFormModal(false));
-      }, 2500);
+      }, 3500);
     }
     return () => {
       clearTimeout(timeout);

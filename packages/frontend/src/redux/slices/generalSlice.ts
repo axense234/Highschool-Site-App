@@ -8,6 +8,7 @@ import {
   GetAllQueryParams,
   ObjectKeyValueType,
   OverlayType,
+  TemplatePassReset,
   TemplateUser,
   User,
 } from "types";
@@ -44,6 +45,11 @@ type initialStateType = {
   currentPathname: string;
   searchbarQuery: string;
   screenLoadingMessage: string;
+  recipientEmail: string;
+  newPass: string;
+  newPassVer: string;
+  emailCurrentType: "ADMIN" | "ELEV" | "PROFESOR";
+  resetPassTokenAuthorized: boolean;
 };
 
 const initialState: initialStateType = {
@@ -78,6 +84,15 @@ const initialState: initialStateType = {
   searchbarQuery: "",
   // The text displayed upon various ScreenLoading instances
   screenLoadingMessage: "Se încarcă, vă rugăm să așteptați!",
+  // Recipient email for resetting password
+  recipientEmail: "",
+  // The new password when user resets their pass
+  newPass: "",
+  newPassVer: "",
+  // The current type of model used in AccountsForm(only for sending emails and such)
+  emailCurrentType: "ADMIN",
+  // Authorized reset pass token by default false
+  resetPassTokenAuthorized: false,
 };
 
 // THUNKS
@@ -90,36 +105,6 @@ export const loginUser = createAsyncThunk<User | AxiosError, TemplateUser>(
       });
       return data.user as User;
     } catch (error: any) {
-      return error as AxiosError;
-    }
-  }
-);
-
-export const getProfile = createAsyncThunk<
-  User | AxiosError,
-  string | undefined
->("general/getProfile", async (userId = "false") => {
-  try {
-    const { data } = await axiosInstance.get(`/utilizatori/${userId}`, {
-      withCredentials: true,
-    });
-    return data.user as User;
-  } catch (error) {
-    return error as AxiosError;
-  }
-});
-
-export const updateProfile = createAsyncThunk<User | AxiosError, TemplateUser>(
-  "general/updateProfile",
-  async (templateUser) => {
-    try {
-      const { data } = await axiosInstance.patch(
-        `/utilizatori/update/${templateUser.email as string}`,
-        templateUser,
-        { withCredentials: true }
-      );
-      return data.user as User;
-    } catch (error) {
       return error as AxiosError;
     }
   }
@@ -144,7 +129,39 @@ export const sendEmail = createAsyncThunk<
   EmailFormTemplate
 >("general/sendEmail", async (templateEmail) => {
   try {
-    const { data } = await axiosInstance.post("/optiuni/email", templateEmail);
+    const { data } = await axiosInstance.post("/options/email", templateEmail, {
+      withCredentials: true,
+    });
+    return data.msg as string;
+  } catch (error) {
+    return error as AxiosError;
+  }
+});
+
+export const sendResetPassEmail = createAsyncThunk<
+  string | AxiosError,
+  TemplatePassReset
+>("general/sendResetPassEmail", async (emailBody) => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/options/email/reset-pass",
+      emailBody,
+      { withCredentials: true }
+    );
+    return data.msg as string;
+  } catch (error) {
+    return error as AxiosError;
+  }
+});
+
+export const verifyResetPassToken = createAsyncThunk<
+  string | AxiosError,
+  string
+>("general/verifyResetPassToken", async (token) => {
+  try {
+    const { data } = await axiosInstance.get(
+      `/options/email/reset-pass/verify?token=${token}`
+    );
     return data.msg as string;
   } catch (error) {
     return error as AxiosError;
@@ -203,6 +220,21 @@ const generalSlice = createSlice({
     setScreenLoadingMessage(state, action: PayloadAction<string>) {
       state.screenLoadingMessage = action.payload;
     },
+    setRecipientEmail(state, action: PayloadAction<string>) {
+      state.recipientEmail = action.payload;
+    },
+    setNewPass(state, action: PayloadAction<string>) {
+      state.newPass = action.payload;
+    },
+    setNewPassVer(state, action: PayloadAction<string>) {
+      state.newPassVer = action.payload;
+    },
+    setEmailCurrentType(
+      state,
+      action: PayloadAction<"ADMIN" | "PROFESOR" | "ELEV">
+    ) {
+      state.emailCurrentType = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -212,7 +244,6 @@ const generalSlice = createSlice({
           "Încercăm să intrăm în contul tău, vă rugăm să așteptați...";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        const profile = action.payload as User;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
@@ -230,49 +261,6 @@ const generalSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loadingLoginProfile = "FAILED";
-      })
-      .addCase(getProfile.pending, (state, action) => {
-        state.loadingProfile = "PENDING";
-      })
-      .addCase(getProfile.fulfilled, (state, action) => {
-        const profile = action.payload as User;
-
-        if (profile) {
-          state.profile = profile;
-          state.templateProfile = profile;
-          state.templateProfile.password = "PAROLA";
-        }
-
-        state.loadingProfile = "SUCCEDED";
-      })
-      .addCase(getProfile.rejected, (state, action) => {
-        state.loadingProfile = "FAILED";
-      })
-      .addCase(updateProfile.pending, (state, action) => {
-        state.loadingUpdateProfile = "PENDING";
-        state.screenLoadingMessage =
-          "Încercăm să vă actualizăm contul, vă rugăm să așteptați...";
-      })
-      .addCase(updateProfile.fulfilled, (state, action) => {
-        const profile = action.payload as User;
-        const axiosError = action.payload as AxiosError;
-
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          const data = axiosError.response?.data as ErrorPayloadType;
-          state.formModal.showModal = true;
-          state.formModal.msg = data.msg;
-          state.formModal.color = "#f53838";
-        } else {
-          state.formModal.showModal = true;
-          state.formModal.msg = `Am updatat ${profile.username}!`;
-          state.formModal.color = "#90ee90";
-          state.profile = profile;
-          state.templateProfile = profile;
-          state.templateProfile.password = "PAROLA";
-        }
-
-        state.screenLoadingMessage = "";
-        state.loadingUpdateProfile = "SUCCEDED";
       })
       .addCase(logoutProfile.fulfilled, (state, action) => {
         window.location.href = `${baseSiteUrl}/home`;
@@ -293,6 +281,33 @@ const generalSlice = createSlice({
           state.formModal.msg = responseMessage;
           state.formModal.color = "#90ee90";
         }
+      })
+      .addCase(sendResetPassEmail.fulfilled, (state, action) => {
+        const responseMessage = action.payload as string;
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          const data = axiosError.response?.data as ErrorPayloadType;
+          state.formModal.showModal = true;
+          state.formModal.msg = data.msg;
+          state.formModal.color = "#f53838";
+        } else {
+          state.formModal.showModal = true;
+          state.formModal.msg = responseMessage;
+          state.formModal.color = "#90ee90";
+        }
+      })
+      .addCase(verifyResetPassToken.fulfilled, (state, action) => {
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          state.resetPassTokenAuthorized = false;
+        } else {
+          state.resetPassTokenAuthorized = true;
+        }
+      })
+      .addCase(verifyResetPassToken.rejected, (state, action) => {
+        console.log(action);
       });
   },
 });
@@ -340,6 +355,19 @@ export const selectSearchbarQuery = (state: State) =>
 export const selectScreenLoadingMessage = (state: State) =>
   state.general.screenLoadingMessage;
 
+export const selectRecipientEmail = (state: State) =>
+  state.general.recipientEmail;
+
+export const selectNewPass = (state: State) => state.general.newPass;
+
+export const selectNewPassVer = (state: State) => state.general.newPassVer;
+
+export const selectEmailCurrentType = (state: State) =>
+  state.general.emailCurrentType;
+
+export const selectResetPassTokenAuthorized = (state: State) =>
+  state.general.resetPassTokenAuthorized;
+
 export const {
   updateTemplateProfile,
   updateGeneralFormModal,
@@ -354,6 +382,10 @@ export const {
   setCurrentPathname,
   updateSearchbarQuery,
   setScreenLoadingMessage,
+  setRecipientEmail,
+  setNewPass,
+  setNewPassVer,
+  setEmailCurrentType,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 // Prisma
 import { teacherClient } from "../db/postgres";
+// Redis
+import { encryptPassword } from "../utils/bcrypt";
 
 // GET ALL TEACHERS
 const getAllTeachers = async (req: Request, res: Response) => {
@@ -92,10 +94,29 @@ const updateTeacherById = async (req: Request, res: Response) => {
   const { teacherId } = req.params;
   const teacherBody = req.body;
 
-  if (!teacherBody.username) {
+  if (teacherBody.password && teacherBody.password === "PAROLA") {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Vă rog să introduceți altă parola în afară de PAROLA",
+      teacher: {},
+    });
+  }
+
+  if (
+    teacherBody.password &&
+    teacherBody.passwordVer &&
+    teacherBody.password !== teacherBody.passwordVer
+  ) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: `Scrieți numele si prenumele profesorului!` });
+      .json({ msg: "Introduceti parole identice!", teacher: {} });
+  }
+
+  delete teacherBody.passwordVer;
+
+  if (teacherBody.password) {
+    const encryptedPassword = await encryptPassword(teacherBody.password);
+
+    teacherBody.password = encryptedPassword;
   }
 
   if (!teacherId) {

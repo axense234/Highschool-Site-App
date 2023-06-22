@@ -14,6 +14,7 @@ import {
   FormModalType,
   ObjectKeyValueType,
   TemplateTeacher,
+  TemplateUpdateTeacher,
 } from "types";
 // Axios
 import axios, { AxiosError } from "axios";
@@ -120,7 +121,7 @@ export const deleteTeacherById = createAsyncThunk<Teacher | AxiosError, string>(
 
 export const updateTeacherById = createAsyncThunk<
   Teacher | AxiosError,
-  TemplateTeacher
+  TemplateUpdateTeacher
 >("teachers/updateTeacherById", async (templateTeacher) => {
   try {
     const { data } = await axiosInstance.patch(
@@ -224,6 +225,10 @@ const teachersSlice = createSlice({
           state.formModal.msg = data.msg;
           state.formModal.color = "#f53838";
         } else {
+          state.formModal.showModal = true;
+          state.formModal.msg =
+            "Am actualizat contul tău de profesor cu success!";
+          state.formModal.color = "#90ee90";
           teacher.id = teacher.teacher_uid;
           teachersAdapter.updateOne(state, {
             id: teacher.teacher_uid,

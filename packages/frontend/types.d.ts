@@ -12,6 +12,11 @@ import { JSX, Dispatch, SetStateAction } from "react";
 // TYPES/INTERFACES FOR TEMPLATE DATA
 type User = Admin | Student | Teacher;
 
+type TemplatePassReset = {
+  recipient: string;
+  modelType: "ADMIN" | "ELEV" | "PROFESOR";
+};
+
 type EmailFormTemplate = {
   sender: string;
   emailAddress: string;
@@ -27,12 +32,45 @@ interface TemplateTeacher extends Teacher {
   teacher_uid?: string;
 }
 
+interface TemplateUpdateTeacher extends Teacher {
+  teacher_uid: string;
+  id?: string;
+  description?: string;
+  subject?: string;
+  username?: string;
+  email?: string;
+  master_catalogue_uid?: string;
+  master_class_uid?: string;
+  password?: string;
+  passwordVer?: string;
+  master?: boolean;
+  master_class_label?: string;
+  role?: string;
+  profile_img_url?: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 interface TemplateAdmin extends Admin {
   admin_uid?: string;
   id?: string;
   profile_img_url?: string;
   role?: string;
 }
+
+interface TemplateUpdateAdmin extends Admin {
+  admin_uid: string;
+  id?: string;
+  email?: string;
+  password?: string;
+  passwordVer?: string;
+  username?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  profile_img_url?: string;
+  role?: string;
+}
+
 interface TemplateStudent extends Student {
   student_uid?: string;
   id?: string;
@@ -40,6 +78,22 @@ interface TemplateStudent extends Student {
   role?: string;
   class_uid?: string;
   student_card_uid?: string;
+}
+
+interface TemplateUpdateStudent extends Student {
+  student_uid: string;
+  id?: string;
+  profile_img_url?: string;
+  role?: string;
+  class_uid?: string;
+  student_card_uid?: string;
+  email?: string;
+  password?: string;
+  passwordVer?: string;
+  username?: string;
+  class_label?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 interface TemplateUser {
@@ -57,7 +111,12 @@ type OverlayType = {
 // TYPES/INTERFACES FOR OPTIONS DATA
 type GetAllQueryParams = { sortByOption: string; query: string };
 
-type TypeNavOptionLabel = "ADMIN" | "ELEV" | "PROFESOR";
+type TypeNavOptionLabel =
+  | "ADMIN"
+  | "ELEV"
+  | "PROFESOR"
+  | "PAROLA UITATA"
+  | "RESETARE PAROLA";
 
 type TypeNavOptionStep = {
   id: number;
@@ -229,6 +288,7 @@ interface SliderButtonsProps {
 interface HomeTitleProps {
   title: string;
   quote?: string;
+  backgroundUrl?: string;
 }
 
 interface SectionLoadingProps {
@@ -244,8 +304,15 @@ interface CardModalProps {
   componentType: "teacher" | "announcement";
 }
 
+type FormModalType =
+  | "teachers"
+  | "announcements"
+  | "general"
+  | "students"
+  | "admins";
+
 interface FormModalProps {
-  type: "teachers" | "announcements" | "general" | "students" | "admins";
+  type: FormModalType;
 }
 
 interface VideoContainerProps {
@@ -270,14 +337,15 @@ interface EditableTeacherProps {
 }
 
 interface AccountsFormProps {
-  type: "signup" | "login";
+  type: "signup" | "login" | "reset-pass";
 }
 
 interface FormStepProps {
   step: number;
   shown: boolean;
-  pageType: "signup" | "login";
+  pageType: "signup" | "login" | "reset-pass";
   setCurrentStep: Dispatch<SetStateAction<number>>;
+  setCurrentType: Dispatch<SetStateAction<TypeNavOptionLabel>>;
 }
 
 type SelectOptionType = {
@@ -337,4 +405,9 @@ export {
   SelectOptionType,
   TemplateAdmin,
   TemplateStudent,
+  TemplatePassReset,
+  TemplateUpdateTeacher,
+  TemplateUpdateAdmin,
+  TemplateUpdateStudent,
+  FormModalType,
 };

@@ -1,5 +1,7 @@
 // React
-import { FC, SyntheticEvent, useEffect, useRef, useState } from "react";
+import { FC, SyntheticEvent, useState } from "react";
+// Next
+import Link from "next/link";
 // Types
 import { FormStepProps } from "types";
 // React Icons
@@ -24,13 +26,15 @@ import {
 } from "@/redux/slices/studentsSlice";
 // Components
 import FormModal from "../modals/FormModal";
-import useFormTransition from "@/hooks/useFormTransition";
 
-const StudentForm: FC<FormStepProps> = ({ step, pageType, setCurrentStep }) => {
-  const [showPass, setShowPass] = useState<boolean>(false);
-  const studentFormRef1 = useRef<HTMLFormElement>(null);
-  const studentFormRef2 = useRef<HTMLFormElement>(null);
+const StudentForm: FC<FormStepProps> = ({
+  step,
+  pageType,
+  setCurrentStep,
+  setCurrentType,
+}) => {
   const dispatch = useAppDispatch();
+  const [showPass, setShowPass] = useState<boolean>(false);
 
   const foundCurrentTypeStepsLength = typeNavOptions.find(
     (option) => option.label === "ELEV"
@@ -94,15 +98,11 @@ const StudentForm: FC<FormStepProps> = ({ step, pageType, setCurrentStep }) => {
     }
   };
 
-  useFormTransition(studentFormRef1);
-  useFormTransition(studentFormRef2);
-
   if (step === 1) {
     return (
       <form
-        className={accountsFormStyles.accountsFormContainer__form}
+        className={`${accountsFormStyles.accountsFormContainer__form}`}
         onSubmit={(e) => handleSubmitStudent(e)}
-        ref={studentFormRef1}
       >
         <FormModal type={pageType === "login" ? "general" : "students"} />
         <div className={accountsFormStyles.accountsFormContainer__content}>
@@ -208,6 +208,23 @@ const StudentForm: FC<FormStepProps> = ({ step, pageType, setCurrentStep }) => {
             />
           )}
         </div>
+        <div
+          className={accountsFormStyles.accountsFormContainer__linksContainer}
+        >
+          <Link href={pageType === "login" ? "/signup" : "/login"}>
+            {pageType === "login"
+              ? "Nu aveți un cont? Creați unul aici!"
+              : "Aveți un cont? Intrați în el aici!"}
+          </Link>
+          {pageType === "login" && (
+            <button
+              type="button"
+              onClick={() => setCurrentType("PAROLA UITATA")}
+            >
+              Am uitat parola contului.
+            </button>
+          )}
+        </div>
       </form>
     );
   }
@@ -215,9 +232,8 @@ const StudentForm: FC<FormStepProps> = ({ step, pageType, setCurrentStep }) => {
   if (step === 2 && pageType === "signup") {
     return (
       <form
-        className={accountsFormStyles.accountsFormContainer__form}
+        className={`${accountsFormStyles.accountsFormContainer__form}`}
         onSubmit={(e) => e.preventDefault()}
-        ref={studentFormRef2}
       >
         <FormModal type="students" />
         <div className={accountsFormStyles.accountsFormContainer__content}>
@@ -257,6 +273,11 @@ const StudentForm: FC<FormStepProps> = ({ step, pageType, setCurrentStep }) => {
           >
             Creați un cont
           </button>
+        </div>
+        <div
+          className={accountsFormStyles.accountsFormContainer__linksContainer}
+        >
+          <Link href="/login">Aveți un cont? Intrați în el aici!</Link>
         </div>
       </form>
     );

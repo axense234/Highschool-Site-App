@@ -161,6 +161,7 @@ export const typeNavOptions: TypeNavOption[] = [
       { id: 2, label: "PASUL 2" },
     ],
   },
+  { id: 4, label: "RESETARE PAROLA" },
 ];
 
 export const possibleClassLabels: SelectOptionType[] = [
@@ -884,6 +885,11 @@ export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
     pagePath: "/profil",
     backgroundUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg",
+  },
+  {
+    pagePath: "/reset-pass",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0015_yyesh7.jpg",
   },
 ];
 

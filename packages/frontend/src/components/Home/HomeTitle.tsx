@@ -14,7 +14,7 @@ import { selectCurrentPathname } from "@/redux/slices/generalSlice";
 // Data
 import { pageTitleBackgroundImageUrls } from "@/data";
 
-const HomeTitle: FC<HomeTitleProps> = ({ title, quote }) => {
+const HomeTitle: FC<HomeTitleProps> = ({ title, quote, backgroundUrl }) => {
   const { ref: titleRef, inView: titleInView, entry: titleEntry } = useInView();
   const { ref: quoteRef, inView: quoteInView, entry: quoteEntry } = useInView();
 
@@ -31,7 +31,11 @@ const HomeTitle: FC<HomeTitleProps> = ({ title, quote }) => {
     <section
       className={homeTitleStyles.homeContainer__title}
       id="title"
-      style={{ backgroundImage: `url(${foundTitleBackgroundImageUrl})` }}
+      style={{
+        backgroundImage: `url(${
+          backgroundUrl || foundTitleBackgroundImageUrl
+        })`,
+      }}
     >
       <h1 ref={titleRef} className="hidden">
         {title}

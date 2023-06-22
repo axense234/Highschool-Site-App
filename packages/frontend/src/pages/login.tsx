@@ -1,5 +1,5 @@
 // React
-import { FC } from "react";
+import { FC, useEffect } from "react";
 // SCSS
 import HomeTitle from "../components/home/HomeTitle";
 // Components
@@ -8,9 +8,17 @@ import AccountsForm from "@/components/forms/AccountsForm";
 import Meta from "../components/others/Meta";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
+// Redux
+import { useAppDispatch } from "@/hooks/redux";
+import { setEmailCurrentType } from "@/redux/slices/generalSlice";
 
 const Login: FC = () => {
   useGetPathname();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setEmailCurrentType("ELEV"));
+  }, []);
 
   return (
     <>

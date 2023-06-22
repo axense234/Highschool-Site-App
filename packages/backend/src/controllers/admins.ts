@@ -80,14 +80,7 @@ const updateAdminByIdOrJWT = async (req: Request, res: Response) => {
       ? req.user.adminId
       : req.params.adminId;
 
-  const adminBody = req.body as Admin;
-
-  if (!adminBody.username || !adminBody.email || !adminBody.password) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Vă rog să introduceți un username, un email si o parolă.",
-      admin: {},
-    });
-  }
+  const adminBody = req.body;
 
   if (adminBody.password && adminBody.password === "PAROLA") {
     return res.status(StatusCodes.BAD_REQUEST).json({
@@ -96,9 +89,20 @@ const updateAdminByIdOrJWT = async (req: Request, res: Response) => {
     });
   }
 
+  if (
+    adminBody.password &&
+    adminBody.passwordVer &&
+    adminBody.password !== adminBody.passwordVer
+  ) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Introduceti parole identice!", admin: {} });
+  }
+
+  delete adminBody.passwordVer;
+
   if (adminBody.password) {
     const encryptedPassword = await encryptPassword(adminBody.password);
-
     adminBody.password = encryptedPassword;
   }
 

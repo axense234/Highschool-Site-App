@@ -14,6 +14,7 @@ import {
   FormModalType,
   ObjectKeyValueType,
   TemplateAdmin,
+  TemplateUpdateAdmin,
 } from "types";
 // Axios
 import axios, { AxiosError } from "axios";
@@ -120,7 +121,7 @@ export const deleteAdminById = createAsyncThunk<Admin | AxiosError, string>(
 
 export const updateAdminById = createAsyncThunk<
   Admin | AxiosError,
-  TemplateAdmin
+  TemplateUpdateAdmin
 >("admins/updateAdminById", async (templateAdmin) => {
   try {
     const { data } = await axiosInstance.patch(
@@ -224,6 +225,9 @@ const adminsSlice = createSlice({
           state.formModal.msg = data.msg;
           state.formModal.color = "#f53838";
         } else {
+          state.formModal.showModal = true;
+          state.formModal.msg = "Am actualizat contul tău de admin cu success!";
+          state.formModal.color = "#90ee90";
           admin.id = admin.admin_uid;
           adminsAdapter.updateOne(state, {
             id: admin.admin_uid,

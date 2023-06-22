@@ -80,14 +80,7 @@ const updateStudentByIdOrJWT = async (req: Request, res: Response) => {
       ? req.user.studentId
       : req.params.studentId;
 
-  const studentBody = req.body as Student;
-
-  if (!studentBody.username || !studentBody.email || !studentBody.password) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Vă rog să introduceți un username, un email si o parolă.",
-      student: {},
-    });
-  }
+  const studentBody = req.body;
 
   if (studentBody.password && studentBody.password === "PAROLA") {
     return res.status(StatusCodes.BAD_REQUEST).json({
@@ -95,6 +88,18 @@ const updateStudentByIdOrJWT = async (req: Request, res: Response) => {
       student: {},
     });
   }
+
+  if (
+    studentBody.password &&
+    studentBody.passwordVer &&
+    studentBody.password !== studentBody.passwordVer
+  ) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Introduceti parole identice!", teacher: {} });
+  }
+
+  delete studentBody.passwordVer;
 
   if (studentBody.password) {
     const encryptedPassword = await encryptPassword(studentBody.password);
