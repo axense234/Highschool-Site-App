@@ -22,16 +22,18 @@ const createUser = async (req: Request, res: Response) => {
   const encryptedPassword = await encryptPassword(userBody.password);
 
   userBody.password = encryptedPassword;
-  userBody.username = userBody.email;
+  if (!userBody.fullname) {
+    userBody.fullname = userBody.email;
+  }
 
   let createdUser;
   if (userType === "ADMIN") {
     createdUser = await adminClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.admin_uid;
-  } else if (userType === "STUDENT") {
+  } else if (userType === "ELEV") {
     createdUser = await studentClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.student_uid;
-  } else if (userType === "TEACHER") {
+  } else if (userType === "PROFESOR") {
     createdUser = await teacherClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.teacher_uid;
   }
@@ -43,12 +45,12 @@ const createUser = async (req: Request, res: Response) => {
     });
   }
 
-  const token = createJWT(createdUser.username, createdUser.id);
+  const token = createJWT(createdUser.fullname, createdUser.id, userType);
   await cacheJWT(token, req.cookies.uniqueIdentifier);
 
   return res.status(StatusCodes.CREATED).json({
     token,
-    msg: `Successfully created user type:${userType}: ${createdUser.username}!`,
+    msg: `Successfully created user type:${userType}: ${createdUser.fullname}!`,
     user: createdUser,
   });
 };
@@ -90,7 +92,7 @@ const loginUser = async (req: Request, res: Response) => {
       .json({ msg: `Parolă greșită!`, user: {} });
   }
 
-  const token = createJWT(foundUser.username, foundUser.id);
+  const token = createJWT(foundUser.fullname, foundUser.id, foundUser.role);
   await cacheJWT(token, req.cookies.uniqueIdentifier);
 
   return res.status(StatusCodes.OK).json({
@@ -108,4 +110,37 @@ const logoutUser = async (req: Request, res: Response) => {
     .json({ msg: "Successfully logged out!", user: {} });
 };
 
-export { createUser, logoutUser, loginUser };
+// GET USER PROFILE
+const getUserProfile = async (req: Request, res: Response) => {
+  const foundUserId = req.user.userId;
+  const foundUserType = req.user.userType;
+
+  let userFound;
+  if (foundUserType === "ADMIN") {
+    userFound = await adminClient.findUnique({
+      where: { admin_uid: foundUserId },
+    });
+  } else if (foundUserType === "ELEV") {
+    userFound = await studentClient.findUnique({
+      where: { student_uid: foundUserId },
+    });
+  } else if (foundUserType === "PROFESOR") {
+    userFound = await teacherClient.findUnique({
+      where: { teacher_uid: foundUserId },
+    });
+  }
+
+  if (!userFound) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find user with type:${foundUserType} and id:${foundUserId}!`,
+      user: {},
+    });
+  }
+
+  return res.status(StatusCodes.OK).json({
+    msg: `Successfully found user: ${userFound.fullname}.`,
+    user: userFound,
+  });
+};
+
+export { createUser, logoutUser, loginUser, getUserProfile };

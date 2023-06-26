@@ -12,6 +12,7 @@ import {
   TemplateUser,
   User,
 } from "types";
+import { Admin, Student, Teacher } from "@prisma/client";
 // Axios
 import { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
@@ -32,7 +33,7 @@ type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingLoginProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingUpdateProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
-  profile: TemplateUser;
+  profile: Admin | Student | Teacher | TemplateUser;
   templateProfile: TemplateUser;
   formModal: FormModalType;
   cardModalId: string;
@@ -90,12 +91,25 @@ const initialState: initialStateType = {
   newPass: "",
   newPassVer: "",
   // The current type of model used in AccountsForm(only for sending emails and such)
-  emailCurrentType: "ADMIN",
+  emailCurrentType: "ELEV",
   // Authorized reset pass token by default false
   resetPassTokenAuthorized: false,
 };
 
 // THUNKS
+export const getUserProfile = createAsyncThunk<
+  Admin | Student | Teacher | AxiosError
+>("general/getUserProfile", async () => {
+  try {
+    const { data } = await axiosInstance.get("/users/user/profile", {
+      withCredentials: true,
+    });
+    return data.user as Admin | Student | Teacher;
+  } catch (error) {
+    return error as AxiosError;
+  }
+});
+
 export const loginUser = createAsyncThunk<User | AxiosError, TemplateUser>(
   "general/loginUser",
   async (templateUser) => {
@@ -238,6 +252,21 @@ const generalSlice = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(getUserProfile.pending, (state, action) => {
+        state.loadingProfile = "PENDING";
+      })
+      .addCase(getUserProfile.fulfilled, (state, action) => {
+        const account = action.payload;
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          state.profile = defaultProfile;
+        } else {
+          state.profile = account as Admin | Teacher | Student;
+        }
+
+        state.loadingProfile = "SUCCEDED";
+      })
       .addCase(loginUser.pending, (state, action) => {
         state.loadingLoginProfile = "PENDING";
         state.screenLoadingMessage =
@@ -255,6 +284,7 @@ const generalSlice = createSlice({
           state.formModal.showModal = true;
           state.formModal.msg = "Am intrat in cont cu success!";
           state.formModal.color = "#90ee90";
+          window.location.href = `${baseSiteUrl}/profil`;
         }
         state.screenLoadingMessage = "";
         state.loadingLoginProfile = "SUCCEDED";

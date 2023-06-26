@@ -15,6 +15,7 @@ import Footer from "@/components/others/Footer";
 import SearchButton from "@/components/navigation/SearchButton";
 import Searchbar from "@/components/navigation/Searchbar";
 import ScreenLoading from "@/components/loading/ScreenLoading";
+import BookmarksMenu from "@/components/navigation/BookmarksMenu";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
           showSearchbar={showSearchbar}
         />
         <SearchButton setShowSearchbar={setShowSearchbar} />
+        <BookmarksMenu />
         <Component {...pageProps} />
         <Footer />
         <ScreenLoading />

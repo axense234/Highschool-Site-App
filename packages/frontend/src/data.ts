@@ -47,17 +47,17 @@ export const defaultEmailFormTemplate: EmailFormTemplate = {
 };
 
 export const defaultTemplateAdmin: TemplateAdmin = {
-  email: "adminemail@gmail.com",
+  email: "",
   password: "PAROLA",
-  username: "ADMIN X",
+  fullname: "",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
 
 export const defaultTemplateStudent: TemplateStudent = {
-  email: "studentemail@gmail.com",
+  email: "",
   password: "PAROLA",
-  username: "STUDENT X",
+  fullname: "",
   class_label: "9A",
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -66,7 +66,7 @@ export const defaultTemplateStudent: TemplateStudent = {
 export const defaultTemplateProfile: TemplateUser = {
   email: "",
   password: "PAROLA",
-  username: "",
+  fullname: "",
 };
 
 export const defaultTemplateAnnouncement: TemplateAnnouncement = {
@@ -84,16 +84,16 @@ export const defaultTemplateAnnouncement: TemplateAnnouncement = {
 
 export const defaultTemplateTeacher: TemplateTeacher = {
   id: "",
-  description: "O descriere scurta.",
+  description: "",
   subject: "SPORT",
-  username: "TEACHER X",
-  email: "teacheremail@gmail.com",
+  fullname: "",
+  email: "",
   master_catalogue_uid: "",
   master_class_uid: "",
   password: "PAROLA",
   master: false,
   master_class_label: "9A",
-  role: "TEACHER",
+  role: "PROFESOR",
   profile_img_url:
     "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
   createdAt: new Date(),
@@ -103,7 +103,7 @@ export const defaultTemplateTeacher: TemplateTeacher = {
 export const defaultProfile: TemplateUser = {
   email: "",
   password: "",
-  username: "",
+  fullname: "",
 };
 
 export const defaultOverlay: OverlayType = {
@@ -125,7 +125,7 @@ export const sortByAnnouncementOptions: SortByOption[] = [
 ];
 
 export const sortByTeacherOptions: SortByOption[] = [
-  { id: 1, label: "Nume Profesor", value: "username" },
+  { id: 1, label: "Nume Profesor", value: "fullname" },
   { id: 2, label: "Descriere Profesor", value: "descriere" },
 ];
 

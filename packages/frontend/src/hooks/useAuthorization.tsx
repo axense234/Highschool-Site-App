@@ -3,30 +3,27 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 // Redux
 import { useAppSelector } from "./redux";
-import { selectProfile } from "@/redux/slices/generalSlice";
+import {
+  selectLoadingProfile,
+  selectProfile,
+} from "@/redux/slices/generalSlice";
 // Components
 import SectionLoading from "@/components/loading/SectionLoading";
 
 const useAuthorization = () => {
   const router = useRouter();
   const profile = useAppSelector(selectProfile);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const loadingProfile = useAppSelector(selectLoadingProfile);
 
   useEffect(() => {
-    const isAuthenticated = profile;
+    const isAuthenticated = profile.email;
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated && loadingProfile === "SUCCEDED") {
       router.push("/home");
-    } else {
-      setIsLoading(false);
     }
-  }, [profile]);
+  }, [profile, loadingProfile]);
 
-  if (isLoading) {
-    return <SectionLoading />;
-  }
-
-  return null;
+  return <SectionLoading />;
 };
 
 export default useAuthorization;

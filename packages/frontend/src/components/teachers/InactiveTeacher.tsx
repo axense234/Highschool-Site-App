@@ -4,6 +4,7 @@ import { FC, RefObject, useEffect, useRef } from "react";
 import Image from "next/image";
 // Types
 import { Teacher } from "@prisma/client";
+import { TemplateUpdateTeacher } from "types";
 // SCSS
 import teachersStyles from "../../scss/components/pages/Profesori.module.scss";
 // Components
@@ -30,7 +31,7 @@ const InactiveTeacher: FC<Teacher> = ({
   description,
   profile_img_url,
   subject,
-  username,
+  fullname,
   teacher_uid,
 }) => {
   const dispatch = useAppDispatch();
@@ -52,7 +53,11 @@ const InactiveTeacher: FC<Teacher> = ({
   const templateTeacher = useAppSelector(selectTemplateTeacher);
 
   if (editModeAvailable) {
-    return <EditableTeacher templateTeacher={templateTeacher} />;
+    return (
+      <EditableTeacher
+        templateTeacher={templateTeacher as TemplateUpdateTeacher}
+      />
+    );
   }
 
   return (
@@ -73,13 +78,13 @@ const InactiveTeacher: FC<Teacher> = ({
           (profile_img_url as string) ||
           "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
         }
-        alt={username}
+        alt={fullname}
         width={500}
         height={500}
-        title={username}
+        title={fullname}
       />
       <div className={teachersStyles.profesoriContainer__profesorInfo}>
-        <h3>{username}</h3>
+        <h3>{fullname}</h3>
         <p>Profesor de: {subject}</p>
         <p>
           {description.length >= 200
@@ -95,10 +100,10 @@ const InactiveTeacher: FC<Teacher> = ({
 const useSetTemplateTeacher = (teacher: Teacher | undefined) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (teacher?.username) {
+    if (teacher?.fullname) {
       dispatch(setTemplateTeacher(teacher));
     }
-  }, [teacher?.username]);
+  }, [teacher?.fullname]);
 };
 
 const useScrollToTeacher = (

@@ -1,6 +1,8 @@
 // Express
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+// UUID
+import uuid from "uuid";
 // Prisma
 import { announcementClient } from "../db/postgres";
 

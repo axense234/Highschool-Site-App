@@ -36,8 +36,8 @@ const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
   );
   const templateAdmin = useAppSelector(selectTemplateAdmin);
 
-  const onUsernameChange = (username: string) => {
-    dispatch(updateTemplateAdmin({ key: "username", value: username }));
+  const onFullnameChange = (fullname: string) => {
+    dispatch(updateTemplateAdmin({ key: "fullname", value: fullname }));
   };
 
   const onEmailChange = (email: string) => {
@@ -79,14 +79,14 @@ const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
       <FormModal type={pageType === "login" ? "general" : "admins"} />
       <div className={accountsFormStyles.accountsFormContainer__content}>
         <div className={accountsFormStyles.accountsFormContainer__textControl}>
-          <label htmlFor="username">Username: </label>
+          <label htmlFor="fullname">Nume Complet: </label>
           <input
             type="text"
-            id="username"
+            id="fullname"
             required
             placeholder="ex: Irina Ionescu"
-            value={templateAdmin.username}
-            onChange={(e) => onUsernameChange(e.target.value)}
+            value={templateAdmin.fullname}
+            onChange={(e) => onFullnameChange(e.target.value)}
           />
         </div>
         <div className={accountsFormStyles.accountsFormContainer__textControl}>

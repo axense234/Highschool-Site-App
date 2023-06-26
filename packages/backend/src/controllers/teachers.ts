@@ -1,6 +1,8 @@
 // Express
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+// UUID
+import uuid from "uuid";
 // Prisma
 import { teacherClient } from "../db/postgres";
 // Redis
@@ -26,7 +28,10 @@ const getAllTeachers = async (req: Request, res: Response) => {
 
 // GET TEACHER BY ID
 const getTeacherById = async (req: Request, res: Response) => {
-  const { teacherId } = req.params;
+  const teacherId =
+    req.params.userId === "false" || !req.params.userId
+      ? req.user.userId
+      : req.params.userId;
 
   if (!teacherId) {
     return res
@@ -46,7 +51,7 @@ const getTeacherById = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully found teacher with id:${teacherId} and username:${foundTeacher.username}`,
+    msg: `Successfully found teacher with id:${teacherId} and fullname:${foundTeacher.fullname}`,
     teacher: foundTeacher,
   });
 };
@@ -84,7 +89,7 @@ const deleteTeacherById = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully deleted teacher with username:${deletedTeacher.username}!`,
+    msg: `Successfully deleted teacher with fullname:${deletedTeacher.fullname}!`,
     teacher: deletedTeacher,
   });
 };
@@ -149,7 +154,7 @@ const updateTeacherById = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully updated teacher: ${updatedTeacher.username}!`,
+    msg: `Successfully updated teacher: ${updatedTeacher.fullname}!`,
     teacher: updatedTeacher,
   });
 };

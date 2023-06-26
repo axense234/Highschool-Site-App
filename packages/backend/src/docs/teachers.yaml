@@ -48,9 +48,9 @@ paths:
        $ref: "#/components/schemas/Teacher"
       examples:
        Teacher:
-        summary: Example for updating a teacher's username and description.
+        summary: Example for updating a teacher's fullname and description.
         value:
-         username: John Smith
+         fullname: John Smith
          description: Hello i am John Smith
    responses:
     200:

@@ -37,17 +37,9 @@ const getAllStudents = async (req: Request, res: Response) => {
 // GET SINGLE STUDENT by STUDENT UID or JWT
 const getStudentByIdOrJWT = async (req: Request, res: Response) => {
   const studentId =
-    req.params.studentId === "false" || !req.params.studentId
-      ? req.user.studentId
-      : req.params.studentId;
-
-  if (req.cookies.uniqueIdentifier === undefined) {
-    const uniqueIdentifier = uuid.v4();
-    res.cookie("uniqueIdentifier", uniqueIdentifier, {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-    });
-  }
+    req.params.userId === "false" || !req.params.userId
+      ? req.user.userId
+      : req.params.userId;
 
   if (!studentId) {
     return res.status(StatusCodes.BAD_REQUEST).json({
@@ -68,7 +60,7 @@ const getStudentByIdOrJWT = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully found student:${foundStudent.username}!`,
+    msg: `Successfully found student:${foundStudent.fullname}!`,
     student: foundStudent,
   });
 };
@@ -138,7 +130,7 @@ const updateStudentByIdOrJWT = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully updated student:${updatedStudent.username}!`,
+    msg: `Successfully updated student:${updatedStudent.fullname}!`,
     student: updatedStudent,
   });
 };
@@ -177,7 +169,7 @@ const deleteStudentByIdOrJWT = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully deleted student:${deletedStudent.username}!`,
+    msg: `Successfully deleted student:${deletedStudent.fullname}!`,
     student: deletedStudent,
   });
 };

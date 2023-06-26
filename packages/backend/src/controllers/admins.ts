@@ -37,17 +37,9 @@ const getAllAdmins = async (req: Request, res: Response) => {
 // GET SINGLE ADMIN by ADMIN UID or JWT
 const getAdminByIdOrJWT = async (req: Request, res: Response) => {
   const adminId =
-    req.params.adminId === "false" || !req.params.adminId
-      ? req.user.adminId
-      : req.params.adminId;
-
-  if (req.cookies.uniqueIdentifier === undefined) {
-    const uniqueIdentifier = uuid.v4();
-    res.cookie("uniqueIdentifier", uniqueIdentifier, {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-    });
-  }
+    req.params.userId === "false" || !req.params.userId
+      ? req.user.userId
+      : req.params.userId;
 
   if (!adminId) {
     return res.status(StatusCodes.BAD_REQUEST).json({
@@ -68,7 +60,7 @@ const getAdminByIdOrJWT = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully found admin:${foundAdmin.username}!`,
+    msg: `Successfully found admin:${foundAdmin.fullname}!`,
     admin: foundAdmin,
   });
 };
@@ -126,7 +118,7 @@ const updateAdminByIdOrJWT = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully updated admin:${updatedAdmin.username}!`,
+    msg: `Successfully updated admin:${updatedAdmin.fullname}!`,
     admin: updatedAdmin,
   });
 };
@@ -164,7 +156,7 @@ const deleteAdminByIdOrJWT = async (req: Request, res: Response) => {
   }
 
   return res.status(StatusCodes.OK).json({
-    msg: `Successfully deleted admin:${deletedAdmin.username}!`,
+    msg: `Successfully deleted admin:${deletedAdmin.fullname}!`,
     admin: deletedAdmin,
   });
 };

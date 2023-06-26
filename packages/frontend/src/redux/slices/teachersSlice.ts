@@ -23,9 +23,10 @@ import axiosInstance from "@/utils/axios";
 import { State } from "../api/store";
 // Data
 import { defaultTemplateTeacher } from "@/data";
+import { baseSiteUrl } from "@/config";
 
 const teachersAdapter = createEntityAdapter<Teacher>({
-  sortComparer: (a, b) => a.username.localeCompare(b.username),
+  sortComparer: (a, b) => a.fullname.localeCompare(b.fullname),
 });
 
 type InitialStateType = {
@@ -94,7 +95,7 @@ export const createTeacher = createAsyncThunk<
 >("teachers/createTeacher", async (templateTeacher) => {
   try {
     const { data } = await axiosInstance.post(
-      "/users/create/TEACHER",
+      "/users/create/PROFESOR",
       templateTeacher,
       { withCredentials: true }
     );
@@ -196,6 +197,7 @@ const teachersSlice = createSlice({
           state.formModal.color = "#90ee90";
           teacher.id = teacher.teacher_uid;
           teachersAdapter.addOne(state, teacher);
+          window.location.href = `${baseSiteUrl}/profil`;
         }
 
         state.loadingCreateTeacher = "SUCCEDED";

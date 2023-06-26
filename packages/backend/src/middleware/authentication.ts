@@ -2,6 +2,9 @@
 import { NextFunction, Request, Response } from "express";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// UUID
+import * as uuid from "uuid";
+// Utils
 import { verifyJWT } from "../utils/jwt";
 import { getCachedJWT } from "../utils/redis";
 
@@ -20,6 +23,16 @@ const authenticationMiddleware = async (
   const jwtFromRedis = await getCachedJWT(req.cookies.uniqueIdentifier);
 
   console.log(jwtFromRedis);
+  console.log(req.cookies.uniqueIdentifier);
+
+  if (req.cookies.uniqueIdentifier === undefined) {
+    const uniqueIdentifier = uuid.v4();
+    console.log(uniqueIdentifier);
+    res.cookie("uniqueIdentifier", uniqueIdentifier, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+    });
+  }
 
   if (
     (!authorization || !authorization.startsWith("Bearer ")) &&

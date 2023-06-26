@@ -21,12 +21,11 @@ import {
 
 const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
   const dispatch = useAppDispatch();
+  const emailCurrentType = useAppSelector(selectEmailCurrentType);
   const [currentType, setCurrentType] = useState<TypeNavOptionLabel>(
-    type === "reset-pass" ? "RESETARE PAROLA" : "ELEV"
+    type === "reset-pass" ? "RESETARE PAROLA" : emailCurrentType
   );
   const [currentStep, setCurrentStep] = useState<number>(1);
-
-  const emailCurrentType = useAppSelector(selectEmailCurrentType);
 
   const usedTypeNavOptions =
     type === "reset-pass"

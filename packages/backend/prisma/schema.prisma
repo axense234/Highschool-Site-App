@@ -30,7 +30,7 @@ model Admin {
   id        String @default("")
 
   profile_img_url String @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
-  username        String
+  fullname        String
   email           String @unique
   password        String
 
@@ -48,7 +48,7 @@ model Student {
   id          String @default("")
 
   profile_img_url String @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
-  username        String
+  fullname        String
   email           String @unique
   password        String
 
@@ -58,7 +58,7 @@ model Student {
   student_card     StudentCard?
   student_card_uid String?
 
-  role      String   @default("STUDENT")
+  role      String   @default("ELEV")
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
@@ -69,7 +69,7 @@ model Teacher {
 
   profile_img_url String   @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
   subject         Subjects
-  username        String
+  fullname        String
   email           String   @unique
   password        String
   description     String
@@ -85,7 +85,7 @@ model Teacher {
   master_catalogue     StudentCatalogue?
   master_catalogue_uid String?
 
-  role   String  @default("TEACHER")
+  role   String  @default("PROFESOR")
   master Boolean @default(false)
 
   createdAt DateTime @default(now())

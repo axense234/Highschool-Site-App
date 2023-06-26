@@ -57,8 +57,8 @@ const TeacherForm: FC<FormStepProps> = ({
   );
   const templateTeacher = useAppSelector(selectTemplateTeacher);
 
-  const onUsernameChange = (username: string) => {
-    dispatch(updateTemplateTeacher({ key: "username", value: username }));
+  const onFullnameChange = (fullname: string) => {
+    dispatch(updateTemplateTeacher({ key: "fullname", value: fullname }));
   };
 
   const onEmailChange = (email: string) => {
@@ -119,14 +119,14 @@ const TeacherForm: FC<FormStepProps> = ({
           <div
             className={accountsFormStyles.accountsFormContainer__textControl}
           >
-            <label htmlFor="username">Username: </label>
+            <label htmlFor="fullname">Nume Complet: </label>
             <input
               type="text"
-              id="username"
+              id="fullname"
               required
               placeholder="ex: Irina Ionescu"
-              value={templateTeacher.username}
-              onChange={(e) => onUsernameChange(e.target.value)}
+              value={templateTeacher.fullname}
+              onChange={(e) => onFullnameChange(e.target.value)}
             />
           </div>
           <div

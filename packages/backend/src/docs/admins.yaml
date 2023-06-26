@@ -50,7 +50,7 @@ paths:
        Admin:
         summary: An example to update an admin.
         value:
-         username: Bob
+         fullname: Bob
          email: bob@gmail.com
          password: bob123
    responses:

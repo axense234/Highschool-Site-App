@@ -74,7 +74,7 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
         const foundSearchableElement =
           componentType === "announcement"
             ? (element as Announcement).title
-            : (element as Teacher).username;
+            : (element as Teacher).fullname;
 
         return normalizeString(foundSearchableElement).includes(
           normalizeString(query)

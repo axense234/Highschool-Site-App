@@ -32,7 +32,7 @@ import {
 const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
   const dispatch = useAppDispatch();
 
-  const { teacher_uid, profile_img_url, username, description, subject } =
+  const { teacher_uid, profile_img_url, fullname, description, subject } =
     templateTeacher;
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
   const overlay = useAppSelector(selectOverlay);
@@ -41,8 +41,8 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
     dispatch(createCloudinaryImageForTeacher(imagine as File));
   };
 
-  const onUsernameChange = (username: string) => {
-    dispatch(updateTemplateTeacher({ key: "username", value: username }));
+  const onFullnameChange = (fullname: string) => {
+    dispatch(updateTemplateTeacher({ key: "fullname", value: fullname }));
   };
 
   const onSubjectChange = (subject: Subjects) => {
@@ -62,7 +62,7 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
       )
     );
     dispatch(updateTeacherById(templateTeacher));
-    if (templateTeacher.username) {
+    if (templateTeacher.fullname) {
       dispatch(setEditMode(false));
     }
   };
@@ -85,10 +85,10 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
             (profile_img_url as string) ||
             "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
           }
-          alt={username}
+          alt={fullname as string}
           width={500}
           height={500}
-          title={username}
+          title={fullname as string}
         />
         <div
           className={teachersStyles.profesoriContainer__profesorImageOverlay}
@@ -118,10 +118,10 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
       >
         <input
           type="text"
-          name="username"
-          id="username"
-          value={username}
-          onChange={(e) => onUsernameChange(e.target.value)}
+          name="fullname"
+          id="fullname"
+          value={fullname}
+          onChange={(e) => onFullnameChange(e.target.value)}
         />
         <div className={teachersStyles.profesoriContainer__control}>
           <label htmlFor="materii">Profesor de:</label>
@@ -144,8 +144,8 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
           value={description}
           onChange={(e) => onDescriptionChange(e.target.value)}
         >
-          {description.length >= 200
-            ? `${description.slice(0, 200)}...`
+          {(description?.length as number) >= 200
+            ? `${description?.slice(0, 200)}...`
             : description}
         </textarea>
         <button type="submit" title="Salveaza.">

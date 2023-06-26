@@ -1,70 +1,26 @@
 // React
-import { FC, useEffect } from "react";
+import { FC } from "react";
+// Next
+import Image from "next/image";
+// Types
+import { Admin, Student, Teacher } from "@prisma/client";
 // Components
 import Meta from "@/components/others/Meta";
 // SCSS
 import profileStyles from "../scss/components/pages/Profile.module.scss";
-// Data
-import {
-  defaultTemplateAnnouncement,
-  defaultTemplateTeacher,
-  profileOptions,
-} from "@/data";
-// Hooks
-import useAuthorization from "@/hooks/useAuthorization";
 // Components
-import SectionLoading from "@/components/loading/SectionLoading";
 import HomeTitle from "@/components/home/HomeTitle";
-import Overlay from "@/components/others/Overlay";
-import ProfileSettings from "@/components/profile/ProfileSettings";
-import ProfileCreateAnnouncement from "@/components/profile/ProfileCreateAnnouncement";
-import ProfileCreateTeacher from "@/components/profile/ProfileCreateTeacher";
-// Redux
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  selectLoadingProfile,
-  selectOptionsContent,
-  selectProfile,
-  setOptionsContent,
-  updateOverlay,
-} from "@/redux/slices/generalSlice";
-import { setTemplateAnnouncement } from "@/redux/slices/announcementsSlice";
-import { setTemplateTeacher } from "@/redux/slices/teachersSlice";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
+import useAuthorization from "@/hooks/useAuthorization";
+// Redux
+import { useAppSelector } from "@/hooks/redux";
+import { selectProfile } from "@/redux/slices/generalSlice";
 
 const Profile: FC = () => {
   useGetPathname();
-  const profile = useAppSelector(selectProfile);
-  const loadingProfile = useAppSelector(selectLoadingProfile);
-  const dispatch = useAppDispatch();
-
-  const optionsContent = useAppSelector(selectOptionsContent);
-
-  let renderedOptionsContent;
   useAuthorization();
-
-  switch (optionsContent) {
-    case "settings":
-      renderedOptionsContent = <ProfileSettings />;
-      break;
-    case "logout":
-      renderedOptionsContent = <ProfileSettings />;
-      break;
-    case "createAnnouncement":
-      renderedOptionsContent = <ProfileCreateAnnouncement />;
-      break;
-    case "createTeacher":
-      renderedOptionsContent = <ProfileCreateTeacher />;
-      break;
-    default:
-      throw new Error("nu am caz pentru optionsContent");
-  }
-
-  useEffect(() => {
-    dispatch(setTemplateAnnouncement(defaultTemplateAnnouncement));
-    dispatch(setTemplateTeacher(defaultTemplateTeacher));
-  }, []);
+  const profile = useAppSelector(selectProfile) as Admin | Student | Teacher;
 
   return (
     <>
@@ -76,71 +32,31 @@ const Profile: FC = () => {
       />
       <main className={profileStyles.profileContainer}>
         <HomeTitle
-          title="Profilul Tău(ADMIN)"
+          title={`Profilul Tău de ${profile.role}`}
+          // make this based on account type as well
           quote="Creează anunțuri/profesori,ieși din cont..."
         />
-        <Overlay />
-        <div className={profileStyles.profileContainer__content}>
-          {loadingProfile === "IDLE" || loadingProfile === "PENDING" ? (
-            <SectionLoading padding="12.5rem 5rem" />
-          ) : (
-            <div className={profileStyles.profileContainer__wrapper}>
-              <section
-                className={profileStyles.profileContainer__profileDetails}
-              >
-                <h2>Detalii ale Profilului</h2>
-                <p>Username: {profile.username}</p>
-                <p>Email: {profile.email}</p>
-              </section>
-              <hr />
-              <section
-                className={profileStyles.profileContainer__profileContent}
-              >
-                <nav className={profileStyles.profileContainer__options}>
-                  {profileOptions.map((option) => {
-                    if (option.label === "Ieși din Cont") {
-                      return (
-                        <button
-                          type="button"
-                          key={option.id}
-                          onClick={() =>
-                            dispatch(
-                              updateOverlay({
-                                overlayFunctionUsed: "logout",
-                                showOverlay: true,
-                                title: "Ești sigur că vrei să ieși din cont?",
-                              })
-                            )
-                          }
-                        >
-                          {option.label}
-                        </button>
-                      );
-                    }
-                    return (
-                      <button
-                        type="button"
-                        key={option.id}
-                        onClick={() =>
-                          dispatch(setOptionsContent(option.content))
-                        }
-                        className={`${
-                          optionsContent === option.content &&
-                          "activeProfileOption"
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    );
-                  })}
-                </nav>
-                <div className={profileStyles.profileContainer__optionsContent}>
-                  {renderedOptionsContent}
-                </div>
-              </section>
+        <section className={profileStyles.profileContainer__profile}>
+          <div className={profileStyles.profileContainer__profileDetails}>
+            <Image
+              width={500}
+              height={500}
+              alt={profile.fullname}
+              src={profile.profile_img_url}
+            />
+            <h3>{profile.fullname}</h3>
+            <h4>{profile.role}</h4>
+            <p>@{profile.email}</p>
+          </div>
+          <div className={profileStyles.profileContainer__profileHub}>
+            <nav className={profileStyles.profileContainer__profileOptions}>
+              <ul>{/*  */}</ul>
+            </nav>
+            <div className={profileStyles.profileContainer__profileContent}>
+              {/*  */}
             </div>
-          )}
-        </div>
+          </div>
+        </section>
       </main>
     </>
   );

@@ -60,7 +60,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
     return {
       id: teacher.id,
       dest: `/profesori`,
-      label: `Profesor de ${teacher.subject} - ${teacher.username}`,
+      label: `Profesor de ${teacher.subject} - ${teacher.fullname}`,
       type: "teacher",
     };
   });
@@ -129,7 +129,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
     } else if (rec.type === "teacher") {
       const foundElement = teachers.find(
         (ann) =>
-          normalizeString(ann.username) ===
+          normalizeString(ann.fullname) ===
           rec.label.split("- ")[1].toLowerCase()
       );
 

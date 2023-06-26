@@ -2,9 +2,17 @@
 import express from "express";
 
 // Controllers and Middlewares
-import { loginUser, logoutUser, createUser } from "../controllers/auth";
+import {
+  loginUser,
+  logoutUser,
+  createUser,
+  getUserProfile,
+} from "../controllers/auth";
+import authenticationMiddleware from "../middleware/authentication";
 
 const router = express.Router();
+
+router.get("/users/user/profile", authenticationMiddleware, getUserProfile);
 
 router.post("/users/login", loginUser);
 

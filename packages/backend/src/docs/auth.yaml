@@ -46,8 +46,8 @@ paths:
       schema:
        type: string
        enum:
-        - TEACHER
-        - STUDENT
+        - PROFESOR
+        - ELEV
         - ADMIN
    requestBody:
     description: The body of the user you want to create.
@@ -60,7 +60,7 @@ paths:
        User:
         summary: Creating a teacher.
         value:
-         username: Koala Vison
+         fullname: Koala Vison
          email: koala123@testing.com
          password: koala123
          subject: MATEMATICA

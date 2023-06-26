@@ -23,9 +23,10 @@ import axiosInstance from "@/utils/axios";
 import { State } from "../api/store";
 // Data
 import { defaultTemplateAdmin } from "@/data";
+import { baseSiteUrl } from "@/config";
 
 const adminsAdapter = createEntityAdapter<Admin>({
-  sortComparer: (a, b) => a.username.localeCompare(b.username),
+  sortComparer: (a, b) => a.fullname.localeCompare(b.fullname),
 });
 
 type InitialStateType = {
@@ -196,6 +197,7 @@ const adminsSlice = createSlice({
           state.formModal.color = "#90ee90";
           admin.id = admin.admin_uid;
           adminsAdapter.addOne(state, admin);
+          window.location.href = `${baseSiteUrl}/profil`;
         }
 
         state.loadingCreateAdmin = "SUCCEDED";

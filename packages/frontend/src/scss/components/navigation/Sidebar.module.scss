@@ -60,17 +60,23 @@
       width: 20px;
     }
 
-    &::-webkit-scrollbar-thumb {
+    &::-webkit-scrollbar-thumb,
+    &::-moz-scrollbar-thumb,
+    &::-ms-scrollbar-thumb {
       background: #e6e6e6;
       border: 3px solid #606060;
       border-radius: 1rem;
     }
 
-    &::-webkit-scrollbar-thumb:hover {
+    &::-webkit-scrollbar-thumb:hover,
+    &::-moz-scrollbar-thumb:hover,
+    &::-ms-scrollbar-thumb:hover {
       background: #9a9a9a;
     }
 
-    &::-webkit-scrollbar-track {
+    &::-webkit-scrollbar-track,
+    &::-moz-scrollbar-track,
+    &::-ms-scrollbar-track {
       background-color: #cccccc;
     }
   }

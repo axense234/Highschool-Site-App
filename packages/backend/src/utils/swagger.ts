@@ -38,7 +38,7 @@ const swaggerDocs = swgDocs({
         },
         Admin: {
           properties: {
-            username: {
+            fullname: {
               type: "string",
             },
             email: {
@@ -93,7 +93,7 @@ const swaggerDocs = swgDocs({
             profile_img_url: {
               type: "string",
             },
-            username: {
+            fullname: {
               type: "string",
             },
             email: {
@@ -165,7 +165,7 @@ const swaggerDocs = swgDocs({
         },
         Student: {
           properties: {
-            username: {
+            fullname: {
               type: "string",
             },
             email: {
@@ -179,7 +179,7 @@ const swaggerDocs = swgDocs({
         },
         Teacher: {
           properties: {
-            username: {
+            fullname: {
               type: "string",
             },
             email: {

@@ -37,7 +37,7 @@ interface TemplateUpdateTeacher extends Teacher {
   id?: string;
   description?: string;
   subject?: string;
-  username?: string;
+  fullname?: string;
   email?: string;
   master_catalogue_uid?: string;
   master_class_uid?: string;
@@ -64,7 +64,7 @@ interface TemplateUpdateAdmin extends Admin {
   email?: string;
   password?: string;
   passwordVer?: string;
-  username?: string;
+  fullname?: string;
   createdAt?: Date;
   updatedAt?: Date;
   profile_img_url?: string;
@@ -90,14 +90,14 @@ interface TemplateUpdateStudent extends Student {
   email?: string;
   password?: string;
   passwordVer?: string;
-  username?: string;
+  fullname?: string;
   class_label?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 interface TemplateUser {
-  username: string;
+  fullname: string;
   password: string;
   email: string;
 }
@@ -304,7 +304,7 @@ interface CardModalProps {
   componentType: "teacher" | "announcement";
 }
 
-type FormModalType =
+type FormModalPropsType =
   | "teachers"
   | "announcements"
   | "general"
@@ -312,7 +312,7 @@ type FormModalType =
   | "admins";
 
 interface FormModalProps {
-  type: FormModalType;
+  type: FormModalPropsType;
 }
 
 interface VideoContainerProps {
@@ -333,7 +333,7 @@ interface InactiveAnnouncementProps {
 }
 
 interface EditableTeacherProps {
-  templateTeacher: TemplateTeacher;
+  templateTeacher: TemplateUpdateTeacher;
 }
 
 interface AccountsFormProps {
@@ -410,4 +410,5 @@ export {
   TemplateUpdateAdmin,
   TemplateUpdateStudent,
   FormModalType,
+  FormModalPropsType,
 };

@@ -1,11 +1,15 @@
 // JWT
 import jwt from "jsonwebtoken";
 
-const createJWT = (username: string, userId: string) => {
+const createJWT = (fullname: string, userId: string, userType: string) => {
   console.log("create jwt expiration duration: ", process.env.JWT_EXP_DURATION);
-  return jwt.sign({ username, userId }, process.env.JWT_PRIVATE_KEY as string, {
-    expiresIn: process.env.JWT_EXP_DURATION || "6h",
-  });
+  return jwt.sign(
+    { fullname, userId, userType },
+    process.env.JWT_PRIVATE_KEY as string,
+    {
+      expiresIn: process.env.JWT_EXP_DURATION || "6h",
+    }
+  );
 };
 
 const verifyJWT = (token: string) => {

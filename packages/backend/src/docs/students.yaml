@@ -48,9 +48,9 @@ paths:
        $ref: "#/components/schemas/Student"
       examples:
        Student:
-        summary: Example for updating a student's username.
+        summary: Example for updating a student's fullname.
         value:
-         username: Bob
+         fullname: Bob
    responses:
     200:
      description: Successfully updated student by given id.

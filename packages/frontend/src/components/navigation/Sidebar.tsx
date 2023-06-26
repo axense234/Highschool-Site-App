@@ -10,17 +10,9 @@ import sidebarStyles from "../../scss/components/navigation/Sidebar.module.scss"
 import { sidebarPageLinks, sidebarSocialMediaLinks } from "@/data";
 // Components
 import Logo from "../others/Logo";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { selectProfile } from "@/redux/slices/generalSlice";
 // Redux
-import {
-  getAllAnnouncements,
-  selectLoadingAnnouncements,
-} from "@/redux/slices/announcementsSlice";
-import {
-  getAllTeachers,
-  selectLoadingTeachers,
-} from "@/redux/slices/teachersSlice";
+import { useAppSelector } from "@/hooks/redux";
+import { selectProfile } from "@/redux/slices/generalSlice";
 
 interface SidebarProps {
   showSidebar: boolean;
@@ -29,11 +21,7 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
   const sidebarRef = useRef<HTMLElement>(null);
-
-  const dispatch = useAppDispatch();
   const profile = useAppSelector(selectProfile);
-  const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
-  const loadingTeachers = useAppSelector(selectLoadingTeachers);
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -44,15 +32,6 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
       sidebar.style.transform = "translateX(-150%)";
     }
   }, [showSidebar]);
-
-  useEffect(() => {
-    if (loadingAnnouncements === "IDLE") {
-      dispatch(getAllAnnouncements());
-    }
-    if (loadingTeachers === "IDLE") {
-      dispatch(getAllTeachers());
-    }
-  }, []);
 
   return (
     <aside className={sidebarStyles.sidebarContainer} ref={sidebarRef}>
@@ -70,7 +49,7 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
           </h1>
           <div className={sidebarStyles.sidebarContainer__pageLinks}>
             {sidebarPageLinks.map((pageLink) => {
-              if (pageLink.label === "Profil" && profile) {
+              if (pageLink.dest === "/profil" && !profile.email) {
                 return null;
               }
               return (
