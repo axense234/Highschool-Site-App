@@ -30,6 +30,7 @@ interface TemplateAnnouncement extends Announcement {
 
 interface TemplateTeacher extends Teacher {
   teacher_uid?: string;
+  role: "ADMIN" | "ELEV" | "PROFESOR";
 }
 
 interface TemplateUpdateTeacher extends Teacher {
@@ -55,7 +56,7 @@ interface TemplateAdmin extends Admin {
   admin_uid?: string;
   id?: string;
   profile_img_url?: string;
-  role?: string;
+  role: "ADMIN" | "ELEV" | "PROFESOR";
 }
 
 interface TemplateUpdateAdmin extends Admin {
@@ -75,7 +76,7 @@ interface TemplateStudent extends Student {
   student_uid?: string;
   id?: string;
   profile_img_url?: string;
-  role?: string;
+  role: "ADMIN" | "ELEV" | "PROFESOR";
   class_uid?: string;
   student_card_uid?: string;
 }
@@ -100,6 +101,7 @@ interface TemplateUser {
   fullname: string;
   password: string;
   email: string;
+  role: "ADMIN" | "ELEV" | "PROFESOR";
 }
 
 type OverlayType = {
@@ -353,6 +355,13 @@ type SelectOptionType = {
   label: string;
 };
 
+interface ProfileContentProps {
+  optionType: string;
+}
+
+interface ProfileDetailsProps {
+  profile: Admin | Student | Teacher;
+}
 export {
   SidebarLink,
   MetaProps,
@@ -411,4 +420,6 @@ export {
   TemplateUpdateStudent,
   FormModalType,
   FormModalPropsType,
+  ProfileContentProps,
+  ProfileDetailsProps,
 };

@@ -236,6 +236,11 @@ const teachersSlice = createSlice({
             id: teacher.teacher_uid,
             changes: teacher,
           });
+          state.templateTeacher = teacher as TemplateTeacher;
+          state.templateTeacher = {
+            ...state.templateTeacher,
+            password: "PAROLA",
+          };
         }
         state.loadingUpdateTeacher = "SUCCEDED";
       });

@@ -128,7 +128,7 @@ export const logoutProfile = createAsyncThunk<string | AxiosError>(
   "general/logoutProfile",
   async () => {
     try {
-      const { data } = await axiosInstance.get("/utilizatori/optiuni/logout", {
+      const { data } = await axiosInstance.delete("/users/options/logout", {
         withCredentials: true,
       });
       return data.msg as string;

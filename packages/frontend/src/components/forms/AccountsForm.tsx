@@ -1,11 +1,16 @@
 // React
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 // Types
 import { AccountsFormProps, TypeNavOptionLabel } from "types";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data
-import { typeNavOptions } from "@/data";
+import {
+  defaultTemplateAdmin,
+  defaultTemplateStudent,
+  defaultTemplateTeacher,
+  typeNavOptions,
+} from "@/data";
 // Components
 import AdminForm from "./AdminForm";
 import StudentForm from "./StudentForm";
@@ -18,6 +23,9 @@ import {
   selectEmailCurrentType,
   setEmailCurrentType,
 } from "@/redux/slices/generalSlice";
+import { setTemplateAdmin } from "@/redux/slices/adminsSlice";
+import { setTemplateStudent } from "@/redux/slices/studentsSlice";
+import { setTemplateTeacher } from "@/redux/slices/teachersSlice";
 
 const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
   const dispatch = useAppDispatch();
@@ -37,7 +45,6 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
   )?.steps;
 
   let shownForm;
-
   switch (currentType) {
     case "ADMIN":
       shownForm = (
@@ -81,6 +88,11 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
     default:
       break;
   }
+  useEffect(() => {
+    dispatch(setTemplateAdmin(defaultTemplateAdmin));
+    dispatch(setTemplateStudent(defaultTemplateStudent));
+    dispatch(setTemplateTeacher(defaultTemplateTeacher));
+  }, []);
 
   return (
     <section className={accountsFormStyles.accountsFormContainer}>

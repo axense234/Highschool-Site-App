@@ -19,12 +19,18 @@ import {
 import {
   selectLoadingTeachers,
   getAllTeachers,
+  selectLoadingUpdateTeacher,
 } from "@/redux/slices/teachersSlice";
+import { selectLoadingUpdateAdmin } from "@/redux/slices/adminsSlice";
+import { selectLoadingUpdateStudent } from "@/redux/slices/studentsSlice";
 
 const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
   const dispatch = useAppDispatch();
   const searchButtonRef = useRef<HTMLDivElement>(null);
   const loadingProfile = useAppSelector(selectLoadingProfile);
+  const loadingUpdateAdmin = useAppSelector(selectLoadingUpdateAdmin);
+  const loadingUpdateStudent = useAppSelector(selectLoadingUpdateStudent);
+  const loadingUpdateTeacher = useAppSelector(selectLoadingUpdateTeacher);
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
 
@@ -36,10 +42,15 @@ const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
   }, []);
 
   useEffect(() => {
-    if (loadingProfile === "IDLE") {
+    if (
+      loadingProfile === "IDLE" ||
+      loadingUpdateAdmin === "SUCCEDED" ||
+      loadingUpdateStudent === "SUCCEDED" ||
+      loadingUpdateTeacher === "SUCCEDED"
+    ) {
       dispatch(getUserProfile());
     }
-  }, []);
+  }, [loadingUpdateAdmin, loadingUpdateStudent, loadingUpdateTeacher]);
 
   useEffect(() => {
     if (loadingAnnouncements === "IDLE") {

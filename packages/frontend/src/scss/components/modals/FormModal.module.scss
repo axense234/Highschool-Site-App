@@ -23,6 +23,9 @@
   background-color: getColor("light-red");
   color: black;
   align-self: center;
+  position: absolute;
+  top: 1rem;
+  z-index: 3;
 
   opacity: 0;
   display: none;

@@ -235,6 +235,8 @@ const adminsSlice = createSlice({
             id: admin.admin_uid,
             changes: admin,
           });
+          state.templateAdmin = admin as TemplateAdmin;
+          state.templateAdmin = { ...state.templateAdmin, password: "PAROLA" };
         }
         state.loadingUpdateAdmin = "SUCCEDED";
       });

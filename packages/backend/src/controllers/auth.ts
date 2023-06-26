@@ -57,7 +57,7 @@ const createUser = async (req: Request, res: Response) => {
 
 // LOGIN USER
 const loginUser = async (req: Request, res: Response) => {
-  const { password, email } = req.body;
+  const { password, email, role } = req.body;
 
   if (!password || !email) {
     return res
@@ -65,26 +65,38 @@ const loginUser = async (req: Request, res: Response) => {
       .json({ msg: "Precizați email-ul și parola!", user: {} });
   }
 
-  const foundAdmin = await adminClient.findUnique({ where: { email } });
-  const foundStudent = await studentClient.findUnique({ where: { email } });
-  const foundTeacher = await teacherClient.findUnique({ where: { email } });
+  let userFound;
+  if (role === "ADMIN") {
+    userFound = await adminClient.findUnique({
+      where: { email },
+    });
+    if (userFound) {
+      userFound.id = userFound.admin_uid;
+    }
+  } else if (role === "ELEV") {
+    userFound = await studentClient.findUnique({
+      where: { email },
+    });
+    if (userFound) {
+      userFound.id = userFound.student_uid;
+    }
+  } else if (role === "PROFESOR") {
+    userFound = await teacherClient.findUnique({
+      where: { email },
+    });
+    if (userFound) {
+      userFound.id = userFound.teacher_uid;
+    }
+  }
 
-  const foundUser = foundAdmin || foundStudent || foundTeacher;
-
-  if (!foundUser) {
+  if (!userFound) {
     return res.status(StatusCodes.NOT_FOUND).json({
       msg: `Nu am putut să găsim un cont cu email-ul:${email}!`,
       user: {},
     });
   }
 
-  const foundUserId =
-    foundAdmin?.admin_uid ||
-    foundStudent?.student_uid ||
-    foundTeacher?.teacher_uid;
-  foundUser.id = foundUserId || "";
-
-  const passwordsMatch = await verifyPassword(password, foundUser.password);
+  const passwordsMatch = await verifyPassword(password, userFound.password);
 
   if (!passwordsMatch) {
     return res
@@ -92,13 +104,13 @@ const loginUser = async (req: Request, res: Response) => {
       .json({ msg: `Parolă greșită!`, user: {} });
   }
 
-  const token = createJWT(foundUser.fullname, foundUser.id, foundUser.role);
+  const token = createJWT(userFound.fullname, userFound.id, userFound.role);
   await cacheJWT(token, req.cookies.uniqueIdentifier);
 
   return res.status(StatusCodes.OK).json({
     token,
-    msg: `Successfully logged in ${foundUser.role} with email:${foundUser.email}!`,
-    user: foundUser,
+    msg: `Successfully logged in ${userFound.role} with email:${userFound.email}!`,
+    user: userFound,
   });
 };
 

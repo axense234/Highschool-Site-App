@@ -50,6 +50,7 @@ export const defaultTemplateAdmin: TemplateAdmin = {
   email: "",
   password: "PAROLA",
   fullname: "",
+  role: "ADMIN",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -58,6 +59,7 @@ export const defaultTemplateStudent: TemplateStudent = {
   email: "",
   password: "PAROLA",
   fullname: "",
+  role: "ELEV",
   class_label: "9A",
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -65,8 +67,9 @@ export const defaultTemplateStudent: TemplateStudent = {
 
 export const defaultTemplateProfile: TemplateUser = {
   email: "",
-  password: "PAROLA",
+  password: "PAROLAs",
   fullname: "",
+  role: "ELEV",
 };
 
 export const defaultTemplateAnnouncement: TemplateAnnouncement = {
@@ -104,6 +107,7 @@ export const defaultProfile: TemplateUser = {
   email: "",
   password: "",
   fullname: "",
+  role: "ELEV",
 };
 
 export const defaultOverlay: OverlayType = {
@@ -129,11 +133,25 @@ export const sortByTeacherOptions: SortByOption[] = [
   { id: 2, label: "Descriere Profesor", value: "descriere" },
 ];
 
-export const profileOptions: ProfileOption[] = [
-  { id: 1, label: "Setări Profil", content: "settings" },
-  { id: 2, label: "Ieși din Cont", content: "logout" },
-  { id: 3, label: "Creează Anunț", content: "createAnnouncement" },
-  { id: 4, label: "Creează Profesor", content: "createTeacher" },
+export const profileOptionsAdmin: ProfileOption[] = [
+  { id: 1, label: "Setări", content: "settings" },
+  { id: 2, label: "Creați o Clasă", content: "createClassroom" },
+  { id: 3, label: "Creați un Anunț", content: "createAnnouncement" },
+  { id: 4, label: "Ieșiți din Cont", content: "logout" },
+];
+
+export const profileOptionsTeacher: ProfileOption[] = [
+  { id: 1, label: "Setări", content: "settings" },
+  { id: 2, label: "Clasele Dumneavoastră", content: "viewTeacherClassrooms" },
+  { id: 3, label: "Creați un Anunț", content: "createAnnouncement" },
+  { id: 4, label: "Ieșiți din Cont", content: "logout" },
+];
+
+export const profileOptionsStudent: ProfileOption[] = [
+  { id: 1, label: "Setări", content: "settings" },
+  { id: 2, label: "Clasa Dumneavoastră", content: "viewStudentClassroom" },
+  { id: 3, label: "Realizările Dumneavoastră", content: "studentAchievments" },
+  { id: 4, label: "Ieșiți din Cont", content: "logout" },
 ];
 
 export const announcementCategories: CategoryType[] = [

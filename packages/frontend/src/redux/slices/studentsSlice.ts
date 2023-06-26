@@ -235,6 +235,11 @@ const studentsSlice = createSlice({
             id: student.student_uid,
             changes: student,
           });
+          state.templateStudent = student as TemplateStudent;
+          state.templateStudent = {
+            ...state.templateStudent,
+            password: "PAROLA",
+          };
         }
         state.loadingUpdateStudent = "SUCCEDED";
       });

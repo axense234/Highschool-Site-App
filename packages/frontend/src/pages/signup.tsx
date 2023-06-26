@@ -1,16 +1,19 @@
 // React
 import { FC } from "react";
 // SCSS
-import HomeTitle from "../components/home/HomeTitle";
-// Components
 import loginStyles from "../scss/components/pages/Login.module.scss";
+// Components
+import HomeTitle from "../components/home/HomeTitle";
 import Meta from "../components/others/Meta";
 import AccountsForm from "@/components/forms/AccountsForm";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
+// Redux
+import { useAppDispatch } from "@/hooks/redux";
 
 const Signup: FC = () => {
   useGetPathname();
+  const dispatch = useAppDispatch();
 
   return (
     <>

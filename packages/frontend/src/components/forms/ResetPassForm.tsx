@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 // Types
-import { FormModalType } from "types";
+import { FormModalPropsType } from "types";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Components
@@ -83,7 +83,7 @@ const ResetPassForm: FC = () => {
       className={`${accountsFormStyles.accountsFormContainer__form}`}
       onSubmit={(e) => handleResetPassSubmit(e)}
     >
-      <FormModal type={typeOfModalUsed as unknown as FormModalType} />
+      <FormModal type={typeOfModalUsed as unknown as FormModalPropsType} />
       <div className={accountsFormStyles.accountsFormContainer__content}>
         <div className={accountsFormStyles.accountsFormContainer__passControl}>
           <label htmlFor="pass">Parola:</label>
