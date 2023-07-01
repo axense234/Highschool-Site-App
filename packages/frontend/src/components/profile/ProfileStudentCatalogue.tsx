@@ -1,17 +1,22 @@
 // React
 import { FC } from "react";
 // Types
-import { CountMapObject, TemplateStudentCard, TemplateUser } from "types";
+import {
+  CountMapObject,
+  ProfileStudentCatalogueProps,
+  TemplateStudentCard,
+} from "types";
 import { Grade } from "@prisma/client";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Redux
-import { useAppSelector } from "@/hooks/redux";
-import { selectProfile } from "@/redux/slices/generalSlice";
 
-const ProfileStudentCatalogue: FC = () => {
-  const profile = useAppSelector(selectProfile) as TemplateUser;
+const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
+  profile,
+}) => {
   const studentCard = profile.student_card as TemplateStudentCard;
+
+  console.log(profile);
 
   const studentCardContent = studentCard?.content;
 

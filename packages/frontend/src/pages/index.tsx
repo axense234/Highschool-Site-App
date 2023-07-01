@@ -21,8 +21,8 @@ const About: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Despre Proiect.'
-        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina descrierii proiectului.'
+        title='Despre Proiect | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Bun venit la pagina 'Despre Mine'! Sunt Comănescu Andrei, fondatorul și creatorul acestui proiect. Ca pasionat de dezvoltare web fullstack, am creat această inițiativă pentru a-mi distruge propriile limite și a explora potențialul nelimitat al tehnologiei. Mă dedic să construiesc soluții inovatoare și să depășesc obstacolele în calea progresului. Descoperă povestea mea și viziunea mea captivantă în acest proiect plin de posibilități."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504249/Highschool%20Site%20App/Captur%C4%83_ecran_8_rqirc7.png",
         ]}

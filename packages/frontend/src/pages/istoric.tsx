@@ -24,7 +24,8 @@ const Istoric: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Istoric'
+        title='Istoric | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Bun venit la pagina 'Istoric'! Explorează evoluția noastră și momentele semnificative într-o călătorie în timp captivantă. Descoperă tradiția noastră și contribuția noastră la comunitate. Află cum am devenit o instituție de referință și explorează amintirile noastre remarcabile."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502835/Highschool%20Site%20App/IMG-20230608-WA0009_jihe2r.jpg",
         ]}

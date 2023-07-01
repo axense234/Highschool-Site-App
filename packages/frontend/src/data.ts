@@ -158,6 +158,10 @@ export const profileOptionsAdmin: ProfileOption[] = [
   { id: 4, label: "Ieșiți din Cont", content: "logout" },
 ];
 
+export const profileOptionsAdminRead: ProfileOption[] = [
+  { id: 1, label: "Neimplementat", content: "" },
+];
+
 export const profileOptionsTeacher: ProfileOption[] = [
   { id: 1, label: "Setări", content: "settings" },
   { id: 2, label: "Clasele Dumneavoastră", content: "viewTeacherClassrooms" },
@@ -165,11 +169,20 @@ export const profileOptionsTeacher: ProfileOption[] = [
   { id: 4, label: "Ieșiți din Cont", content: "logout" },
 ];
 
+export const profileOptionsTeacherRead: ProfileOption[] = [
+  { id: 1, label: "Clasele Profesorului", content: "viewTeacherClassrooms" },
+];
+
 export const profileOptionsStudent: ProfileOption[] = [
   { id: 1, label: "Setări", content: "settings" },
   { id: 2, label: "Clasa Dumneavoastră", content: "viewStudentClassroom" },
   { id: 3, label: "Realizările Dumneavoastră", content: "studentAchievments" },
   { id: 4, label: "Ieșiți din Cont", content: "logout" },
+];
+
+export const profileOptionsStudentRead: ProfileOption[] = [
+  { id: 2, label: "Clasa Elevului", content: "viewStudentClassroom" },
+  { id: 3, label: "Realizările Elevlui", content: "studentAchievments" },
 ];
 
 export const announcementCategories: CategoryType[] = [

@@ -30,6 +30,7 @@ import { setTemplateTeacher } from "@/redux/slices/teachersSlice";
 const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
   const dispatch = useAppDispatch();
   const emailCurrentType = useAppSelector(selectEmailCurrentType);
+
   const [currentType, setCurrentType] = useState<TypeNavOptionLabel>(
     type === "reset-pass" ? "RESETARE PAROLA" : emailCurrentType
   );

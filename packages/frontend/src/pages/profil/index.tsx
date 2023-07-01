@@ -2,7 +2,7 @@
 import { FC } from "react";
 // Types
 import { Admin, Student, Teacher } from "@prisma/client";
-import { ProfileOption } from "types";
+import { TemplateUser } from "types";
 // Components
 import Meta from "@/components/others/Meta";
 // SCSS
@@ -13,12 +13,6 @@ import HomeTitle from "@/components/home/HomeTitle";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 import useAuthorization from "@/hooks/useAuthorization";
-// Data
-import {
-  profileOptionsAdmin,
-  profileOptionsStudent,
-  profileOptionsTeacher,
-} from "@/data";
 // Redux
 import { useAppSelector } from "@/hooks/redux";
 import { selectProfile } from "@/redux/slices/generalSlice";
@@ -32,28 +26,29 @@ const Profile: FC = () => {
 
   const profile = useAppSelector(selectProfile) as Admin | Student | Teacher;
 
-  console.log(profile);
-
-  let profileOptionsShown: ProfileOption[];
+  let profileTitleQuote = "Așteptați vă rog...";
   switch (profile.role) {
     case "ADMIN":
-      profileOptionsShown = profileOptionsAdmin;
+      profileTitleQuote = "Creați clase, anunțuri...";
       break;
+
     case "ELEV":
-      profileOptionsShown = profileOptionsStudent;
+      profileTitleQuote = "Vedeți clasa și realizările dumneavoastră...";
       break;
+
     case "PROFESOR":
-      profileOptionsShown = profileOptionsTeacher;
+      profileTitleQuote = "Vedeți clasele la care predați, creați anunțuri...";
       break;
+
     default:
-      profileOptionsShown = [];
       break;
   }
 
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Profilul Tău'
+        title='Profilul Tău | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Gestionează-ți informațiile personale și personalizează-ți experiența! Adaugă și actualizează preferințele tale în profilul tău pentru a te bucura de conținut și oferte relevante."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg",
         ]}
@@ -62,11 +57,15 @@ const Profile: FC = () => {
         <Overlay />
         <HomeTitle
           title={`Profilul Tău de ${profile.role}`}
-          // make this based on account type as well
-          quote="Creează anunțuri/profesori,ieși din cont..."
+          quote={profileTitleQuote}
         />
-        <ProfileDashboard />
-        {profile.role === "ELEV" && <ProfileStudentCatalogue />}
+        <ProfileDashboard
+          profile={profile as Admin | Student | Teacher}
+          type="profile"
+        />
+        {profile.role === "ELEV" && (
+          <ProfileStudentCatalogue profile={profile as TemplateUser} />
+        )}
       </main>
     </>
   );

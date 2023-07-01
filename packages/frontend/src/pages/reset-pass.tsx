@@ -33,7 +33,8 @@ const ResetPassword: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Resetează-ți parola'
+        title='Resetează-ți parola | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Recuperează-ți accesul! Resetarea parolei este rapidă și simplă. Urmează pașii și actualizează-ți parola în câteva minute."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504535/Highschool%20Site%20App/nighthighschool_v8xnie.jpg",
         ]}

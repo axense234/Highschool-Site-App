@@ -394,6 +394,15 @@ interface ComponentPreviewProps {
   type: "teacher" | "student";
 }
 
+interface ProfileDashboardProps {
+  profile: Student | Admin | Teacher;
+  type: "read" | "profile";
+}
+
+interface ProfileStudentCatalogueProps {
+  profile: TemplateUser;
+}
+
 export {
   SidebarLink,
   MetaProps,
@@ -458,4 +467,6 @@ export {
   CountMapObject,
   TemplateClass,
   ComponentPreviewProps,
+  ProfileDashboardProps,
+  ProfileStudentCatalogueProps,
 };

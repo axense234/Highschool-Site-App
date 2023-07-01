@@ -25,8 +25,8 @@ const Home: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Acasă.'
-        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina acasă.'
+        title='Acasă | Liceul Teoretic "Ion Barbu" Pitești'
+        desc='Descoperă Liceul Teoretic "Ion Barbu" Pitești - excelentă educațională, resurse avansate și un mediu stimulant pentru formarea liderilor de mâine. Promovăm excelența academică și cultivăm valori precum creativitatea și responsabilitatea. Învață, crește și explorează lumea alături de noi.'
         imageUrls={[
           ...imageUrls,
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1678691260/Highschool%20Site%20App/IMG-20230313-WA0004_e5vfrt.jpg",

@@ -188,7 +188,6 @@ const classesSlice = createSlice({
             return classItem;
           });
           classesAdapter.removeAll(state);
-          console.log(classes);
           classesAdapter.upsertMany(state, classes);
         }
         state.loadingClasses = "SUCCEDED";

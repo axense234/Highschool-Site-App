@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/students", getAllStudents);
 
-router.get("/students/student/:studentId", getStudentByIdOrJWT);
+router.get("/students/student/:userId", getStudentByIdOrJWT);
 
 router.patch("/students/student/update/:studentId", updateStudentByIdOrJWT);
 

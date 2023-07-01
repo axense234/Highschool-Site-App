@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/teachers", getAllTeachers);
 
-router.get("/teachers/teacher/:teacherId", getTeacherById);
+router.get("/teachers/teacher/:userId", getTeacherById);
 
 router.delete("/teachers/teacher/delete/:teacherId", deleteTeacherById);
 

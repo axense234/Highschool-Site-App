@@ -12,6 +12,8 @@ import { GrNext, GrPrevious } from "react-icons/gr";
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data
 import { possibleClassLabels, subjects, typeNavOptions } from "@/data";
+// Components
+import FormModal from "../modals/FormModal";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -25,8 +27,7 @@ import {
   createCloudinaryImageForTeacher,
   createTeacher,
 } from "@/redux/slices/teachersSlice";
-// Components
-import FormModal from "../modals/FormModal";
+import { selectAllClasses } from "@/redux/slices/classesSlice";
 
 const TeacherForm: FC<FormStepProps> = ({
   step,
@@ -37,6 +38,7 @@ const TeacherForm: FC<FormStepProps> = ({
   const dispatch = useAppDispatch();
   const [showPass, setShowPass] = useState<boolean>(false);
 
+  const classes = useAppSelector(selectAllClasses);
   const foundCurrentTypeStepsLength = typeNavOptions.find(
     (option) => option.label === "PROFESOR"
   )?.steps?.length;
@@ -312,10 +314,10 @@ const TeacherForm: FC<FormStepProps> = ({
                 value={templateTeacher.master_class_label as string}
                 onChange={(e) => onMasterClassLabelChange(e.target.value)}
               >
-                {possibleClassLabels?.map((option) => {
+                {classes?.map((classItem) => {
                   return (
-                    <option key={option.id} value={option.label}>
-                      {option.label}
+                    <option key={classItem.id} value={classItem.label}>
+                      {classItem.label}
                     </option>
                   );
                 })}

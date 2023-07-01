@@ -60,7 +60,7 @@ const Classrooms: FC = () => {
     <>
       <Meta
         title='Liceul Teoretic "Ion Barbu" Pitești - Clasele Noastre.'
-        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina acasă.'
+        desc="Descoperă diversitatea claselor noastre! Fiecare clasă are o personalitate unică și oferă oportunități captivante de învățare. Explorează informații despre activități, evenimente și reușitele lor remarcabile."
       />
       <main className={classStyles.classesContainer}>
         <HomeTitle

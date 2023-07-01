@@ -13,7 +13,8 @@ const Offer: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Ofertă educațională'
+        title='Ofertă Educațională | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Bun venit la pagina 'Ofertă Educațională'! Descoperă programele și cursurile noastre variate, adaptate nevoilor tale. Alege calea către succesul academic și personal prin intermediul ofertei noastre educaționale de calitate."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0016_unzyje.jpg",
         ]}

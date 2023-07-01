@@ -102,6 +102,7 @@
     img {
       width: 100%;
       height: auto;
+      min-height: 12.5rem;
       border-radius: 50%;
       border: 1px solid getColor("silver-50");
     }

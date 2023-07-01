@@ -42,7 +42,8 @@ const Contact: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Contact'
+        title='Contact | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Contactează-ne pentru orice întrebări, solicitări sau informații la Liceul Teoretic „Ion Barbu” Pitești. Aici găsești detaliile de contact necesare pentru a intra în legătură cu noi. Echipa noastră este gata să te sprijine și să răspundă la orice nelămurire. Așteptăm cu nerăbdare să colaborăm și să te ajutăm în orice ai nevoie."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0021_ime128.jpg",
         ]}

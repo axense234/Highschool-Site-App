@@ -15,7 +15,7 @@ import SectionLoading from "@/components/loading/SectionLoading";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 // Data
-import { defaultTemplateClass, websiteLogoUrl } from "@/data";
+import { defaultTemplateClass } from "@/data";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -80,8 +80,8 @@ const IndividualClass: FC = () => {
     return (
       <>
         <Meta
-          title={`Liceul Teoretic "Ion Barbu" Pitești - Clasa ...`}
-          desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina acasă.'
+          title='Așteptați vă rog... | Liceul Teoretic "Ion Barbu" Pitești'
+          desc="Bun venit în clasa... Descoperă o comunitate energică și plină de realizări. Află mai multe despre activitățile noastre și bucură-te de anii de liceu alături de noi."
         />
         <SectionLoading />
       </>
@@ -91,8 +91,8 @@ const IndividualClass: FC = () => {
   return (
     <>
       <Meta
-        title={`Liceul Teoretic "Ion Barbu" Pitești - Clasa ${label}`}
-        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina acasă.'
+        title={`Clasa ${label} | Liceul Teoretic "Ion Barbu" Pitești`}
+        desc={`Bun venit în clasa ${label}! Descoperă o comunitate energică și plină de realizări. Află mai multe despre activitățile noastre și bucură-te de anii de liceu alături de noi.`}
       />
       <main className={classStyles.classContainer}>
         <HomeTitle

@@ -11,6 +11,8 @@ import { GrNext, GrPrevious } from "react-icons/gr";
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data
 import { possibleClassLabels, typeNavOptions } from "@/data";
+// Components
+import FormModal from "../modals/FormModal";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -24,8 +26,7 @@ import {
   createCloudinaryImageForStudent,
   createStudent,
 } from "@/redux/slices/studentsSlice";
-// Components
-import FormModal from "../modals/FormModal";
+import { selectAllClasses } from "@/redux/slices/classesSlice";
 
 const StudentForm: FC<FormStepProps> = ({
   step,
@@ -34,6 +35,7 @@ const StudentForm: FC<FormStepProps> = ({
   setCurrentType,
 }) => {
   const dispatch = useAppDispatch();
+  const classes = useAppSelector(selectAllClasses);
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const foundCurrentTypeStepsLength = typeNavOptions.find(
@@ -249,10 +251,10 @@ const StudentForm: FC<FormStepProps> = ({
               value={templateStudent.class_label as string}
               onChange={(e) => onStudentClassChange(e.target.value)}
             >
-              {possibleClassLabels.map((option) => {
+              {classes.map((classItem) => {
                 return (
-                  <option key={option.id} value={option.label}>
-                    {option.label}
+                  <option key={classItem.id} value={classItem.label}>
+                    {classItem.label}
                   </option>
                 );
               })}

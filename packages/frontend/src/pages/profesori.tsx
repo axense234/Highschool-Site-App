@@ -45,7 +45,8 @@ const Profesori: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Profesorii Noștri'
+        title='Profesorii Noștri | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Descoperă echipa noastră de profesori pasionați! Profesioniști calificați și dedicați, ei îți oferă o educație de înaltă calitate. Află mai multe despre experiența lor vastă și abordările inovatoare care asigură o experiență de învățare remarcabilă."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0023_fixi8s.jpg",
         ]}

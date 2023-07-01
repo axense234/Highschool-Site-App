@@ -75,7 +75,7 @@
         border-radius: 0.75rem;
         background-color: getColor("silver-10");
 
-        transition: transform 0.2s ease-out background-color 0.2s ease-in;
+        transition: transform 0.2s ease-in background-color 0.2s ease-in;
 
         &:first-of-type {
           border-left: 0;
@@ -86,7 +86,7 @@
         }
 
         &:hover {
-          transform: scale(1.05);
+          transform: scale(1.025);
           font-style: italic;
         }
       }

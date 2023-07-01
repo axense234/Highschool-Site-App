@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.get("/admins", authenticationMiddleware, getAllAdmins);
 
-router.get("/admins/admin/:adminId", getAdminByIdOrJWT);
+router.get("/admins/admin/:userId", getAdminByIdOrJWT);
 
 router.patch(
   "/admins/admin/update/:adminId",

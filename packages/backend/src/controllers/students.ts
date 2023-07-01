@@ -50,6 +50,7 @@ const getStudentByIdOrJWT = async (req: Request, res: Response) => {
 
   const foundStudent = await studentClient.findUnique({
     where: { student_uid: studentId },
+    include: { student_card: { include: { content: true } } },
   });
 
   if (!foundStudent) {

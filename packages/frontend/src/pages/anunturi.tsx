@@ -38,8 +38,8 @@ const Announcements: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Anunțuri'
-        desc='Proiect inspirat de site-ul original al liceului meu: Liceul Teoretic "Ion Barbu" Pitești. Pagina de anunțuri.'
+        title='Anunțuri | Liceul Teoretic "Ion Barbu" Pitești'
+        desc='Fii la curent cu cele mai noi informații și evenimente de la Liceul Teoretic "Ion Barbu" Pitești prin pagina noastră de Anunțuri. Descoperă activități, oportunități și evenimente speciale într-un mod rapid și convenabil. Rămâi conectat la comunitatea noastră școlară și află tot ce contează pentru tine.'
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0012_e117jz.jpg",
         ]}

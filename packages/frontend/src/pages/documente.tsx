@@ -16,7 +16,8 @@ const Documents: FC = () => {
   return (
     <>
       <Meta
-        title='Liceul Teoretic "Ion Barbu" Pitești - Legi și Documente'
+        title='Legi și Documente | Liceul Teoretic "Ion Barbu" Pitești'
+        desc="Accesează pagina noastră de Legi și Documente pentru informații esențiale și documente relevante la Liceul Teoretic „Ion Barbu” Pitești. Găsește regulamente și politici importante pentru a te familiariza cu normele noastre școlare."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0020_xyq6ms.jpg",
         ]}
