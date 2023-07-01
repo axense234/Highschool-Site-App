@@ -6,6 +6,11 @@ import {
   Admin,
   Student,
   AnnouncementCategory,
+  StudentCard,
+  StudentCardSection,
+  Grade,
+  Class,
+  Absence,
 } from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
@@ -26,6 +31,12 @@ type EmailFormTemplate = {
 
 interface TemplateAnnouncement extends Announcement {
   announcement_uid?: string;
+}
+
+interface TemplateClass extends Class {
+  class_uid?: string;
+  id?: string;
+  students?: Student[] | string[];
 }
 
 interface TemplateTeacher extends Teacher {
@@ -57,6 +68,15 @@ interface TemplateAdmin extends Admin {
   id?: string;
   profile_img_url?: string;
   role: "ADMIN" | "ELEV" | "PROFESOR";
+}
+
+interface TemplateStudentCardSection extends StudentCardSection {
+  grades?: Grade[];
+  absences?: Absence[];
+}
+
+interface TemplateStudentCard extends StudentCard {
+  content?: TemplateStudentCardSection[];
 }
 
 interface TemplateUpdateAdmin extends Admin {
@@ -101,7 +121,8 @@ interface TemplateUser {
   fullname: string;
   password: string;
   email: string;
-  role: "ADMIN" | "ELEV" | "PROFESOR";
+  role: "ADMIN" | "ELEV" | "PROFESOR" | "";
+  student_card?: TemplateStudentCard;
 }
 
 type OverlayType = {
@@ -232,7 +253,7 @@ type FunctionUsedOnPageNavSubmit = AsyncThunk<
 
 type ObjectKeyValueType = {
   key: string;
-  value: string | boolean;
+  value: string | boolean | string[];
 };
 
 type FormModalType = {
@@ -311,7 +332,8 @@ type FormModalPropsType =
   | "announcements"
   | "general"
   | "students"
-  | "admins";
+  | "admins"
+  | "classes";
 
 interface FormModalProps {
   type: FormModalPropsType;
@@ -362,6 +384,16 @@ interface ProfileContentProps {
 interface ProfileDetailsProps {
   profile: Admin | Student | Teacher;
 }
+
+type CountMapObject = {
+  [key: string]: number;
+};
+
+interface ComponentPreviewProps {
+  component: TemplateTeacher | TemplateStudent;
+  type: "teacher" | "student";
+}
+
 export {
   SidebarLink,
   MetaProps,
@@ -422,4 +454,8 @@ export {
   FormModalPropsType,
   ProfileContentProps,
   ProfileDetailsProps,
+  TemplateStudentCard,
+  CountMapObject,
+  TemplateClass,
+  ComponentPreviewProps,
 };

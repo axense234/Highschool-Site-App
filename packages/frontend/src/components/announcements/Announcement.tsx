@@ -9,7 +9,6 @@ import {
 } from "react";
 // Types
 import { Announcement } from "@prisma/client";
-import { TemplateAnnouncement } from "types";
 // React Icons
 import { MdArrowDropDownCircle } from "react-icons/md";
 // Next
@@ -34,13 +33,15 @@ import {
   selectTemplateAnnouncement,
   setFoundAnnouncementId,
   setTemplateAnnouncement,
-  updateTemplateAnnouncement,
 } from "@/redux/slices/announcementsSlice";
 // Store
 import { State } from "@/redux/api/store";
+// Hooks
+import useVideoUrlFormat from "@/hooks/useVideoUrlFormat";
 
 const Announcement: FC<Announcement> = ({
   description,
+  id,
   title,
   img_url,
   video_url,
@@ -57,7 +58,7 @@ const Announcement: FC<Announcement> = ({
   const editMode = useAppSelector(selectEditMode);
   const cardModalId = useAppSelector(selectCardModalId);
   const announcement = useAppSelector((state: State) =>
-    selectAnnouncementById(state, cardModalId)
+    selectAnnouncementById(state, id || cardModalId)
   );
   const foundAnnouncementId = useAppSelector(selectFoundAnnouncementId);
   const editModeAvailable = announcement_uid === cardModalId && editMode;
@@ -174,25 +175,6 @@ const Announcement: FC<Announcement> = ({
       <CardModal cardId={announcement_uid} componentType="announcement" />
     </article>
   );
-};
-
-const useVideoUrlFormat = (templateAnnouncement: TemplateAnnouncement) => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (
-      templateAnnouncement.video_url?.startsWith(
-        "https://www.youtube.com/watch?v="
-      )
-    ) {
-      const newVideoUrl = templateAnnouncement.video_url.replace(
-        "/watch?v=",
-        "/embed/"
-      );
-      dispatch(
-        updateTemplateAnnouncement({ key: "video_url", value: newVideoUrl })
-      );
-    }
-  }, [templateAnnouncement.video_url, dispatch]);
 };
 
 const useSetTemplateAnnouncement = (announcement: Announcement | undefined) => {

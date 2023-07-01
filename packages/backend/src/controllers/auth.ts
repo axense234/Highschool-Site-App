@@ -2,11 +2,18 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 // Prisma
-import { adminClient, studentClient, teacherClient } from "../db/postgres";
+import {
+  adminClient,
+  studentCardClient,
+  studentClient,
+  teacherClient,
+} from "../db/postgres";
 import { encryptPassword, verifyPassword } from "../utils/bcrypt";
 // Utils
 import { createJWT } from "../utils/jwt";
 import { cacheJWT, deleteCachedJWT } from "../utils/redis";
+// Data
+import { defaultSubjects } from "../data";
 
 // SIGN USER / CREATE USER
 const createUser = async (req: Request, res: Response) => {
@@ -31,7 +38,46 @@ const createUser = async (req: Request, res: Response) => {
     createdUser = await adminClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.admin_uid;
   } else if (userType === "ELEV") {
-    createdUser = await studentClient.create({ data: { ...userBody } });
+    const createdStudentCard = await studentCardClient.create({
+      data: {
+        content: {
+          createMany: {
+            data: [
+              { subject: defaultSubjects[0] },
+              { subject: defaultSubjects[1] },
+              { subject: defaultSubjects[2] },
+              { subject: defaultSubjects[3] },
+              { subject: defaultSubjects[4] },
+              { subject: defaultSubjects[5] },
+              { subject: defaultSubjects[6] },
+              { subject: defaultSubjects[7] },
+              { subject: defaultSubjects[8] },
+              { subject: defaultSubjects[9] },
+              { subject: defaultSubjects[10] },
+              { subject: defaultSubjects[11] },
+              { subject: defaultSubjects[12] },
+              { subject: defaultSubjects[13] },
+              { subject: defaultSubjects[14] },
+              { subject: defaultSubjects[15] },
+              { subject: defaultSubjects[16] },
+              { subject: defaultSubjects[17] },
+            ],
+          },
+        },
+      },
+    });
+    userBody.student_card_uid = createdStudentCard.student_card_uid;
+    userBody.student_card = {
+      connect: { student_card_uid: createdStudentCard.student_card_uid },
+    };
+    createdUser = await studentClient.create({
+      data: { ...userBody },
+      include: {
+        student_card: {
+          include: { content: { include: { absences: true, grades: true } } },
+        },
+      },
+    });
     createdUser.id = createdUser.student_uid;
   } else if (userType === "PROFESOR") {
     createdUser = await teacherClient.create({ data: { ...userBody } });
@@ -135,6 +181,7 @@ const getUserProfile = async (req: Request, res: Response) => {
   } else if (foundUserType === "ELEV") {
     userFound = await studentClient.findUnique({
       where: { student_uid: foundUserId },
+      include: { student_card: { include: { content: true } } },
     });
   } else if (foundUserType === "PROFESOR") {
     userFound = await teacherClient.findUnique({

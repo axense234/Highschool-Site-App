@@ -18,13 +18,23 @@ import {
 } from "@/redux/slices/teachersSlice";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
+import { selectProfile } from "@/redux/slices/generalSlice";
 
 const Profesori: FC = () => {
   useGetPathname();
 
+  const dispatch = useAppDispatch();
   const teachers = useAppSelector(selectAllTeachers);
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
-  const dispatch = useAppDispatch();
+
+  const profile = useAppSelector(selectProfile);
+
+  let shownTeachers = teachers;
+  if (profile.role === "PROFESOR") {
+    shownTeachers = teachers.filter(
+      (teacher) => teacher.email !== profile.email
+    );
+  }
 
   useEffect(() => {
     if (loadingTeachers === "IDLE") {
@@ -53,7 +63,7 @@ const Profesori: FC = () => {
             <SectionLoading />
           ) : (
             <div className={teachersStyles.profesoriContainer__profesori}>
-              {teachers.map((teacher) => {
+              {shownTeachers.map((teacher) => {
                 return <InactiveTeacher {...teacher} key={teacher.id} />;
               })}
             </div>

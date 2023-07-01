@@ -14,6 +14,24 @@
     @include flexCenter(column);
     width: 40%;
 
+    h3 {
+      margin: 1rem 0;
+      font-size: 2rem;
+      letter-spacing: 1.5pxx;
+    }
+
+    h4 {
+      font-size: 1.5rem;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
     img {
       border-radius: 50%;
       width: 100%;
@@ -76,14 +94,144 @@
   }
 
   #{&}__profileContent {
-    @include flexCenter(row);
+    @include flexCenter(column);
+    align-items: flex-start;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
-    min-height: 30rem;
-    max-height: 40rem;
+    min-height: 35rem;
+    max-height: 50rem;
     background-color: getColor("silver-40");
     border: 2px solid black;
     border-radius: 0.5rem;
     overflow-y: scroll;
+  }
+
+  #{&}__studentCatalogue {
+    @include homePageSection(getColor("silver-40"), column);
+    width: 100%;
+    justify-content: space-between;
+    gap: 3rem;
+
+    h2 {
+      font-size: $subtitleFontSize;
+      letter-spacing: 3px;
+      text-align: center;
+
+      @media all and (max-width: getScreenSize("mobileL")) {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  #{&}__studentCatalogueSection {
+    @include flexCenter(row);
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 30rem;
+  }
+
+  #{&}__studentCatalogueContent {
+    @include flexCenter(column);
+    width: 55%;
+    border: 2px solid black;
+
+    thead {
+      @include flexCenter(row);
+      width: 100%;
+
+      tr {
+        @include flexCenter(row);
+        width: 100%;
+      }
+
+      th {
+        width: 25%;
+        border: 1px solid black;
+        font-size: 1.35rem;
+        background-color: getColor("silver-10");
+      }
+    }
+
+    tbody {
+      @include flexCenter(column);
+      width: 100%;
+
+      tr {
+        @include flexCenter(row);
+        justify-content: flex-start;
+        width: 100%;
+
+        td {
+          @include flexCenter(row);
+          justify-content: flex-start;
+          flex-grow: 1;
+          border: 1px solid black;
+          padding: 0.25rem;
+          max-width: 25%;
+          min-height: 2.25rem;
+          background-color: getColor("silver-white");
+        }
+      }
+    }
+  }
+  #{&}__studentCatalogueDetails {
+    @include flexCenter(column);
+    width: 40%;
+    padding: 1rem;
+    border: 2px solid black;
+    background-color: getColor("silver-white");
+    border-radius: 0.75rem;
+
+    h3 {
+      font-size: 2rem;
+      margin-top: 1rem;
+    }
+
+    hr {
+      margin-bottom: 2rem;
+      width: 50%;
+      height: 0.25rem;
+      border: none;
+      background-color: black;
+      border-radius: 1rem;
+    }
+  }
+
+  #{&}__studentCatalogueStatistics {
+    @include flexCenter(column);
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: flex-start;
+
+    li {
+      @include flexCenter(row);
+      justify-content: space-between;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.25rem;
+      font-size: 1.35rem;
+      font-weight: bolder;
+
+      span {
+        font-weight: normal;
+        transition: transform 0.1s ease-in;
+        font-size: 1.15rem;
+        text-align: end;
+        border-radius: 1rem;
+        padding: 0.35rem;
+        padding-right: 1rem;
+        background-color: getColor("light-green");
+        width: 33%;
+        border: 2px solid black;
+
+        &:hover {
+          transform: scale(1.1);
+          font-style: italic;
+        }
+      }
+    }
   }
 }

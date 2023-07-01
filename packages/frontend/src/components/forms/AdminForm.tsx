@@ -78,17 +78,21 @@ const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
     >
       <FormModal type={pageType === "login" ? "general" : "admins"} />
       <div className={accountsFormStyles.accountsFormContainer__content}>
-        <div className={accountsFormStyles.accountsFormContainer__textControl}>
-          <label htmlFor="fullname">Nume Complet: </label>
-          <input
-            type="text"
-            id="fullname"
-            required
-            placeholder="ex: Irina Ionescu"
-            value={templateAdmin.fullname}
-            onChange={(e) => onFullnameChange(e.target.value)}
-          />
-        </div>
+        {pageType === "signup" && (
+          <div
+            className={accountsFormStyles.accountsFormContainer__textControl}
+          >
+            <label htmlFor="fullname">Nume Complet: </label>
+            <input
+              type="text"
+              id="fullname"
+              required
+              placeholder="ex: Irina Ionescu"
+              value={templateAdmin.fullname}
+              onChange={(e) => onFullnameChange(e.target.value)}
+            />
+          </div>
+        )}
         <div className={accountsFormStyles.accountsFormContainer__textControl}>
           <label htmlFor="email">Email:</label>
           <input

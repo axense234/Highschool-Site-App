@@ -25,6 +25,7 @@ import {
   SelectOptionType,
   TemplateAdmin,
   TemplateStudent,
+  TemplateClass,
 } from "types";
 // React Icons
 import { AiFillHome } from "react-icons/ai";
@@ -37,6 +38,7 @@ import { TbOlympics } from "react-icons/tb";
 import { BiLogIn } from "react-icons/bi";
 import { IoSchoolSharp, IoPeople } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
+import { SiGoogleclassroom } from "react-icons/si";
 
 // TEMPLATE DATA
 export const defaultEmailFormTemplate: EmailFormTemplate = {
@@ -51,6 +53,19 @@ export const defaultTemplateAdmin: TemplateAdmin = {
   password: "PAROLA",
   fullname: "",
   role: "ADMIN",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+export const defaultTemplateClass: TemplateClass = {
+  label: "",
+  master_teacher_uid: "",
+  master_teacher_name: "",
+  created_by_admin_uid: "",
+  public: true,
+  students: [],
+  image_url:
+    "https://res.cloudinary.com/birthdayreminder/image/upload/v1685015242/Highschool%20Site%20App/ltibp_logo_ptonmd.png",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -80,7 +95,10 @@ export const defaultTemplateAnnouncement: TemplateAnnouncement = {
   video_url: "",
   id: "",
   category: "GENERALE",
-  created_by_admin_uid: "",
+  created_by_admin_uid: null,
+  created_by_admin_name: null,
+  created_by_teacher_name: null,
+  created_by_teacher_uid: null,
   updatedAt: new Date(),
   createdAt: new Date(),
 };
@@ -107,7 +125,7 @@ export const defaultProfile: TemplateUser = {
   email: "",
   password: "",
   fullname: "",
-  role: "ELEV",
+  role: "",
 };
 
 export const defaultOverlay: OverlayType = {
@@ -135,7 +153,7 @@ export const sortByTeacherOptions: SortByOption[] = [
 
 export const profileOptionsAdmin: ProfileOption[] = [
   { id: 1, label: "Setări", content: "settings" },
-  { id: 2, label: "Creați o Clasă", content: "createClassroom" },
+  { id: 2, label: "Creați o Clasă", content: "createClass" },
   { id: 3, label: "Creați un Anunț", content: "createAnnouncement" },
   { id: 4, label: "Ieșiți din Cont", content: "logout" },
 ];
@@ -503,7 +521,7 @@ export const sidebarPageLinks: SidebarLink[] = [
   { id: 3, label: "Contact", dest: "/contact", logoUrl: MdContactSupport({}) },
   {
     id: 4,
-    label: "Oferta educațională",
+    label: "Oferta Educațională",
     dest: "/oferta",
     logoUrl: IoSchoolSharp({}),
   },
@@ -516,7 +534,7 @@ export const sidebarPageLinks: SidebarLink[] = [
   { id: 6, label: "Profesori", dest: "/profesori", logoUrl: MdPeople({}) },
   { id: 7, label: "Istoric", dest: "/istoric", logoUrl: FaHistory({}) },
   { id: 8, label: "Despre Proiect", dest: "/", logoUrl: FcAbout({}) },
-  { id: 9, label: "Intră în cont", dest: "/login", logoUrl: BiLogIn({}) },
+  { id: 9, label: "Intră în Cont", dest: "/login", logoUrl: BiLogIn({}) },
   {
     id: 10,
     label: "Crează-ți un cont",
@@ -524,6 +542,12 @@ export const sidebarPageLinks: SidebarLink[] = [
     logoUrl: IoPeople({}),
   },
   { id: 11, label: "Profil", dest: "/profil", logoUrl: CgProfile({}) },
+  {
+    id: 12,
+    label: "Clasele Noastre",
+    dest: "/clase",
+    logoUrl: SiGoogleclassroom({}),
+  },
 ];
 
 export const sidebarSocialMediaLinks: SidebarLink[] = [
@@ -909,9 +933,17 @@ export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
     backgroundUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0015_yyesh7.jpg",
   },
+  {
+    pagePath: "/clase",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0015_t5lmd4.jpg",
+  },
 ];
 
 // EXTRA VARIABLES
 export const AUTO_SLIDER_DELAY = 2000; // 2 seconds
 export const AUTO_SLIDER_RESTART = 4000; // 4 seconds
 export const AUTO_SLIDER_FREQUENCY = 3000; // 3 seconds
+export const classLabelPattern = /^(9|10|11|12)[A-F]$/;
+export const websiteLogoUrl =
+  "https://res.cloudinary.com/birthdayreminder/image/upload/v1685015242/Highschool%20Site%20App/ltibp_logo_ptonmd.png";

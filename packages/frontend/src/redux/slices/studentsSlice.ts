@@ -31,6 +31,7 @@ const studentsAdapter = createEntityAdapter<Student>({
 
 type InitialStateType = {
   loadingStudents: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingStudent: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingCreateStudent: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingDeleteStudent: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingUpdateStudent: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -46,6 +47,7 @@ type InitialStateType = {
 
 const initialState = studentsAdapter.getInitialState({
   loadingStudents: "IDLE",
+  loadingStudent: "IDLE",
   loadingCreateStudent: "IDLE",
   loadingDeleteStudent: "IDLE",
   loadingUpdateStudent: "IDLE",
@@ -65,6 +67,20 @@ export const getAllStudents = createAsyncThunk<Student[] | AxiosError>(
     try {
       const { data } = await axiosInstance.get(`/students`);
       return data.students as Student[];
+    } catch (error) {
+      return error as AxiosError;
+    }
+  }
+);
+
+export const getStudentById = createAsyncThunk<Student | AxiosError, string>(
+  "students/getStudentById",
+  async (studentId) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/students/student/${studentId}`
+      );
+      return data.student as Student;
     } catch (error) {
       return error as AxiosError;
     }
@@ -172,6 +188,22 @@ const studentsSlice = createSlice({
         }
         state.loadingStudents = "SUCCEDED";
       })
+      .addCase(getStudentById.pending, (state, action) => {
+        state.loadingStudent = "PENDING";
+      })
+      .addCase(getStudentById.fulfilled, (state, action) => {
+        const student = action.payload as Student;
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          console.log(axiosError);
+        } else {
+          student.id = student.student_uid;
+          studentsAdapter.upsertOne(state, student);
+        }
+
+        state.loadingStudent = "SUCCEDED";
+      })
       .addCase(createCloudinaryImageForStudent.pending, (state, action) => {
         state.loadingCreateCloudinaryImageForStudent = "PENDING";
       })
@@ -251,6 +283,9 @@ export const { selectAll: selectAllStudents, selectById: selectStudentById } =
 
 export const selectLoadingStudents = (state: State) =>
   state.students.loadingStudents;
+
+export const selectLoadingStudent = (state: State) =>
+  state.students.loadingStudent;
 
 export const selectLoadingCreateStudent = (state: State) =>
   state.students.loadingCreateStudent;

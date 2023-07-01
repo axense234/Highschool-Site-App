@@ -23,6 +23,8 @@ const BookmarksMenu: FC = () => {
         onClick={() => {
           localStorage.setItem("BookmarksMenuClicked", "true");
         }}
+        title="Deschideți Marcaje"
+        aria-label="Deschideți Marcaje"
       />
     </div>
   );

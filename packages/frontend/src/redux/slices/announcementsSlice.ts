@@ -99,6 +99,7 @@ export const createAnnouncement = createAsyncThunk<
   TemplateAnnouncement
 >("announcements/createAnnouncement", async (templateAnnouncement) => {
   try {
+    console.log(templateAnnouncement);
     const { data } = await axiosInstance.post(
       "/announcements/announcement/create",
       templateAnnouncement,
@@ -218,6 +219,7 @@ const announcementsSlice = createSlice({
       .addCase(createAnnouncement.fulfilled, (state, action) => {
         const announcement = action.payload as Announcement;
         const axiosError = action.payload as AxiosError;
+        console.log(axiosError);
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
           const data = axiosError.response?.data as ErrorPayloadType;
@@ -225,6 +227,9 @@ const announcementsSlice = createSlice({
           state.formModal.msg = data.msg;
           state.formModal.color = "#f53838";
         } else {
+          state.formModal.showModal = true;
+          state.formModal.msg = "Am creat un anunț cu success!";
+          state.formModal.color = "#90ee90";
           announcement.id = announcement.announcement_uid;
           announcementsAdapter.addOne(state, announcement);
           window.location.href = `${baseSiteUrl}/anunturi`;

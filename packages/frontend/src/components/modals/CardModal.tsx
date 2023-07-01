@@ -36,7 +36,9 @@ const CardModal: FC<CardModalProps> = ({ cardId, componentType }) => {
   const toggleMoveModal = useAppSelector(selectToggleMoveAnnouncementModal);
 
   const showModal =
-    cardModalId === cardId && profile.email === "ADMIN" && !editMode;
+    cardModalId === cardId &&
+    (profile.role === "ADMIN" || profile.role === "PROFESOR") &&
+    !editMode;
 
   const functionUsed =
     componentType === "announcement" ? "deleteAnnouncement" : "deleteTeacher";

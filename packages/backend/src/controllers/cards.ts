@@ -62,12 +62,10 @@ const deleteCardById = async (req: Request, res: Response) => {
   });
 
   if (!foundCard) {
-    return res
-      .status(StatusCodes.NOT_FOUND)
-      .json({
-        msg: `Could not find any student cards with the id:${cardId}`,
-        card: {},
-      });
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find any student cards with the id:${cardId}`,
+      card: {},
+    });
   }
 
   const deletedCard = await studentCardClient.delete({

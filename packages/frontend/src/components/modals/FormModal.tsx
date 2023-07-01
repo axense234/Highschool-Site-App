@@ -30,6 +30,10 @@ import {
   selectStudentsFormModal,
   updateStudentsFormModal,
 } from "@/redux/slices/studentsSlice";
+import {
+  selectClassesFormModal,
+  updateClassFormModal,
+} from "@/redux/slices/classesSlice";
 
 const FormModal: FC<FormModalProps> = ({ type }) => {
   const generalFormModal = useAppSelector(selectFormModal);
@@ -37,6 +41,7 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
   const announcementsFormModal = useAppSelector(selectAnnouncementsFormModal);
   const adminsFormModal = useAppSelector(selectAdminsFormModal);
   const studentsFormModal = useAppSelector(selectStudentsFormModal);
+  const classesFormModal = useAppSelector(selectClassesFormModal);
   const formModalRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
@@ -64,6 +69,11 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
       formModal = studentsFormModal;
       updateFormModal = updateStudentsFormModal;
       break;
+    case "classes":
+      formModal = classesFormModal;
+      updateFormModal = updateClassFormModal;
+      break;
+
     default:
       throw new Error("no form modal type");
   }

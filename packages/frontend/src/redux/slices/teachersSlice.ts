@@ -31,6 +31,7 @@ const teachersAdapter = createEntityAdapter<Teacher>({
 
 type InitialStateType = {
   loadingTeachers: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingCreateTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingDeleteTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingUpdateTeacher: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -46,6 +47,7 @@ type InitialStateType = {
 
 const initialState = teachersAdapter.getInitialState({
   loadingTeachers: "IDLE",
+  loadingTeacher: "IDLE",
   loadingCreateTeacher: "IDLE",
   loadingDeleteTeacher: "IDLE",
   loadingUpdateTeacher: "IDLE",
@@ -65,6 +67,20 @@ export const getAllTeachers = createAsyncThunk<Teacher[] | AxiosError>(
     try {
       const { data } = await axiosInstance.get(`/teachers`);
       return data.teachers as Teacher[];
+    } catch (error) {
+      return error as AxiosError;
+    }
+  }
+);
+
+export const getTeacherById = createAsyncThunk<Teacher | AxiosError, string>(
+  "teachers/getTeacherById",
+  async (teacherId) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/teachers/teacher/${teacherId}`
+      );
+      return data.teacher as Teacher;
     } catch (error) {
       return error as AxiosError;
     }
@@ -172,6 +188,22 @@ const teachersSlice = createSlice({
         }
         state.loadingTeachers = "SUCCEDED";
       })
+      .addCase(getTeacherById.pending, (state, action) => {
+        state.loadingTeacher = "PENDING";
+      })
+      .addCase(getTeacherById.fulfilled, (state, action) => {
+        const teacher = action.payload as Teacher;
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          console.log(axiosError);
+        } else {
+          teacher.id = teacher.teacher_uid;
+          teachersAdapter.upsertOne(state, teacher);
+        }
+
+        state.loadingTeacher = "SUCCEDED";
+      })
       .addCase(createCloudinaryImageForTeacher.pending, (state, action) => {
         state.loadingCreateCloudinaryImageForTeacher = "PENDING";
       })
@@ -252,6 +284,9 @@ export const { selectAll: selectAllTeachers, selectById: selectTeacherById } =
 
 export const selectLoadingTeachers = (state: State) =>
   state.teachers.loadingTeachers;
+
+export const selectLoadingTeacher = (state: State) =>
+  state.teachers.loadingTeacher;
 
 export const selectLoadingCreateTeacher = (state: State) =>
   state.teachers.loadingCreateTeacher;

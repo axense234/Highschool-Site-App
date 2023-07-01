@@ -18,8 +18,13 @@ model Announcement {
   video_url      String?
   video_pozition VideoPozition?       @default(INCEPUT)
 
-  created_by_admin     Admin?  @relation(fields: [created_by_admin_uid], references: [admin_uid])
-  created_by_admin_uid String?
+  created_by_admin      Admin?  @relation(fields: [created_by_admin_uid, created_by_admin_name], references: [admin_uid, fullname])
+  created_by_admin_uid  String?
+  created_by_admin_name String?
+
+  created_by_teacher      Teacher? @relation(fields: [created_by_teacher_uid, created_by_teacher_name], references: [teacher_uid, fullname])
+  created_by_teacher_uid  String?
+  created_by_teacher_name String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -41,6 +46,8 @@ model Admin {
   role      String   @default("ADMIN")
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([admin_uid, fullname])
 }
 
 model Student {
@@ -52,9 +59,10 @@ model Student {
   email           String @unique
   password        String
 
-  class            Class?       @relation(fields: [class_uid, class_label], references: [class_uid, label], name: "class")
-  class_uid        String?
-  class_label      String?
+  class       Class?  @relation(fields: [class_uid, class_label], references: [class_uid, label], name: "class")
+  class_uid   String?
+  class_label String?
+
   student_card     StudentCard?
   student_card_uid String?
 
@@ -74,9 +82,10 @@ model Teacher {
   password        String
   description     String
 
-  books_created Book[]
-  classes       Class[]              @relation(name: "many")
-  sections      StudentCardSection[]
+  announcements_created Announcement[]
+  books_created         Book[]
+  classes               Class[]              @relation(name: "many")
+  sections              StudentCardSection[]
 
   master_class       Class?
   master_class_uid   String?
@@ -90,19 +99,24 @@ model Teacher {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([teacher_uid, fullname])
 }
 
 model Class {
   class_uid String @id @unique @default(uuid())
   id        String @default("")
 
-  label String @unique @default("Class Label")
+  label     String  @unique @default("Class Label")
+  public    Boolean @default(false)
+  image_url String  @default("https://res.cloudinary.com/birthdayreminder/image/upload/v1686921592/Highschool%20Site%20App/IMG-20230614-WA0020_paxhx6.jpg")
 
   created_by_admin     Admin?  @relation(fields: [created_by_admin_uid], references: [admin_uid])
   created_by_admin_uid String?
 
-  master_teacher     Teacher? @relation(fields: [master_teacher_uid], references: [teacher_uid])
-  master_teacher_uid String?  @unique
+  master_teacher      Teacher? @relation(fields: [master_teacher_uid, master_teacher_name], references: [teacher_uid, fullname])
+  master_teacher_uid  String?  @unique
+  master_teacher_name String?
 
   students Student[] @relation(name: "class")
   teachers Teacher[] @relation(name: "many")
@@ -111,6 +125,7 @@ model Class {
   updatedAt DateTime @default(now()) @updatedAt
 
   @@unique([class_uid, label])
+  @@unique([master_teacher_uid, master_teacher_name])
 }
 
 model StudentCatalogue {

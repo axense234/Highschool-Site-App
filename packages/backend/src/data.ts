@@ -20,3 +20,4 @@ export const defaultSubjects: Subjects[] = [
   "RELIGIE",
   "SPORT",
 ];
+export const classLabelPattern = /^(9|10|11|12)[A-F]$/;

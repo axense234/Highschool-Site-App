@@ -1,0 +1,119 @@
+@use "../../abstracts" as *;
+
+.classContainer {
+  @include pageLayout();
+
+  h2 {
+    font-size: $subtitleFontSize;
+    letter-spacing: 3px;
+    text-align: center;
+
+    @media all and (max-width: getScreenSize("mobileL")) {
+      font-size: 2.5rem;
+    }
+  }
+
+  #{&}__classDetailsContainer {
+    @include homePageSection(getColor("silver-0"), column);
+    gap: 5rem;
+  }
+
+  #{&}__classDetails {
+    @include flexCenter(column);
+    width: 100%;
+    align-items: flex-start;
+    gap: 2rem;
+
+    h3 {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
+  }
+
+  #{&}__classMaster {
+    @include flexCenter(column);
+    width: 35%;
+    padding: 1.5rem;
+    background-color: getColor("silver-white");
+    border-radius: 1rem;
+    border: 3px solid getColor("silver-50");
+    padding-left: 3.5rem;
+
+    h3 {
+      text-align: center;
+    }
+  }
+
+  #{&}__classTeachers {
+    @include flexCenter(column);
+    align-items: flex-start;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: getColor("silver-white");
+    border-radius: 1rem;
+    border: 3px solid getColor("silver-50");
+  }
+
+  #{&}__classTeachersDetails {
+    @include flexCenter(row);
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 3rem;
+    flex-wrap: wrap;
+    width: 100%;
+    list-style: none;
+    margin-left: 2rem;
+  }
+
+  #{&}__classStudents {
+    @include flexCenter(column);
+    align-items: flex-start;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: getColor("silver-white");
+    border-radius: 1rem;
+    border: 3px solid getColor("silver-50");
+  }
+
+  #{&}__classStudentsDetails {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 3rem;
+    flex-wrap: wrap;
+    width: 100%;
+    list-style: none;
+    margin-left: 2rem;
+  }
+
+  #{&}__componentPreview {
+    @include flexCenter(column);
+    flex-wrap: wrap;
+    max-width: 12.5rem;
+    min-height: 20rem;
+    transition: transform 0.2s ease;
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      border: 1px solid getColor("silver-50");
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      letter-spacing: 1.5px;
+    }
+
+    p {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  }
+}

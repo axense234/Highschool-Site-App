@@ -31,6 +31,7 @@ const adminsAdapter = createEntityAdapter<Admin>({
 
 type InitialStateType = {
   loadingAdmins: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingAdmin: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingCreateAdmin: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingDeleteAdmin: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingUpdateAdmin: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -46,6 +47,7 @@ type InitialStateType = {
 
 const initialState = adminsAdapter.getInitialState({
   loadingAdmins: "IDLE",
+  loadingAdmin: "IDLE",
   loadingCreateAdmin: "IDLE",
   loadingDeleteAdmin: "IDLE",
   loadingUpdateAdmin: "IDLE",
@@ -65,6 +67,18 @@ export const getAllAdmins = createAsyncThunk<Admin[] | AxiosError>(
     try {
       const { data } = await axiosInstance.get(`/admins`);
       return data.admins as Admin[];
+    } catch (error) {
+      return error as AxiosError;
+    }
+  }
+);
+
+export const getAdminById = createAsyncThunk<Admin | AxiosError, string>(
+  "admins/getAdminById",
+  async (adminId) => {
+    try {
+      const { data } = await axiosInstance.get(`/admins/admin/${adminId}`);
+      return data.admin as Admin;
     } catch (error) {
       return error as AxiosError;
     }
@@ -172,6 +186,22 @@ const adminsSlice = createSlice({
         }
         state.loadingAdmins = "SUCCEDED";
       })
+      .addCase(getAdminById.pending, (state, action) => {
+        state.loadingAdmin = "PENDING";
+      })
+      .addCase(getAdminById.fulfilled, (state, action) => {
+        const admin = action.payload as Admin;
+        const axiosError = action.payload as AxiosError;
+
+        if (axiosError.response?.status !== 200 && axiosError.response) {
+          console.log(axiosError);
+        } else {
+          admin.id = admin.admin_uid;
+          adminsAdapter.upsertOne(state, admin);
+        }
+
+        state.loadingCreateAdmin = "SUCCEDED";
+      })
       .addCase(createCloudinaryImageForAdmin.pending, (state, action) => {
         state.loadingCreateCloudinaryImageForAdmin = "PENDING";
       })
@@ -247,6 +277,8 @@ export const { selectAll: selectAllAdmins, selectById: selectAdminById } =
   adminsAdapter.getSelectors<State>((state) => state.admins);
 
 export const selectLoadingAdmins = (state: State) => state.admins.loadingAdmins;
+
+export const selectLoadingAdmin = (state: State) => state.admins.loadingAdmin;
 
 export const selectLoadingCreateAdmin = (state: State) =>
   state.admins.loadingCreateAdmin;

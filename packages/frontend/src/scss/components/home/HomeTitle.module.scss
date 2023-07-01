@@ -22,7 +22,7 @@
     letter-spacing: 5px;
     text-align: center;
     color: white;
-    text-shadow: 2px 2px 5px black;
+    text-shadow: 3px 3px 6px black;
 
     @media all and (max-width: (getScreenSize("mobileL") + 50px)) {
       font-size: 2rem;

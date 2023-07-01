@@ -2,12 +2,15 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 // Prisma
-import { Class } from "@prisma/client";
-import { classClient } from "../db/postgres";
+import { Class, Student } from "@prisma/client";
+import { classClient, studentClient, teacherClient } from "../db/postgres";
+import { classLabelPattern } from "../data";
 
 // GET ALL CLASSES
 const getAllClasses = async (req: Request, res: Response) => {
-  const foundClasses = await classClient.findMany({});
+  const foundClasses = await classClient.findMany({
+    include: { students: true },
+  });
 
   if (foundClasses.length < 1) {
     return res
@@ -51,7 +54,33 @@ const getClassById = async (req: Request, res: Response) => {
 
 // CREATE CLASS
 const createClass = async (req: Request, res: Response) => {
-  const classBody = req.body as Class;
+  const classBody = req.body;
+
+  if (!classLabelPattern.test(classBody.label)) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: `Etichetă de clasă invalidă!`, class: {} });
+  }
+
+  if (classBody.students) {
+    classBody.students = {
+      connect: classBody.students.map((student: string) => {
+        return { student_uid: student };
+      }),
+    };
+  }
+
+  if (classBody.master_teacher_uid) {
+    const foundTeacher = await teacherClient.findUnique({
+      where: { teacher_uid: classBody.master_teacher_uid },
+    });
+
+    if (foundTeacher) {
+      classBody.master_teacher_name = foundTeacher.fullname;
+    } else {
+      throw new Error("Something went very wrong when creating a class.");
+    }
+  }
 
   const createdClass = await classClient.create({
     data: { ...classBody },
@@ -61,6 +90,26 @@ const createClass = async (req: Request, res: Response) => {
     return res.status(StatusCodes.BAD_REQUEST).json({
       msg: "Could not create a class with the data received!",
       class: {},
+    });
+  }
+
+  await studentClient.updateMany({
+    where: { class_label: createdClass.label },
+    data: {
+      class_uid: createdClass.class_uid,
+      class_label: createdClass.label,
+    },
+  });
+
+  if (createdClass.master_teacher_uid) {
+    await teacherClient.update({
+      where: { teacher_uid: createdClass.master_teacher_uid },
+      data: {
+        master: true,
+        master_class: { connect: { class_uid: createdClass.class_uid } },
+        master_class_uid: createdClass.class_uid,
+        master_class_label: createdClass.label,
+      },
     });
   }
 
