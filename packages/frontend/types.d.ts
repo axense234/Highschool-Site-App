@@ -37,6 +37,8 @@ interface TemplateClass extends Class {
   class_uid?: string;
   id?: string;
   students?: Student[] | string[];
+  teachers?: Teacher[] | string[];
+  master_teacher?: Teacher;
 }
 
 interface TemplateTeacher extends Teacher {

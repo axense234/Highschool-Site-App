@@ -1,7 +1,13 @@
 // React
 import { FC, useEffect } from "react";
 // Types
-import { ComponentPreviewProps, TemplateStudent, TemplateTeacher } from "types";
+import {
+  ComponentPreviewProps,
+  TemplateClass,
+  TemplateStudent,
+  TemplateTeacher,
+} from "types";
+import { Student, Teacher } from "@prisma/client";
 // Next
 import Image from "next/image";
 import Link from "next/link";
@@ -24,51 +30,26 @@ import {
   selectLoadingClass,
 } from "@/redux/slices/classesSlice";
 import { State } from "@/redux/api/store";
-import {
-  selectAllTeachers,
-  selectLoadingTeachers,
-} from "@/redux/slices/teachersSlice";
-import {
-  getAllStudents,
-  selectAllStudents,
-  selectLoadingStudents,
-} from "@/redux/slices/studentsSlice";
 
 const IndividualClass: FC = () => {
   useGetPathname();
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const loadingStudents = useAppSelector(selectLoadingStudents);
-  const loadingTeachers = useAppSelector(selectLoadingTeachers);
   const loadingClass = useAppSelector(selectLoadingClass);
 
   const isLoadingClass = loadingClass === "IDLE" || loadingClass === "PENDING";
-  const isLoadingClassDetails =
-    loadingStudents === "IDLE" ||
-    loadingStudents === "PENDING" ||
-    loadingTeachers === "IDLE" ||
-    loadingTeachers === "PENDING";
-
-  const teachers = useAppSelector(selectAllTeachers);
-  const students = useAppSelector(selectAllStudents) || [];
 
   const foundClass =
     useAppSelector((state: State) =>
       selectClassById(state, router.query.classId as string)
     ) || defaultTemplateClass;
 
-  const { label, image_url, master_teacher_uid } = foundClass;
+  const { label, image_url, teachers, students, master_teacher } =
+    (foundClass as TemplateClass) || defaultTemplateClass;
 
-  const foundMasterTeacher = teachers.find(
-    (teacher) => teacher.teacher_uid === master_teacher_uid
-  );
-
-  useEffect(() => {
-    if (loadingStudents === "IDLE") {
-      dispatch(getAllStudents());
-    }
-  }, []);
+  const usedTeachers = teachers as Teacher[] | [];
+  const uesdStudents = students as Student[] | [];
 
   useEffect(() => {
     if (loadingClass === "IDLE" && router.query.classId) {
@@ -102,57 +83,49 @@ const IndividualClass: FC = () => {
         />
         <section className={classStyles.classContainer__classDetailsContainer}>
           <h2>Detaliile clasei {label}</h2>
-          {isLoadingClassDetails ? (
-            <SectionLoading />
-          ) : (
-            <div className={classStyles.classContainer__classDetails}>
-              <div className={classStyles.classContainer__classMaster}>
-                <h3>DIRIGINTE: </h3>
-                {foundMasterTeacher?.fullname ? (
-                  <ComponentPreview
-                    component={foundMasterTeacher as TemplateTeacher}
-                    type="teacher"
-                  />
-                ) : (
-                  <p>Clasa nu are diriginte.</p>
-                )}
-              </div>
-              <div className={classStyles.classContainer__classTeachers}>
-                <h3>PROFESORI DE CLASĂ:</h3>
-                <ul
-                  className={classStyles.classContainer__classTeachersDetails}
-                >
-                  {teachers.map((teacher) => {
-                    return (
-                      <li key={teacher.teacher_uid}>
-                        <ComponentPreview
-                          component={teacher as TemplateTeacher}
-                          type="teacher"
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className={classStyles.classContainer__classStudents}>
-                <h3>ELEVII CLASEI {label}: </h3>
-                <ul
-                  className={classStyles.classContainer__classStudentsDetails}
-                >
-                  {students.map((student) => {
-                    return (
-                      <li key={student.student_uid}>
-                        <ComponentPreview
-                          component={student as TemplateStudent}
-                          type="student"
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+          <div className={classStyles.classContainer__classDetails}>
+            <div className={classStyles.classContainer__classMaster}>
+              <h3>DIRIGINTE: </h3>
+              {master_teacher?.fullname ? (
+                <ComponentPreview
+                  component={master_teacher as TemplateTeacher}
+                  type="teacher"
+                />
+              ) : (
+                <p>Clasa nu are diriginte.</p>
+              )}
             </div>
-          )}
+            <div className={classStyles.classContainer__classTeachers}>
+              <h3>PROFESORI DE CLASĂ:</h3>
+              <ul className={classStyles.classContainer__classTeachersDetails}>
+                {usedTeachers?.map((teacher) => {
+                  return (
+                    <li key={teacher.teacher_uid as string}>
+                      <ComponentPreview
+                        component={teacher as TemplateTeacher}
+                        type="teacher"
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className={classStyles.classContainer__classStudents}>
+              <h3>ELEVII CLASEI {label}: </h3>
+              <ul className={classStyles.classContainer__classStudentsDetails}>
+                {uesdStudents?.map((student) => {
+                  return (
+                    <li key={student.student_uid}>
+                      <ComponentPreview
+                        component={student as TemplateStudent}
+                        type="student"
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
         </section>
       </main>
     </>

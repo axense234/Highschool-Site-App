@@ -2,8 +2,9 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 // Prisma
-import { Class, Student } from "@prisma/client";
+import { Class } from "@prisma/client";
 import { classClient, studentClient, teacherClient } from "../db/postgres";
+// Data
 import { classLabelPattern } from "../data";
 
 // GET ALL CLASSES
@@ -37,6 +38,7 @@ const getClassById = async (req: Request, res: Response) => {
 
   const foundClass = await classClient.findUnique({
     where: { class_uid: classId },
+    include: { students: true, teachers: true, master_teacher: true },
   });
 
   if (!foundClass) {
@@ -66,6 +68,16 @@ const createClass = async (req: Request, res: Response) => {
     classBody.students = {
       connect: classBody.students.map((student: string) => {
         return { student_uid: student };
+      }),
+    };
+  }
+
+  console.log(classBody.teachers);
+
+  if (classBody.teachers) {
+    classBody.teachers = {
+      connect: classBody.teachers.map((teacher: string) => {
+        return { teacher_uid: teacher };
       }),
     };
   }

@@ -39,6 +39,7 @@ import { BiLogIn } from "react-icons/bi";
 import { IoSchoolSharp, IoPeople } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 import { SiGoogleclassroom } from "react-icons/si";
+import { Teacher } from "@prisma/client";
 
 // TEMPLATE DATA
 export const defaultEmailFormTemplate: EmailFormTemplate = {
@@ -53,19 +54,6 @@ export const defaultTemplateAdmin: TemplateAdmin = {
   password: "PAROLA",
   fullname: "",
   role: "ADMIN",
-  createdAt: new Date(),
-  updatedAt: new Date(),
-};
-
-export const defaultTemplateClass: TemplateClass = {
-  label: "",
-  master_teacher_uid: "",
-  master_teacher_name: "",
-  created_by_admin_uid: "",
-  public: true,
-  students: [],
-  image_url:
-    "https://res.cloudinary.com/birthdayreminder/image/upload/v1685015242/Highschool%20Site%20App/ltibp_logo_ptonmd.png",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -117,6 +105,21 @@ export const defaultTemplateTeacher: TemplateTeacher = {
   role: "PROFESOR",
   profile_img_url:
     "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+export const defaultTemplateClass: TemplateClass = {
+  label: "",
+  master_teacher_uid: "",
+  master_teacher_name: "",
+  created_by_admin_uid: "",
+  public: true,
+  students: [],
+  teachers: [],
+  master_teacher: defaultTemplateTeacher as Teacher,
+  image_url:
+    "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921592/Highschool%20Site%20App/IMG-20230614-WA0020_paxhx6.jpg",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -949,7 +952,7 @@ export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
   {
     pagePath: "/clase",
     backgroundUrl:
-      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502836/Highschool%20Site%20App/IMG-20230608-WA0015_t5lmd4.jpg",
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1686731956/Highschool%20Site%20App/announcements/t7feuhxylhzzhdyrmioq.jpg",
   },
 ];
 

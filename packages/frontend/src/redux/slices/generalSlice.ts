@@ -174,7 +174,10 @@ export const verifyResetPassToken = createAsyncThunk<
 >("general/verifyResetPassToken", async (token) => {
   try {
     const { data } = await axiosInstance.get(
-      `/options/email/reset-pass/verify?token=${token}`
+      `/options/email/reset-pass/verify?token=${token}`,
+      {
+        withCredentials: true,
+      }
     );
     return data.msg as string;
   } catch (error) {

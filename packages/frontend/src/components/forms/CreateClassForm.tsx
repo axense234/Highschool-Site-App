@@ -1,11 +1,11 @@
 // React
 import { ChangeEvent, FC, SyntheticEvent, useEffect, useRef } from "react";
 // Types
-import { Admin, Student } from "@prisma/client";
+import { Admin } from "@prisma/client";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Data
-import { classLabelPattern, defaultTemplateClass } from "@/data";
+import { defaultTemplateClass } from "@/data";
 // Components
 import FormModal from "../modals/FormModal";
 // Redux
@@ -22,7 +22,10 @@ import {
   selectProfile,
   setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
-import { selectAllTeachers } from "@/redux/slices/teachersSlice";
+import {
+  selectAllTeachers,
+  selectLoadingTeachers,
+} from "@/redux/slices/teachersSlice";
 import {
   getAllStudents,
   selectAllStudents,
@@ -39,6 +42,7 @@ const CreateClassForm: FC = () => {
     selectLoadingCreateCloudinaryImageForClass
   );
   const loadingStudents = useAppSelector(selectLoadingStudents);
+  const loadingTeachers = useAppSelector(selectLoadingTeachers);
   const classLabelInputRef = useRef<HTMLInputElement>(null);
   const templateClass = useAppSelector(selectTemplateClass);
 
@@ -61,6 +65,15 @@ const CreateClassForm: FC = () => {
       .map((option) => option.value);
 
     dispatch(updateTemplateClass({ key: "students", value: selectedValues }));
+  };
+
+  const onClassTeachersChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { options } = e.target;
+    const selectedValues = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
+
+    dispatch(updateTemplateClass({ key: "teachers", value: selectedValues }));
   };
 
   const onMasterTeacherChange = (masterUid: string) => {
@@ -195,7 +208,43 @@ const CreateClassForm: FC = () => {
               })}
             </select>
           </div>
-          {loadingStudents === "PENDING" ? (
+          {loadingTeachers === "PENDING" || loadingTeachers === "IDLE" ? (
+            <p>Loading...</p>
+          ) : (
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__selectControl
+              }
+              style={{
+                flexDirection: "column",
+                alignItems: "flex-start",
+                gap: "1rem",
+              }}
+            >
+              <label htmlFor="addTeachers">Adăugați Profesori:</label>
+              <select
+                name="addTeachers"
+                id="addTeachers"
+                multiple
+                required={false}
+                value={templateClass.teachers as string[]}
+                onChange={(e) => onClassTeachersChange(e)}
+                style={{ width: "100%" }}
+              >
+                {teachers.map((teacher) => {
+                  return (
+                    <option
+                      value={teacher.teacher_uid}
+                      key={teacher.teacher_uid}
+                    >
+                      {teacher.fullname}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          )}
+          {loadingStudents === "PENDING" || loadingStudents === "IDLE" ? (
             <p>Loading...</p>
           ) : (
             <div
