@@ -1,5 +1,5 @@
 // React
-import { FC, SyntheticEvent, useState } from "react";
+import { FC, SyntheticEvent, useEffect, useState } from "react";
 // Next
 import Link from "next/link";
 // Types
@@ -245,20 +245,25 @@ const StudentForm: FC<FormStepProps> = ({
             className={accountsFormStyles.accountsFormContainer__selectControl}
           >
             <label htmlFor="class">Clasă:</label>
-            <select
-              name="class"
-              id="class"
-              value={templateStudent.class_label as string}
-              onChange={(e) => onStudentClassChange(e.target.value)}
-            >
-              {classes.map((classItem) => {
-                return (
-                  <option key={classItem.id} value={classItem.label}>
-                    {classItem.label}
-                  </option>
-                );
-              })}
-            </select>
+            {classes.length >= 1 ? (
+              <select
+                name="class"
+                id="class"
+                value={templateStudent.class_label as string}
+                onChange={(e) => onStudentClassChange(e.target.value)}
+              >
+                <option value="">Nu sunt într-o clasa.</option>
+                {classes.map((classItem) => {
+                  return (
+                    <option key={classItem.id} value={classItem.label}>
+                      {classItem.label}
+                    </option>
+                  );
+                })}
+              </select>
+            ) : (
+              <p>Nu avem clase momentan.</p>
+            )}
           </div>
         </div>
         <div

@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 // Prisma
 import {
   adminClient,
+  classClient,
   studentCardClient,
   studentClient,
   teacherClient,
@@ -70,6 +71,14 @@ const createUser = async (req: Request, res: Response) => {
     userBody.student_card = {
       connect: { student_card_uid: createdStudentCard.student_card_uid },
     };
+
+    const foundStudentClass = await classClient.findUnique({
+      where: { label: userBody.class_label },
+    });
+    if (foundStudentClass) {
+      userBody.class_uid = foundStudentClass.class_uid;
+    }
+
     createdUser = await studentClient.create({
       data: { ...userBody },
       include: {
@@ -122,6 +131,11 @@ const loginUser = async (req: Request, res: Response) => {
   } else if (role === "ELEV") {
     userFound = await studentClient.findUnique({
       where: { email },
+      include: {
+        student_card: {
+          include: { content: { include: { absences: true, grades: true } } },
+        },
+      },
     });
     if (userFound) {
       userFound.id = userFound.student_uid;
@@ -181,11 +195,16 @@ const getUserProfile = async (req: Request, res: Response) => {
   } else if (foundUserType === "ELEV") {
     userFound = await studentClient.findUnique({
       where: { student_uid: foundUserId },
-      include: { student_card: { include: { content: true } } },
+      include: {
+        student_card: {
+          include: { content: { include: { absences: true, grades: true } } },
+        },
+      },
     });
   } else if (foundUserType === "PROFESOR") {
     userFound = await teacherClient.findUnique({
       where: { teacher_uid: foundUserId },
+      include: { classes: true },
     });
   }
 

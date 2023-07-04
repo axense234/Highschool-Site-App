@@ -308,20 +308,24 @@ const TeacherForm: FC<FormStepProps> = ({
               <label htmlFor="master-class">
                 La ce clasa sunteți diriginte?
               </label>
-              <select
-                name="master-class"
-                id="master-class"
-                value={templateTeacher.master_class_label as string}
-                onChange={(e) => onMasterClassLabelChange(e.target.value)}
-              >
-                {classes?.map((classItem) => {
-                  return (
-                    <option key={classItem.id} value={classItem.label}>
-                      {classItem.label}
-                    </option>
-                  );
-                })}
-              </select>
+              {classes.length >= 1 ? (
+                <select
+                  name="master-class"
+                  id="master-class"
+                  value={templateTeacher.master_class_label as string}
+                  onChange={(e) => onMasterClassLabelChange(e.target.value)}
+                >
+                  {classes?.map((classItem) => {
+                    return (
+                      <option key={classItem.id} value={classItem.label}>
+                        {classItem.label}
+                      </option>
+                    );
+                  })}
+                </select>
+              ) : (
+                <p>Nu avem clase momentan.</p>
+              )}
             </div>
           )}
         </div>

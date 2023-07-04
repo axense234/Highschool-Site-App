@@ -102,12 +102,10 @@ const deleteAbsenceById = async (req: Request, res: Response) => {
   });
 
   if (!foundAbsence) {
-    return res
-      .status(StatusCodes.NOT_FOUND)
-      .json({
-        msg: `Could not find any absences with the id:${absenceId}.`,
-        absence: {},
-      });
+    return res.status(StatusCodes.NOT_FOUND).json({
+      msg: `Could not find any absences with the id:${absenceId}.`,
+      absence: {},
+    });
   }
 
   const deletedAbsence = await absenceClient.delete({
@@ -129,6 +127,7 @@ const deleteAbsenceById = async (req: Request, res: Response) => {
 
 const createAbsence = async (req: Request, res: Response) => {
   const { card_section_uid } = req.body;
+
   const createdAbsence = await absenceClient.create({
     data: { card_section_uid },
   });

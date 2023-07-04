@@ -118,6 +118,9 @@ model Class {
   master_teacher_uid  String?  @unique
   master_teacher_name String?
 
+  catalogue     StudentCatalogue?
+  catalogue_uid String?
+
   students Student[] @relation(name: "class")
   teachers Teacher[] @relation(name: "many")
 
@@ -137,6 +140,9 @@ model StudentCatalogue {
 
   master_teacher     Teacher? @relation(fields: [master_teacher_uid], references: [teacher_uid])
   master_teacher_uid String?  @unique
+
+  class     Class?  @relation(fields: [class_uid], references: [class_uid])
+  class_uid String? @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt

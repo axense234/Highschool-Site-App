@@ -1,6 +1,6 @@
 // Next and React
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // Redux
 import { useAppSelector } from "./redux";
 import {

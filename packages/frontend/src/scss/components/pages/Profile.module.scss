@@ -75,6 +75,14 @@
         border-radius: 0.75rem;
         background-color: getColor("silver-10");
 
+        a {
+          @include flexCenter(row);
+          text-decoration: none;
+          color: black;
+          width: 100%;
+          height: 100%;
+        }
+
         transition: transform 0.2s ease-in background-color 0.2s ease-in;
 
         &:first-of-type {
@@ -130,12 +138,16 @@
     align-items: flex-start;
     justify-content: space-between;
     min-height: 30rem;
+    height: 100%;
   }
 
   #{&}__studentCatalogueContent {
     @include flexCenter(column);
+    justify-content: flex-start;
     width: 55%;
+    height: 100%;
     border: 2px solid black;
+    background-color: getColor("silver-50");
 
     thead {
       @include flexCenter(row);
@@ -157,14 +169,20 @@
     tbody {
       @include flexCenter(column);
       width: 100%;
+      height: 100%;
 
       tr {
         @include flexCenter(row);
         justify-content: flex-start;
+        align-items: flex-start;
         width: 100%;
+        min-height: 100%;
 
         td {
           @include flexCenter(row);
+          align-items: flex-start;
+          position: relative;
+          height: 100%;
           justify-content: flex-start;
           flex-grow: 1;
           border: 1px solid black;
@@ -172,6 +190,33 @@
           max-width: 25%;
           min-height: 2.25rem;
           background-color: getColor("silver-white");
+
+          ul {
+            @include flexCenter(column);
+            width: 100%;
+            list-style: none;
+            gap: 0.25rem;
+
+            li {
+              @include flexCenter(row);
+              justify-content: space-evenly;
+              width: 100%;
+
+              h5 {
+                font-size: 0.75rem;
+                width: 100%;
+                padding-left: 0.5rem;
+              }
+
+              h4 {
+                font-size: 1.25rem;
+              }
+
+              p {
+                font-size: 0.75rem;
+              }
+            }
+          }
         }
       }
     }
@@ -231,6 +276,98 @@
           transform: scale(1.1);
           font-style: italic;
         }
+      }
+    }
+  }
+
+  #{&}__createGradeOrAbsenceContainer {
+    @include flexCenter(column);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 75%;
+  }
+
+  #{&}__createGradeOrAbsenceButton {
+    @include flexCenter(row);
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: blue;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    padding: 0.35rem;
+    border: 1px solid black;
+
+    transition: opacity 0.35s ease-in;
+
+    display: none;
+    opacity: 0;
+
+    svg {
+      width: 100%;
+      transition: transform 0.2s ease-in;
+
+      &:hover {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  #{&}__createGradeOrAbsenceForm {
+    @include flexCenter(column);
+    width: 100%;
+    gap: 1rem;
+
+    button {
+      @include flexCenter(row);
+      background-color: getColor("light-blue");
+      padding: 0.5rem 0.25rem;
+      width: 60%;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      border: 2px solid getColor("silver-50");
+      border-radius: 0.25rem;
+
+      transition: transform 0.2s ease-in;
+    }
+  }
+
+  #{&}__createGradeOrAbsenceModal {
+    @include flexCenter(column);
+    position: absolute;
+    width: 100%;
+    background-color: getColor("silver-white");
+    padding: 0.5rem;
+    bottom: 1rem;
+    border: 2px solid black;
+    border-radius: 0.25rem;
+    gap: 0.5rem;
+
+    display: none;
+    opacity: 0;
+
+    transition: opacity 0.15s ease-in;
+
+    svg {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      color: red;
+      font-size: 1.5rem;
+    }
+
+    label {
+      font-size: 1.5rem;
+    }
+
+    input {
+      @include controlInput(1rem, 50%);
+      padding-left: 0.25rem;
+      border-radius: 0.25rem;
+
+      &:hover {
+        transform: scale(1);
       }
     }
   }

@@ -1,16 +1,8 @@
 // React
 import { FC, useEffect } from "react";
 // Types
-import {
-  ComponentPreviewProps,
-  TemplateClass,
-  TemplateStudent,
-  TemplateTeacher,
-} from "types";
-import { Student, Teacher } from "@prisma/client";
+import { TemplateClass } from "types";
 // Next
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
@@ -18,6 +10,8 @@ import classStyles from "../../scss/components/pages/IndividualClass.module.scss
 import HomeTitle from "@/components/home/HomeTitle";
 import Meta from "@/components/others/Meta";
 import SectionLoading from "@/components/loading/SectionLoading";
+import ClassDetails from "@/components/classes/ClassDetails";
+import ClassCatalogue from "@/components/classes/ClassCatalogue";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 // Data
@@ -36,28 +30,21 @@ const IndividualClass: FC = () => {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
+
   const loadingClass = useAppSelector(selectLoadingClass);
 
-  const isLoadingClass = loadingClass === "IDLE" || loadingClass === "PENDING";
-
   const foundClass =
-    useAppSelector((state: State) =>
+    (useAppSelector((state: State) =>
       selectClassById(state, router.query.classId as string)
-    ) || defaultTemplateClass;
-
-  const { label, image_url, teachers, students, master_teacher } =
-    (foundClass as TemplateClass) || defaultTemplateClass;
-
-  const usedTeachers = teachers as Teacher[] | [];
-  const uesdStudents = students as Student[] | [];
+    ) as TemplateClass) || defaultTemplateClass;
 
   useEffect(() => {
-    if (loadingClass === "IDLE" && router.query.classId) {
+    if (loadingClass === "IDLE" || router.query.classId) {
       dispatch(getClassById(router.query.classId as string));
     }
   }, [router.query]);
 
-  if (isLoadingClass) {
+  if (loadingClass === "IDLE" || loadingClass === "PENDING") {
     return (
       <>
         <Meta
@@ -72,88 +59,19 @@ const IndividualClass: FC = () => {
   return (
     <>
       <Meta
-        title={`Clasa ${label} | Liceul Teoretic "Ion Barbu" Pitești`}
-        desc={`Bun venit în clasa ${label}! Descoperă o comunitate energică și plină de realizări. Află mai multe despre activitățile noastre și bucură-te de anii de liceu alături de noi.`}
+        title={`Clasa ${foundClass.label} | Liceul Teoretic "Ion Barbu" Pitești`}
+        desc={`Bun venit în clasa ${foundClass.label}! Descoperă o comunitate energică și plină de realizări. Află mai multe despre activitățile noastre și bucură-te de anii de liceu alături de noi.`}
       />
       <main className={classStyles.classContainer}>
         <HomeTitle
-          title={`Clasa ${label}`}
+          title={`Clasa ${foundClass.label}`}
           quote="Unitatea clasei, izvor de putere și înțelepciune."
-          backgroundUrl={image_url}
+          backgroundUrl={foundClass.image_url}
         />
-        <section className={classStyles.classContainer__classDetailsContainer}>
-          <h2>Detaliile clasei {label}</h2>
-          <div className={classStyles.classContainer__classDetails}>
-            <div className={classStyles.classContainer__classMaster}>
-              <h3>DIRIGINTE: </h3>
-              {master_teacher?.fullname ? (
-                <ComponentPreview
-                  component={master_teacher as TemplateTeacher}
-                  type="teacher"
-                />
-              ) : (
-                <p>Clasa nu are diriginte.</p>
-              )}
-            </div>
-            <div className={classStyles.classContainer__classTeachers}>
-              <h3>PROFESORI DE CLASĂ:</h3>
-              <ul className={classStyles.classContainer__classTeachersDetails}>
-                {usedTeachers?.map((teacher) => {
-                  return (
-                    <li key={teacher.teacher_uid as string}>
-                      <ComponentPreview
-                        component={teacher as TemplateTeacher}
-                        type="teacher"
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div className={classStyles.classContainer__classStudents}>
-              <h3>ELEVII CLASEI {label}: </h3>
-              <ul className={classStyles.classContainer__classStudentsDetails}>
-                {uesdStudents?.map((student) => {
-                  return (
-                    <li key={student.student_uid}>
-                      <ComponentPreview
-                        component={student as TemplateStudent}
-                        type="student"
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-        </section>
+        <ClassDetails {...foundClass} />
+        <ClassCatalogue {...foundClass} />
       </main>
     </>
-  );
-};
-
-const ComponentPreview: FC<ComponentPreviewProps> = ({ component, type }) => {
-  const { fullname, profile_img_url, id } = component;
-  const { subject } = component as TemplateTeacher;
-
-  const linkDest = `/profil/${id}?type=${type}`;
-
-  return (
-    <Link
-      href={linkDest}
-      className={classStyles.classContainer__componentPreview}
-      title={`Mai multe detalii despre ${fullname}.`}
-      aria-label={`Mai multe detalii despre ${fullname}.`}
-    >
-      <Image
-        width={200}
-        height={200}
-        alt={fullname}
-        src={profile_img_url as string}
-      />
-      <h4>{fullname}</h4>
-      {type === "teacher" && <p>PROFESOR DE {subject}</p>}
-    </Link>
   );
 };
 

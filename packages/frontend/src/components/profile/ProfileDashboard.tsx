@@ -1,11 +1,13 @@
 // React
 import { FC, useEffect } from "react";
+// Next
+import Link from "next/link";
 // Types
 import { ProfileDashboardProps, ProfileOption } from "types";
+import { Student } from "@prisma/client";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components
-import SectionLoading from "../loading/SectionLoading";
 import ProfileContent from "./ProfileContent";
 import ProfileDetails from "./ProfileDetails";
 // Data
@@ -57,11 +59,6 @@ const ProfileDashboard: FC<ProfileDashboardProps> = ({ profile, type }) => {
       break;
   }
 
-  useEffect(() => {
-    if (type === "read") {
-      dispatch(setOptionsContent(""));
-    }
-  }, []);
   return (
     <section className={profileStyles.profileContainer__profile}>
       <ProfileDetails profile={profile} />
@@ -69,6 +66,37 @@ const ProfileDashboard: FC<ProfileDashboardProps> = ({ profile, type }) => {
         <nav className={profileStyles.profileContainer__profileOptions}>
           <ul>
             {profileOptionsShown.map((option) => {
+              console.log((profile as Student).class_label);
+              if (
+                option.content === "viewStudentClassroom" &&
+                (profile as Student).class_label
+              ) {
+                return (
+                  <li
+                    key={option.id}
+                    title={option.label}
+                    aria-label={option.label}
+                    style={{
+                      backgroundColor:
+                        optionsContent === option.content
+                          ? "#90ee90"
+                          : "#adadad",
+                    }}
+                  >
+                    <Link href={`/clase/${(profile as Student).class_uid}`}>
+                      {option.label}
+                    </Link>
+                  </li>
+                );
+              }
+
+              if (
+                option.content === "viewStudentClassroom" &&
+                !(profile as Student).class_label
+              ) {
+                return null;
+              }
+
               if (option.content === "logout") {
                 return (
                   <li
@@ -106,10 +134,13 @@ const ProfileDashboard: FC<ProfileDashboardProps> = ({ profile, type }) => {
             })}
           </ul>
         </nav>
-        <ProfileContent optionType={optionsContent} />
+        <ProfileContent
+          optionType={optionsContent}
+          profileId={profile.id}
+          type={type === "read" ? "user" : "own"}
+        />
       </div>
     </section>
   );
 };
-
 export default ProfileDashboard;

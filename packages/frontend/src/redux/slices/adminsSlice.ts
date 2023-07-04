@@ -109,8 +109,7 @@ export const createAdmin = createAsyncThunk<Admin | AxiosError, TemplateAdmin>(
     try {
       const { data } = await axiosInstance.post(
         "/users/create/ADMIN",
-        templateAdmin,
-        { withCredentials: true }
+        templateAdmin
       );
       return data.user as Admin;
     } catch (error) {
@@ -124,8 +123,7 @@ export const deleteAdminById = createAsyncThunk<Admin | AxiosError, string>(
   async (adminId) => {
     try {
       const { data } = await axiosInstance.delete(
-        `/admins/admin/delete/${adminId}`,
-        { withCredentials: true }
+        `/admins/admin/delete/${adminId}`
       );
       return data.admin as Admin;
     } catch (error) {
@@ -141,8 +139,7 @@ export const updateAdminById = createAsyncThunk<
   try {
     const { data } = await axiosInstance.patch(
       `/admins/admin/update/${templateAdmin.admin_uid}`,
-      templateAdmin,
-      { withCredentials: true }
+      templateAdmin
     );
     return data.admin as Admin;
   } catch (error) {

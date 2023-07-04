@@ -1,5 +1,5 @@
 // Prisma
-import { Class } from "@prisma/client";
+import { Class, Student, Teacher } from "@prisma/client";
 // Redux Toolkit
 import {
   createSlice,
@@ -16,7 +16,7 @@ import {
   TemplateClass,
 } from "types";
 // Axios
-import axios, { Axios, AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // State
 import { State } from "../api/store";
@@ -80,7 +80,9 @@ export const getClassById = createAsyncThunk<Class | AxiosError, string>(
   "classes/getClassById",
   async (classId) => {
     try {
-      const { data } = await axiosInstance.get(`/classes/class/${classId}`);
+      const { data } = await axiosInstance.get(
+        `/classes/class/${classId}?includeTeachers=true&includeStudents=true&includeMasterTeacher=true&includeCatalogue=true`
+      );
       return data.class as Class;
     } catch (error) {
       return error as AxiosError;
@@ -113,8 +115,7 @@ export const createClass = createAsyncThunk<Class | AxiosError, TemplateClass>(
       console.log(templateClass);
       const { data } = await axiosInstance.post(
         "/classes/class/create",
-        templateClass,
-        { withCredentials: true }
+        templateClass
       );
       return data.class as Class;
     } catch (error) {
@@ -128,8 +129,7 @@ export const deleteClassById = createAsyncThunk<Class | AxiosError, string>(
   async (classId) => {
     try {
       const { data } = await axiosInstance.delete(
-        `/classes/class/delete/${classId}`,
-        { withCredentials: true }
+        `/classes/class/delete/${classId}`
       );
       return data.class as Class;
     } catch (error) {
@@ -145,8 +145,7 @@ export const updateClassById = createAsyncThunk<
   try {
     const { data } = await axiosInstance.patch(
       `/classes/announcement/update/${templateClass.class_uid}`,
-      templateClass,
-      { withCredentials: true }
+      templateClass
     );
     return data.class as Class;
   } catch (error) {
@@ -199,14 +198,34 @@ const classesSlice = createSlice({
         state.loadingClass = "PENDING";
       })
       .addCase(getClassById.fulfilled, (state, action) => {
-        const classItem = action.payload as Class;
+        const classItem = action.payload as TemplateClass;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          console.log(axiosError);
-        } else {
+        if (!axiosError.response) {
+          if (classItem.students) {
+            (classItem.students as Student[]).map((student) => {
+              student.id = student.student_uid;
+              return student;
+            });
+          }
+
+          if (classItem.teachers) {
+            (classItem.teachers as Teacher[]).map((teacher) => {
+              teacher.id = teacher.teacher_uid;
+              return teacher;
+            });
+          }
+
+          if (classItem.master_teacher) {
+            classItem.master_teacher.id = classItem.master_teacher.teacher_uid;
+          }
+
+          if (classItem.catalogue) {
+            classItem.catalogue.id = classItem.catalogue.catalogue_uid;
+          }
+
           classItem.id = classItem.class_uid;
-          classesAdapter.upsertOne(state, classItem);
+          classesAdapter.upsertOne(state, classItem as Class);
         }
         state.loadingClass = "SUCCEDED";
       })

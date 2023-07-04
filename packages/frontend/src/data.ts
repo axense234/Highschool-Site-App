@@ -26,7 +26,11 @@ import {
   TemplateAdmin,
   TemplateStudent,
   TemplateClass,
+  TemplateGrade,
+  TemplateAbsence,
+  TemplateCatalogue,
 } from "types";
+import { StudentCatalogue, Teacher } from "@prisma/client";
 // React Icons
 import { AiFillHome } from "react-icons/ai";
 import { FcAbout } from "react-icons/fc";
@@ -39,9 +43,29 @@ import { BiLogIn } from "react-icons/bi";
 import { IoSchoolSharp, IoPeople } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 import { SiGoogleclassroom } from "react-icons/si";
-import { Teacher } from "@prisma/client";
 
 // TEMPLATE DATA
+export const defaultTemplateCatalogue: TemplateCatalogue = {
+  label: "",
+  class_uid: "",
+  master_teacher_uid: "",
+  sections: [],
+};
+
+export const defaultTemplateAbsence: TemplateAbsence = {
+  card_section_uid: "",
+  id: "",
+  absence_uid: "",
+  reasoned: false,
+};
+
+export const defaultTemplateGrade: TemplateGrade = {
+  card_section_uid: "",
+  id: "",
+  grade_uid: "",
+  value: 1,
+};
+
 export const defaultEmailFormTemplate: EmailFormTemplate = {
   emailAddress: "",
   message: "",
@@ -63,7 +87,7 @@ export const defaultTemplateStudent: TemplateStudent = {
   password: "PAROLA",
   fullname: "",
   role: "ELEV",
-  class_label: "9A",
+  class_label: "",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -101,7 +125,8 @@ export const defaultTemplateTeacher: TemplateTeacher = {
   master_class_uid: "",
   password: "PAROLA",
   master: false,
-  master_class_label: "9A",
+  master_class_label: "",
+  classes: [],
   role: "PROFESOR",
   profile_img_url:
     "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
@@ -111,13 +136,15 @@ export const defaultTemplateTeacher: TemplateTeacher = {
 
 export const defaultTemplateClass: TemplateClass = {
   label: "",
-  master_teacher_uid: "",
-  master_teacher_name: "",
   created_by_admin_uid: "",
   public: true,
   students: [],
   teachers: [],
+  master_teacher_uid: "",
+  master_teacher_name: "",
   master_teacher: defaultTemplateTeacher as Teacher,
+  catalogue_uid: "",
+  catalogue: defaultTemplateCatalogue as StudentCatalogue,
   image_url:
     "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921592/Highschool%20Site%20App/IMG-20230614-WA0020_paxhx6.jpg",
   createdAt: new Date(),

@@ -1,11 +1,9 @@
 // Express
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-// UUID
-import uuid from "uuid";
 // Prisma
 import { teacherClient } from "../db/postgres";
-// Redis
+// Utils
 import { encryptPassword } from "../utils/bcrypt";
 
 // GET ALL TEACHERS
@@ -33,14 +31,23 @@ const getTeacherById = async (req: Request, res: Response) => {
       ? req.user.userId
       : req.params.userId;
 
+  const { includeClassrooms } = req.query;
+
+  const includeObject = {} as any;
+
   if (!teacherId) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Please enter a valid teacher id.", teacher: {} });
   }
 
+  if (includeClassrooms === "true") {
+    includeObject.classes = true;
+  }
+
   const foundTeacher = await teacherClient.findUnique({
     where: { teacher_uid: teacherId },
+    include: includeObject,
   });
 
   if (!foundTeacher) {
@@ -116,8 +123,6 @@ const updateTeacherById = async (req: Request, res: Response) => {
       .json({ msg: "Introduceti parole identice!", teacher: {} });
   }
 
-  delete teacherBody.passwordVer;
-
   if (teacherBody.password) {
     const encryptedPassword = await encryptPassword(teacherBody.password);
 
@@ -140,6 +145,9 @@ const updateTeacherById = async (req: Request, res: Response) => {
       teacher: {},
     });
   }
+
+  delete teacherBody.passwordVer;
+  delete teacherBody.classes;
 
   const updatedTeacher = await teacherClient.update({
     where: { teacher_uid: teacherId },

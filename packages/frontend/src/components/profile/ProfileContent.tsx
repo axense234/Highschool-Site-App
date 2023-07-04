@@ -8,8 +8,13 @@ import profileStyles from "../../scss/components/pages/Profile.module.scss";
 import ProfileSettingsForm from "./ProfileSettingsForm";
 import CreateAnnouncementForm from "../forms/CreateAnnouncementForm";
 import CreateClassForm from "../forms/CreateClassForm";
+import ProfileTeacherClassrooms from "./ProfileTeacherClassrooms";
 
-const ProfileContent: FC<ProfileContentProps> = ({ optionType }) => {
+const ProfileContent: FC<ProfileContentProps> = ({
+  optionType,
+  profileId,
+  type,
+}) => {
   if (optionType === "settings") {
     return (
       <div className={profileStyles.profileContainer__profileContent}>
@@ -30,6 +35,14 @@ const ProfileContent: FC<ProfileContentProps> = ({ optionType }) => {
     return (
       <div className={profileStyles.profileContainer__profileContent}>
         <CreateClassForm />
+      </div>
+    );
+  }
+
+  if (optionType === "viewTeacherClassrooms") {
+    return (
+      <div className={profileStyles.profileContainer__profileContent}>
+        <ProfileTeacherClassrooms teacherId={profileId} type={type} />
       </div>
     );
   }

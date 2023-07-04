@@ -75,7 +75,7 @@ const UpdateStudentForm: FC = () => {
       className={`${profileSettingsStyles.profileSettingsContainer__form}`}
       onSubmit={(e) => handleSubmitStudent(e)}
     >
-      <FormModal type="admins" />
+      <FormModal type="students" />
       <div className={profileSettingsStyles.profileSettingsContainer__content}>
         <div
           className={

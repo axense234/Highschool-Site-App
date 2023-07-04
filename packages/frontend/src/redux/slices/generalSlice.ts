@@ -6,6 +6,7 @@ import {
   ErrorPayloadType,
   FormModalType,
   GetAllQueryParams,
+  GradeOrAbsenceSectionType,
   ObjectKeyValueType,
   OverlayType,
   TemplatePassReset,
@@ -37,6 +38,8 @@ type initialStateType = {
   templateProfile: TemplateUser;
   formModal: FormModalType;
   cardModalId: string;
+  gradeOrAbsenceSection: GradeOrAbsenceSectionType;
+  gradeModalId: string;
   optionsContent: string;
   overlay: OverlayType;
   editMode: boolean;
@@ -58,41 +61,30 @@ const initialState: initialStateType = {
   loadingLoginProfile: "IDLE",
   loadingUpdateProfile: "IDLE",
   profile: defaultProfile,
-  // For the login page
   templateProfile: defaultTemplateProfile,
-  // For the form modal
   formModal: {
     showModal: false,
     msg: "",
   },
-  // Id required for the card modal
   cardModalId: "",
-  // The content displayed on the options content comp
+  gradeOrAbsenceSection: {
+    sectionId: "",
+    type: "grade",
+  },
+  gradeModalId: "",
   optionsContent: "settings",
-  // The overlay object
   overlay: defaultOverlay,
-  // Edit mode(used in combination with cardModalId)
   editMode: false,
-  // Query params for Announcements/Teachers
   getAllQueryParams: defaultGetAllQueryParams,
-  // Toggle for the Move Announcement Modal(Card Modal)
   toggleMoveAnnouncementModal: false,
-  // Email Form Template
   emailFormTemplate: defaultEmailFormTemplate,
-  // Current pathname
   currentPathname: "",
-  // The query for the searchbar
   searchbarQuery: "",
-  // The text displayed upon various ScreenLoading instances
   screenLoadingMessage: "Se încarcă, vă rugăm să așteptați!",
-  // Recipient email for resetting password
   recipientEmail: "",
-  // The new password when user resets their pass
   newPass: "",
   newPassVer: "",
-  // The current type of model used in AccountsForm(only for sending emails and such)
   emailCurrentType: "ELEV",
-  // Authorized reset pass token by default false
   resetPassTokenAuthorized: false,
 };
 
@@ -101,9 +93,7 @@ export const getUserProfile = createAsyncThunk<
   Admin | Student | Teacher | AxiosError
 >("general/getUserProfile", async () => {
   try {
-    const { data } = await axiosInstance.get("/users/user/profile", {
-      withCredentials: true,
-    });
+    const { data } = await axiosInstance.get("/users/user/profile", {});
     return data.user as Admin | Student | Teacher;
   } catch (error) {
     return error as AxiosError;
@@ -114,9 +104,11 @@ export const loginUser = createAsyncThunk<User | AxiosError, TemplateUser>(
   "general/loginUser",
   async (templateUser) => {
     try {
-      const { data } = await axiosInstance.post("/users/login", templateUser, {
-        withCredentials: true,
-      });
+      const { data } = await axiosInstance.post(
+        "/users/login",
+        templateUser,
+        {}
+      );
       return data.user as User;
     } catch (error: any) {
       return error as AxiosError;
@@ -128,9 +120,7 @@ export const logoutProfile = createAsyncThunk<string | AxiosError>(
   "general/logoutProfile",
   async () => {
     try {
-      const { data } = await axiosInstance.delete("/users/options/logout", {
-        withCredentials: true,
-      });
+      const { data } = await axiosInstance.delete("/users/options/logout", {});
       return data.msg as string;
     } catch (error) {
       return error as AxiosError;
@@ -143,9 +133,11 @@ export const sendEmail = createAsyncThunk<
   EmailFormTemplate
 >("general/sendEmail", async (templateEmail) => {
   try {
-    const { data } = await axiosInstance.post("/options/email", templateEmail, {
-      withCredentials: true,
-    });
+    const { data } = await axiosInstance.post(
+      "/options/email",
+      templateEmail,
+      {}
+    );
     return data.msg as string;
   } catch (error) {
     return error as AxiosError;
@@ -159,8 +151,7 @@ export const sendResetPassEmail = createAsyncThunk<
   try {
     const { data } = await axiosInstance.post(
       "/options/email/reset-pass",
-      emailBody,
-      { withCredentials: true }
+      emailBody
     );
     return data.msg as string;
   } catch (error) {
@@ -174,10 +165,7 @@ export const verifyResetPassToken = createAsyncThunk<
 >("general/verifyResetPassToken", async (token) => {
   try {
     const { data } = await axiosInstance.get(
-      `/options/email/reset-pass/verify?token=${token}`,
-      {
-        withCredentials: true,
-      }
+      `/options/email/reset-pass/verify?token=${token}`
     );
     return data.msg as string;
   } catch (error) {
@@ -203,6 +191,15 @@ const generalSlice = createSlice({
     },
     setCardModalId(state, action: PayloadAction<string>) {
       state.cardModalId = action.payload;
+    },
+    setGradeModalId(state, action: PayloadAction<string>) {
+      state.gradeModalId = action.payload;
+    },
+    setGradeOrAbsenceSection(
+      state,
+      action: PayloadAction<GradeOrAbsenceSectionType>
+    ) {
+      state.gradeOrAbsenceSection = action.payload;
     },
     setOptionsContent(state, action: PayloadAction<string>) {
       state.optionsContent = action.payload;
@@ -363,6 +360,11 @@ export const selectLoadingUpdateProfile = (state: State) =>
 
 export const selectCardModalId = (state: State) => state.general.cardModalId;
 
+export const selectGradeModalId = (state: State) => state.general.gradeModalId;
+
+export const selectGradeOrAbsenceSection = (state: State) =>
+  state.general.gradeOrAbsenceSection;
+
 export const selectOptionsContent = (state: State) =>
   state.general.optionsContent;
 
@@ -419,6 +421,8 @@ export const {
   setNewPass,
   setNewPassVer,
   setEmailCurrentType,
+  setGradeOrAbsenceSection,
+  setGradeModalId,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

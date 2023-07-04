@@ -102,8 +102,7 @@ export const createAnnouncement = createAsyncThunk<
     console.log(templateAnnouncement);
     const { data } = await axiosInstance.post(
       "/announcements/announcement/create",
-      templateAnnouncement,
-      { withCredentials: true }
+      templateAnnouncement
     );
     return data.announcement as Announcement;
   } catch (error) {
@@ -117,8 +116,7 @@ export const deleteAnnouncementById = createAsyncThunk<
 >("announcements/deleteAnnouncement", async (announcementId) => {
   try {
     const { data } = await axiosInstance.delete(
-      `/announcements/announcement/delete/${announcementId}`,
-      { withCredentials: true }
+      `/announcements/announcement/delete/${announcementId}`
     );
     return data.announcement as Announcement;
   } catch (error) {
@@ -133,8 +131,7 @@ export const updateAnnouncementById = createAsyncThunk<
   try {
     const { data } = await axiosInstance.patch(
       `/announcements/announcement/update/${templateAnnouncement.announcement_uid}`,
-      templateAnnouncement,
-      { withCredentials: true }
+      templateAnnouncement
     );
     return data.announcement as Announcement;
   } catch (error) {

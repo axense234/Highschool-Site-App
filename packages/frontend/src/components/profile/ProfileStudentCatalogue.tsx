@@ -1,257 +1,230 @@
 // React
-import { FC } from "react";
+import { FC, useEffect } from "react";
 // Types
 import {
-  CountMapObject,
   ProfileStudentCatalogueProps,
+  TemplateClass,
+  TemplateStudent,
   TemplateStudentCard,
+  TemplateStudentCardSection,
 } from "types";
-import { Grade } from "@prisma/client";
+import { Subjects, Teacher } from "@prisma/client";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
+// Components
+import SectionLoading from "../loading/SectionLoading";
+import CardSection from "./CardSection";
 // Redux
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { selectProfile } from "@/redux/slices/generalSlice";
+import { State } from "@/redux/api/store";
+import {
+  getClassById,
+  selectClassById,
+  selectLoadingClass,
+} from "@/redux/slices/classesSlice";
+// Hooks
+import useCalculateCardStats from "@/hooks/useCalculateCardStats";
 
 const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
-  profile,
+  userProfile,
+  type,
 }) => {
-  const studentCard = profile.student_card as TemplateStudentCard;
+  const dispatch = useAppDispatch();
+  const ownProfile = useAppSelector(selectProfile);
+  const loadingClass = useAppSelector(selectLoadingClass);
 
-  console.log(profile);
+  let profileUsed = userProfile;
+  if (type === "own") {
+    profileUsed = ownProfile as TemplateStudent;
+  }
 
+  const studentCard = profileUsed.student_card as TemplateStudentCard;
   const studentCardContent = studentCard?.content;
 
-  const studentCardSubjects =
-    studentCardContent?.map((section) => {
-      return { id: section.id, subject: section.subject };
-    }) || [];
+  const studentClass = useAppSelector((state: State) =>
+    selectClassById(state, userProfile.class_uid as string)
+  ) as TemplateClass;
 
-  const studentCardTeachers =
-    studentCardContent?.map((section) => {
-      return { id: section.id + 100, teacher: section.teacher_uid };
-    }) || [];
+  useEffect(() => {
+    if (loadingClass === "IDLE") {
+      dispatch(getClassById(userProfile.class_uid as string));
+    }
+  }, []);
 
-  const studentCardGrades =
-    studentCardContent?.map((section) => {
-      return {
-        id: section.id + 200,
-        grades: section.grades,
-        gradesSubject: section.subject,
-      };
-    }) || [];
+  const {
+    studentCardAbsences,
+    studentCardGrades,
+    studentCardSubjects,
+    studentClassPosition,
+    studentGPA,
+    studentMaxAbsencesInADay,
+    studentMaxAbsencesInADayDate,
+    studentMaxSubjectAverage,
+    studentMaxSubjectAverageLabel,
+    studentMaxSubjectAverageValue,
+    studentReasonedAbsences,
+    studentTotalAbsences,
+    studentUnreasonedAbsences,
+  } = useCalculateCardStats(studentCardContent);
 
-  const studentCardAbsences =
-    studentCardContent?.map((section) => {
-      return { id: section.id + 300, absences: section.absences };
-    }) || [];
+  let studentCardContentShown: TemplateStudentCardSection[] | undefined;
+  switch (ownProfile.role) {
+    case "ADMIN":
+      studentCardContentShown = studentCardContent;
+      break;
 
-  const calcSubjectGradeAvg = (grades: Grade[] | undefined) => {
-    return Number(
-      grades?.reduce((sum, grade) => {
-        return sum + grade.value;
-      }, 0) || 0 / Number(grades?.length)
+    case "ELEV":
+      if (type === "own") {
+        studentCardContentShown = studentCardContent;
+      }
+      break;
+
+    case "PROFESOR":
+      studentCardContentShown = studentCardContent?.filter(
+        (card) => card.subject === (ownProfile as Teacher).subject
+      );
+      break;
+
+    default:
+      studentCardContentShown = [];
+      break;
+  }
+
+  if (loadingClass === "IDLE" || loadingClass === "PENDING") {
+    return (
+      <section className={profileStyles.profileContainer__studentCatalogue}>
+        <SectionLoading />
+      </section>
     );
-  };
+  }
 
-  const findMaxValue = (obj: any) => {
-    let maxValue = 0;
-    let maxKey = null;
+  const usableTeachers = studentClass?.teachers;
 
-    Object.keys(obj).forEach((key) => {
-      if (obj[key] > maxValue) {
-        maxValue = obj[key];
-        maxKey = key;
-      }
-    });
+  const studentCardTeachers = (usableTeachers as Teacher[])?.map((teacher) => {
+    return {
+      id: teacher.teacher_uid,
+      subject: teacher.subject,
+      fullname: teacher.fullname,
+    };
+  });
 
-    return { key: maxKey, value: maxValue };
-  };
-
-  const studentGPA =
-    studentCardGrades.reduce((totalSum, subject) => {
-      return totalSum + calcSubjectGradeAvg(subject.grades);
-    }, 0) / 18 || "Nu știm încă";
-
-  // NEED TO SOMEHOW FIGURE HOW TO DO THIS RIGHT
-  const studentClassPosition = "Nu știm încă";
-
-  const studentReasonedAbsences =
-    studentCardAbsences.reduce((sum, subject) => {
-      return (
-        sum +
-        Number(
-          subject.absences?.filter((absence) => absence.reasoned === true)
-            .length
-        )
-      );
-    }, 0) || 0;
-
-  const studentUnreasonedAbsences =
-    studentCardAbsences.reduce((sum, subject) => {
-      return (
-        sum +
-        Number(
-          subject.absences?.filter((absence) => absence.reasoned === false)
-            .length
-        )
-      );
-    }, 0) || 0;
-
-  const studentTotalAbsences =
-    studentReasonedAbsences + studentUnreasonedAbsences;
-
-  const studentDaysThatContainAbsences =
-    studentCardAbsences
-      .map((subject) => {
-        return subject.absences?.map((absence) => {
-          return { id: absence.id, absenceDate: absence.date };
-        });
-      })
-      .flat() || [];
-
-  const studentMaxAbsencesInADay =
-    Math.max(
-      ...studentDaysThatContainAbsences.map((day) => {
-        let maxAbsencesInDay = 0;
-        maxAbsencesInDay = Math.max(
-          studentCardAbsences.reduce((totalAbs, subject) => {
-            return (
-              totalAbs +
-              Number(
-                subject.absences?.filter(
-                  (absence) => absence.date === day?.absenceDate
-                ).length
-              )
-            );
-          }, 0),
-          maxAbsencesInDay
-        );
-        return maxAbsencesInDay;
-      })
-    ) || 0;
-
-  const studentDaysThatContainAbsencesArray =
-    studentDaysThatContainAbsences.map((day) => {
-      return day?.absenceDate.toLocaleDateString();
-    });
-
-  const studentMaxAbsencesInADayDate =
-    findMaxValue(
-      studentDaysThatContainAbsencesArray.reduce((countMap, item) => {
-        if (item) {
-          countMap[item] = (countMap[item] || 0) + 1;
-        }
-        return countMap;
-      }, {} as CountMapObject)
-    ).key || "Nu știm încă";
-
-  const studentMaxSubjectAverage = findMaxValue(
-    studentCardSubjects?.reduce((countMap, subject) => {
-      if (subject.subject) {
-        countMap[subject.subject] = calcSubjectGradeAvg(
-          studentCardGrades.find(
-            (grade) => grade.gradesSubject === subject.subject
-          )?.grades
-        );
-      }
-      return countMap;
-    }, {} as CountMapObject)
-  );
-
-  const studentMaxSubjectAverageValue = studentMaxSubjectAverage.value || 10;
-  const studentMaxSubjectAverageLabel =
-    studentMaxSubjectAverage.key || "Nu știm încă";
-
-  return (
-    <section className={profileStyles.profileContainer__studentCatalogue}>
-      <h2>Carnetul tău de Elev</h2>
-      <div className={profileStyles.profileContainer__studentCatalogueSection}>
-        <table
-          className={profileStyles.profileContainer__studentCatalogueContent}
-        >
-          <thead>
-            <tr>
-              <th>Materie</th>
-              <th>Profesor</th>
-              <th>Note</th>
-              <th>Absențe</th>
-            </tr>
-          </thead>
-          <tbody>
-            {studentCardContent?.map((section, index) => {
-              return (
-                <tr key={section.id || index}>
-                  <td>{studentCardSubjects?.[index].subject}</td>
-                  <td>
-                    {studentCardTeachers?.[index].teacher || "Nu știm încă"}
-                  </td>
-                  <td>
-                    <ul>
-                      {studentCardGrades?.[index].grades?.map((grade) => {
-                        return <li key={grade.id}>{grade.value}</li>;
-                      })}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {studentCardAbsences?.[index].absences?.map((absence) => {
-                        return (
-                          <li key={absence.id}>
-                            {absence.date.toLocaleDateString()}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+  if (userProfile.class_label) {
+    return (
+      <section className={profileStyles.profileContainer__studentCatalogue}>
+        <h2>
+          {type === "own"
+            ? "Carnetul tău de Elev"
+            : `Carnetul lui ${profileUsed.fullname} de Elev`}
+        </h2>
         <div
-          className={profileStyles.profileContainer__studentCatalogueDetails}
+          className={profileStyles.profileContainer__studentCatalogueSection}
         >
-          <h3>Statistici Importante</h3>
-          <hr />
-          <ul
-            className={
-              profileStyles.profileContainer__studentCatalogueStatistics
-            }
+          <table
+            className={profileStyles.profileContainer__studentCatalogueContent}
           >
-            <li>
-              Media Generală Curentă: <span>{studentGPA}</span>
-            </li>
-            <li>
-              Poziția în Clasamentul Clasei: <span>{studentClassPosition}</span>
-            </li>
-            <li>
-              Total Absențe: <span>{studentTotalAbsences}</span>
-            </li>
-            <li>
-              Număr Absențe Motivate: <span>{studentReasonedAbsences}</span>
-            </li>
-            <li>
-              Număr Absențe Nemotivate: <span>{studentUnreasonedAbsences}</span>
-            </li>
-            <li>
-              Ziua cu cele mai multe Absențe:{" "}
-              <span>
-                {studentMaxAbsencesInADayDate} <br /> {studentMaxAbsencesInADay}{" "}
-                absențe
-              </span>
-            </li>
-            <li>
-              Cea mai mare Medie la o Materie:{" "}
-              <span>
-                {studentMaxSubjectAverageLabel} <br />
-                {studentMaxSubjectAverage.key &&
-                  `, media ${studentMaxSubjectAverageValue}`}
-              </span>
-            </li>
-          </ul>
+            <thead>
+              <tr>
+                <th>MATERII</th>
+                <th>PROFESORI</th>
+                <th>NOTE</th>
+                <th>ABSENȚE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {studentCardContentShown?.map((section) => {
+                return (
+                  <CardSection
+                    key={section.card_section_uid}
+                    section_uid={section.card_section_uid}
+                    ownProfileRole={
+                      ownProfile.role as "ADMIN" | "PROFESOR" | "ELEV"
+                    }
+                    profile_used_uid={profileUsed.student_uid as string}
+                    absences={
+                      studentCardAbsences.find(
+                        (absence) => absence.id === section.card_section_uid
+                      )?.absences
+                    }
+                    grades={
+                      studentCardGrades.find(
+                        (grade) => grade.id === section.card_section_uid
+                      )?.grades
+                    }
+                    subject={
+                      studentCardSubjects.find(
+                        (subject) => subject.id === section.card_section_uid
+                      )?.subject as Subjects
+                    }
+                    teacher={
+                      studentCardTeachers.find(
+                        (teacher) => teacher.subject === section.subject
+                      )?.fullname as string
+                    }
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+          <div
+            className={profileStyles.profileContainer__studentCatalogueDetails}
+          >
+            <h3>Statistici Importante</h3>
+            <hr />
+            <ul
+              className={
+                profileStyles.profileContainer__studentCatalogueStatistics
+              }
+            >
+              <li>
+                Media Generală Curentă:{" "}
+                <span>
+                  {studentGPA ? studentGPA.toFixed(2) : "Nu știm încă"}
+                </span>
+              </li>
+              <li>
+                Poziția în Clasamentul Clasei:{" "}
+                <span>{studentClassPosition}</span>
+              </li>
+              <li>
+                Total Absențe: <span>{studentTotalAbsences}</span>
+              </li>
+              <li>
+                Număr Absențe Motivate: <span>{studentReasonedAbsences}</span>
+              </li>
+              <li>
+                Număr Absențe Nemotivate:{" "}
+                <span>{studentUnreasonedAbsences}</span>
+              </li>
+              <li>
+                Ziua cu cele mai multe Absențe:{" "}
+                <span>
+                  {studentMaxAbsencesInADayDate
+                    ? new Date(
+                        studentMaxAbsencesInADayDate
+                      ).toLocaleDateString()
+                    : "Nu știm încă"}{" "}
+                  <br />{" "}
+                  {studentMaxAbsencesInADay
+                    ? `${studentMaxAbsencesInADay} absențe`
+                    : "Nu știm încă"}
+                </span>
+              </li>
+              <li>
+                Cea mai mare Medie la o Materie:{" "}
+                <span>
+                  {studentMaxSubjectAverageLabel} <br />
+                  {studentMaxSubjectAverage.key &&
+                    `media ${studentMaxSubjectAverageValue.toFixed(2)}`}
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  }
+  return null;
 };
 
 export default ProfileStudentCatalogue;

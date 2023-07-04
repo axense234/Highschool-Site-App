@@ -38,6 +38,7 @@ const CreateClassForm: FC = () => {
   const profile = useAppSelector(selectProfile);
   const teachers = useAppSelector(selectAllTeachers);
   const students = useAppSelector(selectAllStudents);
+
   const loadingCreateCloudinaryImageForClass = useAppSelector(
     selectLoadingCreateCloudinaryImageForClass
   );
@@ -45,6 +46,14 @@ const CreateClassForm: FC = () => {
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
   const classLabelInputRef = useRef<HTMLInputElement>(null);
   const templateClass = useAppSelector(selectTemplateClass);
+
+  const usableTeachers = teachers.filter((teacher) => {
+    return !teacher.master;
+  });
+
+  const usableStudents = students.filter((student) => {
+    return !student.class_uid;
+  });
 
   const onLabelChange = (label: string) => {
     dispatch(updateTemplateClass({ key: "label", value: label }));
@@ -114,11 +123,11 @@ const CreateClassForm: FC = () => {
   }, [profile]);
 
   useEffect(() => {
-    if (teachers.length >= 1) {
+    if (usableTeachers.length >= 1) {
       dispatch(
         updateTemplateClass({
           key: "master_teacher_uid",
-          value: teachers[0].teacher_uid,
+          value: usableTeachers[0].teacher_uid,
         })
       );
     }
@@ -199,7 +208,7 @@ const CreateClassForm: FC = () => {
               value={templateClass.master_teacher_uid as string}
               onChange={(e) => onMasterTeacherChange(e.target.value)}
             >
-              {teachers.map((teacher) => {
+              {usableTeachers.map((teacher) => {
                 return (
                   <option value={teacher.teacher_uid} key={teacher.teacher_uid}>
                     {teacher.fullname}
@@ -267,7 +276,7 @@ const CreateClassForm: FC = () => {
                 onChange={(e) => onClassStudentsChange(e)}
                 style={{ width: "100%" }}
               >
-                {students.map((student) => {
+                {usableStudents.map((student) => {
                   return (
                     <option
                       value={student.student_uid}

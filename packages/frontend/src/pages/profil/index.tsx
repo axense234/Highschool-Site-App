@@ -1,8 +1,8 @@
 // React
-import { FC } from "react";
+import { FC, useEffect } from "react";
 // Types
 import { Admin, Student, Teacher } from "@prisma/client";
-import { TemplateUser } from "types";
+import { TemplateStudent, TemplateUser } from "types";
 // Components
 import Meta from "@/components/others/Meta";
 // SCSS
@@ -14,8 +14,8 @@ import HomeTitle from "@/components/home/HomeTitle";
 import useGetPathname from "@/hooks/useGetPathname";
 import useAuthorization from "@/hooks/useAuthorization";
 // Redux
-import { useAppSelector } from "@/hooks/redux";
-import { selectProfile } from "@/redux/slices/generalSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { selectProfile, setOptionsContent } from "@/redux/slices/generalSlice";
 // Components
 import ProfileDashboard from "@/components/profile/ProfileDashboard";
 import ProfileStudentCatalogue from "@/components/profile/ProfileStudentCatalogue";
@@ -24,6 +24,7 @@ const Profile: FC = () => {
   useGetPathname();
   useAuthorization();
 
+  const dispatch = useAppDispatch();
   const profile = useAppSelector(selectProfile) as Admin | Student | Teacher;
 
   let profileTitleQuote = "Așteptați vă rog...";
@@ -43,6 +44,18 @@ const Profile: FC = () => {
     default:
       break;
   }
+
+  useEffect(() => {
+    if (profile?.role === "PROFESOR") {
+      dispatch(setOptionsContent("viewTeacherClassrooms"));
+    } else if (profile?.role === "ELEV") {
+      dispatch(setOptionsContent("settings"));
+    } else if (profile?.role === "ADMIN") {
+      dispatch(setOptionsContent("settings"));
+    } else {
+      dispatch(setOptionsContent(""));
+    }
+  }, [profile.role, dispatch]);
 
   return (
     <>
@@ -64,7 +77,10 @@ const Profile: FC = () => {
           type="profile"
         />
         {profile.role === "ELEV" && (
-          <ProfileStudentCatalogue profile={profile as TemplateUser} />
+          <ProfileStudentCatalogue
+            userProfile={profile as TemplateStudent}
+            type="own"
+          />
         )}
       </main>
     </>

@@ -1,10 +1,10 @@
 // React
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 // Next
 import { useRouter } from "next/router";
 // Types
 import { Admin, Student, Teacher } from "@prisma/client";
-import { ProfileOption, TemplateStudent, TemplateUser } from "types";
+import { TemplateStudent, TemplateUser } from "types";
 // Components
 import Meta from "@/components/others/Meta";
 // SCSS
@@ -19,6 +19,8 @@ import useAuthorization from "@/hooks/useAuthorization";
 import ProfileDashboard from "@/components/profile/ProfileDashboard";
 import ProfileStudentCatalogue from "@/components/profile/ProfileStudentCatalogue";
 import SectionLoading from "@/components/loading/SectionLoading";
+// Data
+import { defaultTemplateStudent } from "@/data";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -37,10 +39,10 @@ import {
   selectAdminById,
   selectLoadingAdmin,
 } from "@/redux/slices/adminsSlice";
+import { selectProfile, setOptionsContent } from "@/redux/slices/generalSlice";
 
 const IndividualProfile: FC = () => {
   useGetPathname();
-  useAuthorization();
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -49,7 +51,12 @@ const IndividualProfile: FC = () => {
   const loadingTeacher = useAppSelector(selectLoadingTeacher);
   const loadingAdmin = useAppSelector(selectLoadingAdmin);
 
-  console.log(router.query);
+  const profile = useAppSelector(selectProfile);
+
+  const [userShown, setUserShown] = useState<Admin | Teacher | Student>(
+    defaultTemplateStudent as Student
+  );
+  const [loadingUser, setLoadingUser] = useState<boolean>(true);
 
   const student = useAppSelector((state: State) =>
     selectStudentById(
@@ -72,48 +79,50 @@ const IndividualProfile: FC = () => {
     )
   );
 
-  let user;
-  let loadingUser = true;
-  switch (router.query.type) {
-    case "teacher":
-      user = teacher;
-      loadingUser = loadingTeacher === "IDLE" || loadingTeacher === "PENDING";
-      break;
-    case "student":
-      user = student;
-      loadingUser = loadingStudent === "IDLE" || loadingStudent === "PENDING";
-      break;
-    case "admin":
-      user = admin;
-      loadingUser = loadingAdmin === "IDLE" || loadingAdmin === "PENDING";
-      break;
-    default:
-      user = {};
-      loadingUser = true;
-      break;
-  }
+  useEffect(() => {
+    switch (router.query.type) {
+      case "teacher":
+        setUserShown(teacher as Teacher);
+        setLoadingUser(
+          loadingTeacher === "IDLE" || loadingTeacher === "PENDING"
+        );
+        break;
+      case "student":
+        setUserShown(student as Student);
+        setLoadingUser(
+          loadingStudent === "IDLE" || loadingStudent === "PENDING"
+        );
+        break;
+      case "admin":
+        setUserShown(admin as Admin);
+        setLoadingUser(loadingAdmin === "IDLE" || loadingAdmin === "PENDING");
+        break;
+      default:
+        break;
+    }
+  }, [router.query, loadingTeacher, loadingStudent, loadingAdmin]);
 
   useEffect(() => {
-    if (
-      router.query.type === "admin" &&
-      loadingAdmin === "IDLE" &&
-      router.query.userId
-    ) {
+    if (router.query.type === "admin" && router.query.userId) {
       dispatch(getAdminById(router.query.userId as string));
-    } else if (
-      router.query.type === "student" &&
-      loadingStudent === "IDLE" &&
-      router.query.userId
-    ) {
+    } else if (router.query.type === "student" && router.query.userId) {
       dispatch(getStudentById(router.query.userId as string));
-    } else if (
-      router.query.type === "teacher" &&
-      loadingTeacher === "IDLE" &&
-      router.query.userId
-    ) {
+    } else if (router.query.type === "teacher" && router.query.userId) {
       dispatch(getTeacherById(router.query.userId as string));
     }
-  }, [router.query]);
+  }, [router.query, dispatch]);
+
+  useEffect(() => {
+    if (userShown?.role === "PROFESOR") {
+      dispatch(setOptionsContent("viewTeacherClassrooms"));
+    } else if (userShown?.role === "ELEV") {
+      dispatch(setOptionsContent(""));
+    } else if (userShown?.role === "ADMIN") {
+      dispatch(setOptionsContent("settings"));
+    } else {
+      dispatch(setOptionsContent(""));
+    }
+  }, [userShown, dispatch]);
 
   if (loadingUser) {
     return (
@@ -130,7 +139,7 @@ const IndividualProfile: FC = () => {
   return (
     <>
       <Meta
-        title={`${user?.fullname} | Liceul Teoretic "Ion Barbu" Pitești`}
+        title={`${userShown?.fullname} | Liceul Teoretic "Ion Barbu" Pitești`}
         desc="Gestionează-ți informațiile personale și personalizează-ți experiența! Adaugă și actualizează preferințele tale în profilul tău pentru a te bucura de conținut și oferte relevante."
         imageUrls={[
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg",
@@ -139,16 +148,19 @@ const IndividualProfile: FC = () => {
       <main className={profileStyles.profileContainer}>
         <Overlay />
         <HomeTitle
-          title={`Profilul lui ${user?.fullname} de ${user?.role}`}
-          quote={`Vezi profilul lui ${user?.fullname}.`}
+          title={`Profilul lui ${userShown?.fullname} de ${userShown?.role}`}
+          quote={`Vezi profilul lui ${userShown?.fullname}.`}
           backgroundUrl="https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg"
         />
         <ProfileDashboard
-          profile={user as Teacher | Admin | Student}
+          profile={userShown as Teacher | Admin | Student}
           type="read"
         />
-        {user?.role === "ELEV" && (
-          <ProfileStudentCatalogue profile={user as TemplateUser} />
+        {userShown?.role === "ELEV" && profile?.role !== "ELEV" && (
+          <ProfileStudentCatalogue
+            userProfile={userShown as TemplateStudent}
+            type="user"
+          />
         )}
       </main>
     </>

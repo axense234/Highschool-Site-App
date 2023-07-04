@@ -25,7 +25,7 @@ import { State } from "../api/store";
 import { defaultTemplateTeacher } from "@/data";
 import { baseSiteUrl } from "@/config";
 
-const teachersAdapter = createEntityAdapter<Teacher>({
+export const teachersAdapter = createEntityAdapter<Teacher>({
   sortComparer: (a, b) => a.fullname.localeCompare(b.fullname),
 });
 
@@ -78,7 +78,7 @@ export const getTeacherById = createAsyncThunk<Teacher | AxiosError, string>(
   async (teacherId) => {
     try {
       const { data } = await axiosInstance.get(
-        `/teachers/teacher/${teacherId}`
+        `/teachers/teacher/${teacherId}?includeClassrooms=true`
       );
       return data.teacher as Teacher;
     } catch (error) {
@@ -112,8 +112,7 @@ export const createTeacher = createAsyncThunk<
   try {
     const { data } = await axiosInstance.post(
       "/users/create/PROFESOR",
-      templateTeacher,
-      { withCredentials: true }
+      templateTeacher
     );
     return data.user as Teacher;
   } catch (error) {
@@ -126,8 +125,7 @@ export const deleteTeacherById = createAsyncThunk<Teacher | AxiosError, string>(
   async (teacherId) => {
     try {
       const { data } = await axiosInstance.delete(
-        `/teachers/teacher/delete/${teacherId}`,
-        { withCredentials: true }
+        `/teachers/teacher/delete/${teacherId}`
       );
       return data.teacher as Teacher;
     } catch (error) {
@@ -140,14 +138,15 @@ export const updateTeacherById = createAsyncThunk<
   Teacher | AxiosError,
   TemplateUpdateTeacher
 >("teachers/updateTeacherById", async (templateTeacher) => {
+  console.log(templateTeacher);
   try {
     const { data } = await axiosInstance.patch(
       `/teachers/teacher/update/${templateTeacher.teacher_uid}`,
-      templateTeacher,
-      { withCredentials: true }
+      templateTeacher
     );
     return data.teacher as Teacher;
   } catch (error) {
+    console.log(error);
     return error as AxiosError;
   }
 });
@@ -192,14 +191,20 @@ const teachersSlice = createSlice({
         state.loadingTeacher = "PENDING";
       })
       .addCase(getTeacherById.fulfilled, (state, action) => {
-        const teacher = action.payload as Teacher;
+        const teacher = action.payload as TemplateTeacher;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          console.log(axiosError);
-        } else {
-          teacher.id = teacher.teacher_uid;
-          teachersAdapter.upsertOne(state, teacher);
+        if (!axiosError.response) {
+          if (teacher.classes) {
+            teacher.classes.map((classroom) => {
+              classroom.id = classroom.class_uid;
+              return classroom;
+            });
+          }
+
+          teacher.id = teacher.teacher_uid as string;
+          console.log(teacher);
+          teachersAdapter.upsertOne(state, teacher as Teacher);
         }
 
         state.loadingTeacher = "SUCCEDED";

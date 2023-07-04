@@ -11,6 +11,7 @@ import {
   Grade,
   Class,
   Absence,
+  StudentCatalogue,
 } from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
@@ -33,17 +34,27 @@ interface TemplateAnnouncement extends Announcement {
   announcement_uid?: string;
 }
 
+interface TemplateCatalogue extends StudentCatalogue {
+  catalogue_uid?: string;
+  id?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  sections?: TemplateStudentCard[];
+}
+
 interface TemplateClass extends Class {
   class_uid?: string;
   id?: string;
   students?: Student[] | string[];
   teachers?: Teacher[] | string[];
   master_teacher?: Teacher;
+  catalogue?: TemplateCatalogue;
 }
 
 interface TemplateTeacher extends Teacher {
   teacher_uid?: string;
   role: "ADMIN" | "ELEV" | "PROFESOR";
+  classes: Class[];
 }
 
 interface TemplateUpdateTeacher extends Teacher {
@@ -101,6 +112,7 @@ interface TemplateStudent extends Student {
   role: "ADMIN" | "ELEV" | "PROFESOR";
   class_uid?: string;
   student_card_uid?: string;
+  student_card?: TemplateStudentCard;
 }
 
 interface TemplateUpdateStudent extends Student {
@@ -255,7 +267,7 @@ type FunctionUsedOnPageNavSubmit = AsyncThunk<
 
 type ObjectKeyValueType = {
   key: string;
-  value: string | boolean | string[];
+  value: string | boolean | string[] | number;
 };
 
 type FormModalType = {
@@ -381,6 +393,8 @@ type SelectOptionType = {
 
 interface ProfileContentProps {
   optionType: string;
+  profileId: string;
+  type: "own" | "user";
 }
 
 interface ProfileDetailsProps {
@@ -402,8 +416,57 @@ interface ProfileDashboardProps {
 }
 
 interface ProfileStudentCatalogueProps {
-  profile: TemplateUser;
+  userProfile: TemplateStudent;
+  type: "own" | "user";
 }
+
+interface ProfileTeacherClassrooms {
+  teacherId: string;
+  type: "own" | "user";
+}
+
+interface CardSectionProps {
+  subject: Subjects;
+  section_uid: string;
+  profile_used_uid: string;
+  ownProfileRole: "ELEV" | "PROFESOR" | "ADMIN";
+  teacher: string | null;
+  grades: Grade[] | undefined;
+  absences: Absence[] | undefined;
+}
+
+interface TemplateGrade extends Grade {
+  grade_uid?: string;
+  date?: Date;
+  value?: Number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+interface TemplateAbsence extends Absence {
+  absence_uid?: string;
+  date?: Date;
+  reasoned?: Boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+interface CreateGradeOrAbsenceButtonProps {
+  showButton: boolean;
+  type: "absence" | "grade";
+  studentId: string;
+  sectionId: string;
+}
+
+interface CreateGradeOrAbsenceModalProps {
+  show: boolean;
+  studentId: string;
+}
+
+type GradeOrAbsenceSectionType = {
+  sectionId: string;
+  type: "absence" | "grade";
+};
 
 export {
   SidebarLink,
@@ -471,4 +534,13 @@ export {
   ComponentPreviewProps,
   ProfileDashboardProps,
   ProfileStudentCatalogueProps,
+  ProfileTeacherClassrooms,
+  CardSectionProps,
+  TemplateStudentCardSection,
+  TemplateGrade,
+  CreateGradeOrAbsenceButtonProps,
+  TemplateAbsence,
+  CreateGradeOrAbsenceModalProps,
+  GradeOrAbsenceSectionType,
+  TemplateCatalogue,
 };

@@ -25,7 +25,7 @@ import { State } from "../api/store";
 import { defaultTemplateStudent } from "@/data";
 import { baseSiteUrl } from "@/config";
 
-const studentsAdapter = createEntityAdapter<Student>({
+export const studentsAdapter = createEntityAdapter<Student>({
   sortComparer: (a, b) => a.fullname.localeCompare(b.fullname),
 });
 
@@ -78,7 +78,7 @@ export const getStudentById = createAsyncThunk<Student | AxiosError, string>(
   async (studentId) => {
     try {
       const { data } = await axiosInstance.get(
-        `/students/student/${studentId}`
+        `/students/student/${studentId}?includeStudentCard=true`
       );
       return data.student as Student;
     } catch (error) {
@@ -112,8 +112,7 @@ export const createStudent = createAsyncThunk<
   try {
     const { data } = await axiosInstance.post(
       "/users/create/ELEV",
-      templateStudent,
-      { withCredentials: true }
+      templateStudent
     );
     return data.user as Student;
   } catch (error) {
@@ -126,8 +125,7 @@ export const deleteStudentById = createAsyncThunk<Student | AxiosError, string>(
   async (studentId) => {
     try {
       const { data } = await axiosInstance.delete(
-        `/students/student/delete/${studentId}`,
-        { withCredentials: true }
+        `/students/student/delete/${studentId}`
       );
       return data.student as Student;
     } catch (error) {
@@ -143,8 +141,7 @@ export const updateStudentById = createAsyncThunk<
   try {
     const { data } = await axiosInstance.patch(
       `/students/student/update/${templateStudent.student_uid}`,
-      templateStudent,
-      { withCredentials: true }
+      templateStudent
     );
     return data.student as Student;
   } catch (error) {
@@ -198,6 +195,7 @@ const studentsSlice = createSlice({
         if (axiosError.response?.status !== 200 && axiosError.response) {
           console.log(axiosError);
         } else {
+          console.log(student);
           student.id = student.student_uid;
           studentsAdapter.upsertOne(state, student);
         }

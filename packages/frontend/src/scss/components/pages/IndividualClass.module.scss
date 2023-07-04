@@ -119,4 +119,9 @@
       text-align: center;
     }
   }
+
+  #{&}__classCatalogue {
+    @include homePageSection(getColor("silver-30"), column);
+    gap: 5rem;
+  }
 }

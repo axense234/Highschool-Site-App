@@ -36,7 +36,10 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
         />
         <h3>{profile.fullname}</h3>
         <h4>
-          {profile.role} - {(profile as Student).class_label}
+          {profile.role} -{" "}
+          {(profile as Student).class_label
+            ? (profile as Student).class_label
+            : "NEATRIBUIT"}
         </h4>
         <p>@{profile.email}</p>
       </div>
@@ -52,7 +55,9 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
         src={profile.profile_img_url}
       />
       <h3>{profile.fullname}</h3>
-      <h4>{profile.role}</h4>
+      <h4>
+        {profile.role} de {(profile as Teacher).subject}
+      </h4>
       {(profile as Teacher).master && (
         <h5>DIRIGINTE - {(profile as Teacher).master_class_label}</h5>
       )}

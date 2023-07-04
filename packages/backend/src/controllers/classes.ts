@@ -29,6 +29,36 @@ const getAllClasses = async (req: Request, res: Response) => {
 // GET CLASS BY ID
 const getClassById = async (req: Request, res: Response) => {
   const { classId } = req.params;
+  const {
+    includeTeachers,
+    includeStudents,
+    includeMasterTeacher,
+    includeCatalogue,
+  } = req.query;
+
+  const includeObject = {} as any;
+
+  if (includeMasterTeacher === "true") {
+    includeObject.master_teacher = true;
+  }
+
+  if (includeStudents === "true") {
+    includeObject.students = true;
+  }
+
+  if (includeTeachers === "true") {
+    includeObject.teachers = true;
+  }
+
+  if (includeCatalogue === "true") {
+    includeObject.catalogue = {
+      include: {
+        sections: {
+          include: { content: { include: { absences: true, grades: true } } },
+        },
+      },
+    };
+  }
 
   if (!classId) {
     return res
@@ -38,7 +68,7 @@ const getClassById = async (req: Request, res: Response) => {
 
   const foundClass = await classClient.findUnique({
     where: { class_uid: classId },
-    include: { students: true, teachers: true, master_teacher: true },
+    include: includeObject,
   });
 
   if (!foundClass) {
@@ -58,6 +88,10 @@ const getClassById = async (req: Request, res: Response) => {
 const createClass = async (req: Request, res: Response) => {
   const classBody = req.body;
 
+  if (classBody.master_teacher) {
+    delete classBody.master_teacher;
+  }
+
   if (!classLabelPattern.test(classBody.label)) {
     return res
       .status(StatusCodes.BAD_REQUEST)
@@ -71,8 +105,6 @@ const createClass = async (req: Request, res: Response) => {
       }),
     };
   }
-
-  console.log(classBody.teachers);
 
   if (classBody.teachers) {
     classBody.teachers = {

@@ -124,6 +124,9 @@ const deleteGradeById = async (req: Request, res: Response) => {
 const createGrade = async (req: Request, res: Response) => {
   const gradeBody = req.body;
 
+  delete gradeBody.grade_uid;
+  delete gradeBody.date;
+
   if (gradeBody.value && (gradeBody.value > 10 || gradeBody.value < 1)) {
     return res
       .status(StatusCodes.BAD_REQUEST)

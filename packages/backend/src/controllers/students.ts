@@ -1,7 +1,7 @@
 // Express
 import { Request, Response } from "express";
 // Prisma Types
-import { Student } from "@prisma/client";
+import { Class, Student } from "@prisma/client";
 // Others
 import { StatusCodes } from "http-status-codes";
 import * as uuid from "uuid";
@@ -19,7 +19,15 @@ declare module "express-serve-static-core" {
 
 // GET ALL STUDENTS
 const getAllStudents = async (req: Request, res: Response) => {
-  const foundStudents = await studentClient.findMany({});
+  const { classLabel } = req.query;
+
+  const queryObject = {} as Student;
+
+  if (classLabel) {
+    queryObject.class_label = classLabel as string;
+  }
+
+  const foundStudents = await studentClient.findMany({ where: queryObject });
 
   if (foundStudents.length < 1) {
     return res
@@ -41,6 +49,10 @@ const getStudentByIdOrJWT = async (req: Request, res: Response) => {
       ? req.user.userId
       : req.params.userId;
 
+  const { includeStudentCard } = req.query;
+
+  const includeObject = {} as any;
+
   if (!studentId) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       msg: "Please enter a studentId in the request params!",
@@ -48,9 +60,15 @@ const getStudentByIdOrJWT = async (req: Request, res: Response) => {
     });
   }
 
+  if (includeStudentCard === "true") {
+    includeObject.student_card = {
+      include: { content: { include: { grades: true, absences: true } } },
+    };
+  }
+
   const foundStudent = await studentClient.findUnique({
     where: { student_uid: studentId },
-    include: { student_card: { include: { content: true } } },
+    include: includeObject,
   });
 
   if (!foundStudent) {
@@ -59,6 +77,8 @@ const getStudentByIdOrJWT = async (req: Request, res: Response) => {
       student: {},
     });
   }
+
+  console.log(foundStudent.grades);
 
   return res.status(StatusCodes.OK).json({
     msg: `Successfully found student:${foundStudent.fullname}!`,
@@ -93,6 +113,7 @@ const updateStudentByIdOrJWT = async (req: Request, res: Response) => {
   }
 
   delete studentBody.passwordVer;
+  delete studentBody.student_card;
 
   if (studentBody.password) {
     const encryptedPassword = await encryptPassword(studentBody.password);
