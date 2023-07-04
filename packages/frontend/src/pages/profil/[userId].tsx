@@ -156,12 +156,14 @@ const IndividualProfile: FC = () => {
           profile={userShown as Teacher | Admin | Student}
           type="read"
         />
-        {userShown?.role === "ELEV" && profile?.role !== "ELEV" && (
-          <ProfileStudentCatalogue
-            userProfile={userShown as TemplateStudent}
-            type="user"
-          />
-        )}
+        {userShown?.role === "ELEV" &&
+          profile?.role !== "ELEV" &&
+          profile?.role && (
+            <ProfileStudentCatalogue
+              userProfile={userShown as TemplateStudent}
+              type="user"
+            />
+          )}
       </main>
     </>
   );
