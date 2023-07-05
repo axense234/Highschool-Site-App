@@ -1,9 +1,21 @@
 // Types
-import { Grade } from "@prisma/client";
-import { TemplateStudentCardSection, CountMapObject } from "types";
+import { Absence, Grade, Subjects } from "@prisma/client";
+import { CountMapObject } from "types";
 
 const useCalculateCardStats = (
-  studentCardContent: TemplateStudentCardSection[] | undefined
+  studentCardSubjects: {
+    id: string;
+    subject: Subjects;
+  }[],
+  studentCardGrades: {
+    id: string;
+    grades: Grade[] | undefined;
+    gradesSubject: Subjects;
+  }[],
+  studentCardAbsences: {
+    id: string;
+    absences: Absence[] | undefined;
+  }[]
 ) => {
   const calcSubjectGradeAvg = (grades: Grade[] | undefined) => {
     const sumOfGrades = Number(
@@ -27,25 +39,6 @@ const useCalculateCardStats = (
 
     return { key: maxKey, value: maxValue };
   };
-
-  const studentCardSubjects =
-    studentCardContent?.map((section) => {
-      return { id: section.card_section_uid, subject: section.subject };
-    }) || [];
-
-  const studentCardGrades =
-    studentCardContent?.map((section) => {
-      return {
-        id: section.card_section_uid,
-        grades: section.grades,
-        gradesSubject: section.subject,
-      };
-    }) || [];
-
-  const studentCardAbsences =
-    studentCardContent?.map((section) => {
-      return { id: section.card_section_uid, absences: section.absences };
-    }) || [];
 
   const studentGPA =
     studentCardGrades.reduce((totalSum, subject) => {

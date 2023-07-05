@@ -1,5 +1,5 @@
 // React
-import { FC, useEffect } from "react";
+import { FC } from "react";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Redux

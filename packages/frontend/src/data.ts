@@ -28,7 +28,6 @@ import {
   TemplateClass,
   TemplateGrade,
   TemplateAbsence,
-  TemplateCatalogue,
 } from "types";
 import { StudentCatalogue, Teacher } from "@prisma/client";
 // React Icons
@@ -45,13 +44,6 @@ import { HiDocumentText } from "react-icons/hi2";
 import { SiGoogleclassroom } from "react-icons/si";
 
 // TEMPLATE DATA
-export const defaultTemplateCatalogue: TemplateCatalogue = {
-  label: "",
-  class_uid: "",
-  master_teacher_uid: "",
-  sections: [],
-};
-
 export const defaultTemplateAbsence: TemplateAbsence = {
   card_section_uid: "",
   id: "",
@@ -144,7 +136,6 @@ export const defaultTemplateClass: TemplateClass = {
   master_teacher_name: "",
   master_teacher: defaultTemplateTeacher as Teacher,
   catalogue_uid: "",
-  catalogue: defaultTemplateCatalogue as StudentCatalogue,
   image_url:
     "https://res.cloudinary.com/birthdayreminder/image/upload/v1686921592/Highschool%20Site%20App/IMG-20230614-WA0020_paxhx6.jpg",
   createdAt: new Date(),
@@ -441,23 +432,23 @@ export const istoricPinpoints: IstoricPinPoint[] = [
 ];
 
 export const subjects: SubjectType[] = [
-  { id: 1, name: "BIOLOGIE" },
-  { id: 2, name: "CHIMIE" },
-  { id: 3, name: "DESEN" },
-  { id: 4, name: "ENGLEZA" },
-  { id: 5, name: "FIZICA" },
-  { id: 6, name: "FRANCEZA" },
-  { id: 7, name: "GEOGRAFIE" },
-  { id: 8, name: "GERMANA" },
-  { id: 9, name: "INFORMATICA" },
-  { id: 10, name: "INFORMATICA_OPTIONAL" },
-  { id: 11, name: "ISTORIE" },
-  { id: 12, name: "LATINA" },
-  { id: 13, name: "MATEMATICA" },
-  { id: 14, name: "MUZICA" },
-  { id: 15, name: "PSIHOLOGIE" },
-  { id: 16, name: "RELIGIE" },
-  { id: 17, name: "ROMANA" },
+  { id: 1, name: "MATEMATICA" },
+  { id: 2, name: "FIZICA" },
+  { id: 3, name: "CHIMIE" },
+  { id: 4, name: "INFORMATICA" },
+  { id: 5, name: "INFORMATICA_OPTIONAL" },
+  { id: 6, name: "ROMANA" },
+  { id: 7, name: "ENGLEZA" },
+  { id: 8, name: "FRANCEZA" },
+  { id: 9, name: "LATINA" },
+  { id: 10, name: "GERMANA" },
+  { id: 11, name: "BIOLOGIE" },
+  { id: 12, name: "ISTORIE" },
+  { id: 13, name: "GEOGRAFIE" },
+  { id: 14, name: "PSIHOLOGIE" },
+  { id: 15, name: "MUZICA" },
+  { id: 16, name: "DESEN" },
+  { id: 17, name: "RELIGIE" },
   { id: 18, name: "SPORT" },
 ];
 

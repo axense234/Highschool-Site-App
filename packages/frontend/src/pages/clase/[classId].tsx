@@ -2,6 +2,7 @@
 import { FC, useEffect } from "react";
 // Types
 import { TemplateClass } from "types";
+import { Teacher } from "@prisma/client";
 // Next
 import { useRouter } from "next/router";
 // SCSS
@@ -24,6 +25,7 @@ import {
   selectLoadingClass,
 } from "@/redux/slices/classesSlice";
 import { State } from "@/redux/api/store";
+import { selectProfile } from "@/redux/slices/generalSlice";
 
 const IndividualClass: FC = () => {
   useGetPathname();
@@ -32,6 +34,7 @@ const IndividualClass: FC = () => {
   const router = useRouter();
 
   const loadingClass = useAppSelector(selectLoadingClass);
+  const profile = useAppSelector(selectProfile);
 
   const foundClass =
     (useAppSelector((state: State) =>
@@ -69,7 +72,11 @@ const IndividualClass: FC = () => {
           backgroundUrl={foundClass.image_url}
         />
         <ClassDetails {...foundClass} />
-        <ClassCatalogue {...foundClass} />
+        {(profile.role === "ADMIN" ||
+          (profile as Teacher).master_class_label === foundClass.label) &&
+        (foundClass.students?.length as number) >= 1 ? (
+          <ClassCatalogue {...foundClass} />
+        ) : null}
       </main>
     </>
   );

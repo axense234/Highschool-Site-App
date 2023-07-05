@@ -43,7 +43,20 @@ const getClassById = async (req: Request, res: Response) => {
   }
 
   if (includeStudents === "true") {
-    includeObject.students = true;
+    includeObject.students = {
+      include: {
+        student_card: {
+          include: {
+            content: {
+              include: {
+                absences: { orderBy: { absence_uid: "desc" } },
+                grades: { orderBy: { value: "desc" } },
+              },
+            },
+          },
+        },
+      },
+    };
   }
 
   if (includeTeachers === "true") {
@@ -54,7 +67,14 @@ const getClassById = async (req: Request, res: Response) => {
     includeObject.catalogue = {
       include: {
         sections: {
-          include: { content: { include: { absences: true, grades: true } } },
+          include: {
+            content: {
+              include: {
+                absences: { orderBy: { absence_uid: "asc" } },
+                grades: { orderBy: { value: "asc" } },
+              },
+            },
+          },
         },
       },
     };

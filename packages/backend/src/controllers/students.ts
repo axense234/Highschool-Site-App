@@ -42,8 +42,8 @@ const getAllStudents = async (req: Request, res: Response) => {
   });
 };
 
-// GET SINGLE STUDENT by STUDENT UID or JWT
-const getStudentByIdOrJWT = async (req: Request, res: Response) => {
+// GET SINGLE STUDENT by STUDENT UID
+const getStudentById = async (req: Request, res: Response) => {
   const studentId =
     req.params.userId === "false" || !req.params.userId
       ? req.user.userId
@@ -62,7 +62,14 @@ const getStudentByIdOrJWT = async (req: Request, res: Response) => {
 
   if (includeStudentCard === "true") {
     includeObject.student_card = {
-      include: { content: { include: { grades: true, absences: true } } },
+      include: {
+        content: {
+          include: {
+            grades: { orderBy: { value: "desc" } },
+            absences: { orderBy: { absence_uid: "asc" } },
+          },
+        },
+      },
     };
   }
 
@@ -86,8 +93,8 @@ const getStudentByIdOrJWT = async (req: Request, res: Response) => {
   });
 };
 
-// UPDATE STUDENT by STUDENT UID or JWT
-const updateStudentByIdOrJWT = async (req: Request, res: Response) => {
+// UPDATE STUDENT by STUDENT ID
+const updateStudentById = async (req: Request, res: Response) => {
   const studentId =
     req.params.studentId === "false" || !req.params.studentId
       ? req.user.studentId
@@ -158,7 +165,7 @@ const updateStudentByIdOrJWT = async (req: Request, res: Response) => {
 };
 
 // DELETE STUDENT by STUDENT UID or JWT
-const deleteStudentByIdOrJWT = async (req: Request, res: Response) => {
+const deleteStudentById = async (req: Request, res: Response) => {
   const { studentId } = req.params;
 
   if (!studentId) {
@@ -197,9 +204,4 @@ const deleteStudentByIdOrJWT = async (req: Request, res: Response) => {
 };
 
 // EXPORTS
-export {
-  getStudentByIdOrJWT,
-  deleteStudentByIdOrJWT,
-  getAllStudents,
-  updateStudentByIdOrJWT,
-};
+export { getStudentById, deleteStudentById, getAllStudents, updateStudentById };

@@ -123,5 +123,231 @@
   #{&}__classCatalogue {
     @include homePageSection(getColor("silver-30"), column);
     gap: 5rem;
+    height: 200rem;
+  }
+
+  #{&}__classCatalogueContent {
+    @include flexCenter(column);
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+
+    background-color: getColor("silver-white");
+  }
+
+  #{&}__classCatalogueHead {
+    @include flexCenter(row);
+    justify-content: flex-start;
+    width: 100%;
+    height: 10rem;
+
+    tr {
+      @include flexCenter(row);
+      width: 100%;
+      height: 100%;
+      align-items: flex-start;
+    }
+
+    th {
+      @include flexCenter(row);
+      justify-content: flex-start;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid black;
+      font-size: 1rem;
+      background-color: getColor("silver-10");
+
+      button {
+        @include flexCenter(row);
+        position: absolute;
+        background-color: getColor("light-blue");
+        font-size: 3rem;
+        border-radius: 0.5rem;
+        border: 2px solid black;
+
+        transition: transform 0.2s ease-in;
+
+        svg {
+          width: 100%;
+          &:hover {
+            transform: scale(1);
+          }
+        }
+
+        &:first-of-type {
+          left: 1rem;
+        }
+
+        &:nth-of-type(2) {
+          right: 1rem;
+        }
+      }
+
+      &:first-of-type {
+        align-items: center;
+        width: 12.5%;
+        justify-content: center;
+        font-size: 2.25rem;
+        letter-spacing: 3px;
+      }
+
+      &:nth-of-type(2) {
+        @include flexCenter(row);
+        width: 87.5%;
+      }
+
+      span {
+        @include flexCenter(row);
+        height: 100%;
+        width: 100%;
+
+        &:first-of-type {
+          font-size: 2.25rem;
+          letter-spacing: 3px;
+          padding: 0.35rem;
+          padding-bottom: 0.7rem;
+        }
+
+        ul {
+          @include flexCenter(row);
+          align-items: flex-start;
+          list-style: none;
+          height: 100%;
+          width: 100%;
+
+          li {
+            @include flexCenter(row);
+            height: 100%;
+            width: 16.666%;
+            padding: 0.25rem;
+            font-size: 1.25rem;
+            border: 1px solid black;
+            border-bottom: none;
+            background-color: getColor("silver-white");
+          }
+        }
+      }
+    }
+  }
+
+  #{&}__classCatalogueSubjects {
+    @include flexCenter(column);
+    width: 100%;
+    height: 100%;
+  }
+
+  #{&}__classCatalogueBody {
+    @include flexCenter(column);
+    width: 100%;
+    height: 100%;
+  }
+
+  #{&}__classCatalogueSection {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+  }
+
+  #{&}__classCatalogueStudent {
+    @include flexCenter(column);
+    gap: 1rem;
+
+    height: 100%;
+    width: 12.5%;
+
+    border: 1px solid black;
+    border-right: 2px solid black;
+    padding: 0.5rem;
+
+    img {
+      border-radius: 50%;
+      border: 1px solid black;
+    }
+  }
+
+  #{&}__classCatalogueStudentContent {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+  }
+
+  #{&}__classCatalogueStudentContentWrapper {
+    @include flexCenter(row);
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 87.5%;
+    height: 100%;
+  }
+
+  #{&}__classCatalogueStudentDetails {
+    @include flexCenter(column);
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 50%;
+    height: 100%;
+
+    h4 {
+      width: 100%;
+      font-size: 1.25rem;
+      text-align: center;
+      border: 2px solid black;
+      border-top: 1px solid black;
+    }
+  }
+
+  #{&}__classCatalogueStudentDetailsContent {
+    @include flexCenter(column);
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    ul {
+      @include flexCenter(column);
+      list-style: none;
+      width: 100%;
+      gap: 0.5rem;
+
+      li {
+        @include flexCenter(row);
+        width: 100%;
+        position: relative;
+        text-align: center;
+        gap: 0.25rem;
+
+        svg {
+          @include flexCenter(row);
+          position: absolute;
+          top: 0;
+          left: 0;
+          color: red;
+          border: 0.5px solid black;
+          border-radius: 50%;
+          background-color: getColor("silver-white");
+          font-size: 1rem;
+          padding: 0.2rem;
+          width: auto;
+          height: auto;
+        }
+
+        h5 {
+          font-size: 1.35rem;
+          text-align: center;
+        }
+
+        h6 {
+          width: 100%;
+          font-size: 0.85rem;
+        }
+      }
+    }
   }
 }

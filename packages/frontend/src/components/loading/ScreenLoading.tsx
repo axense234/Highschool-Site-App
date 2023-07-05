@@ -26,6 +26,7 @@ import {
 import { selectLoadingUpdateAdmin } from "@/redux/slices/adminsSlice";
 import { selectLoadingCreateGrade } from "@/redux/slices/gradesSlice";
 import { selectLoadingCreateAbsence } from "@/redux/slices/absencesSlice";
+import { selectLoadingClass } from "@/redux/slices/classesSlice";
 
 const ScreenLoading: FC = () => {
   const screenLoadingRef = useRef<HTMLDivElement>(null);
@@ -56,6 +57,8 @@ const ScreenLoading: FC = () => {
   const loadingCreateGrade = useAppSelector(selectLoadingCreateGrade);
   const loadingCreateAbsence = useAppSelector(selectLoadingCreateAbsence);
 
+  const loadingClass = useAppSelector(selectLoadingClass);
+
   useEffect(() => {
     const show =
       loadingLoginProfile === "PENDING" ||
@@ -68,7 +71,8 @@ const ScreenLoading: FC = () => {
       loadingDeleteTeacher === "PENDING" ||
       loadingUpdateAdmin === "PENDING" ||
       loadingCreateGrade === "PENDING" ||
-      loadingCreateAbsence === "PENDING";
+      loadingCreateAbsence === "PENDING" ||
+      loadingClass === "PENDING";
 
     setShowLoading(show);
   }, [
@@ -83,6 +87,7 @@ const ScreenLoading: FC = () => {
     loadingUpdateAdmin,
     loadingCreateGrade,
     loadingCreateAbsence,
+    loadingClass,
   ]);
 
   useOverlayTransition(showLoading, screenLoadingRef);

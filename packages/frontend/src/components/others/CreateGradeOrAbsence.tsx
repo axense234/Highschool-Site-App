@@ -1,5 +1,5 @@
 // React
-import { FC, RefObject, useRef, useState } from "react";
+import { FC, RefObject, useRef } from "react";
 // React Icons
 import { GrAdd } from "react-icons/gr";
 // Types
@@ -22,12 +22,15 @@ import {
   setGradeModalId,
   setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
+import { getClassById } from "@/redux/slices/classesSlice";
 
 const CreateGradeOrAbsence: FC<CreateGradeOrAbsenceButtonProps> = ({
   showButton,
   type,
   studentId,
   sectionId,
+  location,
+  classId,
 }) => {
   const dispatch = useAppDispatch();
   const templateAbsence = useAppSelector(selectTemplateAbsence);
@@ -44,15 +47,16 @@ const CreateGradeOrAbsence: FC<CreateGradeOrAbsenceButtonProps> = ({
 
   if (type === "grade") {
     return (
-      <div
-        className={
-          profileStyles.profileContainer__createGradeOrAbsenceContainer
-        }
-      >
-        <CreateGradeOrAbsenceModal show={showModal} studentId={studentId} />
+      <div className={profileStyles.createGradeOrAbsenceContainer}>
+        <CreateGradeOrAbsenceModal
+          show={showModal}
+          studentId={studentId as string}
+          classId={classId as string}
+          location={location}
+        />
         <button
           type="button"
-          className={profileStyles.profileContainer__createGradeOrAbsenceButton}
+          className={profileStyles.createGradeOrAbsenceButton}
           aria-label="Adăugați o notă"
           title="Adăugați o notă"
           ref={buttonRef as RefObject<HTMLButtonElement>}
@@ -65,10 +69,10 @@ const CreateGradeOrAbsence: FC<CreateGradeOrAbsenceButtonProps> = ({
   }
 
   return (
-    <div className={profileStyles.profileContainer__createGradeOrAbsence}>
+    <div className={profileStyles.createGradeOrAbsence}>
       <button
         type="button"
-        className={profileStyles.profileContainer__createGradeOrAbsenceButton}
+        className={profileStyles.createGradeOrAbsenceButton}
         aria-label="Adăugați o absență"
         title="Adăugați o absență"
         onClick={() => {
@@ -79,7 +83,13 @@ const CreateGradeOrAbsence: FC<CreateGradeOrAbsenceButtonProps> = ({
           );
           dispatch(createAbsence(templateAbsence))
             .unwrap()
-            .then(() => dispatch(getStudentById(studentId)));
+            .then(() => {
+              if (location === "inStudentCard") {
+                dispatch(getStudentById(studentId as string));
+              } else if (location === "inCatalogue") {
+                dispatch(getClassById(classId as string));
+              }
+            });
         }}
         ref={buttonRef as RefObject<HTMLButtonElement>}
       >

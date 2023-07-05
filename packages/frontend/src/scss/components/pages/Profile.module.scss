@@ -117,8 +117,9 @@
 
   #{&}__studentCatalogue {
     @include homePageSection(getColor("silver-40"), column);
+    justify-content: flex-start;
     width: 100%;
-    justify-content: space-between;
+    min-height: 100rem;
     gap: 3rem;
 
     h2 {
@@ -169,27 +170,31 @@
     tbody {
       @include flexCenter(column);
       width: 100%;
-      height: 100%;
+      min-height: 125rem;
 
       tr {
         @include flexCenter(row);
         justify-content: flex-start;
         align-items: flex-start;
         width: 100%;
-        min-height: 100%;
+        height: 15rem;
 
         td {
           @include flexCenter(row);
           align-items: flex-start;
           position: relative;
           height: 100%;
-          justify-content: flex-start;
           flex-grow: 1;
           border: 1px solid black;
           padding: 0.25rem;
           max-width: 25%;
           min-height: 2.25rem;
           background-color: getColor("silver-white");
+
+          &:first-of-type {
+            align-items: center;
+            font-size: 1.15rem;
+          }
 
           ul {
             @include flexCenter(column);
@@ -199,8 +204,24 @@
 
             li {
               @include flexCenter(row);
+              position: relative;
               justify-content: space-evenly;
               width: 100%;
+
+              svg {
+                @include flexCenter(row);
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: red;
+                border: 0.5px solid black;
+                border-radius: 50%;
+                background-color: getColor("silver-white");
+                font-size: 1rem;
+                padding: 0.2rem;
+                width: auto;
+                height: auto;
+              }
 
               h5 {
                 font-size: 0.75rem;
@@ -279,96 +300,98 @@
       }
     }
   }
+}
 
-  #{&}__createGradeOrAbsenceContainer {
-    @include flexCenter(column);
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 75%;
+.createGradeOrAbsenceContainer {
+  @include flexCenter(column);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 75%;
+  min-width: 12.5rem;
+}
+
+.createGradeOrAbsenceButton {
+  @include flexCenter(row);
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: blue;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  padding: 0.35rem;
+  border: 1px solid black;
+  z-index: 2;
+
+  transition: opacity 0.35s ease-in;
+
+  display: none;
+  opacity: 0;
+
+  svg {
+    width: 100%;
+    transition: transform 0.2s ease-in;
+
+    &:hover {
+      transform: rotate(180deg);
+    }
   }
+}
 
-  #{&}__createGradeOrAbsenceButton {
+.createGradeOrAbsenceForm {
+  @include flexCenter(column);
+  width: 100%;
+  gap: 1rem;
+
+  button {
     @include flexCenter(row);
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: blue;
-    border-radius: 50%;
-    font-size: 1.25rem;
-    padding: 0.35rem;
-    border: 1px solid black;
-
-    transition: opacity 0.35s ease-in;
-
-    display: none;
-    opacity: 0;
-
-    svg {
-      width: 100%;
-      transition: transform 0.2s ease-in;
-
-      &:hover {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  #{&}__createGradeOrAbsenceForm {
-    @include flexCenter(column);
-    width: 100%;
-    gap: 1rem;
-
-    button {
-      @include flexCenter(row);
-      background-color: getColor("light-blue");
-      padding: 0.5rem 0.25rem;
-      width: 60%;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      border: 2px solid getColor("silver-50");
-      border-radius: 0.25rem;
-
-      transition: transform 0.2s ease-in;
-    }
-  }
-
-  #{&}__createGradeOrAbsenceModal {
-    @include flexCenter(column);
-    position: absolute;
-    width: 100%;
-    background-color: getColor("silver-white");
-    padding: 0.5rem;
-    bottom: 1rem;
-    border: 2px solid black;
+    background-color: getColor("light-blue");
+    padding: 0.5rem 0.25rem;
+    width: 60%;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    border: 2px solid getColor("silver-50");
     border-radius: 0.25rem;
-    gap: 0.5rem;
 
-    display: none;
-    opacity: 0;
+    transition: transform 0.2s ease-in;
+  }
+}
 
-    transition: opacity 0.15s ease-in;
+.createGradeOrAbsenceModal {
+  @include flexCenter(column);
+  position: absolute;
+  width: 100%;
+  background-color: getColor("silver-white");
+  padding: 0.5rem;
+  bottom: 1rem;
+  border: 2px solid black;
+  border-radius: 0.25rem;
+  gap: 0.5rem;
 
-    svg {
-      position: absolute;
-      top: 0.25rem;
-      right: 0.25rem;
-      color: red;
-      font-size: 1.5rem;
-    }
+  display: none;
+  opacity: 0;
 
-    label {
-      font-size: 1.5rem;
-    }
+  transition: opacity 0.15s ease-in;
 
-    input {
-      @include controlInput(1rem, 50%);
-      padding-left: 0.25rem;
-      border-radius: 0.25rem;
+  svg {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    color: red;
+    font-size: 1.5rem;
+  }
 
-      &:hover {
-        transform: scale(1);
-      }
+  label {
+    font-size: 1.5rem;
+  }
+
+  input {
+    @include controlInput(1rem, 50%);
+    padding-left: 0.25rem;
+    border-radius: 0.25rem;
+
+    &:hover {
+      transform: scale(1);
     }
   }
 }

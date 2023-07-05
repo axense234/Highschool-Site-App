@@ -34,21 +34,12 @@ interface TemplateAnnouncement extends Announcement {
   announcement_uid?: string;
 }
 
-interface TemplateCatalogue extends StudentCatalogue {
-  catalogue_uid?: string;
-  id?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  sections?: TemplateStudentCard[];
-}
-
 interface TemplateClass extends Class {
   class_uid?: string;
   id?: string;
   students?: Student[] | string[];
   teachers?: Teacher[] | string[];
   master_teacher?: Teacher;
-  catalogue?: TemplateCatalogue;
 }
 
 interface TemplateTeacher extends Teacher {
@@ -427,9 +418,10 @@ interface ProfileTeacherClassrooms {
 
 interface CardSectionProps {
   subject: Subjects;
+  class_uid: string;
   section_uid: string;
   profile_used_uid: string;
-  ownProfileRole: "ELEV" | "PROFESOR" | "ADMIN";
+  ownProfile: Admin | Student | Teacher | TemplateUser;
   teacher: string | null;
   grades: Grade[] | undefined;
   absences: Absence[] | undefined;
@@ -453,20 +445,41 @@ interface TemplateAbsence extends Absence {
 
 interface CreateGradeOrAbsenceButtonProps {
   showButton: boolean;
-  type: "absence" | "grade";
-  studentId: string;
   sectionId: string;
+  type: "absence" | "grade";
+  location: "inCatalogue" | "inStudentCard";
+  studentId?: string;
+  classId?: string;
 }
 
 interface CreateGradeOrAbsenceModalProps {
   show: boolean;
-  studentId: string;
+  location: "inCatalogue" | "inStudentCard";
+  studentId?: string;
+  classId?: string;
 }
 
 type GradeOrAbsenceSectionType = {
   sectionId: string;
   type: "absence" | "grade";
 };
+
+interface ClassCatalogueHeadProps {
+  subjectsSlicer: number;
+  setSubjectsSlicer: Dispatch<SetStateAction<number>>;
+}
+
+interface ClassCatalogueSectionProps {
+  student: TemplateStudent;
+  subjectsSlicer: number;
+  class_uid?: string;
+}
+
+interface ClassCatalogueSectionContentProps {
+  section_uid: string;
+  class_uid?: string;
+  studentCardContent: TemplateStudentCardSection[] | undefined;
+}
 
 export {
   SidebarLink,
@@ -542,5 +555,7 @@ export {
   TemplateAbsence,
   CreateGradeOrAbsenceModalProps,
   GradeOrAbsenceSectionType,
-  TemplateCatalogue,
+  ClassCatalogueHeadProps,
+  ClassCatalogueSectionProps,
+  ClassCatalogueSectionContentProps,
 };

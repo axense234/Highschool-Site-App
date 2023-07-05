@@ -40,6 +40,7 @@ type initialStateType = {
   cardModalId: string;
   gradeOrAbsenceSection: GradeOrAbsenceSectionType;
   gradeModalId: string;
+  markedAbsenceId: string;
   optionsContent: string;
   overlay: OverlayType;
   editMode: boolean;
@@ -72,6 +73,7 @@ const initialState: initialStateType = {
     type: "grade",
   },
   gradeModalId: "",
+  markedAbsenceId: "",
   optionsContent: "settings",
   overlay: defaultOverlay,
   editMode: false,
@@ -200,6 +202,9 @@ const generalSlice = createSlice({
       action: PayloadAction<GradeOrAbsenceSectionType>
     ) {
       state.gradeOrAbsenceSection = action.payload;
+    },
+    setMarkedAbsenceId(state, action: PayloadAction<string>) {
+      state.markedAbsenceId = action.payload;
     },
     setOptionsContent(state, action: PayloadAction<string>) {
       state.optionsContent = action.payload;
@@ -362,6 +367,9 @@ export const selectCardModalId = (state: State) => state.general.cardModalId;
 
 export const selectGradeModalId = (state: State) => state.general.gradeModalId;
 
+export const selectMarkedAbsenceId = (state: State) =>
+  state.general.markedAbsenceId;
+
 export const selectGradeOrAbsenceSection = (state: State) =>
   state.general.gradeOrAbsenceSection;
 
@@ -423,6 +431,7 @@ export const {
   setEmailCurrentType,
   setGradeOrAbsenceSection,
   setGradeModalId,
+  setMarkedAbsenceId,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

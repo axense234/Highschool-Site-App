@@ -116,8 +116,9 @@ export const updateAbsenceById = createAsyncThunk<
   TemplateAbsence
 >("absences/updateAbsenceById", async (templateAbsence) => {
   try {
+    console.log(templateAbsence);
     const { data } = await axiosInstance.patch(
-      `/absences/student/update/${templateAbsence.absence_uid}`,
+      `/absences/absence/update/${templateAbsence.absence_uid}`,
       templateAbsence
     );
     return data.absence as Absence;

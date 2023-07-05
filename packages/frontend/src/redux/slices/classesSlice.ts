@@ -81,7 +81,7 @@ export const getClassById = createAsyncThunk<Class | AxiosError, string>(
   async (classId) => {
     try {
       const { data } = await axiosInstance.get(
-        `/classes/class/${classId}?includeTeachers=true&includeStudents=true&includeMasterTeacher=true&includeCatalogue=true`
+        `/classes/class/${classId}?includeTeachers=true&includeStudents=true&includeMasterTeacher=true`
       );
       return data.class as Class;
     } catch (error) {
@@ -218,10 +218,6 @@ const classesSlice = createSlice({
 
           if (classItem.master_teacher) {
             classItem.master_teacher.id = classItem.master_teacher.teacher_uid;
-          }
-
-          if (classItem.catalogue) {
-            classItem.catalogue.id = classItem.catalogue.catalogue_uid;
           }
 
           classItem.id = classItem.class_uid;

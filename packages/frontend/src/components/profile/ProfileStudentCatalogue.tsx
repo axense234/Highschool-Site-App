@@ -52,10 +52,26 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
     }
   }, []);
 
+  const studentCardSubjects =
+    studentCardContent?.map((section) => {
+      return { id: section.card_section_uid, subject: section.subject };
+    }) || [];
+
+  const studentCardGrades =
+    studentCardContent?.map((section) => {
+      return {
+        id: section.card_section_uid,
+        grades: section.grades,
+        gradesSubject: section.subject,
+      };
+    }) || [];
+
+  const studentCardAbsences =
+    studentCardContent?.map((section) => {
+      return { id: section.card_section_uid, absences: section.absences };
+    }) || [];
+
   const {
-    studentCardAbsences,
-    studentCardGrades,
-    studentCardSubjects,
     studentClassPosition,
     studentGPA,
     studentMaxAbsencesInADay,
@@ -66,7 +82,11 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
     studentReasonedAbsences,
     studentTotalAbsences,
     studentUnreasonedAbsences,
-  } = useCalculateCardStats(studentCardContent);
+  } = useCalculateCardStats(
+    studentCardSubjects,
+    studentCardGrades,
+    studentCardAbsences
+  );
 
   let studentCardContentShown: TemplateStudentCardSection[] | undefined;
   switch (ownProfile.role) {
@@ -135,11 +155,10 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
               {studentCardContentShown?.map((section) => {
                 return (
                   <CardSection
+                    class_uid={profileUsed.class_uid as string}
                     key={section.card_section_uid}
                     section_uid={section.card_section_uid}
-                    ownProfileRole={
-                      ownProfile.role as "ADMIN" | "PROFESOR" | "ELEV"
-                    }
+                    ownProfile={ownProfile}
                     profile_used_uid={profileUsed.student_uid as string}
                     absences={
                       studentCardAbsences.find(

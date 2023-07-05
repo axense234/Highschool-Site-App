@@ -3,21 +3,21 @@ import express from "express";
 
 // Controllers and Middleware
 import {
-  deleteStudentByIdOrJWT,
-  getStudentByIdOrJWT,
+  deleteStudentById,
+  getStudentById,
   getAllStudents,
-  updateStudentByIdOrJWT,
+  updateStudentById,
 } from "../controllers/students";
 
 const router = express.Router();
 
 router.get("/students", getAllStudents);
 
-router.get("/students/student/:userId", getStudentByIdOrJWT);
+router.get("/students/student/:userId", getStudentById);
 
-router.patch("/students/student/update/:studentId", updateStudentByIdOrJWT);
+router.patch("/students/student/update/:studentId", updateStudentById);
 
-router.delete("/students/student/delete/:studentId", deleteStudentByIdOrJWT);
+router.delete("/students/student/delete/:studentId", deleteStudentById);
 
 // EXPORTS
 export default router;

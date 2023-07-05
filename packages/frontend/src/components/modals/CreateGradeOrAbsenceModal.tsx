@@ -8,6 +8,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Hooks
 import useModalTransition from "@/hooks/useModalTransition";
+// Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   createGrade,
@@ -19,10 +20,13 @@ import {
   setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import { getStudentById } from "@/redux/slices/studentsSlice";
+import { getClassById } from "@/redux/slices/classesSlice";
 
 const CreateGradeOrAbsenceModal: FC<CreateGradeOrAbsenceModalProps> = ({
   show,
   studentId,
+  location,
+  classId,
 }) => {
   const dispatch = useAppDispatch();
   const modalRef = useRef<HTMLDivElement>(null);
@@ -43,21 +47,24 @@ const CreateGradeOrAbsenceModal: FC<CreateGradeOrAbsenceModalProps> = ({
     );
     dispatch(createGrade(templateGrade))
       .unwrap()
-      .then(() => dispatch(getStudentById(studentId)));
+      .then(() => {
+        if (location === "inStudentCard") {
+          dispatch(getStudentById(studentId as string));
+        } else if (location === "inCatalogue") {
+          dispatch(getClassById(classId as string));
+        }
+      });
   };
 
   return (
-    <div
-      className={profileStyles.profileContainer__createGradeOrAbsenceModal}
-      ref={modalRef}
-    >
+    <div className={profileStyles.createGradeOrAbsenceModal} ref={modalRef}>
       <AiFillCloseCircle
         onClick={() => dispatch(setGradeModalId(""))}
         title="Închideți modalul"
         aria-label="Închideți modalul"
       />
       <form
-        className={profileStyles.profileContainer__createGradeOrAbsenceForm}
+        className={profileStyles.createGradeOrAbsenceForm}
         onSubmit={(e) => handleCreateGrade(e)}
       >
         <label htmlFor="addGrade">Valoare:</label>
