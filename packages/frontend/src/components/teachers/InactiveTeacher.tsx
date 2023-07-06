@@ -2,11 +2,12 @@
 import { FC, RefObject, useEffect, useRef } from "react";
 // Next
 import Image from "next/image";
+import Link from "next/link";
 // Types
 import { Teacher } from "@prisma/client";
-import { TemplateUpdateTeacher } from "types";
+import { TemplateTeacher, TemplateUpdateTeacher } from "types";
 // SCSS
-import teachersStyles from "../../scss/components/pages/Profesori.module.scss";
+import teachersStyles from "../../scss/components/pages/Teachers.module.scss";
 // Components
 import EditableTeacher from "./EditableTeacher";
 import CardModal from "../modals/CardModal";
@@ -35,22 +36,22 @@ const InactiveTeacher: FC<Teacher> = ({
   teacher_uid,
 }) => {
   const dispatch = useAppDispatch();
+  const teacherRef = useRef<HTMLAnchorElement>(null);
+
   const overlay = useAppSelector(selectOverlay);
-  const cardModalId = useAppSelector(selectCardModalId);
   const editMode = useAppSelector(selectEditMode);
+  const cardModalId = useAppSelector(selectCardModalId);
+  const foundTeacherId = useAppSelector(selectFoundTeacherId);
+  const templateTeacher = useAppSelector(selectTemplateTeacher);
 
   const teacher = useAppSelector((state: State) =>
     selectTeacherById(state, cardModalId)
   );
-  const foundTeacherId = useAppSelector(selectFoundTeacherId);
-  const teacherRef = useRef<HTMLElement>(null);
 
   const editModeAvailable = teacher_uid === cardModalId && editMode;
 
   useSetTemplateTeacher(teacher);
   useScrollToTeacher(foundTeacherId, teacher_uid, teacherRef);
-
-  const templateTeacher = useAppSelector(selectTemplateTeacher);
 
   if (editModeAvailable) {
     return (
@@ -61,8 +62,9 @@ const InactiveTeacher: FC<Teacher> = ({
   }
 
   return (
-    <article
-      className={teachersStyles.profesoriContainer__profesor}
+    <Link
+      href={`/profil/${teacher_uid}?type=teacher`}
+      className={teachersStyles.teachersContainer__teacher}
       onMouseEnter={() => {
         dispatch(setCardModalId(teacher_uid));
       }}
@@ -74,16 +76,13 @@ const InactiveTeacher: FC<Teacher> = ({
       ref={teacherRef}
     >
       <Image
-        src={
-          (profile_img_url as string) ||
-          "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-        }
+        src={profile_img_url}
         alt={fullname}
         width={500}
         height={500}
         title={fullname}
       />
-      <div className={teachersStyles.profesoriContainer__profesorInfo}>
+      <div className={teachersStyles.teachersContainer__teacherInfo}>
         <h3>{fullname}</h3>
         <p>Profesor de: {subject}</p>
         <p>
@@ -93,7 +92,7 @@ const InactiveTeacher: FC<Teacher> = ({
         </p>
       </div>
       <CardModal cardId={teacher_uid} componentType="teacher" />
-    </article>
+    </Link>
   );
 };
 
@@ -101,7 +100,7 @@ const useSetTemplateTeacher = (teacher: Teacher | undefined) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (teacher?.fullname) {
-      dispatch(setTemplateTeacher(teacher));
+      dispatch(setTemplateTeacher(teacher as TemplateTeacher));
     }
   }, [teacher?.fullname]);
 };

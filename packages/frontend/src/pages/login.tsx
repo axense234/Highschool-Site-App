@@ -1,7 +1,7 @@
 // React
 import { FC, useEffect } from "react";
 // SCSS
-import HomeTitle from "../components/home/HomeTitle";
+import PageTitle from "../components/home/PageTitle";
 // Components
 import loginStyles from "../scss/components/pages/Login.module.scss";
 import AccountsForm from "@/components/forms/AccountsForm";
@@ -53,7 +53,7 @@ const Login: FC = () => {
         ]}
       />
       <main className={loginStyles.loginContainer}>
-        <HomeTitle
+        <PageTitle
           title="Intrați în cont"
           quote="Intrați în cont pentru numeroase posibilități."
         />

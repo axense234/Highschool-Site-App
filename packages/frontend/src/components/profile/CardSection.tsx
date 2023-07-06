@@ -1,8 +1,11 @@
 // React
 import { FC, useEffect } from "react";
+// Next
+import Image from "next/image";
+import Link from "next/link";
 // Types
 import { CardSectionProps } from "types";
-import { Absence, Teacher } from "@prisma/client";
+import { Absence, Grade, Teacher } from "@prisma/client";
 // React Icons
 import { AiFillDelete } from "react-icons/ai";
 // Components
@@ -18,11 +21,16 @@ import {
   selectGradeOrAbsenceSection,
   selectGradeModalId,
   setGradeOrAbsenceSection,
-  setMarkedAbsenceId,
-  selectMarkedAbsenceId,
+  setMarkedAbsenceOrGradeId,
+  selectMarkedAbsenceOrGradeId,
+  setEditableGradeId,
+  selectEditableGradeId,
 } from "@/redux/slices/generalSlice";
-import { updateTemplateGrade } from "@/redux/slices/gradesSlice";
-import { getClassById } from "@/redux/slices/classesSlice";
+import {
+  deleteGradeById,
+  updateGradeById,
+  updateTemplateGrade,
+} from "@/redux/slices/gradesSlice";
 import { getStudentById } from "@/redux/slices/studentsSlice";
 
 const CardSection: FC<CardSectionProps> = ({
@@ -30,25 +38,31 @@ const CardSection: FC<CardSectionProps> = ({
   grades,
   ownProfile,
   subject,
-  teacher,
+  teacherFullname,
+  teacherProfileImage,
+  teacherId,
   section_uid,
   profile_used_uid,
   class_uid,
 }) => {
   const dispatch = useAppDispatch();
-  const gradeOrAbsenceSection = useAppSelector(selectGradeOrAbsenceSection);
   const gradeModalId = useAppSelector(selectGradeModalId);
-  const markedAbsenceId = useAppSelector(selectMarkedAbsenceId);
-
+  const markedAbsenceOrGradeId = useAppSelector(selectMarkedAbsenceOrGradeId);
+  const gradeOrAbsenceSection = useAppSelector(selectGradeOrAbsenceSection);
   const gradeOrAbsenceSectionId = gradeOrAbsenceSection.sectionId;
   const gradeOrAbsenceSectionType = gradeOrAbsenceSection.type;
+  const editableGradeId = useAppSelector(selectEditableGradeId);
 
   const allowModifications =
     ownProfile.role === "ADMIN" || ownProfile.role === "PROFESOR";
+
   const allowAbsenceReasoning =
     ownProfile.role === "ADMIN" ||
     (ownProfile as Teacher).master_class_uid === class_uid;
-  const allowDeleteAbsence = ownProfile.role === "ADMIN";
+
+  const allowDeleteAbsenceOrGrade = ownProfile.role === "ADMIN";
+  const allowEditGrade =
+    ownProfile.role === "ADMIN" || ownProfile.role === "PROFESOR";
 
   const updateAbsence = (absence: Absence) => {
     if (allowAbsenceReasoning) {
@@ -66,10 +80,33 @@ const CardSection: FC<CardSectionProps> = ({
   };
 
   const deleteAbsence = (absence_uid: string) => {
-    if (allowDeleteAbsence) {
+    if (allowDeleteAbsenceOrGrade) {
       dispatch(deleteAbsenceById(absence_uid))
         .unwrap()
-        .then(() => dispatch(getClassById(class_uid as string)));
+        .then(() => dispatch(getStudentById(profile_used_uid as string)));
+    }
+  };
+
+  const updateGrade = (grade: Grade, value: number) => {
+    if (allowEditGrade) {
+      dispatch(
+        updateGradeById({
+          card_section_uid: section_uid,
+          id: grade.grade_uid,
+          value,
+          grade_uid: grade.grade_uid,
+        })
+      )
+        .unwrap()
+        .then(() => dispatch(getStudentById(profile_used_uid as string)));
+    }
+  };
+
+  const deleteGrade = (grade_uid: string) => {
+    if (allowDeleteAbsenceOrGrade) {
+      dispatch(deleteGradeById(grade_uid))
+        .unwrap()
+        .then(() => dispatch(getStudentById(profile_used_uid as string)));
     }
   };
 
@@ -96,20 +133,35 @@ const CardSection: FC<CardSectionProps> = ({
     <tr>
       <td
         style={{
+          fontWeight: teacherFullname ? "bolder" : "normal",
+          fontSize: teacherFullname ? "1.15rem" : "1rem",
+        }}
+      >
+        {teacherFullname ? (
+          <Link href={`/profil/${teacherId}?type=teacher`}>
+            <Image
+              alt={teacherFullname}
+              src={teacherProfileImage as string}
+              width={100}
+              height={100}
+            />
+            <h3>{teacherFullname}</h3>
+          </Link>
+        ) : (
+          <h3>Nu știm încă</h3>
+        )}
+      </td>
+      <td
+        style={{
           fontWeight: "bolder",
         }}
       >
         {subject}
       </td>
       <td
-        style={{
-          fontWeight: teacher ? "bolder" : "normal",
-          fontSize: teacher ? "1.15rem" : "1rem",
+        onMouseLeave={() => {
+          dispatch(setEditableGradeId(""));
         }}
-      >
-        {teacher || "Nu știm încă"}
-      </td>
-      <td
         onFocus={() => {
           if (allowModifications) {
             dispatch(
@@ -144,8 +196,37 @@ const CardSection: FC<CardSectionProps> = ({
         <ul>
           {grades?.map((grade) => {
             return (
-              <li key={grade.grade_uid}>
-                <h4>{grade.value}</h4>
+              <li
+                key={grade.grade_uid}
+                onFocus={() =>
+                  dispatch(setMarkedAbsenceOrGradeId(grade.grade_uid))
+                }
+                onMouseOver={() =>
+                  dispatch(setMarkedAbsenceOrGradeId(grade.grade_uid))
+                }
+                onClick={() => dispatch(setEditableGradeId(grade.grade_uid))}
+              >
+                {markedAbsenceOrGradeId === grade.grade_uid &&
+                allowDeleteAbsenceOrGrade ? (
+                  <AiFillDelete
+                    title="Ștergeți nota"
+                    aria-label="Ștergeți nota"
+                    onClick={() => deleteGrade(grade.grade_uid)}
+                  />
+                ) : null}
+                {editableGradeId === grade.grade_uid && allowEditGrade ? (
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={grade.value}
+                    onChange={(e) => updateGrade(grade, e.target.valueAsNumber)}
+                  />
+                ) : (
+                  <>
+                    <h4>{grade.value} / </h4>
+                  </>
+                )}
                 <p>
                   {grade.date
                     ? new Date(grade.date).toLocaleDateString()
@@ -198,15 +279,18 @@ const CardSection: FC<CardSectionProps> = ({
                   borderRadius: absence.reasoned ? "2rem" : "0",
                   border: absence.reasoned ? "1px solid black" : "none",
                   padding: absence.reasoned ? "0.25rem 0" : "none",
+                  width: "50%",
+                  textAlign: "center",
                 }}
                 onFocus={() =>
-                  dispatch(setMarkedAbsenceId(absence.absence_uid))
+                  dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
                 }
                 onMouseOver={() =>
-                  dispatch(setMarkedAbsenceId(absence.absence_uid))
+                  dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
                 }
               >
-                {markedAbsenceId === absence.absence_uid ? (
+                {markedAbsenceOrGradeId === absence.absence_uid &&
+                allowDeleteAbsenceOrGrade ? (
                   <AiFillDelete
                     title="Ștergeți absența"
                     aria-label="Ștergeți absența"

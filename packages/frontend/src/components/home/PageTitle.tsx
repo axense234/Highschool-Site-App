@@ -3,18 +3,18 @@ import { FC } from "react";
 // Pop-in Animations
 import { useInView } from "react-intersection-observer";
 // Types
-import { HomeTitleProps } from "types";
+import { PageTitleProps } from "types";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
 // SCSS
-import homeTitleStyles from "../../scss/components/home/HomeTitle.module.scss";
+import PageTitleStyles from "../../scss/components/home/PageTitle.module.scss";
 // Redux
 import { useAppSelector } from "@/hooks/redux";
 import { selectCurrentPathname } from "@/redux/slices/generalSlice";
 // Data
 import { pageTitleBackgroundImageUrls } from "@/data";
 
-const HomeTitle: FC<HomeTitleProps> = ({ title, quote, backgroundUrl }) => {
+const PageTitle: FC<PageTitleProps> = ({ title, quote, backgroundUrl }) => {
   const { ref: titleRef, inView: titleInView, entry: titleEntry } = useInView();
   const { ref: quoteRef, inView: quoteInView, entry: quoteEntry } = useInView();
 
@@ -29,7 +29,7 @@ const HomeTitle: FC<HomeTitleProps> = ({ title, quote, backgroundUrl }) => {
 
   return (
     <section
-      className={homeTitleStyles.homeContainer__title}
+      className={PageTitleStyles.homeContainer__title}
       id="title"
       style={{
         backgroundImage: `url(${
@@ -47,4 +47,4 @@ const HomeTitle: FC<HomeTitleProps> = ({ title, quote, backgroundUrl }) => {
   );
 };
 
-export default HomeTitle;
+export default PageTitle;

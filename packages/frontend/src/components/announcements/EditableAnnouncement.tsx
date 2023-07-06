@@ -9,7 +9,7 @@ import Image from "next/image";
 // Types
 import { EditableAnnouncementProps, TemplateAnnouncement } from "types";
 // SCSS
-import announcementsStyles from "../../scss/components/pages/Anunturi.module.scss";
+import announcementsStyles from "../../scss/components/pages/Announcements.module.scss";
 // Components
 import CardModal from "../modals/CardModal";
 import EditFormModal from "../modals/EditFormModal";

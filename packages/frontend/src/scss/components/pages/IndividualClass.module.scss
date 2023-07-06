@@ -123,7 +123,7 @@
   #{&}__classCatalogue {
     @include homePageSection(getColor("silver-30"), column);
     gap: 5rem;
-    height: 200rem;
+    min-height: 100rem;
   }
 
   #{&}__classCatalogueContent {
@@ -242,7 +242,7 @@
   #{&}__classCatalogueBody {
     @include flexCenter(column);
     width: 100%;
-    height: 100%;
+    justify-content: flex-start;
   }
 
   #{&}__classCatalogueSection {
@@ -250,13 +250,12 @@
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 30rem;
     border: 1px solid black;
   }
 
   #{&}__classCatalogueStudent {
-    @include flexCenter(column);
-    gap: 1rem;
+    @include flexCenter(row);
 
     height: 100%;
     width: 12.5%;
@@ -265,9 +264,27 @@
     border-right: 2px solid black;
     padding: 0.5rem;
 
-    img {
-      border-radius: 50%;
-      border: 1px solid black;
+    a {
+      @include flexCenter(column);
+      gap: 1rem;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      img {
+        transition: transform 0.1s ease-in;
+        border-radius: 50%;
+        border: 1px solid black;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
     }
   }
 
@@ -313,21 +330,44 @@
     ul {
       @include flexCenter(column);
       list-style: none;
+      align-items: flex-start;
+      justify-content: flex-start;
+      height: 100%;
+      max-height: 25rem;
       width: 100%;
       gap: 0.5rem;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        visibility: hidden;
+      }
 
       li {
         @include flexCenter(row);
         width: 100%;
         position: relative;
         text-align: center;
-        gap: 0.25rem;
+
+        input {
+          @include flexCenter(row);
+          background-color: inherit;
+          border: none;
+          font-size: 1.25rem;
+          font-weight: bolder;
+          width: 100%;
+          border: 3px solid getColor("light-green");
+          border-radius: 1rem;
+
+          &:hover {
+            transform: scale(1);
+          }
+        }
 
         svg {
           @include flexCenter(row);
           position: absolute;
-          top: 0;
-          left: 0;
+          top: -0.8rem;
+          left: -0.4rem;
           color: red;
           border: 0.5px solid black;
           border-radius: 50%;
@@ -336,10 +376,15 @@
           padding: 0.2rem;
           width: auto;
           height: auto;
+          z-index: 2;
+        }
+
+        p {
+          font-size: 0.75rem;
         }
 
         h5 {
-          font-size: 1.35rem;
+          font-size: 1.15rem;
           text-align: center;
         }
 

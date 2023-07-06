@@ -9,7 +9,7 @@ import { EditableTeacherProps } from "types";
 import { FcCheckmark } from "react-icons/fc";
 import { FiPlus } from "react-icons/fi";
 // SCSS
-import teachersStyles from "../../scss/components/pages/Profesori.module.scss";
+import teachersStyles from "../../scss/components/pages/Teachers.module.scss";
 // Data
 import { subjects } from "@/data";
 // Components
@@ -69,7 +69,7 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
 
   return (
     <article
-      className={teachersStyles.profesoriContainer__profesor}
+      className={teachersStyles.teachersContainer__teacher}
       onMouseEnter={() => dispatch(setCardModalId(teacher_uid as string))}
       onMouseLeave={() => {
         if (!overlay.showOverlay) {
@@ -79,24 +79,19 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
       }}
     >
       <EditFormModal type="teachers" />
-      <div className={teachersStyles.profesoriContainer__profesorImage}>
+      <div className={teachersStyles.teachersContainer__teacherImage}>
         <Image
-          src={
-            (profile_img_url as string) ||
-            "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-          }
+          src={profile_img_url as string}
           alt={fullname as string}
           width={500}
           height={500}
           title={fullname as string}
         />
-        <div
-          className={teachersStyles.profesoriContainer__profesorImageOverlay}
-        >
+        <div className={teachersStyles.teachersContainer__teacherImageOverlay}>
           <input
             type="file"
-            name="profesorImage"
-            id="profesorImage"
+            name="teacherImage"
+            id="teacherImage"
             ref={hiddenFileInputRef}
             onChange={(e) => {
               if (e.target.files) {
@@ -113,7 +108,7 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
         </div>
       </div>
       <form
-        className={teachersStyles.profesoriContainer__profesorInfo}
+        className={teachersStyles.teachersContainer__teacherInfo}
         onSubmit={(e) => handleUpdateTeacher(e)}
       >
         <input
@@ -123,7 +118,7 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
           value={fullname}
           onChange={(e) => onFullnameChange(e.target.value)}
         />
-        <div className={teachersStyles.profesoriContainer__control}>
+        <div className={teachersStyles.teachersContainer__control}>
           <label htmlFor="materii">Profesor de:</label>
           <select
             name="materii"

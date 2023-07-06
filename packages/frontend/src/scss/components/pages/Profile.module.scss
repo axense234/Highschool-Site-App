@@ -170,7 +170,6 @@
     tbody {
       @include flexCenter(column);
       width: 100%;
-      min-height: 125rem;
 
       tr {
         @include flexCenter(row);
@@ -192,21 +191,73 @@
           background-color: getColor("silver-white");
 
           &:first-of-type {
-            align-items: center;
-            font-size: 1.15rem;
+            @include flexCenter(row);
+
+            a {
+              @include flexCenter(column);
+              font-size: 1.15rem;
+              gap: 1rem;
+              text-decoration: none;
+              color: black;
+
+              &:hover {
+                text-decoration: underline;
+              }
+
+              img {
+                transition: transform 0.1s ease-in;
+                border-radius: 50%;
+                border: 1px solid black;
+
+                &:hover {
+                  transform: scale(1.2);
+                }
+              }
+
+              h3 {
+                text-align: center;
+              }
+            }
+          }
+
+          &:nth-of-type(2) {
+            @include flexCenter(row);
           }
 
           ul {
             @include flexCenter(column);
+            justify-content: flex-start;
             width: 100%;
+            height: 100%;
             list-style: none;
             gap: 0.25rem;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+              visibility: hidden;
+            }
 
             li {
               @include flexCenter(row);
               position: relative;
-              justify-content: space-evenly;
+              gap: 1rem;
               width: 100%;
+
+              input {
+                @include flexCenter(row);
+                background-color: inherit;
+                border: none;
+                font-size: 1.25rem;
+                padding-left: 1rem;
+                font-weight: bolder;
+                width: 25%;
+                border: 3px solid getColor("light-green");
+                border-radius: 1rem;
+
+                &:hover {
+                  transform: scale(1);
+                }
+              }
 
               svg {
                 @include flexCenter(row);

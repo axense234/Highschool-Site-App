@@ -4,14 +4,14 @@ import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // Types
 import { Admin, Student, Teacher } from "@prisma/client";
-import { TemplateStudent, TemplateUser } from "types";
+import { TemplateClass, TemplateStudent, TemplateUser } from "types";
 // Components
 import Meta from "@/components/others/Meta";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components
 import Overlay from "@/components/others/Overlay";
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 import useAuthorization from "@/hooks/useAuthorization";
@@ -20,7 +20,7 @@ import ProfileDashboard from "@/components/profile/ProfileDashboard";
 import ProfileStudentCatalogue from "@/components/profile/ProfileStudentCatalogue";
 import SectionLoading from "@/components/loading/SectionLoading";
 // Data
-import { defaultTemplateStudent } from "@/data";
+import { defaultTemplateClass, defaultTemplateStudent } from "@/data";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -40,6 +40,7 @@ import {
   selectLoadingAdmin,
 } from "@/redux/slices/adminsSlice";
 import { selectProfile, setOptionsContent } from "@/redux/slices/generalSlice";
+import { selectClassById } from "@/redux/slices/classesSlice";
 
 const IndividualProfile: FC = () => {
   useGetPathname();
@@ -47,16 +48,16 @@ const IndividualProfile: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const [userShown, setUserShown] = useState<Admin | Teacher | Student>(
+    defaultTemplateStudent as Student
+  );
+  const [loadingUser, setLoadingUser] = useState<boolean>(true);
+
   const loadingStudent = useAppSelector(selectLoadingStudent);
   const loadingTeacher = useAppSelector(selectLoadingTeacher);
   const loadingAdmin = useAppSelector(selectLoadingAdmin);
 
   const profile = useAppSelector(selectProfile);
-
-  const [userShown, setUserShown] = useState<Admin | Teacher | Student>(
-    defaultTemplateStudent as Student
-  );
-  const [loadingUser, setLoadingUser] = useState<boolean>(true);
 
   const student = useAppSelector((state: State) =>
     selectStudentById(
@@ -78,6 +79,29 @@ const IndividualProfile: FC = () => {
       router.query?.userID ? (router.query?.userId as string) : ""
     )
   );
+
+  const studentClass = useAppSelector((state: State) =>
+    selectClassById(
+      state,
+      userShown ? ((userShown as Student).class_uid as string) : ""
+    )
+  );
+
+  const studentClassTeachers =
+    (((studentClass as TemplateClass) || defaultTemplateClass)
+      .teachers as Teacher[]) || [];
+
+  const isTeacherOfStudentClass =
+    profile.role === "PROFESOR" &&
+    studentClassTeachers.find(
+      (classTeacher) =>
+        classTeacher.teacher_uid === (profile as Teacher).teacher_uid
+    );
+
+  const showStudentCatalogue =
+    userShown?.role === "ELEV" &&
+    profile?.role &&
+    (profile?.role === "ADMIN" || isTeacherOfStudentClass);
 
   useEffect(() => {
     switch (router.query.type) {
@@ -147,7 +171,7 @@ const IndividualProfile: FC = () => {
       />
       <main className={profileStyles.profileContainer}>
         <Overlay />
-        <HomeTitle
+        <PageTitle
           title={`Profilul lui ${userShown?.fullname} de ${userShown?.role}`}
           quote={`Vezi profilul lui ${userShown?.fullname}.`}
           backgroundUrl="https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg"
@@ -156,14 +180,12 @@ const IndividualProfile: FC = () => {
           profile={userShown as Teacher | Admin | Student}
           type="read"
         />
-        {userShown?.role === "ELEV" &&
-          profile?.role !== "ELEV" &&
-          profile?.role && (
-            <ProfileStudentCatalogue
-              userProfile={userShown as TemplateStudent}
-              type="user"
-            />
-          )}
+        {showStudentCatalogue && (
+          <ProfileStudentCatalogue
+            userProfile={userShown as TemplateStudent}
+            type="user"
+          />
+        )}
       </main>
     </>
   );

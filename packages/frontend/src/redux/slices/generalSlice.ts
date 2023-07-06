@@ -40,7 +40,8 @@ type initialStateType = {
   cardModalId: string;
   gradeOrAbsenceSection: GradeOrAbsenceSectionType;
   gradeModalId: string;
-  markedAbsenceId: string;
+  markedAbsenceOrGradeId: string;
+  editableGradeId: string;
   optionsContent: string;
   overlay: OverlayType;
   editMode: boolean;
@@ -55,6 +56,7 @@ type initialStateType = {
   newPassVer: string;
   emailCurrentType: "ADMIN" | "ELEV" | "PROFESOR";
   resetPassTokenAuthorized: boolean;
+  subjectsSlicer: number;
 };
 
 const initialState: initialStateType = {
@@ -73,7 +75,8 @@ const initialState: initialStateType = {
     type: "grade",
   },
   gradeModalId: "",
-  markedAbsenceId: "",
+  markedAbsenceOrGradeId: "",
+  editableGradeId: "",
   optionsContent: "settings",
   overlay: defaultOverlay,
   editMode: false,
@@ -88,6 +91,7 @@ const initialState: initialStateType = {
   newPassVer: "",
   emailCurrentType: "ELEV",
   resetPassTokenAuthorized: false,
+  subjectsSlicer: 0,
 };
 
 // THUNKS
@@ -203,8 +207,11 @@ const generalSlice = createSlice({
     ) {
       state.gradeOrAbsenceSection = action.payload;
     },
-    setMarkedAbsenceId(state, action: PayloadAction<string>) {
-      state.markedAbsenceId = action.payload;
+    setMarkedAbsenceOrGradeId(state, action: PayloadAction<string>) {
+      state.markedAbsenceOrGradeId = action.payload;
+    },
+    setEditableGradeId(state, action: PayloadAction<string>) {
+      state.editableGradeId = action.payload;
     },
     setOptionsContent(state, action: PayloadAction<string>) {
       state.optionsContent = action.payload;
@@ -253,6 +260,9 @@ const generalSlice = createSlice({
       action: PayloadAction<"ADMIN" | "PROFESOR" | "ELEV">
     ) {
       state.emailCurrentType = action.payload;
+    },
+    setSubjectsSlicer(state, action: PayloadAction<number>) {
+      state.subjectsSlicer = action.payload;
     },
   },
   extraReducers(builder) {
@@ -367,8 +377,11 @@ export const selectCardModalId = (state: State) => state.general.cardModalId;
 
 export const selectGradeModalId = (state: State) => state.general.gradeModalId;
 
-export const selectMarkedAbsenceId = (state: State) =>
-  state.general.markedAbsenceId;
+export const selectMarkedAbsenceOrGradeId = (state: State) =>
+  state.general.markedAbsenceOrGradeId;
+
+export const selectEditableGradeId = (state: State) =>
+  state.general.editableGradeId;
 
 export const selectGradeOrAbsenceSection = (state: State) =>
   state.general.gradeOrAbsenceSection;
@@ -411,6 +424,9 @@ export const selectEmailCurrentType = (state: State) =>
 export const selectResetPassTokenAuthorized = (state: State) =>
   state.general.resetPassTokenAuthorized;
 
+export const selectSubjectsSlicer = (state: State) =>
+  state.general.subjectsSlicer;
+
 export const {
   updateTemplateProfile,
   updateGeneralFormModal,
@@ -431,7 +447,9 @@ export const {
   setEmailCurrentType,
   setGradeOrAbsenceSection,
   setGradeModalId,
-  setMarkedAbsenceId,
+  setMarkedAbsenceOrGradeId,
+  setEditableGradeId,
+  setSubjectsSlicer,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;

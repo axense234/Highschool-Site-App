@@ -126,6 +126,7 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
       id: teacher.teacher_uid,
       subject: teacher.subject,
       fullname: teacher.fullname,
+      profileImage: teacher.profile_img_url,
     };
   });
 
@@ -145,13 +146,13 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
           >
             <thead>
               <tr>
-                <th>MATERII</th>
                 <th>PROFESORI</th>
+                <th>DISCIPLINE</th>
                 <th>NOTE</th>
                 <th>ABSENȚE</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ height: `${usableTeachers?.length} * 15rem` }}>
               {studentCardContentShown?.map((section) => {
                 return (
                   <CardSection
@@ -175,10 +176,20 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
                         (subject) => subject.id === section.card_section_uid
                       )?.subject as Subjects
                     }
-                    teacher={
+                    teacherFullname={
                       studentCardTeachers.find(
                         (teacher) => teacher.subject === section.subject
                       )?.fullname as string
+                    }
+                    teacherProfileImage={
+                      studentCardTeachers.find(
+                        (teacher) => teacher.subject === section.subject
+                      )?.profileImage as string
+                    }
+                    teacherId={
+                      studentCardTeachers.find(
+                        (teacher) => teacher.subject === section.subject
+                      )?.id as string
                     }
                   />
                 );

@@ -13,7 +13,7 @@
   @include flexCenter($direction);
   width: 100%;
 
-  background-color: $bgColor;
+  background: linear-gradient(to right, $bgColor, $bgColor);
 
   @media all and (max-width: 650px) {
     padding: 7.5rem 2.5rem;

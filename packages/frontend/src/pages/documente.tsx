@@ -6,7 +6,7 @@ import { documentsAndLawsInfo } from "@/data";
 // SCSS
 import documentsStyles from "../scss/components/pages/Documents.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
@@ -23,7 +23,7 @@ const Documents: FC = () => {
         ]}
       />
       <main className={documentsStyles.documentsContainer}>
-        <HomeTitle
+        <PageTitle
           title="Legi și Documente"
           quote="Documentele - amprenta legii și justiției."
         />

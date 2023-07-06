@@ -14,7 +14,7 @@ import { MdArrowDropDownCircle } from "react-icons/md";
 // Next
 import Image from "next/image";
 // SCSS
-import announcementsStyles from "../../scss/components/pages/Anunturi.module.scss";
+import announcementsStyles from "../../scss/components/pages/Announcements.module.scss";
 // Components
 import CardModal from "../modals/CardModal";
 import EditableAnnouncement from "./EditableAnnouncement";
@@ -57,11 +57,13 @@ const Announcement: FC<Announcement> = ({
   const overlay = useAppSelector(selectOverlay);
   const editMode = useAppSelector(selectEditMode);
   const cardModalId = useAppSelector(selectCardModalId);
+  const foundAnnouncementId = useAppSelector(selectFoundAnnouncementId);
+  const editModeAvailable = announcement_uid === cardModalId && editMode;
+  const templateAnnouncement = useAppSelector(selectTemplateAnnouncement);
+
   const announcement = useAppSelector((state: State) =>
     selectAnnouncementById(state, id || cardModalId)
   );
-  const foundAnnouncementId = useAppSelector(selectFoundAnnouncementId);
-  const editModeAvailable = announcement_uid === cardModalId && editMode;
 
   useSetTemplateAnnouncement(announcement);
   useScrollToAnnouncement(
@@ -70,8 +72,6 @@ const Announcement: FC<Announcement> = ({
     annRef,
     setToggle
   );
-
-  const templateAnnouncement = useAppSelector(selectTemplateAnnouncement);
   useVideoUrlFormat(templateAnnouncement);
 
   if (editModeAvailable) {

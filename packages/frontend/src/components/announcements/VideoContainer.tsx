@@ -3,7 +3,7 @@ import { FC } from "react";
 // Types
 import { VideoContainerProps } from "types";
 // SCSS
-import announcementsStyles from "../../scss/components/pages/Anunturi.module.scss";
+import announcementsStyles from "../../scss/components/pages/Announcements.module.scss";
 
 const VideoContainer: FC<VideoContainerProps> = ({
   workingVideoUrl,

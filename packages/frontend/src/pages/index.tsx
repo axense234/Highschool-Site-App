@@ -6,7 +6,7 @@ import Image from "next/image";
 // SCSS
 import aboutStyles from "../scss/components/pages/About.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 // Data
 import {
@@ -28,7 +28,7 @@ const About: FC = () => {
         ]}
       />
       <main className={aboutStyles.aboutContainer}>
-        <HomeTitle
+        <PageTitle
           title="Despre Proiect"
           quote="Tot ce ai nevoie să știi despre proiectul meu."
         />

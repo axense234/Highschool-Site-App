@@ -13,6 +13,8 @@ import { BiSearch } from "react-icons/bi";
 import searchbarStyles from "../../scss/components/navigation/Searchbar.module.scss";
 // Data
 import { announcementCategories, individualPagesData, pagesData } from "@/data";
+// Utils
+import normalizeString from "@/utils/normalizeString";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -31,7 +33,6 @@ import {
   selectAllTeachers,
   setFoundTeacherId,
 } from "@/redux/slices/teachersSlice";
-import normalizeString from "@/utils/normalizeString";
 
 const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
   const searchbarRef = useRef<HTMLDivElement>(null);

@@ -136,6 +136,22 @@ type OverlayType = {
   title: string;
 };
 
+interface TemplateGrade extends Grade {
+  grade_uid?: string;
+  date?: Date;
+  value?: Number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+interface TemplateAbsence extends Absence {
+  absence_uid?: string;
+  date?: Date;
+  reasoned?: Boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 // TYPES/INTERFACES FOR OPTIONS DATA
 type GetAllQueryParams = { sortByOption: string; query: string };
 
@@ -313,7 +329,7 @@ interface SliderButtonsProps {
   show: boolean;
 }
 
-interface HomeTitleProps {
+interface PageTitleProps {
   title: string;
   quote?: string;
   backgroundUrl?: string;
@@ -422,25 +438,11 @@ interface CardSectionProps {
   section_uid: string;
   profile_used_uid: string;
   ownProfile: Admin | Student | Teacher | TemplateUser;
-  teacher: string | null;
+  teacherFullname: string | null;
+  teacherProfileImage: string | null;
+  teacherId: string | null;
   grades: Grade[] | undefined;
   absences: Absence[] | undefined;
-}
-
-interface TemplateGrade extends Grade {
-  grade_uid?: string;
-  date?: Date;
-  value?: Number;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-interface TemplateAbsence extends Absence {
-  absence_uid?: string;
-  date?: Date;
-  reasoned?: Boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 
 interface CreateGradeOrAbsenceButtonProps {
@@ -464,14 +466,8 @@ type GradeOrAbsenceSectionType = {
   type: "absence" | "grade";
 };
 
-interface ClassCatalogueHeadProps {
-  subjectsSlicer: number;
-  setSubjectsSlicer: Dispatch<SetStateAction<number>>;
-}
-
 interface ClassCatalogueSectionProps {
   student: TemplateStudent;
-  subjectsSlicer: number;
   class_uid?: string;
 }
 
@@ -491,7 +487,7 @@ export {
   OfferingItemType,
   OfferingItemProps,
   SliderButtonsProps,
-  HomeTitleProps,
+  PageTitleProps,
   ObjectKeyValueType,
   FormModalType,
   ErrorPayloadType,
@@ -555,7 +551,6 @@ export {
   TemplateAbsence,
   CreateGradeOrAbsenceModalProps,
   GradeOrAbsenceSectionType,
-  ClassCatalogueHeadProps,
   ClassCatalogueSectionProps,
   ClassCatalogueSectionContentProps,
 };

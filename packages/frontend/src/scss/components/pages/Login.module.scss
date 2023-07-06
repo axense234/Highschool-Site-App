@@ -5,6 +5,7 @@
 
   #{&}__form {
     @include flexCenter(column);
+    align-items: flex-start;
     border: 3px solid getColor("silver-50");
     background-color: getColor("silver-white");
     width: 50%;

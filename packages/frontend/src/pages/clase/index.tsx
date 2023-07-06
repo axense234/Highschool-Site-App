@@ -5,7 +5,7 @@ import { Class } from "@prisma/client";
 // SCSS
 import classStyles from "../../scss/components/pages/Classes.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 import SectionLoading from "@/components/loading/SectionLoading";
 import ClassItem from "@/components/classes/ClassItem";
@@ -63,7 +63,7 @@ const Classrooms: FC = () => {
         desc="Descoperă diversitatea claselor noastre! Fiecare clasă are o personalitate unică și oferă oportunități captivante de învățare. Explorează informații despre activități, evenimente și reușitele lor remarcabile."
       />
       <main className={classStyles.classesContainer}>
-        <HomeTitle
+        <PageTitle
           title="Clasele Noastre"
           quote="Unitatea clasei, izvor de putere și înțelepciune."
         />

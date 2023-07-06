@@ -1,10 +1,10 @@
 // React
 import { FC, useEffect } from "react";
 // SCSS
-import teachersStyles from "../scss/components/pages/Profesori.module.scss";
+import teachersStyles from "../scss/components/pages/Teachers.module.scss";
 // Components
 import Meta from "@/components/others/Meta";
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import SectionLoading from "@/components/loading/SectionLoading";
 import Overlay from "@/components/others/Overlay";
 import PageNav from "@/components/navigation/PageNav";
@@ -20,7 +20,7 @@ import {
 import useGetPathname from "@/hooks/useGetPathname";
 import { selectProfile } from "@/redux/slices/generalSlice";
 
-const Profesori: FC = () => {
+const Teachers: FC = () => {
   useGetPathname();
 
   const dispatch = useAppDispatch();
@@ -40,7 +40,7 @@ const Profesori: FC = () => {
     if (loadingTeachers === "IDLE") {
       dispatch(getAllTeachers());
     }
-  }, []);
+  }, [loadingTeachers]);
 
   return (
     <>
@@ -51,19 +51,19 @@ const Profesori: FC = () => {
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502837/Highschool%20Site%20App/IMG-20230608-WA0023_fixi8s.jpg",
         ]}
       />
-      <main className={teachersStyles.profesoriContainer}>
-        <HomeTitle
+      <main className={teachersStyles.teachersContainer}>
+        <PageTitle
           title="Profesorii Noștri"
           quote="Omul fără învățătură e ca pământul fără ploaie."
         />
         <Overlay />
-        <section className={teachersStyles.profesoriContainer__content}>
+        <section className={teachersStyles.teachersContainer__content}>
           <h2>Profesorii noștri</h2>
           <PageNav componentType="teacher" />
           {loadingTeachers === "IDLE" || loadingTeachers === "PENDING" ? (
             <SectionLoading />
           ) : (
-            <div className={teachersStyles.profesoriContainer__profesori}>
+            <div className={teachersStyles.teachersContainer__teachers}>
               {shownTeachers.map((teacher) => {
                 return <InactiveTeacher {...teacher} key={teacher.id} />;
               })}
@@ -75,4 +75,4 @@ const Profesori: FC = () => {
   );
 };
 
-export default Profesori;
+export default Teachers;

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 import SectionLoading from "@/components/loading/SectionLoading";
 import ClassDetails from "@/components/classes/ClassDetails";
@@ -66,7 +66,7 @@ const IndividualClass: FC = () => {
         desc={`Bun venit în clasa ${foundClass.label}! Descoperă o comunitate energică și plină de realizări. Află mai multe despre activitățile noastre și bucură-te de anii de liceu alături de noi.`}
       />
       <main className={classStyles.classContainer}>
-        <HomeTitle
+        <PageTitle
           title={`Clasa ${foundClass.label}`}
           quote="Unitatea clasei, izvor de putere și înțelepciune."
           backgroundUrl={foundClass.image_url}

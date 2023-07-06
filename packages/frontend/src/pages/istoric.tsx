@@ -5,9 +5,9 @@ import Image from "next/image";
 // Intersection Observer
 import { useInView } from "react-intersection-observer";
 // SCSS
-import istoricStyles from "../scss/components/pages/Istoric.module.scss";
+import historyStyles from "../scss/components/pages/History.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 // Data
 import { istoricPinpoints } from "@/data";
@@ -30,14 +30,14 @@ const Istoric: FC = () => {
           "https://res.cloudinary.com/birthdayreminder/image/upload/v1686502835/Highschool%20Site%20App/IMG-20230608-WA0009_jihe2r.jpg",
         ]}
       />
-      <main className={istoricStyles.istoricContainer}>
-        <HomeTitle
+      <main className={historyStyles.historyContainer}>
+        <PageTitle
           title="Istoria Noastră"
           quote="Tradiție. Educație. Inspirație. Evoluție continuă."
         />
-        <section className={istoricStyles.istoricContainer__content}>
+        <section className={historyStyles.historyContainer__content}>
           <h2>Istoric</h2>
-          <div className={istoricStyles.istoricContainer__info}>
+          <div className={historyStyles.historyContainer__info}>
             <Image
               title="Ion Barbu"
               className="hidden"
@@ -47,7 +47,7 @@ const Istoric: FC = () => {
               alt="Ion Barbu"
               src="https://res.cloudinary.com/birthdayreminder/image/upload/v1684921668/Highschool%20Site%20App/ion_barbu_dk87mu.jpg"
             />
-            <ul className={istoricStyles.istoricContainer__pinpoints}>
+            <ul className={historyStyles.historyContainer__pinpoints}>
               {istoricPinpoints.map((pinpoint) => {
                 return (
                   <li key={pinpoint.id}>

@@ -1,9 +1,9 @@
 // React
 import { FC, useEffect } from "react";
 // SCSS
-import announcementsStyles from "../scss/components/pages/Anunturi.module.scss";
+import announcementsStyles from "../scss/components/pages/Announcements.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 import SectionLoading from "@/components/loading/SectionLoading";
 import Overlay from "@/components/others/Overlay";
@@ -46,7 +46,7 @@ const Announcements: FC = () => {
       />
       <main className={announcementsStyles.announcementsContainer}>
         <Overlay />
-        <HomeTitle
+        <PageTitle
           title="Anunțuri"
           quote="Anunțuri generale despre diverse activități."
         />

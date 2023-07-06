@@ -5,7 +5,7 @@ import { CategoryType } from "types";
 // React Icons
 import { MdArrowDropDownCircle } from "react-icons/md";
 // SCSS
-import announcementsStyles from "@/scss/components/pages/Anunturi.module.scss";
+import announcementsStyles from "@/scss/components/pages/Announcements.module.scss";
 // Redux Toolkit
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {

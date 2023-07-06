@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 // SCSS
 import contactStyles from "../scss/components/pages/Contact.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 import FormModal from "@/components/modals/FormModal";
 // Redux Toolkit
@@ -49,7 +49,7 @@ const Contact: FC = () => {
         ]}
       />
       <main className={contactStyles.contactContainer}>
-        <HomeTitle
+        <PageTitle
           title="Contactați-ne"
           quote="Comunicarea este cheia relațiilor umane."
         />

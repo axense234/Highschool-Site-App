@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 // Next
 import { useRouter } from "next/router";
 // SCSS
-import HomeTitle from "../components/home/HomeTitle";
+import PageTitle from "../components/home/PageTitle";
 // Components
 import loginStyles from "../scss/components/pages/Login.module.scss";
 import AccountsForm from "@/components/forms/AccountsForm";
@@ -42,14 +42,14 @@ const ResetPassword: FC = () => {
       <main className={loginStyles.loginContainer}>
         {resetPassTokenAuthorized ? (
           <>
-            <HomeTitle
+            <PageTitle
               title="Resetează-ți parola"
               quote="Resetează-ți parola contului tau de admin/profesor/elev."
             />
             <AccountsForm type="reset-pass" />
           </>
         ) : (
-          <HomeTitle
+          <PageTitle
             title="Linkul pentru resetarea parolei a expirat"
             quote="Vă rugăm să inițiați din nou procesul de resetare pentru a primi un nou link și pentru a vă recupera accesul la contul dumneavoastră."
             backgroundUrl="https://res.cloudinary.com/birthdayreminder/image/upload/v1686921591/Highschool%20Site%20App/IMG-20230614-WA0016_us3wqq.jpg"

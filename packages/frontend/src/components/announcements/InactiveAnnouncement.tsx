@@ -6,7 +6,7 @@ import { MdArrowDropDownCircle } from "react-icons/md";
 import { InactiveAnnouncementProps } from "types";
 import { Announcement } from "@prisma/client";
 // SCSS
-import announcementsStyles from "../../scss/components/pages/Anunturi.module.scss";
+import announcementsStyles from "../../scss/components/pages/Announcements.module.scss";
 // Components
 import CardModal from "../modals/CardModal";
 // Redux

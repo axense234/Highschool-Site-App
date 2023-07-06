@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 // SCSS
 import loginStyles from "../scss/components/pages/Login.module.scss";
 // Components
-import HomeTitle from "../components/home/HomeTitle";
+import PageTitle from "../components/home/PageTitle";
 import Meta from "../components/others/Meta";
 import AccountsForm from "@/components/forms/AccountsForm";
 import SectionLoading from "@/components/loading/SectionLoading";
@@ -52,7 +52,7 @@ const Signup: FC = () => {
         ]}
       />
       <main className={loginStyles.loginContainer}>
-        <HomeTitle
+        <PageTitle
           title="Crează-ți un cont"
           quote="Creați-vă un cont de admin, profesor sau de student."
         />

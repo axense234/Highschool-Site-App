@@ -9,7 +9,7 @@ import Meta from "@/components/others/Meta";
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components
 import Overlay from "@/components/others/Overlay";
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 import useAuthorization from "@/hooks/useAuthorization";
@@ -68,7 +68,7 @@ const Profile: FC = () => {
       />
       <main className={profileStyles.profileContainer}>
         <Overlay />
-        <HomeTitle
+        <PageTitle
           title={`Profilul Tău de ${profile.role}`}
           quote={profileTitleQuote}
         />

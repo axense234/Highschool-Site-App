@@ -4,7 +4,7 @@ import { FC } from "react";
 import offerStyles from "../scss/components/pages/Offer.module.scss";
 // Components
 import Meta from "@/components/others/Meta";
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 
@@ -20,7 +20,7 @@ const Offer: FC = () => {
         ]}
       />
       <main className={offerStyles.offerContainer}>
-        <HomeTitle
+        <PageTitle
           title="Oferta educațională pentru anul școlar 2023-2024"
           quote="Educația modelează un viitor promițător."
         />

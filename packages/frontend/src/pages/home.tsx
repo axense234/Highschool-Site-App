@@ -3,7 +3,7 @@ import { FC } from "react";
 // SCSS
 import homeStyles from "../scss/components/pages/Home.module.scss";
 // Components
-import HomeTitle from "@/components/home/HomeTitle";
+import PageTitle from "@/components/home/PageTitle";
 import HomeInfo from "@/components/home/HomeInfo";
 import HomeFacilities from "@/components/home/HomeFacilities";
 import HomeBac from "@/components/home/HomeBac";
@@ -33,7 +33,7 @@ const Home: FC = () => {
         ]}
       />
       <main className={homeStyles.homeContainer}>
-        <HomeTitle
+        <PageTitle
           title='Liceul Teoretic "Ion Barbu" Pitești'
           quote="Învățătura este comoara ce nu poate fi furată."
         />
