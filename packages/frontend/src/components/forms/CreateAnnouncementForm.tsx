@@ -2,6 +2,11 @@
 import { FC, SyntheticEvent, useEffect } from "react";
 // Types
 import { Admin, Teacher } from "@prisma/client";
+// React Icons
+import { BsFillMegaphoneFill } from "react-icons/bs";
+import { TiDocumentText } from "react-icons/ti";
+import { AiFillPicture, AiFillPlayCircle, AiFillTag } from "react-icons/ai";
+import { GiFilmStrip } from "react-icons/gi";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Redux
@@ -121,7 +126,14 @@ const CreateAnnouncementForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__textControl
             }
           >
-            <label htmlFor="title">Titlu Anunț: </label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <BsFillMegaphoneFill />
+              <label htmlFor="title">Titlu Anunț: </label>
+            </div>
             <input
               type="text"
               id="title"
@@ -137,7 +149,14 @@ const CreateAnnouncementForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__textAreaControl
             }
           >
-            <label htmlFor="description">Descriere Anunț:</label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <TiDocumentText />
+              <label htmlFor="description">Descriere Anunț(*):</label>
+            </div>
             <textarea
               name="description"
               id="description"
@@ -151,7 +170,14 @@ const CreateAnnouncementForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__selectControl
             }
           >
-            <label htmlFor="category">Categorie Anunț:</label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <AiFillTag />
+              <label htmlFor="category">Categorie Anunț:</label>
+            </div>
             <select
               name="category"
               id="category"
@@ -173,7 +199,14 @@ const CreateAnnouncementForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__imageControl
             }
           >
-            <label htmlFor="img">Imagine Anunț:</label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <AiFillPicture />
+              <label htmlFor="img">Imagine Anunț(*):</label>
+            </div>
             <input
               type="file"
               id="img"
@@ -190,7 +223,14 @@ const CreateAnnouncementForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__textControl
             }
           >
-            <label htmlFor="video">Video Anunț:</label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <AiFillPlayCircle />
+              <label htmlFor="video">Video Anunț(*):</label>
+            </div>
             <input
               type="url"
               id="video"
@@ -205,7 +245,16 @@ const CreateAnnouncementForm: FC = () => {
                 profileSettingsStyles.profileSettingsContainer__selectControl
               }
             >
-              <label htmlFor="video_pozition">Poziție Video În Anunț:</label>
+              <div
+                className={
+                  profileSettingsStyles.profileSettingsContainer__controlLabel
+                }
+              >
+                <GiFilmStrip />
+                <label htmlFor="video_pozition">
+                  Poziție Video În Anunț(*):
+                </label>
+              </div>
               <select
                 name="video_pozition"
                 id="video_pozition"

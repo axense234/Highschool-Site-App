@@ -4,6 +4,10 @@ import { FC, SyntheticEvent, useEffect, useState } from "react";
 import { TemplateTeacher, TemplateUpdateTeacher } from "types";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
+import { MdAttachEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { RxAvatar } from "react-icons/rx";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Redux
@@ -82,7 +86,14 @@ const UpdateTeacherForm: FC = () => {
             profileSettingsStyles.profileSettingsContainer__textControl
           }
         >
-          <label htmlFor="fullname">Nume Complet: </label>
+          <div
+            className={
+              profileSettingsStyles.profileSettingsContainer__controlLabel
+            }
+          >
+            <BsFillPersonFill />
+            <label htmlFor="fullname">Nume Complet: </label>
+          </div>
           <input
             type="text"
             id="fullname"
@@ -97,7 +108,14 @@ const UpdateTeacherForm: FC = () => {
             profileSettingsStyles.profileSettingsContainer__textControl
           }
         >
-          <label htmlFor="email">Email:</label>
+          <div
+            className={
+              profileSettingsStyles.profileSettingsContainer__controlLabel
+            }
+          >
+            <MdAttachEmail />
+            <label htmlFor="email">Email:</label>
+          </div>
           <input
             type="email"
             id="email"
@@ -112,7 +130,14 @@ const UpdateTeacherForm: FC = () => {
             profileSettingsStyles.profileSettingsContainer__passControl
           }
         >
-          <label htmlFor="pass">Parola:</label>
+          <div
+            className={
+              profileSettingsStyles.profileSettingsContainer__controlLabel
+            }
+          >
+            <RiLockPasswordFill />
+            <label htmlFor="pass">Parola:</label>
+          </div>
           <div
             className={
               profileSettingsStyles.profileSettingsContainer__passControlInput
@@ -146,7 +171,14 @@ const UpdateTeacherForm: FC = () => {
             profileSettingsStyles.profileSettingsContainer__imageControl
           }
         >
-          <label htmlFor="img">Imagine de Profil:</label>
+          <div
+            className={
+              profileSettingsStyles.profileSettingsContainer__controlLabel
+            }
+          >
+            <RxAvatar />
+            <label htmlFor="img">Imagine de Profil(*):</label>
+          </div>
           <input
             type="file"
             id="img"

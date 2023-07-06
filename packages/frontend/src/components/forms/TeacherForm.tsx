@@ -8,10 +8,19 @@ import { Subjects } from "@prisma/client";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import { BsFillPersonFill } from "react-icons/bs";
+import { BiKey } from "react-icons/bi";
+import { MdAttachEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { RxAvatar } from "react-icons/rx";
+import { SlSpeech } from "react-icons/sl";
+import { FiBook } from "react-icons/fi";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { SiGoogleclassroom } from "react-icons/si";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data
-import { possibleClassLabels, subjects, typeNavOptions } from "@/data";
+import { subjects, typeNavOptions } from "@/data";
 // Components
 import FormModal from "../modals/FormModal";
 // Redux
@@ -37,6 +46,7 @@ const TeacherForm: FC<FormStepProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const [showPass, setShowPass] = useState<boolean>(false);
+  const [accountCode, setAccountCode] = useState<string>("");
 
   const classes = useAppSelector(selectAllClasses);
   const foundCurrentTypeStepsLength = typeNavOptions.find(
@@ -104,7 +114,7 @@ const TeacherForm: FC<FormStepProps> = ({
           "Încercăm să creăm un profesor, vă rugăm să așteptați..."
         )
       );
-      dispatch(createTeacher(templateTeacher));
+      dispatch(createTeacher({ ...templateTeacher, accountCode }));
     } else {
       dispatch(
         setScreenLoadingMessage(
@@ -124,24 +134,64 @@ const TeacherForm: FC<FormStepProps> = ({
         <FormModal type={pageType === "login" ? "general" : "teachers"} />
         <div className={accountsFormStyles.accountsFormContainer__content}>
           {pageType === "signup" && (
-            <div
-              className={accountsFormStyles.accountsFormContainer__textControl}
-            >
-              <label htmlFor="fullname">Nume Complet: </label>
-              <input
-                type="text"
-                id="fullname"
-                required
-                placeholder="ex: Irina Ionescu"
-                value={templateTeacher.fullname}
-                onChange={(e) => onFullnameChange(e.target.value)}
-              />
-            </div>
+            <>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__textControl
+                }
+              >
+                <div
+                  className={
+                    accountsFormStyles.accountsFormContainer__controlLabel
+                  }
+                >
+                  <BiKey />
+                  <label htmlFor="code">Cod: </label>
+                </div>
+                <input
+                  type="text"
+                  id="code"
+                  required
+                  minLength={1}
+                  maxLength={20}
+                  placeholder="ex: B6daw82ad_8awd8"
+                  value={accountCode}
+                  onChange={(e) => setAccountCode(e.target.value)}
+                />
+              </div>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__textControl
+                }
+              >
+                <div
+                  className={
+                    accountsFormStyles.accountsFormContainer__controlLabel
+                  }
+                >
+                  <BsFillPersonFill />
+                  <label htmlFor="fullname">Nume Complet: </label>
+                </div>
+                <input
+                  type="text"
+                  id="fullname"
+                  required
+                  placeholder="ex: Irina Ionescu"
+                  value={templateTeacher.fullname}
+                  onChange={(e) => onFullnameChange(e.target.value)}
+                />
+              </div>
+            </>
           )}
           <div
             className={accountsFormStyles.accountsFormContainer__textControl}
           >
-            <label htmlFor="email">Email:</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <MdAttachEmail />
+              <label htmlFor="email">Email:</label>
+            </div>
             <input
               type="email"
               id="email"
@@ -154,7 +204,12 @@ const TeacherForm: FC<FormStepProps> = ({
           <div
             className={accountsFormStyles.accountsFormContainer__passControl}
           >
-            <label htmlFor="pass">Parola:</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <RiLockPasswordFill />
+              <label htmlFor="pass">Parola:</label>
+            </div>
             <div
               className={
                 accountsFormStyles.accountsFormContainer__passControlInput
@@ -183,23 +238,6 @@ const TeacherForm: FC<FormStepProps> = ({
               )}
             </div>
           </div>
-          {pageType === "signup" && (
-            <div
-              className={accountsFormStyles.accountsFormContainer__imageControl}
-            >
-              <label htmlFor="img">Imagine de Profil:</label>
-              <input
-                type="file"
-                id="img"
-                required={false}
-                onChange={(e) => {
-                  if (e.target.files) {
-                    handleProfileImageChange(e.target.files[0]);
-                  }
-                }}
-              />
-            </div>
-          )}
         </div>
         <div
           className={accountsFormStyles.accountsFormContainer__buttonsContainer}
@@ -254,14 +292,39 @@ const TeacherForm: FC<FormStepProps> = ({
         <FormModal type="teachers" />
         <div className={accountsFormStyles.accountsFormContainer__content}>
           <div
+            className={accountsFormStyles.accountsFormContainer__imageControl}
+          >
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <RxAvatar />
+              <label htmlFor="img">Imagine de Profil(*):</label>
+            </div>
+            <input
+              type="file"
+              id="img"
+              required={false}
+              onChange={(e) => {
+                if (e.target.files) {
+                  handleProfileImageChange(e.target.files[0]);
+                }
+              }}
+            />
+          </div>
+          <div
             className={
               accountsFormStyles.accountsFormContainer__textAreaControl
             }
           >
-            <label htmlFor="description">Descriere: </label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <SlSpeech />
+              <label htmlFor="description">Descriere(*): </label>
+            </div>
             <textarea
               id="description"
-              required
+              required={false}
               value={templateTeacher.description}
               onChange={(e) => onDescriptionChange(e.target.value)}
             />
@@ -269,7 +332,12 @@ const TeacherForm: FC<FormStepProps> = ({
           <div
             className={accountsFormStyles.accountsFormContainer__selectControl}
           >
-            <label htmlFor="subject">Materie</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <FiBook />
+              <label htmlFor="subject">Materie</label>
+            </div>
             <select
               name="subject"
               id="subject"
@@ -290,11 +358,16 @@ const TeacherForm: FC<FormStepProps> = ({
               accountsFormStyles.accountsFormContainer__checkboxControl
             }
           >
-            <label htmlFor="master">Sunteți diriginte?</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <FaChalkboardTeacher />
+              <label htmlFor="master">Sunteți diriginte?(*)</label>
+            </div>
             <input
               type="checkbox"
               id="master"
-              required
+              required={false}
               checked={templateTeacher.master}
               onChange={() => onMasterTeacherChange()}
             />
@@ -305,13 +378,21 @@ const TeacherForm: FC<FormStepProps> = ({
                 accountsFormStyles.accountsFormContainer__selectControl
               }
             >
-              <label htmlFor="master-class">
-                La ce clasa sunteți diriginte?
-              </label>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__controlLabel
+                }
+              >
+                <SiGoogleclassroom />
+                <label htmlFor="master-class">
+                  La ce clasa sunteți diriginte?
+                </label>
+              </div>
               {classes.length >= 1 ? (
                 <select
                   name="master-class"
                   id="master-class"
+                  required
                   value={templateTeacher.master_class_label as string}
                   onChange={(e) => onMasterClassLabelChange(e.target.value)}
                 >

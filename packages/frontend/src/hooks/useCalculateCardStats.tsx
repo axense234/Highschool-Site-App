@@ -23,7 +23,7 @@ const useCalculateCardStats = (
         return sum + grade.value;
       }, 0)
     );
-    const subjectGradeAvg = sumOfGrades / Number(grades?.length);
+    const subjectGradeAvg = Math.ceil(sumOfGrades / Number(grades?.length));
     return subjectGradeAvg || 0;
   };
   const findMaxValue = (obj: any) => {

@@ -4,6 +4,7 @@ import { FC, SyntheticEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 // React Icons
+import { RiLockPasswordFill, RiLockPasswordLine } from "react-icons/ri";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 // Types
 import { FormModalPropsType } from "types";
@@ -26,6 +27,7 @@ import { updateTeacherById } from "@/redux/slices/teachersSlice";
 const ResetPassForm: FC = () => {
   const dispatch = useAppDispatch();
   const [showPass, setShowPass] = useState<boolean>(false);
+  const [showVerPass, setShowVerPass] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -86,7 +88,12 @@ const ResetPassForm: FC = () => {
       <FormModal type={typeOfModalUsed as unknown as FormModalPropsType} />
       <div className={accountsFormStyles.accountsFormContainer__content}>
         <div className={accountsFormStyles.accountsFormContainer__passControl}>
-          <label htmlFor="pass">Parola:</label>
+          <div
+            className={accountsFormStyles.accountsFormContainer__controlLabel}
+          >
+            <RiLockPasswordFill />
+            <label htmlFor="pass">Parola:</label>
+          </div>
           <div
             className={
               accountsFormStyles.accountsFormContainer__passControlInput
@@ -116,7 +123,12 @@ const ResetPassForm: FC = () => {
           </div>
         </div>
         <div className={accountsFormStyles.accountsFormContainer__passControl}>
-          <label htmlFor="pass-ver">Verificare Parola:</label>
+          <div
+            className={accountsFormStyles.accountsFormContainer__controlLabel}
+          >
+            <RiLockPasswordLine />
+            <label htmlFor="pass-ver">Verificare Parolă:</label>
+          </div>
           <div
             className={
               accountsFormStyles.accountsFormContainer__passControlInput
@@ -130,15 +142,15 @@ const ResetPassForm: FC = () => {
               value={newPassVer}
               onChange={(e) => dispatch(setNewPassVer(e.target.value))}
             />
-            {!showPass ? (
+            {!showVerPass ? (
               <AiFillEye
-                onClick={() => setShowPass(true)}
+                onClick={() => setShowVerPass(true)}
                 title="Arată parola"
                 aria-label="Arată parola"
               />
             ) : (
               <AiFillEyeInvisible
-                onClick={() => setShowPass(false)}
+                onClick={() => setShowVerPass(false)}
                 title="Ascunde parola"
                 aria-label="Ascunde parola"
               />

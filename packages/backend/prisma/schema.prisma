@@ -225,6 +225,13 @@ model Book {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
+model AccountCode {
+  code_uid String @id @unique @default(uuid())
+  id       String @default("")
+
+  value String @unique
+}
+
 enum Subjects {
   MATEMATICA
   FIZICA

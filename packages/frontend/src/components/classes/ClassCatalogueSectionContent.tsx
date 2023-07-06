@@ -147,86 +147,6 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
   return (
     <div className={classStyles.classContainer__classCatalogueStudentContent}>
       <div className={classStyles.classContainer__classCatalogueStudentDetails}>
-        <h4>Absențe</h4>
-        <div
-          className={
-            classStyles.classContainer__classCatalogueStudentDetailsContent
-          }
-          onFocus={() => {
-            if (allowModifications) {
-              dispatch(
-                setGradeOrAbsenceSection({
-                  sectionId: section_uid,
-                  type: "absence",
-                })
-              );
-            }
-          }}
-          onMouseOver={() => {
-            if (allowModifications) {
-              dispatch(
-                setGradeOrAbsenceSection({
-                  sectionId: section_uid,
-                  type: "absence",
-                })
-              );
-            }
-          }}
-        >
-          <CreateGradeOrAbsence
-            showButton={
-              gradeOrAbsenceSectionId === section_uid &&
-              gradeOrAbsenceSectionType === "absence"
-            }
-            sectionId={section_uid}
-            type="absence"
-            location="inCatalogue"
-            classId={class_uid}
-          />
-          <ul>
-            {(studentCardAbsences?.length as number) >= 1 ? (
-              studentCardAbsences?.map((absence) => {
-                return (
-                  <li
-                    key={absence.absence_uid}
-                    onClick={() => {
-                      updateAbsence(absence);
-                    }}
-                    onFocus={() =>
-                      dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
-                    }
-                    onMouseOver={() =>
-                      dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
-                    }
-                    style={{
-                      borderRadius: absence.reasoned ? "2rem" : "0",
-                      border: absence.reasoned ? "1px solid black" : "none",
-                      padding: absence.reasoned ? "0.25rem 0" : "none",
-                    }}
-                  >
-                    {markedAbsenceOrGradeId === absence.absence_uid &&
-                    allowDeleteAbsenceOrGrade ? (
-                      <AiFillDelete
-                        title="Ștergeți absența"
-                        aria-label="Ștergeți absența"
-                        onClick={() => deleteAbsence(absence.absence_uid)}
-                      />
-                    ) : null}
-                    <h6>
-                      {absence.date
-                        ? new Date(absence.date).toLocaleDateString()
-                        : "Nu știm încă"}
-                    </h6>
-                  </li>
-                );
-              })
-            ) : (
-              <li>Elevul nu are absențe.</li>
-            )}
-          </ul>
-        </div>
-      </div>
-      <div className={classStyles.classContainer__classCatalogueStudentDetails}>
         <h4>Note</h4>
         <div
           className={
@@ -312,6 +232,86 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
               })
             ) : (
               <li>Elevul nu are note.</li>
+            )}
+          </ul>
+        </div>
+      </div>
+      <div className={classStyles.classContainer__classCatalogueStudentDetails}>
+        <h4>Absențe</h4>
+        <div
+          className={
+            classStyles.classContainer__classCatalogueStudentDetailsContent
+          }
+          onFocus={() => {
+            if (allowModifications) {
+              dispatch(
+                setGradeOrAbsenceSection({
+                  sectionId: section_uid,
+                  type: "absence",
+                })
+              );
+            }
+          }}
+          onMouseOver={() => {
+            if (allowModifications) {
+              dispatch(
+                setGradeOrAbsenceSection({
+                  sectionId: section_uid,
+                  type: "absence",
+                })
+              );
+            }
+          }}
+        >
+          <CreateGradeOrAbsence
+            showButton={
+              gradeOrAbsenceSectionId === section_uid &&
+              gradeOrAbsenceSectionType === "absence"
+            }
+            sectionId={section_uid}
+            type="absence"
+            location="inCatalogue"
+            classId={class_uid}
+          />
+          <ul>
+            {(studentCardAbsences?.length as number) >= 1 ? (
+              studentCardAbsences?.map((absence) => {
+                return (
+                  <li
+                    key={absence.absence_uid}
+                    onClick={() => {
+                      updateAbsence(absence);
+                    }}
+                    onFocus={() =>
+                      dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
+                    }
+                    onMouseOver={() =>
+                      dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
+                    }
+                    style={{
+                      borderRadius: absence.reasoned ? "2rem" : "0",
+                      border: absence.reasoned ? "1px solid black" : "none",
+                      padding: absence.reasoned ? "0.25rem 0" : "none",
+                    }}
+                  >
+                    {markedAbsenceOrGradeId === absence.absence_uid &&
+                    allowDeleteAbsenceOrGrade ? (
+                      <AiFillDelete
+                        title="Ștergeți absența"
+                        aria-label="Ștergeți absența"
+                        onClick={() => deleteAbsence(absence.absence_uid)}
+                      />
+                    ) : null}
+                    <h6>
+                      {absence.date
+                        ? new Date(absence.date).toLocaleDateString()
+                        : "Nu știm încă"}
+                    </h6>
+                  </li>
+                );
+              })
+            ) : (
+              <li>Elevul nu are absențe.</li>
             )}
           </ul>
         </div>

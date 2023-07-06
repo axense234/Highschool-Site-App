@@ -2,6 +2,12 @@
 import { ChangeEvent, FC, SyntheticEvent, useEffect, useRef } from "react";
 // Types
 import { Admin } from "@prisma/client";
+// React Icons
+import { SiGoogleclassroom } from "react-icons/si";
+import { AiFillPicture } from "react-icons/ai";
+import { MdOutlinePublic, MdOutlinePeopleOutline } from "react-icons/md";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { SlPeople } from "react-icons/sl";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Data
@@ -148,7 +154,14 @@ const CreateClassForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__textControl
             }
           >
-            <label htmlFor="label">Etichetă Clasă: </label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <SiGoogleclassroom />
+              <label htmlFor="label">Etichetă Clasă: </label>
+            </div>
             <input
               type="text"
               id="label"
@@ -165,7 +178,14 @@ const CreateClassForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__imageControl
             }
           >
-            <label htmlFor="img">Fundal Clasă:</label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <AiFillPicture />
+              <label htmlFor="img">Fundal Clasă(*):</label>
+            </div>
             <input
               type="file"
               id="img"
@@ -182,7 +202,14 @@ const CreateClassForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__selectControl
             }
           >
-            <label htmlFor="classPublicity">Publicitate Clasă: </label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <MdOutlinePublic />
+              <label htmlFor="classPublicity">Publicitate Clasă(*): </label>
+            </div>
             <select
               name="classPublicity"
               id="classPublicity"
@@ -200,7 +227,14 @@ const CreateClassForm: FC = () => {
               profileSettingsStyles.profileSettingsContainer__selectControl
             }
           >
-            <label htmlFor="masterTeacher">Diriginte Clasă:</label>
+            <div
+              className={
+                profileSettingsStyles.profileSettingsContainer__controlLabel
+              }
+            >
+              <FaChalkboardTeacher />
+              <label htmlFor="masterTeacher">Diriginte Clasă(*):</label>
+            </div>
             <select
               name="masterTeacher"
               id="masterTeacher"
@@ -230,7 +264,14 @@ const CreateClassForm: FC = () => {
                 gap: "1rem",
               }}
             >
-              <label htmlFor="addTeachers">Adăugați Profesori:</label>
+              <div
+                className={
+                  profileSettingsStyles.profileSettingsContainer__controlLabel
+                }
+              >
+                <SlPeople />
+                <label htmlFor="addTeachers">Adăugați Profesori(*):</label>
+              </div>
               <select
                 name="addTeachers"
                 id="addTeachers"
@@ -266,7 +307,14 @@ const CreateClassForm: FC = () => {
                 gap: "1rem",
               }}
             >
-              <label htmlFor="addStudents">Adăugați Studenți:</label>
+              <div
+                className={
+                  profileSettingsStyles.profileSettingsContainer__controlLabel
+                }
+              >
+                <MdOutlinePeopleOutline />
+                <label htmlFor="addStudents">Adăugați Studenți(*):</label>
+              </div>
               <select
                 name="addStudents"
                 id="addStudents"

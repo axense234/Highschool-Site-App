@@ -46,6 +46,7 @@ interface TemplateTeacher extends Teacher {
   teacher_uid?: string;
   role: "ADMIN" | "ELEV" | "PROFESOR";
   classes: Class[];
+  accountCode?: string;
 }
 
 interface TemplateUpdateTeacher extends Teacher {
@@ -72,6 +73,7 @@ interface TemplateAdmin extends Admin {
   id?: string;
   profile_img_url?: string;
   role: "ADMIN" | "ELEV" | "PROFESOR";
+  accountCode: string;
 }
 
 interface TemplateStudentCardSection extends StudentCardSection {

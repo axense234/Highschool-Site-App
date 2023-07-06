@@ -333,10 +333,13 @@
       align-items: flex-start;
       justify-content: flex-start;
       height: 100%;
-      max-height: 25rem;
       width: 100%;
       gap: 0.5rem;
       overflow-y: scroll;
+
+      &:first-of-type {
+        border-right: 2px solid black;
+      }
 
       &::-webkit-scrollbar {
         visibility: hidden;

@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 // Prisma
 import {
+  accountCodeClient,
   adminClient,
   classClient,
   studentCardClient,
@@ -36,6 +37,29 @@ const createUser = async (req: Request, res: Response) => {
 
   let createdUser;
   if (userType === "ADMIN") {
+    if (!userBody.accountCode) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Introduceți un cod de cont!", user: {} });
+    }
+
+    const findAccountCode = await accountCodeClient.findUnique({
+      where: { value: userBody.accountCode },
+    });
+
+    if (!findAccountCode) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        msg: `Nu am găsit un cod valabil cu valoarea: ${userBody.accountCode}!`,
+        user: {},
+      });
+    }
+
+    delete userBody.accountCode;
+
+    await accountCodeClient.delete({
+      where: { code_uid: findAccountCode.code_uid },
+    });
+
     createdUser = await adminClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.admin_uid;
   } else if (userType === "ELEV") {
@@ -89,6 +113,32 @@ const createUser = async (req: Request, res: Response) => {
     });
     createdUser.id = createdUser.student_uid;
   } else if (userType === "PROFESOR") {
+    if (userBody.classes) {
+      delete userBody.classes;
+    }
+    if (!userBody.accountCode) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Introduceți un cod de cont!", user: {} });
+    }
+
+    const findAccountCode = await accountCodeClient.findUnique({
+      where: { value: userBody.accountCode },
+    });
+
+    if (!findAccountCode) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        msg: `Nu am găsit un cod valabil cu valoarea: ${userBody.accountCode}!`,
+        user: {},
+      });
+    }
+
+    delete userBody.accountCode;
+
+    await accountCodeClient.delete({
+      where: { code_uid: findAccountCode.code_uid },
+    });
+
     createdUser = await teacherClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.teacher_uid;
   }

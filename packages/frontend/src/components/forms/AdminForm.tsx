@@ -5,7 +5,13 @@ import Link from "next/link";
 // Types
 import { FormStepProps } from "types";
 // React Icons
+import { GrNext, GrPrevious } from "react-icons/gr";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { BiKey } from "react-icons/bi";
+import { BsFillPersonFill } from "react-icons/bs";
+import { MdAttachEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { RxAvatar } from "react-icons/rx";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Redux
@@ -23,14 +29,34 @@ import {
 } from "@/redux/slices/generalSlice";
 // Components
 import FormModal from "../modals/FormModal";
+// Data
+import { typeNavOptions } from "@/data";
 
-const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
+const AdminForm: FC<FormStepProps> = ({
+  pageType,
+  setCurrentType,
+  step,
+  setCurrentStep,
+}) => {
   const dispatch = useAppDispatch();
   const [showPass, setShowPass] = useState<boolean>(false);
+  const [accountCode, setAccountCode] = useState<string>("");
+
+  const foundCurrentTypeStepsLength = typeNavOptions.find(
+    (option) => option.label === "ELEV"
+  )?.steps?.length;
+
+  const formStepIsNotFinal =
+    pageType === "signup" && (foundCurrentTypeStepsLength as number) > step;
+
+  const formButtonMessageWithStepsConsideration = formStepIsNotFinal
+    ? "Următorul pas"
+    : "Creați un cont";
 
   const formButtonMessage =
-    pageType === "login" ? "Intrați în cont" : "Creați un cont";
-
+    pageType === "login"
+      ? "Intrați în cont"
+      : formButtonMessageWithStepsConsideration;
   const loadingCreateCloudinaryImageForAdmin = useAppSelector(
     selectLoadingCreateCloudinaryImageForAdmin
   );
@@ -60,7 +86,7 @@ const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
           "Încercăm să creăm un admin, vă rugăm să așteptați..."
         )
       );
-      dispatch(createAdmin(templateAdmin));
+      dispatch(createAdmin({ ...templateAdmin, accountCode }));
     } else {
       dispatch(
         setScreenLoadingMessage(
@@ -71,74 +97,184 @@ const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
     }
   };
 
-  return (
-    <form
-      className={`${accountsFormStyles.accountsFormContainer__form}`}
-      onSubmit={(e) => handleSubmitAdmin(e)}
-    >
-      <FormModal type={pageType === "login" ? "general" : "admins"} />
-      <div className={accountsFormStyles.accountsFormContainer__content}>
-        {pageType === "signup" && (
+  if (step === 1) {
+    return (
+      <form
+        className={`${accountsFormStyles.accountsFormContainer__form}`}
+        onSubmit={(e) => handleSubmitAdmin(e)}
+      >
+        <FormModal type={pageType === "login" ? "general" : "admins"} />
+        <div className={accountsFormStyles.accountsFormContainer__content}>
+          {pageType === "signup" && (
+            <>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__textControl
+                }
+              >
+                <div
+                  className={
+                    accountsFormStyles.accountsFormContainer__controlLabel
+                  }
+                >
+                  <BiKey />
+                  <label htmlFor="code">Cod: </label>
+                </div>
+                <input
+                  type="text"
+                  id="code"
+                  required
+                  minLength={1}
+                  maxLength={20}
+                  placeholder="ex: B6daw82ad_8awd8"
+                  value={accountCode}
+                  onChange={(e) => setAccountCode(e.target.value)}
+                />
+              </div>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__textControl
+                }
+              >
+                <div
+                  className={
+                    accountsFormStyles.accountsFormContainer__controlLabel
+                  }
+                >
+                  <BsFillPersonFill />
+                  <label htmlFor="fullname">Nume Complet: </label>
+                </div>
+                <input
+                  type="text"
+                  id="fullname"
+                  required
+                  placeholder="ex: Irina Ionescu"
+                  value={templateAdmin.fullname}
+                  onChange={(e) => onFullnameChange(e.target.value)}
+                />
+              </div>
+            </>
+          )}
           <div
             className={accountsFormStyles.accountsFormContainer__textControl}
           >
-            <label htmlFor="fullname">Nume Complet: </label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <MdAttachEmail />
+              <label htmlFor="email">Email:</label>
+            </div>
             <input
-              type="text"
-              id="fullname"
+              type="email"
+              id="email"
               required
-              placeholder="ex: Irina Ionescu"
-              value={templateAdmin.fullname}
-              onChange={(e) => onFullnameChange(e.target.value)}
+              placeholder="ex: irina@gmail.com"
+              value={templateAdmin.email}
+              onChange={(e) => onEmailChange(e.target.value)}
             />
           </div>
-        )}
-        <div className={accountsFormStyles.accountsFormContainer__textControl}>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            required
-            placeholder="ex: irina@gmail.com"
-            value={templateAdmin.email}
-            onChange={(e) => onEmailChange(e.target.value)}
-          />
-        </div>
-        <div className={accountsFormStyles.accountsFormContainer__passControl}>
-          <label htmlFor="pass">Parola:</label>
           <div
-            className={
-              accountsFormStyles.accountsFormContainer__passControlInput
-            }
+            className={accountsFormStyles.accountsFormContainer__passControl}
           >
-            <input
-              type={showPass ? "text" : "password"}
-              id="pass"
-              required
-              placeholder="ex: irina*4134"
-              value={templateAdmin.password}
-              onChange={(e) => onPasswordChange(e.target.value)}
-            />
-            {!showPass ? (
-              <AiFillEye
-                onClick={() => setShowPass(true)}
-                title="Arată parola"
-                aria-label="Arată parola"
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <RiLockPasswordFill />
+              <label htmlFor="pass">Parola:</label>
+            </div>
+            <div
+              className={
+                accountsFormStyles.accountsFormContainer__passControlInput
+              }
+            >
+              <input
+                type={showPass ? "text" : "password"}
+                id="pass"
+                required
+                placeholder="ex: irina*4134"
+                value={templateAdmin.password}
+                onChange={(e) => onPasswordChange(e.target.value)}
               />
-            ) : (
-              <AiFillEyeInvisible
-                onClick={() => setShowPass(false)}
-                title="Ascunde parola"
-                aria-label="Ascunde parola"
-              />
-            )}
+              {!showPass ? (
+                <AiFillEye
+                  onClick={() => setShowPass(true)}
+                  title="Arată parola"
+                  aria-label="Arată parola"
+                />
+              ) : (
+                <AiFillEyeInvisible
+                  onClick={() => setShowPass(false)}
+                  title="Ascunde parola"
+                  aria-label="Ascunde parola"
+                />
+              )}
+            </div>
           </div>
         </div>
-        {pageType === "signup" && (
+        <div
+          className={accountsFormStyles.accountsFormContainer__buttonsContainer}
+        >
+          <button
+            type={pageType === "login" ? "submit" : "button"}
+            className={accountsFormStyles.accountsFormContainer__formButton}
+            disabled={loadingCreateCloudinaryImageForAdmin === "PENDING"}
+            onClick={() => {
+              if (formStepIsNotFinal) {
+                setCurrentStep((step) => step + 1);
+              }
+            }}
+          >
+            {loadingCreateCloudinaryImageForAdmin === "PENDING"
+              ? "Se încarcă imaginea..."
+              : formButtonMessage}
+          </button>
+          {pageType === "signup" && (
+            <GrNext
+              title="Următorul"
+              aria-label="Următorul"
+              onClick={() => setCurrentStep((step) => step + 1)}
+              className={accountsFormStyles.accountsFormContainer__nextButton}
+            />
+          )}
+        </div>
+        <div
+          className={accountsFormStyles.accountsFormContainer__linksContainer}
+        >
+          <Link href={pageType === "login" ? "/signup" : "/login"}>
+            {pageType === "login"
+              ? "Nu aveți un cont? Creați unul aici!"
+              : "Aveți un cont? Intrați în el aici!"}
+          </Link>
+          {pageType === "login" && (
+            <button
+              type="button"
+              onClick={() => setCurrentType("PAROLA UITATA")}
+            >
+              Am uitat parola contului.
+            </button>
+          )}
+        </div>
+      </form>
+    );
+  }
+
+  if (step === 2 && pageType === "signup") {
+    return (
+      <form
+        className={`${accountsFormStyles.accountsFormContainer__form}`}
+        onSubmit={(e) => handleSubmitAdmin(e)}
+      >
+        <FormModal type="admins" />
+        <div className={accountsFormStyles.accountsFormContainer__content}>
           <div
             className={accountsFormStyles.accountsFormContainer__imageControl}
           >
-            <label htmlFor="img">Imagine de Profil:</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <RxAvatar />
+              <label htmlFor="img">Imagine de Profil(*):</label>
+            </div>
             <input
               type="file"
               id="img"
@@ -150,31 +286,34 @@ const AdminForm: FC<FormStepProps> = ({ pageType, setCurrentType }) => {
               }}
             />
           </div>
-        )}
-      </div>
-      <button
-        type="submit"
-        className={accountsFormStyles.accountsFormContainer__formButton}
-        disabled={loadingCreateCloudinaryImageForAdmin === "PENDING"}
-      >
-        {loadingCreateCloudinaryImageForAdmin === "PENDING"
-          ? "Se încarcă imaginea..."
-          : formButtonMessage}
-      </button>
-      <div className={accountsFormStyles.accountsFormContainer__linksContainer}>
-        <Link href={pageType === "login" ? "/signup" : "/login"}>
-          {pageType === "login"
-            ? "Nu aveți un cont? Creați unul aici!"
-            : "Aveți un cont? Intrați în el aici!"}
-        </Link>
-        {pageType === "login" && (
-          <button type="button" onClick={() => setCurrentType("PAROLA UITATA")}>
-            Am uitat parola contului.
+        </div>
+        <div
+          className={accountsFormStyles.accountsFormContainer__buttonsContainer}
+        >
+          <GrPrevious
+            title="Înapoi"
+            aria-label="Înapoi"
+            onClick={() => setCurrentStep((step) => step - 1)}
+            className={accountsFormStyles.accountsFormContainer__prevButton}
+          />
+          <button
+            type="submit"
+            className={accountsFormStyles.accountsFormContainer__formButton}
+            onClick={(e) => handleSubmitAdmin(e)}
+          >
+            Creați un cont
           </button>
-        )}
-      </div>
-    </form>
-  );
+        </div>
+        <div
+          className={accountsFormStyles.accountsFormContainer__linksContainer}
+        >
+          <Link href="/login">Aveți un cont? Intrați în el aici!</Link>
+        </div>
+      </form>
+    );
+  }
+
+  return null;
 };
 
 export default AdminForm;

@@ -2,6 +2,8 @@
 import { FC, SyntheticEvent } from "react";
 // Next
 import Link from "next/link";
+// React Icons
+import { MdAttachEmail } from "react-icons/md";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Redux
@@ -39,7 +41,12 @@ const ForgotPassForm: FC = () => {
       <FormModal type="general" />
       <div className={accountsFormStyles.accountsFormContainer__content}>
         <div className={accountsFormStyles.accountsFormContainer__textControl}>
-          <label htmlFor="email">Email:</label>
+          <div
+            className={accountsFormStyles.accountsFormContainer__controlLabel}
+          >
+            <MdAttachEmail />
+            <label htmlFor="email">Email:</label>
+          </div>
           <input
             type="email"
             id="email"

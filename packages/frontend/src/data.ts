@@ -70,6 +70,7 @@ export const defaultTemplateAdmin: TemplateAdmin = {
   password: "PAROLA",
   fullname: "",
   role: "ADMIN",
+  accountCode: "",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -120,6 +121,7 @@ export const defaultTemplateTeacher: TemplateTeacher = {
   master_class_label: "",
   classes: [],
   role: "PROFESOR",
+  accountCode: "",
   profile_img_url:
     "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y",
   createdAt: new Date(),
@@ -214,7 +216,14 @@ export const announcementCategories: CategoryType[] = [
 ];
 
 export const typeNavOptions: TypeNavOption[] = [
-  { id: 1, label: "ADMIN" },
+  {
+    id: 1,
+    label: "ADMIN",
+    steps: [
+      { id: 1, label: "PASUL 1" },
+      { id: 2, label: "PASUL 2" },
+    ],
+  },
   {
     id: 2,
     label: "ELEV",

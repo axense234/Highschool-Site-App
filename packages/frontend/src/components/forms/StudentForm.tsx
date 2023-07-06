@@ -7,10 +7,15 @@ import { FormStepProps } from "types";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import { BsFillPersonFill } from "react-icons/bs";
+import { MdAttachEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { RxAvatar } from "react-icons/rx";
+import { FaGraduationCap } from "react-icons/fa";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data
-import { possibleClassLabels, typeNavOptions } from "@/data";
+import { typeNavOptions } from "@/data";
 // Components
 import FormModal from "../modals/FormModal";
 // Redux
@@ -112,7 +117,14 @@ const StudentForm: FC<FormStepProps> = ({
             <div
               className={accountsFormStyles.accountsFormContainer__textControl}
             >
-              <label htmlFor="fullname">Nume Complet: </label>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__controlLabel
+                }
+              >
+                <BsFillPersonFill />
+                <label htmlFor="fullname">Nume Complet: </label>
+              </div>
               <input
                 type="text"
                 id="fullname"
@@ -126,7 +138,12 @@ const StudentForm: FC<FormStepProps> = ({
           <div
             className={accountsFormStyles.accountsFormContainer__textControl}
           >
-            <label htmlFor="email">Email:</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <MdAttachEmail />
+              <label htmlFor="email">Email:</label>
+            </div>
             <input
               type="email"
               id="email"
@@ -139,7 +156,12 @@ const StudentForm: FC<FormStepProps> = ({
           <div
             className={accountsFormStyles.accountsFormContainer__passControl}
           >
-            <label htmlFor="pass">Parola:</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <RiLockPasswordFill />
+              <label htmlFor="pass">Parola:</label>
+            </div>
             <div
               className={
                 accountsFormStyles.accountsFormContainer__passControlInput
@@ -172,7 +194,14 @@ const StudentForm: FC<FormStepProps> = ({
             <div
               className={accountsFormStyles.accountsFormContainer__imageControl}
             >
-              <label htmlFor="img">Imagine de Profil:</label>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__controlLabel
+                }
+              >
+                <RxAvatar />
+                <label htmlFor="img">Imagine de Profil(*):</label>
+              </div>
               <input
                 type="file"
                 id="img"
@@ -244,15 +273,21 @@ const StudentForm: FC<FormStepProps> = ({
           <div
             className={accountsFormStyles.accountsFormContainer__selectControl}
           >
-            <label htmlFor="class">Clasă:</label>
+            <div
+              className={accountsFormStyles.accountsFormContainer__controlLabel}
+            >
+              <FaGraduationCap />
+              <label htmlFor="class">Clasă(*):</label>
+            </div>
             {classes.length >= 1 ? (
               <select
                 name="class"
                 id="class"
+                required={false}
                 value={templateStudent.class_label as string}
                 onChange={(e) => onStudentClassChange(e.target.value)}
               >
-                <option value="">Nu sunt într-o clasa.</option>
+                <option value="">Nu sunt într-o clasă.</option>
                 {classes.map((classItem) => {
                   return (
                     <option key={classItem.id} value={classItem.label}>
@@ -292,7 +327,7 @@ const StudentForm: FC<FormStepProps> = ({
     );
   }
 
-  return <></>;
+  return null;
 };
 
 export default StudentForm;
