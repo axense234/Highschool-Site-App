@@ -29,7 +29,7 @@ import {
   TemplateGrade,
   TemplateAbsence,
 } from "types";
-import { StudentCatalogue, Teacher } from "@prisma/client";
+import { Teacher } from "@prisma/client";
 // React Icons
 import { AiFillHome } from "react-icons/ai";
 import { FcAbout } from "react-icons/fc";

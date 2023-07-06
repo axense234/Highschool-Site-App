@@ -1,4 +1,4 @@
-# Highschool Site App -> Ion Barbu
+# Highschool Site App -> Ion Barbu(NOT FINISHED)
 
 A Fullstack Mern Typescript with Sass and Redux project with the purpose of improving my overall web developer skills, at the same time building a good project for a future portfolio.
 
