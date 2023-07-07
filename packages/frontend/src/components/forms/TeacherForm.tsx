@@ -49,6 +49,11 @@ const TeacherForm: FC<FormStepProps> = ({
   const [accountCode, setAccountCode] = useState<string>("");
 
   const classes = useAppSelector(selectAllClasses);
+
+  const usableClasses = classes.filter(
+    (classItem) => !classItem.master_teacher_name
+  );
+
   const foundCurrentTypeStepsLength = typeNavOptions.find(
     (option) => option.label === "PROFESOR"
   )?.steps?.length;
@@ -388,7 +393,7 @@ const TeacherForm: FC<FormStepProps> = ({
                   La ce clasa sunteți diriginte?
                 </label>
               </div>
-              {classes.length >= 1 ? (
+              {usableClasses.length >= 1 ? (
                 <select
                   name="master-class"
                   id="master-class"
@@ -396,7 +401,7 @@ const TeacherForm: FC<FormStepProps> = ({
                   value={templateTeacher.master_class_label as string}
                   onChange={(e) => onMasterClassLabelChange(e.target.value)}
                 >
-                  {classes?.map((classItem) => {
+                  {usableClasses?.map((classItem) => {
                     return (
                       <option key={classItem.id} value={classItem.label}>
                         {classItem.label}

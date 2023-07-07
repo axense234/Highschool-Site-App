@@ -115,7 +115,7 @@ model Class {
   created_by_admin_uid String?
 
   master_teacher      Teacher? @relation(fields: [master_teacher_uid, master_teacher_name], references: [teacher_uid, fullname])
-  master_teacher_uid  String?  @unique
+  master_teacher_uid  String?
   master_teacher_name String?
 
   catalogue     StudentCatalogue?

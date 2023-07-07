@@ -2,7 +2,7 @@
 import { FC } from "react";
 // Types
 import {
-  ProfileTeacherClassrooms,
+  ProfileTeacherClassroomsProps,
   TemplateClass,
   TemplateTeacher,
 } from "types";
@@ -17,7 +17,7 @@ import { State } from "@/redux/api/store";
 import { selectTeacherById } from "@/redux/slices/teachersSlice";
 import { selectProfile } from "@/redux/slices/generalSlice";
 
-const ProfileTeacherClassrooms: FC<ProfileTeacherClassrooms> = ({
+const ProfileTeacherClassrooms: FC<ProfileTeacherClassroomsProps> = ({
   teacherId,
   type,
 }) => {
@@ -27,16 +27,20 @@ const ProfileTeacherClassrooms: FC<ProfileTeacherClassrooms> = ({
   const profile = useAppSelector(selectProfile);
 
   const usedTeacher = type === "own" ? (profile as TemplateTeacher) : teacher;
+  const usedTeacherClasses =
+    profile.role === "ADMIN"
+      ? usedTeacher.classes
+      : usedTeacher.classes.filter((classroom) => classroom.public);
 
   return (
     <div className={profileSettingsStyles.profileSettingsContainer}>
-      {usedTeacher.classes.length >= 1 ? (
+      {usedTeacherClasses.length >= 1 ? (
         <ul
           className={
             profileSettingsStyles.profileSettingsContainer__teacherClassrooms
           }
         >
-          {usedTeacher.classes.map((classroom) => {
+          {usedTeacherClasses.map((classroom) => {
             return (
               <TeacherClassroom {...classroom} key={classroom.class_uid} />
             );

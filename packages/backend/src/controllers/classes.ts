@@ -134,16 +134,17 @@ const createClass = async (req: Request, res: Response) => {
     };
   }
 
-  if (classBody.master_teacher_uid) {
+  if (classBody.master_teacher_uid?.length >= 1) {
     const foundTeacher = await teacherClient.findUnique({
       where: { teacher_uid: classBody.master_teacher_uid },
     });
 
     if (foundTeacher) {
       classBody.master_teacher_name = foundTeacher.fullname;
-    } else {
-      throw new Error("Something went very wrong when creating a class.");
     }
+  } else {
+    delete classBody.master_teacher_uid;
+    delete classBody.master_teacher_name;
   }
 
   const createdClass = await classClient.create({

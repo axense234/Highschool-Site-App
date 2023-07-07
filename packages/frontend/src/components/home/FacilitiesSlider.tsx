@@ -17,9 +17,9 @@ import facilitiesSliderStyles from "../../scss/components/home/FacilitiesSlider.
 import useModalTransition from "@/hooks/useModalTransition";
 
 const FacilitiesSlider: FC = () => {
-  const [imageId, setImageId] = useState<number>(0);
   const [showSliderButtons, setShowSliderButtons] = useState<boolean>(false);
   const [stopAutoImages, setStopAutoImages] = useState<boolean>(false);
+  const [imageId, setImageId] = useState<number>(0);
 
   const handlePrevImage = () => {
     setImageId((prevImageId) =>

@@ -116,31 +116,50 @@ const createUser = async (req: Request, res: Response) => {
     if (userBody.classes) {
       delete userBody.classes;
     }
-    if (!userBody.accountCode) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "Introduceți un cod de cont!", user: {} });
-    }
+    // if (!userBody.accountCode) {
+    //   return res
+    //     .status(StatusCodes.BAD_REQUEST)
+    //     .json({ msg: "Introduceți un cod de cont!", user: {} });
+    // }
 
-    const findAccountCode = await accountCodeClient.findUnique({
-      where: { value: userBody.accountCode },
-    });
+    // const findAccountCode = await accountCodeClient.findUnique({
+    //   where: { value: userBody.accountCode },
+    // });
 
-    if (!findAccountCode) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        msg: `Nu am găsit un cod valabil cu valoarea: ${userBody.accountCode}!`,
-        user: {},
-      });
-    }
+    // if (!findAccountCode) {
+    //   return res.status(StatusCodes.NOT_FOUND).json({
+    //     msg: `Nu am găsit un cod valabil cu valoarea: ${userBody.accountCode}!`,
+    //     user: {},
+    //   });
+    // }
 
     delete userBody.accountCode;
 
-    await accountCodeClient.delete({
-      where: { code_uid: findAccountCode.code_uid },
-    });
+    // await accountCodeClient.delete({
+    //   where: { code_uid: findAccountCode.code_uid },
+    // });
 
     createdUser = await teacherClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.teacher_uid;
+
+    if (createdUser.master_class_label) {
+      const foundClass = await classClient.findUnique({
+        where: { label: createdUser.master_class_label },
+      });
+      console.log("yes");
+
+      if (foundClass) {
+        userBody.master = true;
+
+        await classClient.update({
+          where: { class_uid: foundClass.class_uid },
+          data: {
+            master_teacher_name: createdUser.fullname,
+            master_teacher_uid: createdUser.teacher_uid,
+          },
+        });
+      }
+    }
   }
 
   if (!createdUser) {

@@ -58,7 +58,7 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
       <h4>
         {profile.role} de {(profile as Teacher).subject}
       </h4>
-      {(profile as Teacher).master && (
+      {(profile as Teacher).master_class_label && (
         <h5>DIRIGINTE - {(profile as Teacher).master_class_label}</h5>
       )}
       <p>@{profile.email}</p>

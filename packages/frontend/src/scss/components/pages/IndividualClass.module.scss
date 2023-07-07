@@ -42,6 +42,10 @@
     h3 {
       text-align: center;
     }
+
+    p {
+      font-size: 1.25rem;
+    }
   }
 
   #{&}__classTeachers {
@@ -52,6 +56,10 @@
     background-color: getColor("silver-white");
     border-radius: 1rem;
     border: 3px solid getColor("silver-50");
+
+    p {
+      font-size: 1.25rem;
+    }
   }
 
   #{&}__classTeachersDetails {
@@ -73,6 +81,10 @@
     background-color: getColor("silver-white");
     border-radius: 1rem;
     border: 3px solid getColor("silver-50");
+
+    p {
+      font-size: 1.25rem;
+    }
   }
 
   #{&}__classStudentsDetails {
@@ -167,6 +179,7 @@
         font-size: 3rem;
         border-radius: 0.5rem;
         border: 2px solid black;
+        z-index: 2;
 
         transition: transform 0.2s ease-in;
 
@@ -203,31 +216,13 @@
         @include flexCenter(row);
         height: 100%;
         width: 100%;
+        position: relative;
 
         &:first-of-type {
           font-size: 2.25rem;
           letter-spacing: 3px;
           padding: 0.35rem;
           padding-bottom: 0.7rem;
-        }
-
-        ul {
-          @include flexCenter(row);
-          align-items: flex-start;
-          list-style: none;
-          height: 100%;
-          width: 100%;
-
-          li {
-            @include flexCenter(row);
-            height: 100%;
-            width: 16.666%;
-            padding: 0.25rem;
-            font-size: 1.25rem;
-            border: 1px solid black;
-            border-bottom: none;
-            background-color: getColor("silver-white");
-          }
         }
       }
     }
@@ -237,6 +232,37 @@
     @include flexCenter(column);
     width: 100%;
     height: 100%;
+  }
+
+  #{&}__classCatalogueSubjectsContainer {
+    @include flexCenter(row);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    ul {
+      @include flexCenter(row);
+      align-items: flex-start;
+      position: absolute;
+      top: 0;
+      list-style: none;
+      height: 100%;
+      width: 100%;
+
+      transition: transform 0.1s, opacity 0.3s;
+
+      li {
+        @include flexCenter(row);
+        height: 100%;
+        width: 16.666%;
+        padding: 0.25rem;
+        font-size: 1.25rem;
+        border: 1px solid black;
+        border-bottom: none;
+        background-color: getColor("silver-white");
+      }
+    }
   }
 
   #{&}__classCatalogueBody {
@@ -313,6 +339,7 @@
 
     h4 {
       width: 100%;
+      height: 7.5%;
       font-size: 1.25rem;
       text-align: center;
       border: 2px solid black;
@@ -325,7 +352,7 @@
     justify-content: flex-start;
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 92.5%;
 
     ul {
       @include flexCenter(column);
@@ -398,4 +425,19 @@
       }
     }
   }
+}
+
+.current {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.next {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.prev {
+  opacity: 0;
+  transform: translateX(-100%);
 }

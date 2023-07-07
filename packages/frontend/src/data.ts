@@ -390,6 +390,8 @@ export const documentsAndLawsInfo: DocumentOrLaw[] = [
   },
 ];
 
+export const classCatalogueSubjectsCountMap = [{ id: 0 }, { id: 1 }, { id: 2 }];
+
 export const istoricPinpoints: IstoricPinPoint[] = [
   {
     id: 1,

@@ -61,6 +61,7 @@ const CardSection: FC<CardSectionProps> = ({
     (ownProfile as Teacher).master_class_uid === class_uid;
 
   const allowDeleteAbsenceOrGrade = ownProfile.role === "ADMIN";
+
   const allowEditGrade =
     ownProfile.role === "ADMIN" || ownProfile.role === "PROFESOR";
 
@@ -275,13 +276,6 @@ const CardSection: FC<CardSectionProps> = ({
               <li
                 key={absence.absence_uid}
                 onClick={() => updateAbsence(absence)}
-                style={{
-                  borderRadius: absence.reasoned ? "2rem" : "0",
-                  border: absence.reasoned ? "1px solid black" : "none",
-                  padding: absence.reasoned ? "0.25rem 0" : "none",
-                  width: "50%",
-                  textAlign: "center",
-                }}
                 onFocus={() =>
                   dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
                 }
@@ -297,7 +291,13 @@ const CardSection: FC<CardSectionProps> = ({
                     onClick={() => deleteAbsence(absence.absence_uid)}
                   />
                 ) : null}
-                <h5>
+                <h5
+                  style={{
+                    borderRadius: absence.reasoned ? "2rem" : "0",
+                    border: absence.reasoned ? "1px solid black" : "none",
+                    padding: absence.reasoned ? "0.5rem 0" : "none",
+                  }}
+                >
                   {absence.date
                     ? new Date(absence.date).toLocaleDateString()
                     : "Nu știm încă"}

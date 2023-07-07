@@ -26,7 +26,11 @@ const ClassItem: FC<TemplateClass> = ({
       />
       <div className={classesStyles.classesContainer__classDetails}>
         <h3>{label}</h3>
-        {master_teacher_name && <p>DIRIGINTE - {master_teacher_name}</p>}
+        {master_teacher_name ? (
+          <p>DIRIGINTE - {master_teacher_name}</p>
+        ) : (
+          <p>FĂRĂ DIRIGINTE</p>
+        )}
         <Link
           href={`/clase/${class_uid as string}`}
           title={`Mai multe detalii despre clasa ${label}.`}

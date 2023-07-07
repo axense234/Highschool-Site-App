@@ -235,21 +235,28 @@ const CreateClassForm: FC = () => {
               <FaChalkboardTeacher />
               <label htmlFor="masterTeacher">Diriginte Clasă(*):</label>
             </div>
-            <select
-              name="masterTeacher"
-              id="masterTeacher"
-              required
-              value={templateClass.master_teacher_uid as string}
-              onChange={(e) => onMasterTeacherChange(e.target.value)}
-            >
-              {usableTeachers.map((teacher) => {
-                return (
-                  <option value={teacher.teacher_uid} key={teacher.teacher_uid}>
-                    {teacher.fullname}
-                  </option>
-                );
-              })}
-            </select>
+            {usableTeachers.length >= 1 ? (
+              <select
+                name="masterTeacher"
+                id="masterTeacher"
+                value={templateClass.master_teacher_uid as string}
+                onChange={(e) => onMasterTeacherChange(e.target.value)}
+              >
+                <option value="">Fără diriginte.</option>
+                {usableTeachers.map((teacher) => {
+                  return (
+                    <option
+                      value={teacher.teacher_uid}
+                      key={teacher.teacher_uid}
+                    >
+                      {teacher.fullname}
+                    </option>
+                  );
+                })}
+              </select>
+            ) : (
+              <p>Nu avem profesori valabili.</p>
+            )}
           </div>
           {loadingTeachers === "PENDING" || loadingTeachers === "IDLE" ? (
             <p>Loading...</p>
@@ -272,26 +279,30 @@ const CreateClassForm: FC = () => {
                 <SlPeople />
                 <label htmlFor="addTeachers">Adăugați Profesori(*):</label>
               </div>
-              <select
-                name="addTeachers"
-                id="addTeachers"
-                multiple
-                required={false}
-                value={templateClass.teachers as string[]}
-                onChange={(e) => onClassTeachersChange(e)}
-                style={{ width: "100%" }}
-              >
-                {teachers.map((teacher) => {
-                  return (
-                    <option
-                      value={teacher.teacher_uid}
-                      key={teacher.teacher_uid}
-                    >
-                      {teacher.fullname}
-                    </option>
-                  );
-                })}
-              </select>
+              {teachers.length >= 1 ? (
+                <select
+                  name="addTeachers"
+                  id="addTeachers"
+                  multiple
+                  required={false}
+                  value={templateClass.teachers as string[]}
+                  onChange={(e) => onClassTeachersChange(e)}
+                  style={{ width: "100%" }}
+                >
+                  {teachers.map((teacher) => {
+                    return (
+                      <option
+                        value={teacher.teacher_uid}
+                        key={teacher.teacher_uid}
+                      >
+                        {teacher.fullname}
+                      </option>
+                    );
+                  })}
+                </select>
+              ) : (
+                <p>Nu avem profesori valabili.</p>
+              )}
             </div>
           )}
           {loadingStudents === "PENDING" || loadingStudents === "IDLE" ? (
@@ -315,26 +326,30 @@ const CreateClassForm: FC = () => {
                 <MdOutlinePeopleOutline />
                 <label htmlFor="addStudents">Adăugați Studenți(*):</label>
               </div>
-              <select
-                name="addStudents"
-                id="addStudents"
-                multiple
-                required={false}
-                value={templateClass.students as string[]}
-                onChange={(e) => onClassStudentsChange(e)}
-                style={{ width: "100%" }}
-              >
-                {usableStudents.map((student) => {
-                  return (
-                    <option
-                      value={student.student_uid}
-                      key={student.student_uid}
-                    >
-                      {student.fullname}
-                    </option>
-                  );
-                })}
-              </select>
+              {usableStudents.length >= 1 ? (
+                <select
+                  name="addStudents"
+                  id="addStudents"
+                  multiple
+                  required={false}
+                  value={templateClass.students as string[]}
+                  onChange={(e) => onClassStudentsChange(e)}
+                  style={{ width: "100%" }}
+                >
+                  {usableStudents.map((student) => {
+                    return (
+                      <option
+                        value={student.student_uid}
+                        key={student.student_uid}
+                      >
+                        {student.fullname}
+                      </option>
+                    );
+                  })}
+                </select>
+              ) : (
+                <p>Nu avem studenți valabili.</p>
+              )}
             </div>
           )}
         </div>

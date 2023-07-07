@@ -42,33 +42,41 @@ const ClassDetails: FC<TemplateClass> = ({
         </div>
         <div className={classStyles.classContainer__classTeachers}>
           <h3>PROFESORI DE CLASĂ:</h3>
-          <ul className={classStyles.classContainer__classTeachersDetails}>
-            {usableTeachers?.map((teacher) => {
-              return (
-                <li key={teacher.teacher_uid as string}>
-                  <ClassComponentPreview
-                    component={teacher as TemplateTeacher}
-                    type="teacher"
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          {usableTeachers.length >= 1 ? (
+            <ul className={classStyles.classContainer__classTeachersDetails}>
+              {usableTeachers?.map((teacher) => {
+                return (
+                  <li key={teacher.teacher_uid as string}>
+                    <ClassComponentPreview
+                      component={teacher as TemplateTeacher}
+                      type="teacher"
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p>Clasa nu are profesori.</p>
+          )}
         </div>
         <div className={classStyles.classContainer__classStudents}>
           <h3>ELEVII CLASEI {label}: </h3>
-          <ul className={classStyles.classContainer__classStudentsDetails}>
-            {usableStudents?.map((student) => {
-              return (
-                <li key={student.student_uid}>
-                  <ClassComponentPreview
-                    component={student as TemplateStudent}
-                    type="student"
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          {usableStudents.length >= 1 ? (
+            <ul className={classStyles.classContainer__classStudentsDetails}>
+              {usableStudents?.map((student) => {
+                return (
+                  <li key={student.student_uid}>
+                    <ClassComponentPreview
+                      component={student as TemplateStudent}
+                      type="student"
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p>Clasa nu are elevi.</p>
+          )}
         </div>
       </div>
     </section>

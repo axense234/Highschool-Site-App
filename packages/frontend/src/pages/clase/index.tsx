@@ -27,7 +27,6 @@ const Classrooms: FC = () => {
 
   const dispatch = useAppDispatch();
   const loadingClasses = useAppSelector(selectLoadingClasses);
-  const loadingProfile = useAppSelector(selectLoadingProfile);
 
   const profile = useAppSelector(selectProfile);
   const classes = useAppSelector(selectAllClasses);

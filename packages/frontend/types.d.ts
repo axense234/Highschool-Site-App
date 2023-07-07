@@ -429,7 +429,7 @@ interface ProfileStudentCatalogueProps {
   type: "own" | "user";
 }
 
-interface ProfileTeacherClassrooms {
+interface ProfileTeacherClassroomsProps {
   teacherId: string;
   type: "own" | "user";
 }
@@ -477,6 +477,11 @@ interface ClassCatalogueSectionContentProps {
   section_uid: string;
   class_uid?: string;
   studentCardContent: TemplateStudentCardSection[] | undefined;
+}
+
+interface ClassCatalogueHeadProps {
+  currentClassSubjectsShownId: number;
+  setCurrentClassSubjectsShownId: Dispatch<SetStateAction<number>>;
 }
 
 export {
@@ -545,7 +550,7 @@ export {
   ComponentPreviewProps,
   ProfileDashboardProps,
   ProfileStudentCatalogueProps,
-  ProfileTeacherClassrooms,
+  ProfileTeacherClassroomsProps,
   CardSectionProps,
   TemplateStudentCardSection,
   TemplateGrade,
@@ -555,4 +560,5 @@ export {
   GradeOrAbsenceSectionType,
   ClassCatalogueSectionProps,
   ClassCatalogueSectionContentProps,
+  ClassCatalogueHeadProps,
 };

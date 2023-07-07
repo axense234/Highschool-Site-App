@@ -121,14 +121,16 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
 
   const usableTeachers = studentClass?.teachers;
 
-  const studentCardTeachers = (usableTeachers as Teacher[])?.map((teacher) => {
-    return {
-      id: teacher.teacher_uid,
-      subject: teacher.subject,
-      fullname: teacher.fullname,
-      profileImage: teacher.profile_img_url,
-    };
-  });
+  const studentCardTeachers = ((usableTeachers as Teacher[]) || []).map(
+    (teacher) => {
+      return {
+        id: teacher.teacher_uid,
+        subject: teacher.subject,
+        fullname: teacher.fullname,
+        profileImage: teacher.profile_img_url,
+      };
+    }
+  );
 
   if (userProfile.class_label) {
     return (
@@ -245,7 +247,7 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
                 <span>
                   {studentMaxSubjectAverageLabel} <br />
                   {studentMaxSubjectAverage.key &&
-                    `media ${studentMaxSubjectAverageValue.toFixed(2)}`}
+                    `media ${studentMaxSubjectAverageValue.toFixed(0)}`}
                 </span>
               </li>
             </ul>
