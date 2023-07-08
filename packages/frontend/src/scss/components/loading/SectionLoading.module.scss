@@ -1,7 +1,7 @@
 @use "../../abstracts" as *;
 
 .sectionLoadingContainer {
-  @include homePageSection(getColor("silver-white"), column);
+  @include pageSection(getColor("silver-white"), column);
   padding: 20rem 5rem;
   border-radius: 1rem;
   gap: 5rem;

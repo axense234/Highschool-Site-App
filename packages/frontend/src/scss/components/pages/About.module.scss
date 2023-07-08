@@ -64,7 +64,7 @@
   }
 
   #{&}__generalInfo {
-    @include homePageSection(getColor("silver-20"), column);
+    @include pageSection(getColor("silver-20"), column);
     align-items: flex-start;
     gap: 3rem;
   }
@@ -80,7 +80,7 @@
   }
 
   #{&}__pagesInfo {
-    @include homePageSection(getColor("silver-50"), column);
+    @include pageSection(getColor("silver-50"), column);
     align-items: flex-start;
     gap: 3rem;
 
@@ -130,7 +130,7 @@
   }
 
   #{&}__adminInfo {
-    @include homePageSection(getColor("silver-0"), column);
+    @include pageSection(getColor("silver-0"), column);
     gap: 2rem;
 
     h3 {
@@ -146,7 +146,7 @@
   }
 
   #{&}__technologiesUsed {
-    @include homePageSection(getColor("silver-10"), column);
+    @include pageSection(getColor("silver-10"), column);
     align-items: flex-start;
     gap: 2rem;
 

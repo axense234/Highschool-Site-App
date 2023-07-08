@@ -16,7 +16,7 @@
 }
 
 .accountsFormContainer {
-  @include homePageSection(getColor("silver-30"), column);
+  @include pageSection(getColor("silver-30"), column);
   padding-bottom: 12.5rem;
 
   #{&}__typeNav {

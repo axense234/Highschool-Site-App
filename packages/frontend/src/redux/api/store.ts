@@ -9,6 +9,7 @@ import studentsSliceReducer from "../slices/studentsSlice";
 import classesSliceReducer from "../slices/classesSlice";
 import gradesSliceReducer from "../slices/gradesSlice";
 import absencesSliceReducer from "../slices/absencesSlice";
+import booksSliceReducer from "../slices/booksSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     classes: classesSliceReducer,
     grades: gradesSliceReducer,
     absences: absencesSliceReducer,
+    books: booksSliceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

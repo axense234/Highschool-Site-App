@@ -14,7 +14,7 @@
   }
 
   #{&}__classDetailsContainer {
-    @include homePageSection(getColor("silver-0"), column);
+    @include pageSection(getColor("silver-0"), column);
     gap: 5rem;
   }
 
@@ -133,7 +133,7 @@
   }
 
   #{&}__classCatalogue {
-    @include homePageSection(getColor("silver-30"), column);
+    @include pageSection(getColor("silver-30"), column);
     gap: 5rem;
     min-height: 100rem;
   }

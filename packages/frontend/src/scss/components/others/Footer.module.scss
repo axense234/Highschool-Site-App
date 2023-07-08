@@ -1,7 +1,7 @@
 @use "../../abstracts" as *;
 
 .footerContainer {
-  @include homePageSection(getColor("silver-white"), row);
+  @include pageSection(getColor("silver-white"), row);
   justify-content: space-between;
   gap: 2rem;
 

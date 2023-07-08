@@ -13,7 +13,7 @@
   @include pageLayout();
 
   #{&}__content {
-    @include homePageSection(getColor("silver-10"), column);
+    @include pageSection(getColor("silver-10"), column);
     gap: 5rem;
     width: 100%;
 

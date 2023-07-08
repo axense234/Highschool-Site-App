@@ -4,7 +4,7 @@
   @include pageLayout();
 
   #{&}__content {
-    @include homePageSection(getColor("silver-20"), column);
+    @include pageSection(getColor("silver-20"), column);
     gap: 2rem;
 
     @media all and (max-width: getScreenSize("mobileL")) {

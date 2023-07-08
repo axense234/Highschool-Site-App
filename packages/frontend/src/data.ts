@@ -28,6 +28,7 @@ import {
   TemplateClass,
   TemplateGrade,
   TemplateAbsence,
+  TemplateBook,
 } from "types";
 import { Teacher } from "@prisma/client";
 // React Icons
@@ -39,7 +40,7 @@ import { FaHistory, FaSchool } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import { TbOlympics } from "react-icons/tb";
 import { BiLogIn } from "react-icons/bi";
-import { IoSchoolSharp, IoPeople } from "react-icons/io5";
+import { IoSchoolSharp, IoPeople, IoLibrarySharp } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 import { SiGoogleclassroom } from "react-icons/si";
 
@@ -49,6 +50,19 @@ export const defaultTemplateAbsence: TemplateAbsence = {
   id: "",
   absence_uid: "",
   reasoned: false,
+};
+
+export const defaultTemplateBook: TemplateBook = {
+  author: "",
+  id: "",
+  created_by_admin_uid: "",
+  created_by_teacher_uid: "",
+  description: "",
+  pdf_file_url: "",
+  pdf_file_preview_url: "",
+  title: "",
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 export const defaultTemplateGrade: TemplateGrade = {
@@ -178,7 +192,8 @@ export const profileOptionsAdmin: ProfileOption[] = [
   { id: 1, label: "Setări", content: "settings" },
   { id: 2, label: "Creați o Clasă", content: "createClass" },
   { id: 3, label: "Creați un Anunț", content: "createAnnouncement" },
-  { id: 4, label: "Ieșiți din Cont", content: "logout" },
+  { id: 4, label: "Creați o Carte", content: "createBook" },
+  { id: 5, label: "Ieșiți din Cont", content: "logout" },
 ];
 
 export const profileOptionsAdminRead: ProfileOption[] = [
@@ -189,7 +204,8 @@ export const profileOptionsTeacher: ProfileOption[] = [
   { id: 1, label: "Setări", content: "settings" },
   { id: 2, label: "Clasele Dumneavoastră", content: "viewTeacherClassrooms" },
   { id: 3, label: "Creați un Anunț", content: "createAnnouncement" },
-  { id: 4, label: "Ieșiți din Cont", content: "logout" },
+  { id: 4, label: "Creați o Carte", content: "createBook" },
+  { id: 5, label: "Ieșiți din Cont", content: "logout" },
 ];
 
 export const profileOptionsTeacherRead: ProfileOption[] = [
@@ -593,6 +609,12 @@ export const sidebarPageLinks: SidebarLink[] = [
     dest: "/clase",
     logoUrl: SiGoogleclassroom({}),
   },
+  {
+    id: 13,
+    label: "Bibliotecă",
+    dest: "/biblioteca",
+    logoUrl: IoLibrarySharp({}),
+  },
 ];
 
 export const sidebarSocialMediaLinks: SidebarLink[] = [
@@ -982,6 +1004,11 @@ export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [
     pagePath: "/clase",
     backgroundUrl:
       "https://res.cloudinary.com/birthdayreminder/image/upload/v1686731956/Highschool%20Site%20App/announcements/t7feuhxylhzzhdyrmioq.jpg",
+  },
+  {
+    pagePath: "/biblioteca",
+    backgroundUrl:
+      "https://res.cloudinary.com/birthdayreminder/image/upload/v1688815679/4907599_m6hl9p.jpg",
   },
 ];
 

@@ -1,7 +1,7 @@
 @use "../../abstracts" as *;
 
 .homeContainer__title {
-  @include homePageSection(getColor("silver-10"), column);
+  @include pageSection(getColor("silver-10"), column);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

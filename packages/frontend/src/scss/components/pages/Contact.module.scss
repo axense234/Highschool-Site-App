@@ -4,7 +4,7 @@
   @include pageLayout();
 
   #{&}__contact {
-    @include homePageSection(getColor("silver-20"), column);
+    @include pageSection(getColor("silver-20"), column);
     gap: 4rem;
 
     h2 {
@@ -73,7 +73,7 @@
 
   #{&}__email {
     @extend .contactContainer__contact;
-    @include homePageSection(getColor("silver-10"), column);
+    @include pageSection(getColor("silver-10"), column);
   }
 
   #{&}__emailForm {

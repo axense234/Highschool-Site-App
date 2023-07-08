@@ -4,7 +4,7 @@
   @include pageLayout();
 
   #{&}__pdf {
-    @include homePageSection(getColor("silver-40"), column);
+    @include pageSection(getColor("silver-40"), column);
     width: 100%;
     gap: 2rem;
 

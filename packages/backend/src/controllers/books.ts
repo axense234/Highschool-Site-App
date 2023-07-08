@@ -125,7 +125,13 @@ const deleteBookById = async (req: Request, res: Response) => {
 };
 
 const createBook = async (req: Request, res: Response) => {
-  const bookBody = req.body as Book;
+  const bookBody = req.body;
+
+  if (bookBody.created_by_admin_uid) {
+    delete bookBody.created_by_teacher_uid;
+  } else if (bookBody.created_by_teacher_uid) {
+    delete bookBody.created_by_admin_uid;
+  }
 
   const createdBook = await bookClient.create({
     data: { ...bookBody },

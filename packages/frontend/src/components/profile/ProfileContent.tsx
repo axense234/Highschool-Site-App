@@ -9,6 +9,7 @@ import ProfileSettingsForm from "./ProfileSettingsForm";
 import CreateAnnouncementForm from "../forms/CreateAnnouncementForm";
 import CreateClassForm from "../forms/CreateClassForm";
 import ProfileTeacherClassrooms from "./ProfileTeacherClassrooms";
+import CreateBookForm from "../forms/CreateBookForm";
 
 const ProfileContent: FC<ProfileContentProps> = ({
   optionType,
@@ -43,6 +44,14 @@ const ProfileContent: FC<ProfileContentProps> = ({
     return (
       <div className={profileStyles.profileContainer__profileContent}>
         <ProfileTeacherClassrooms teacherId={profileId} type={type} />
+      </div>
+    );
+  }
+
+  if (optionType === "createBook") {
+    return (
+      <div className={profileStyles.profileContainer__profileContent}>
+        <CreateBookForm />
       </div>
     );
   }

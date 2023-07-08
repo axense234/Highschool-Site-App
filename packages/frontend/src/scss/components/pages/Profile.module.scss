@@ -4,7 +4,7 @@
   @include pageLayout();
 
   #{&}__profile {
-    @include homePageSection(getColor("silver-30"), row);
+    @include pageSection(getColor("silver-30"), row);
     width: 100%;
     align-items: flex-start;
     justify-content: space-between;
@@ -116,7 +116,7 @@
   }
 
   #{&}__studentCatalogue {
-    @include homePageSection(getColor("silver-40"), column);
+    @include pageSection(getColor("silver-40"), column);
     justify-content: flex-start;
     width: 100%;
     min-height: 100rem;

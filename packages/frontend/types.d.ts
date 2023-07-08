@@ -12,6 +12,7 @@ import {
   Class,
   Absence,
   StudentCatalogue,
+  Book,
 } from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
@@ -32,6 +33,10 @@ type EmailFormTemplate = {
 
 interface TemplateAnnouncement extends Announcement {
   announcement_uid?: string;
+}
+
+interface TemplateBook extends Book {
+  book_uid?: string;
 }
 
 interface TemplateClass extends Class {
@@ -356,7 +361,8 @@ type FormModalPropsType =
   | "general"
   | "students"
   | "admins"
-  | "classes";
+  | "classes"
+  | "books";
 
 interface FormModalProps {
   type: FormModalPropsType;
@@ -561,4 +567,5 @@ export {
   ClassCatalogueSectionProps,
   ClassCatalogueSectionContentProps,
   ClassCatalogueHeadProps,
+  TemplateBook,
 };

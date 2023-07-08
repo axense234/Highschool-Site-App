@@ -216,10 +216,11 @@ model Book {
   created_by_admin       Admin?   @relation(fields: [created_by_admin_uid], references: [admin_uid])
   created_by_admin_uid   String?
 
-  title        String  @default("Book Title")
-  author       String  @default("Book Author")
-  pdf_file_url String?
-  description  String  @default("Book Description")
+  title                String  @default("Book Title")
+  author               String  @default("Book Author")
+  pdf_file_url         String?
+  pdf_file_preview_url String?
+  description          String  @default("Book Description")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt

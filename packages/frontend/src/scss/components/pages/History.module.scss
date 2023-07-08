@@ -14,7 +14,7 @@
   }
 
   #{&}__content {
-    @include homePageSection(getColor("silver-0"), column);
+    @include pageSection(getColor("silver-0"), column);
     gap: 2rem;
   }
 

@@ -34,6 +34,10 @@ import {
   selectClassesFormModal,
   updateClassFormModal,
 } from "@/redux/slices/classesSlice";
+import {
+  selectBooksFormModal,
+  updateBookFormModal,
+} from "@/redux/slices/booksSlice";
 
 const FormModal: FC<FormModalProps> = ({ type }) => {
   const generalFormModal = useAppSelector(selectFormModal);
@@ -42,6 +46,7 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
   const adminsFormModal = useAppSelector(selectAdminsFormModal);
   const studentsFormModal = useAppSelector(selectStudentsFormModal);
   const classesFormModal = useAppSelector(selectClassesFormModal);
+  const booksFormModal = useAppSelector(selectBooksFormModal);
   const formModalRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
@@ -72,6 +77,10 @@ const FormModal: FC<FormModalProps> = ({ type }) => {
     case "classes":
       formModal = classesFormModal;
       updateFormModal = updateClassFormModal;
+      break;
+    case "books":
+      formModal = booksFormModal;
+      updateFormModal = updateBookFormModal;
       break;
 
     default:
