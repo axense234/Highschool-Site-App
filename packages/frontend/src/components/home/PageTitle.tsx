@@ -13,6 +13,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { selectCurrentPathname } from "@/redux/slices/generalSlice";
 // Data
 import { pageTitleBackgroundImageUrls } from "@/data";
+import MarkableHeading from "../others/MarkableHeading";
 
 const PageTitle: FC<PageTitleProps> = ({ title, quote, backgroundUrl }) => {
   const { ref: titleRef, inView: titleInView, entry: titleEntry } = useInView();
@@ -37,9 +38,12 @@ const PageTitle: FC<PageTitleProps> = ({ title, quote, backgroundUrl }) => {
         })`,
       }}
     >
-      <h1 ref={titleRef} className="hidden">
-        {title}
-      </h1>
+      <MarkableHeading
+        textContent={title}
+        type="h1"
+        hasHiddenClassname
+        headingRef={titleRef}
+      />
       <q ref={quoteRef} className="hidden" style={{ transitionDelay: "200ms" }}>
         {quote}
       </q>

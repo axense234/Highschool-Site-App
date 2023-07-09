@@ -9,6 +9,7 @@ import SectionLoading from "@/components/loading/SectionLoading";
 import Overlay from "@/components/others/Overlay";
 import Category from "@/components/announcements/Category";
 import PageNav from "@/components/navigation/PageNav";
+import MarkableHeading from "@/components/others/MarkableHeading";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -53,7 +54,11 @@ const Announcements: FC = () => {
         <section
           className={announcementsStyles.announcementsContainer__content}
         >
-          <h2 id="announcements">Anunțuri in momentul actual</h2>
+          <MarkableHeading
+            textContent="Anunțuri in momentul actual"
+            type="h2"
+            idUsed="announcements"
+          />
           <PageNav componentType="announcement" />
           {isLoadingAnnouncements ? (
             <SectionLoading />

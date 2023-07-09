@@ -8,6 +8,8 @@ import Image from "next/image";
 import homeStyles from "../../scss/components/pages/Home.module.scss";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
+// Components
+import MarkableHeading from "../others/MarkableHeading";
 
 const HomeBac: FC = () => {
   const { ref: imageRef, inView, entry } = useInView();
@@ -15,7 +17,10 @@ const HomeBac: FC = () => {
 
   return (
     <section className={homeStyles.homeContainer__bac} id="bac">
-      <h2>Promovabilitatea la Bacalaureat</h2>
+      <MarkableHeading
+        textContent="Promovabilitatea la Bacalaureat"
+        type="h2"
+      />
       <Image
         className="hidden"
         alt="Promovabilitatea la Bacalaureat"

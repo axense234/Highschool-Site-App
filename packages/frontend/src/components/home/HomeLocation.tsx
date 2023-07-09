@@ -2,6 +2,8 @@
 import { FC } from "react";
 // SCSS
 import homeLocationStyles from "../../scss/components/pages/Home.module.scss";
+// Components
+import MarkableHeading from "../others/MarkableHeading";
 
 const HomeLocation: FC = () => {
   return (
@@ -9,7 +11,7 @@ const HomeLocation: FC = () => {
       className={homeLocationStyles.homeContainer__location}
       id="location"
     >
-      <h2>Localizare</h2>
+      <MarkableHeading textContent="Localizare" type="h2" />
       <div className={homeLocationStyles.homeContainer__locationContent}>
         <div className={homeLocationStyles.homeContainer__streetView}>
           <div className={homeLocationStyles.homeContainer__locationTitle}>

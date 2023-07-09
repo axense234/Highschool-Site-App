@@ -12,11 +12,13 @@ import homeStyles from "../../scss/components/pages/Home.module.scss";
 import { infoSections } from "@/data";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
+// Components
+import MarkableHeading from "../others/MarkableHeading";
 
 const HomeInfo: FC = () => {
   return (
     <section className={homeStyles.homeContainer__info} id="differences">
-      <h2>Ce ne diferențiază?</h2>
+      <MarkableHeading textContent="Ce ne diferențiază?" type="h2" />
       <div className={homeStyles.homeContainer__infoSections}>
         {infoSections.map((infoSection) => {
           return <InfoSection {...infoSection} key={infoSection.id} />;

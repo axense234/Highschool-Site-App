@@ -42,6 +42,7 @@ model Admin {
   books_created         Book[]
   classes_created       Class[]
   announcements_created Announcement[]
+  bookmarks             Bookmark[]
 
   role      String   @default("ADMIN")
   createdAt DateTime @default(now())
@@ -62,6 +63,8 @@ model Student {
   class       Class?  @relation(fields: [class_uid, class_label], references: [class_uid, label], name: "class")
   class_uid   String?
   class_label String?
+
+  bookmarks Bookmark[]
 
   student_card     StudentCard?
   student_card_uid String?
@@ -86,6 +89,7 @@ model Teacher {
   books_created         Book[]
   classes               Class[]              @relation(name: "many")
   sections              StudentCardSection[]
+  bookmarks             Bookmark[]
 
   master_class       Class?
   master_class_uid   String?
@@ -226,6 +230,24 @@ model Book {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
+model Bookmark {
+  bookmark_uid String @id @unique @default(uuid())
+  id           String @default("")
+
+  admin     Admin?  @relation(fields: [admin_uid], references: [admin_uid])
+  admin_uid String?
+
+  teacher     Teacher? @relation(fields: [teacher_uid], references: [teacher_uid])
+  teacher_uid String?
+
+  student     Student? @relation(fields: [student_uid], references: [student_uid])
+  student_uid String?
+
+  dest  String
+  label String
+  type  BookmarkType
+}
+
 model AccountCode {
   code_uid String @id @unique @default(uuid())
   id       String @default("")
@@ -267,4 +289,10 @@ enum AnnouncementCategory {
 enum VideoPozition {
   INCEPUT
   FINAL
+}
+
+enum BookmarkType {
+  SPECIAL
+  NORMAL
+  DEFAULT
 }

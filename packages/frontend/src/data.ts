@@ -29,10 +29,12 @@ import {
   TemplateGrade,
   TemplateAbsence,
   TemplateBook,
+  TemplateBookmark,
+  BookmarkIconShownMapType,
 } from "types";
 import { Teacher } from "@prisma/client";
 // React Icons
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome, AiFillIdcard } from "react-icons/ai";
 import { FcAbout } from "react-icons/fc";
 import { MdAnnouncement, MdContactSupport, MdPeople } from "react-icons/md";
 import { CgProfile, CgFacebook } from "react-icons/cg";
@@ -50,6 +52,13 @@ export const defaultTemplateAbsence: TemplateAbsence = {
   id: "",
   absence_uid: "",
   reasoned: false,
+};
+
+export const defaultTemplateBookmark: TemplateBookmark = {
+  id: "",
+  dest: "",
+  label: "",
+  type: "DEFAULT",
 };
 
 export const defaultTemplateBook: TemplateBook = {
@@ -172,6 +181,94 @@ export const defaultOverlay: OverlayType = {
 };
 
 // OPTIONS DATA(EITHER PROFILE OR SORTING OPTIONS FOR A MODEL)
+export const defaultUserBookmarks: TemplateBookmark[] = [
+  {
+    id: 1,
+    type: "DEFAULT",
+    dest: "/login",
+    label: "Intră în contul tău",
+  },
+  {
+    id: 2,
+    type: "DEFAULT",
+    dest: "/signup",
+    label: "Creează-ți un cont",
+  },
+  { id: 3, type: "DEFAULT", dest: "/biblioteca", label: "Biblioteca liceului" },
+  {
+    id: 4,
+    type: "DEFAULT",
+    dest: "/anunturi",
+    label: "Anunțuri",
+  },
+  { id: 5, type: "DEFAULT", dest: "/contact", label: "Contact" },
+];
+export const defaultStudentBookmarks: TemplateBookmark[] = [
+  { id: 1, type: "DEFAULT", dest: "/biblioteca", label: "Biblioteca liceului" },
+  {
+    id: 2,
+    type: "DEFAULT",
+    dest: "/anunturi",
+    label: "Anunțuri",
+  },
+  { id: 3, type: "DEFAULT", dest: "/contact", label: "Contact" },
+  {
+    id: 4,
+    type: "SPECIAL",
+    dest: "/profil/#carnet",
+    label: "Carnetul tău de elev",
+  },
+  { id: 5, type: "SPECIAL", dest: "/clase/:classId", label: "Clasa ta" },
+];
+export const defaultTeacherBookmarks: TemplateBookmark[] = [
+  { id: 1, type: "DEFAULT", dest: "/biblioteca", label: "Biblioteca liceului" },
+  {
+    id: 2,
+    type: "DEFAULT",
+    dest: "/anunturi",
+    label: "Anunțuri",
+  },
+  { id: 3, type: "DEFAULT", dest: "/contact", label: "Contact" },
+  {
+    id: 4,
+    type: "SPECIAL",
+    dest: "/profil/#claseleProfesorului",
+    label: "Clasele tale",
+  },
+  { id: 5, type: "SPECIAL", dest: "/clase/:classId", label: "Clasa ta" },
+];
+export const defaultAdminBookmarks: TemplateBookmark[] = [
+  {
+    id: 1,
+    type: "DEFAULT",
+    dest: "/anunturi",
+    label: "Anunțuri",
+  },
+  { id: 2, type: "DEFAULT", dest: "/profesori", label: "Profesori" },
+  {
+    id: 3,
+    type: "DEFAULT",
+    dest: "/profil",
+    label: "Profilul tau",
+  },
+  { id: 4, type: "DEFAULT", dest: "/clase", label: "Clasele liceului" },
+  { id: 5, type: "DEFAULT", dest: "/login", label: "Intră în alt cont" },
+];
+
+export const bookmarkIconShownMap: BookmarkIconShownMapType[] = [
+  { id: 1, dest: "/login", icon: BiLogIn({}) },
+  { id: 2, dest: "/signup", icon: IoPeople({}) },
+  { id: 3, dest: "/biblioteca", icon: IoLibrarySharp({}) },
+  { id: 4, dest: "/anunturi", icon: MdAnnouncement({}) },
+  { id: 5, dest: "/contact", icon: MdContactSupport({}) },
+  { id: 6, dest: "/profesori", icon: MdPeople({}) },
+  { id: 7, dest: "/profil", icon: CgProfile({}) },
+  { id: 8, dest: "/clase", icon: SiGoogleclassroom({}) },
+  { id: 9, dest: "/profil/#claseleProfesorului", icon: SiGoogleclassroom({}) },
+  { id: 10, dest: "/profil/#carnet", icon: AiFillIdcard({}) },
+  { id: 11, dest: "/clase/:classId", icon: SiGoogleclassroom({}) },
+];
+
 export const defaultGetAllQueryParams: GetAllQueryParams = {
   query: "",
   sortByOption: "",

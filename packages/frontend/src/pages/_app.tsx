@@ -16,10 +16,12 @@ import SearchButton from "@/components/navigation/SearchButton";
 import Searchbar from "@/components/navigation/Searchbar";
 import ScreenLoading from "@/components/loading/ScreenLoading";
 import BookmarksMenu from "@/components/navigation/BookmarksMenu";
+import BookmarksNav from "@/components/navigation/BookmarksNav";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
+  const [showBookmarks, setShowBookmarks] = useState<boolean>(false);
 
   return (
     <div className="app-container">
@@ -31,7 +33,14 @@ export default function App({ Component, pageProps }: AppProps) {
           showSearchbar={showSearchbar}
         />
         <SearchButton setShowSearchbar={setShowSearchbar} />
-        <BookmarksMenu />
+        <BookmarksMenu
+          setShowBookmarks={setShowBookmarks}
+          showBookmarks={showBookmarks}
+        />
+        <BookmarksNav
+          showBookmarks={showBookmarks}
+          setShowBookmarks={setShowBookmarks}
+        />
         <Component {...pageProps} />
         <Footer />
         <ScreenLoading />

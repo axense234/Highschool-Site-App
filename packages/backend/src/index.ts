@@ -28,6 +28,7 @@ import studentsRouter from "./routers/students";
 import teachersRouter from "./routers/teachers";
 import booksRouter from "./routers/books";
 import classesRouter from "./routers/classes";
+import bookmarksRouter from "./routers/bookmarks";
 // Middleware
 import errorHandlerMiddleware from "./middleware/errorHandler";
 import swaggerDocs from "./utils/swagger";
@@ -69,6 +70,7 @@ app.use("/", [
   teachersRouter,
   booksRouter,
   classesRouter,
+  bookmarksRouter,
 ]);
 app.use("/api/1.0.0/en/docs", expressUI.serve, expressUI.setup(swaggerDocs));
 app.use(errorHandlerMiddleware);

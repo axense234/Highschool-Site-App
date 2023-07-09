@@ -1,11 +1,16 @@
 // React
 import { FC, useEffect, useRef } from "react";
+// Types
+import { BookmarksMenuProps } from "types";
 // React Icons
 import { CiMenuKebab } from "react-icons/ci";
 // Styles
 import bookmarksMenuStyles from "../../scss/components/navigation/BookmarksMenu.module.scss";
 
-const BookmarksMenu: FC = () => {
+const BookmarksMenu: FC<BookmarksMenuProps> = ({
+  setShowBookmarks,
+  showBookmarks,
+}) => {
   const bookmarksMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,17 +19,20 @@ const BookmarksMenu: FC = () => {
       (bookmarksMenuRef.current as HTMLDivElement).style.animation = "none";
     }
   }, []);
+
   return (
     <div
       className={bookmarksMenuStyles.bookmarksMenuContainer}
       ref={bookmarksMenuRef}
+      style={{ transform: showBookmarks ? "rotate(90deg)" : "rotate(0deg)" }}
     >
       <CiMenuKebab
         onClick={() => {
           localStorage.setItem("BookmarksMenuClicked", "true");
+          setShowBookmarks(!showBookmarks);
         }}
-        title="Deschideți Marcaje"
-        aria-label="Deschideți Marcaje"
+        title={`${showBookmarks ? "Închideți" : "Deschideți"} Marcaje`}
+        aria-label={`${showBookmarks ? "Închideți" : "Deschideți"} Marcaje`}
       />
     </div>
   );

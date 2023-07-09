@@ -13,6 +13,7 @@ import {
   Absence,
   StudentCatalogue,
   Book,
+  Bookmark,
 } from "@prisma/client";
 import { JSX, Dispatch, SetStateAction } from "react";
 
@@ -39,6 +40,28 @@ interface TemplateBook extends Book {
   book_uid?: string;
 }
 
+interface TemplateBookmark extends Bookmark {
+  bookmark_uid?: string;
+  teacher_uid?: string;
+  admin_uid?: string;
+  student_uid?: string;
+  id?: string | number;
+}
+
+type BookmarkIconShownMapType = {
+  id: number;
+  dest: string;
+  icon: JSX.Element;
+};
+
+type MarkableHeadingProps = {
+  type: "h1" | "h2" | "h3";
+  headingRef?: (node?: Element | null | undefined) => void;
+  hasHiddenClassname?: boolean;
+  textContent: string;
+  idUsed?: string;
+};
+
 interface TemplateClass extends Class {
   class_uid?: string;
   id?: string;
@@ -52,6 +75,7 @@ interface TemplateTeacher extends Teacher {
   role: "ADMIN" | "ELEV" | "PROFESOR";
   classes: Class[];
   accountCode?: string;
+  bookmarks?: Bookmark[];
 }
 
 interface TemplateUpdateTeacher extends Teacher {
@@ -79,6 +103,7 @@ interface TemplateAdmin extends Admin {
   profile_img_url?: string;
   role: "ADMIN" | "ELEV" | "PROFESOR";
   accountCode: string;
+  bookmarks?: Bookmark[];
 }
 
 interface TemplateStudentCardSection extends StudentCardSection {
@@ -111,6 +136,7 @@ interface TemplateStudent extends Student {
   class_uid?: string;
   student_card_uid?: string;
   student_card?: TemplateStudentCard;
+  bookmarks?: Bookmark[];
 }
 
 interface TemplateUpdateStudent extends Student {
@@ -490,6 +516,11 @@ interface ClassCatalogueHeadProps {
   setCurrentClassSubjectsShownId: Dispatch<SetStateAction<number>>;
 }
 
+interface BookmarksMenuProps {
+  setShowBookmarks: Dispatch<SetStateAction<boolean>>;
+  showBookmarks: boolean;
+}
+
 export {
   SidebarLink,
   MetaProps,
@@ -568,4 +599,8 @@ export {
   ClassCatalogueSectionContentProps,
   ClassCatalogueHeadProps,
   TemplateBook,
+  BookmarksMenuProps,
+  TemplateBookmark,
+  BookmarkIconShownMapType,
+  MarkableHeadingProps,
 };

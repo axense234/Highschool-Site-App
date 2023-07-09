@@ -15,6 +15,7 @@ const gradeClient = prisma.grade;
 const bookClient = prisma.book;
 const classClient = prisma.class;
 const accountCodeClient = prisma.accountCode;
+const bookmarkClient = prisma.bookmark;
 
 const connectToPostgres = async () => {
   await prisma.$connect();
@@ -34,4 +35,5 @@ export {
   bookClient,
   classClient,
   accountCodeClient,
+  bookmarkClient,
 };
