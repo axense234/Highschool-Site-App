@@ -15,6 +15,7 @@ import {
 } from "@/data";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
+import MarkableHeading from "@/components/others/MarkableHeading";
 
 const About: FC = () => {
   useGetPathname();
@@ -32,13 +33,18 @@ const About: FC = () => {
           title="Despre Proiect"
           quote="Tot ce ai nevoie să știi despre proiectul meu."
         />
-        <section
-          className={aboutStyles.aboutContainer__generalInfo}
-          id="generalInfo"
-        >
-          <h2>Informații generale.</h2>
-          <div className={aboutStyles.aboutContainer__me} id="aboutMe">
-            <h3>1.Cine sunt eu?</h3>
+        <section className={aboutStyles.aboutContainer__generalInfo}>
+          <MarkableHeading
+            textContent="Informații generale"
+            type="h2"
+            idUsed="generalInfo"
+          />
+          <div className={aboutStyles.aboutContainer__me}>
+            <MarkableHeading
+              textContent="1.Cine sunt eu?"
+              type="h3"
+              idUsed="aboutMe"
+            />
             <p>
               Mă numesc Comănescu Andrei, am 17 ani, vin de la Liceul Teoretic
               Ion Barbu Pitești, studiez dezvoltarea site-urilor de vreo 2 ani.
@@ -61,8 +67,12 @@ const About: FC = () => {
               probleme în C++, tutoriale.
             </p>
           </div>
-          <div className={aboutStyles.aboutContainer__site} id="siteMotives">
-            <h3>2.De ce am făcut acest site?</h3>
+          <div className={aboutStyles.aboutContainer__site}>
+            <MarkableHeading
+              textContent="2.De ce am făcut acest site?"
+              type="h3"
+              idUsed="siteMotives"
+            />
             <p>
               Am făcut acest site pentru a-mi arăta cunoștințele referitoare la
               dezvoltarea web, în același timp antrenându-mă puțin mai mult cu
@@ -78,15 +88,20 @@ const About: FC = () => {
             </p>
           </div>
         </section>
-        <section
-          className={aboutStyles.aboutContainer__pagesInfo}
-          id="pagesInfo"
-        >
-          <h2>Informații despre Paginile Site-ului</h2>
+        <section className={aboutStyles.aboutContainer__pagesInfo}>
+          <MarkableHeading
+            textContent="Informații despre Paginile Site-ului"
+            type="h2"
+            idUsed="pagesInfo"
+          />
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/home">1.Acasă</Link>
-            </h3>
+            <MarkableHeading
+              textContent="1.Acasă"
+              type="h3"
+              idUsed="homePage"
+              isLink
+              linkHref="/home"
+            />
             <p>Pagina "Acasă" este compusă din 5 secțiuni:</p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
@@ -180,9 +195,13 @@ const About: FC = () => {
             </ul>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/anunturi">2.Anunțuri</Link>
-            </h3>
+            <MarkableHeading
+              textContent="2.Anunțuri"
+              type="h3"
+              idUsed="announcementsPage"
+              isLink
+              linkHref="/anunturi"
+            />
             <p>
               Pagina "Anunțuri" este compusă dintr-o singură secțiune care
               conține mai multe componente "Anunț", fiecare având următoarele
@@ -232,9 +251,13 @@ const About: FC = () => {
             </ul>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/contact">3.Contact</Link>
-            </h3>
+            <MarkableHeading
+              textContent="3.Contact"
+              type="h3"
+              idUsed="contactPage"
+              isLink
+              linkHref="/contact"
+            />
             <p>Pagina "Contact" este compusă din 2 secțiuni:</p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
@@ -261,9 +284,13 @@ const About: FC = () => {
             </ul>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/oferta">4.Oferta educațională</Link>
-            </h3>
+            <MarkableHeading
+              textContent="4.Oferta educațională"
+              type="h3"
+              idUsed="offerPage"
+              isLink
+              linkHref="/oferta"
+            />
             <p>
               Pagina "Oferta educațională" este compusă dintr-o singură secțiune
               care conține un titlu și un element "iframe" care reprezintă un
@@ -271,9 +298,13 @@ const About: FC = () => {
             </p>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/documente">5.Legi și Documente</Link>
-            </h3>
+            <MarkableHeading
+              textContent="5.Legi și Documente"
+              type="h3"
+              idUsed="documentsPage"
+              isLink
+              linkHref="/documente"
+            />
             <p>Pagina "Legi și Documente" este compusă din 2 secțiuni:</p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
@@ -300,9 +331,13 @@ const About: FC = () => {
             </ul>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/profesori">6.Profesori</Link>
-            </h3>
+            <MarkableHeading
+              textContent="6.Profesori"
+              type="h3"
+              idUsed="teachersPage"
+              isLink
+              linkHref="/profesori"
+            />
             <p>
               Pagina "Profesori" este compusă dintr-o singură secțiune care
               conține mai multe componente "Profesor" fiecare având următoarele
@@ -354,9 +389,13 @@ const About: FC = () => {
             </ul>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/istoric">7.Istoric</Link>
-            </h3>
+            <MarkableHeading
+              textContent="7.Istoric"
+              type="h3"
+              idUsed="historyPage"
+              isLink
+              linkHref="/istoric"
+            />
             <p>
               Pagina "Istoric" este compusă dintr-o singura secțiune ce conține
               o imagine a lui Ion Barbu împreună cu istoria liceului într-un
@@ -364,9 +403,13 @@ const About: FC = () => {
             </p>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/">8.Despre Proiect</Link>
-            </h3>
+            <MarkableHeading
+              textContent="8.Despre Proiect"
+              type="h3"
+              idUsed="aboutPage"
+              isLink
+              linkHref="/"
+            />
             <p>Pagina "Despre Proiect" este compusă din 5 secțiuni:</p>
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
@@ -440,9 +483,13 @@ const About: FC = () => {
             </ul>
           </div>
           <div className={aboutStyles.aboutContainer__pageInfo}>
-            <h3>
-              <Link href="/login">9.Intră în cont</Link>
-            </h3>
+            <MarkableHeading
+              textContent="9.Intră în cont"
+              type="h3"
+              idUsed="loginPage"
+              isLink
+              linkHref="/login"
+            />
             <p>
               Pagina "Intră în cont" este compusă dintr-o singură secțiune care
               conține un formular. În cazul în care se introduce email-ul și
@@ -478,11 +525,12 @@ const About: FC = () => {
             </ul>
           </div>
         </section>
-        <section
-          className={aboutStyles.aboutContainer__adminInfo}
-          id="adminInfo"
-        >
-          <h2>Informații despre Contul Admin</h2>
+        <section className={aboutStyles.aboutContainer__adminInfo}>
+          <MarkableHeading
+            textContent="Informații despre Contul Admin"
+            type="h2"
+            idUsed="adminInfo"
+          />
           <p>
             Contul Admin reprezintă contul unui utilizator cu proprietatea
             "rolUtilizator" setată la ADMIN. Daca sunteți conectat la contul
@@ -566,11 +614,12 @@ const About: FC = () => {
             </li>
           </ul>
         </section>
-        <section
-          className={aboutStyles.aboutContainer__technologiesUsed}
-          id="technologiesUsed"
-        >
-          <h2>Tehnologiile folosite in Crearea Site-ului</h2>
+        <section className={aboutStyles.aboutContainer__technologiesUsed}>
+          <MarkableHeading
+            textContent="Tehnologiile folosite in Crearea Site-ului"
+            type="h2"
+            idUsed="technologiesUsed"
+          />
           <h3>1.Tehnologiile folosite pe Client:</h3>
           <div className={aboutStyles.aboutContainer__frontendTech}>
             {aboutTechnologiesUsedFrontend.map((technology) => {

@@ -10,6 +10,7 @@ import contactStyles from "../scss/components/pages/Contact.module.scss";
 import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
 import FormModal from "@/components/modals/FormModal";
+import MarkableHeading from "@/components/others/MarkableHeading";
 // Redux Toolkit
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -54,7 +55,7 @@ const Contact: FC = () => {
           quote="Comunicarea este cheia relațiilor umane."
         />
         <section className={contactStyles.contactContainer__contact} id="info">
-          <h2>Informații de contact</h2>
+          <MarkableHeading textContent="Informații de contact" type="h2" />
           <div className={contactStyles.contactContainer__content}>
             <div className={contactStyles.contactContainer__info}>
               <address>Strada Transilvania 6, Pitești</address>
@@ -76,9 +77,12 @@ const Contact: FC = () => {
           </div>
         </section>
         <section className={contactStyles.contactContainer__email} id="email">
-          <h2 ref={refTitle} className="hidden">
-            Trimite-ne un email!
-          </h2>
+          <MarkableHeading
+            textContent="Trimite-ne un email!"
+            type="h2"
+            hasHiddenClassname
+            headingRef={refTitle}
+          />
           <div className={contactStyles.contactContainer__emailContent}>
             <form
               className={`${contactStyles.contactContainer__emailForm} hidden`}

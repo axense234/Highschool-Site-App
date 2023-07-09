@@ -56,10 +56,12 @@ type BookmarkIconShownMapType = {
 
 type MarkableHeadingProps = {
   type: "h1" | "h2" | "h3";
-  headingRef?: (node?: Element | null | undefined) => void;
   hasHiddenClassname?: boolean;
   textContent: string;
+  isLink?: boolean;
+  linkHref?: string;
   idUsed?: string;
+  headingRef?: (node?: Element | null | undefined) => void;
 };
 
 interface TemplateClass extends Class {
@@ -156,6 +158,7 @@ interface TemplateUpdateStudent extends Student {
 }
 
 interface TemplateUser {
+  id?: string;
   fullname: string;
   password: string;
   email: string;

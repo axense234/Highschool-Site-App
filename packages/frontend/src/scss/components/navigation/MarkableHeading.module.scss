@@ -1,0 +1,14 @@
+@use "../../abstracts" as *;
+
+.markableHeadingContainer {
+  @include flexCenter(row);
+  position: relative;
+
+  svg {
+    transition: opacity 0.2s ease-in;
+    position: absolute;
+    right: -4rem;
+    font-size: 3rem;
+    color: #8b4513;
+  }
+}

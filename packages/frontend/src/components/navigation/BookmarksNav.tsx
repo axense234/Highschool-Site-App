@@ -1,9 +1,11 @@
 // React
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 // React Icons
 import { BsQuestionLg } from "react-icons/bs";
 // Next
 import Link from "next/link";
+// React Icons
+import { AiFillDelete } from "react-icons/ai";
 // Types
 import { BookmarksMenuProps, TemplateBookmark } from "types";
 // SCSS
@@ -18,10 +20,23 @@ import {
 } from "@/data";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { selectProfile } from "@/redux/slices/generalSlice";
+import {
+  selectProfile,
+  setScreenLoadingMessage,
+} from "@/redux/slices/generalSlice";
+import {
+  createBookmark,
+  deleteBookmarkById,
+  getAllBookmarks,
+  selectAllBookmarks,
+  selectLoadingBookmarks,
+} from "@/redux/slices/bookmarksSlice";
 
 const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
+  const dispatch = useAppDispatch();
   const bookmarksRef = useRef<HTMLElement>(null);
+  const bookmarks = useAppSelector(selectAllBookmarks);
+  const loadingBookmarks = useAppSelector(selectLoadingBookmarks);
 
   const profile = useAppSelector(selectProfile);
 
@@ -44,6 +59,12 @@ const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
   }
 
   useEffect(() => {
+    if (loadingBookmarks === "IDLE") {
+      dispatch(getAllBookmarks());
+    }
+  }, []);
+
+  useEffect(() => {
     const bookmakrs = bookmarksRef.current as HTMLElement;
     if (showBookmarks) {
       bookmakrs.style.transform = "translateY(0%)";
@@ -52,10 +73,25 @@ const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
     }
   }, [showBookmarks]);
 
+  const bookmarksShown =
+    bookmarks.length >= 1
+      ? (bookmarks as TemplateBookmark[])
+      : defaultBookmarksShown;
+
   return (
-    <nav className={bookmarksStyles.bookmarksContainer} ref={bookmarksRef}>
+    <nav
+      className={bookmarksStyles.bookmarksContainer}
+      ref={bookmarksRef}
+      style={{
+        height:
+          bookmarksShown.length >= 1
+            ? `${bookmarksShown.length} * 3rem`
+            : "0rem",
+        visibility: bookmarksShown.length >= 1 ? "visible" : "hidden",
+      }}
+    >
       <ul className={bookmarksStyles.bookmarksContainer__bookmarks}>
-        {defaultBookmarksShown.map((bookmark) => {
+        {bookmarksShown.map((bookmark) => {
           return (
             <li key={bookmark.id}>
               <Bookmark {...bookmark} />
@@ -67,13 +103,43 @@ const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
   );
 };
 
-const Bookmark: FC<TemplateBookmark> = ({ dest, label }) => {
+const Bookmark: FC<TemplateBookmark> = ({
+  dest,
+  label,
+  bookmark_uid,
+  type,
+}) => {
+  const dispatch = useAppDispatch();
+  const [showDeleteBookmark, setShowDeleteBookmark] = useState<boolean>(false);
+
+  const deleteBookmark = () => {
+    dispatch(
+      setScreenLoadingMessage(
+        "Încercăm să ștergem un marcaj, vă rugăm să așteptați..."
+      )
+    );
+    dispatch(deleteBookmarkById(bookmark_uid as string));
+  };
+
   return (
-    <Link href={dest} aria-label={label} title={label}>
-      {bookmarkIconShownMap.find((icon) => icon.dest === dest)?.icon || (
-        <BsQuestionLg aria-label={label} title={label} />
-      )}
-    </Link>
+    <div
+      className={bookmarksStyles.bookmarksContainer__bookmark}
+      onMouseEnter={() => setShowDeleteBookmark(true)}
+      onMouseLeave={() => setShowDeleteBookmark(false)}
+    >
+      <Link href={dest} aria-label={label} title={label}>
+        {bookmarkIconShownMap.find((icon) => icon.dest === dest)?.icon || (
+          <BsQuestionLg aria-label={label} title={label} />
+        )}
+      </Link>
+      <AiFillDelete
+        style={{ opacity: showDeleteBookmark ? "1" : "0" }}
+        aria-label={`Stergeti marcajul: ${label}`}
+        title={`Stergeti marcajul: ${label}`}
+        onClick={() => deleteBookmark()}
+        className={bookmarksStyles.bookmarksContainer__deleteBookmark}
+      />
+    </div>
   );
 };
 

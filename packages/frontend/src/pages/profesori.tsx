@@ -19,6 +19,7 @@ import {
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 import { selectProfile } from "@/redux/slices/generalSlice";
+import MarkableHeading from "@/components/others/MarkableHeading";
 
 const Teachers: FC = () => {
   useGetPathname();

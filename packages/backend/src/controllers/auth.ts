@@ -116,28 +116,28 @@ const createUser = async (req: Request, res: Response) => {
     if (userBody.classes) {
       delete userBody.classes;
     }
-    // if (!userBody.accountCode) {
-    //   return res
-    //     .status(StatusCodes.BAD_REQUEST)
-    //     .json({ msg: "Introduceți un cod de cont!", user: {} });
-    // }
+    if (!userBody.accountCode) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Introduceți un cod de cont!", user: {} });
+    }
 
-    // const findAccountCode = await accountCodeClient.findUnique({
-    //   where: { value: userBody.accountCode },
-    // });
+    const findAccountCode = await accountCodeClient.findUnique({
+      where: { value: userBody.accountCode },
+    });
 
-    // if (!findAccountCode) {
-    //   return res.status(StatusCodes.NOT_FOUND).json({
-    //     msg: `Nu am găsit un cod valabil cu valoarea: ${userBody.accountCode}!`,
-    //     user: {},
-    //   });
-    // }
+    if (!findAccountCode) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        msg: `Nu am găsit un cod valabil cu valoarea: ${userBody.accountCode}!`,
+        user: {},
+      });
+    }
 
     delete userBody.accountCode;
 
-    // await accountCodeClient.delete({
-    //   where: { code_uid: findAccountCode.code_uid },
-    // });
+    await accountCodeClient.delete({
+      where: { code_uid: findAccountCode.code_uid },
+    });
 
     createdUser = await teacherClient.create({ data: { ...userBody } });
     createdUser.id = createdUser.teacher_uid;
@@ -260,21 +260,32 @@ const getUserProfile = async (req: Request, res: Response) => {
   if (foundUserType === "ADMIN") {
     userFound = await adminClient.findUnique({
       where: { admin_uid: foundUserId },
+      include: { bookmarks: true },
     });
+    if (userFound) {
+      userFound.id = userFound?.admin_uid;
+    }
   } else if (foundUserType === "ELEV") {
     userFound = await studentClient.findUnique({
       where: { student_uid: foundUserId },
       include: {
+        bookmarks: true,
         student_card: {
           include: { content: { include: { absences: true, grades: true } } },
         },
       },
     });
+    if (userFound) {
+      userFound.id = userFound?.student_uid;
+    }
   } else if (foundUserType === "PROFESOR") {
     userFound = await teacherClient.findUnique({
       where: { teacher_uid: foundUserId },
-      include: { classes: true },
+      include: { bookmarks: true, classes: true },
     });
+    if (userFound) {
+      userFound.id = userFound?.teacher_uid;
+    }
   }
 
   if (!userFound) {

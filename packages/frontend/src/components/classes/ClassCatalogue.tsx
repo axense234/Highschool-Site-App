@@ -11,6 +11,7 @@ import classStyles from "../../scss/components/pages/IndividualClass.module.scss
 import { classCatalogueSubjectsCountMap, subjects } from "@/data";
 // Components
 import ClassCatalogueSection from "./ClassCatalogueSection";
+import MarkableHeading from "../others/MarkableHeading";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -25,7 +26,7 @@ const ClassCatalogue: FC<TemplateClass> = ({ label, students, class_uid }) => {
 
   return (
     <section className={classStyles.classContainer__classCatalogue}>
-      <h2>Catalogul Clasei {label}</h2>
+      <MarkableHeading textContent={`Catalogul Clasei ${label}`} type="h2" />
       <table className={classStyles.classContainer__classCatalogueContent}>
         <ClassCatalogueHead
           currentClassSubjectsShownId={currentClassSubjectsShownId}

@@ -9,6 +9,7 @@ import historyStyles from "../scss/components/pages/History.module.scss";
 // Components
 import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
+import MarkableHeading from "@/components/others/MarkableHeading";
 // Data
 import { istoricPinpoints } from "@/data";
 // Hooks

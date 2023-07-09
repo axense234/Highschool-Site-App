@@ -5,11 +5,12 @@ import { DocumentOrLaw } from "types";
 import { documentsAndLawsInfo } from "@/data";
 // SCSS
 import documentsStyles from "../scss/components/pages/Documents.module.scss";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 // Components
 import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
-// Hooks
-import useGetPathname from "@/hooks/useGetPathname";
+import MarkableHeading from "@/components/others/MarkableHeading";
 
 const Documents: FC = () => {
   useGetPathname();
@@ -31,7 +32,7 @@ const Documents: FC = () => {
           className={documentsStyles.documentsContainer__content}
           id="map"
         >
-          <h2>Documente</h2>
+          <MarkableHeading textContent="Documente" type="h2" />
           <div className={documentsStyles.documentsContainer__info}>
             <ul className={documentsStyles.documentsContainer__map}>
               {documentsAndLawsInfo.map((document) => {
@@ -57,21 +58,24 @@ const Documents: FC = () => {
   );
 };
 
-const Document: FC<DocumentOrLaw> = ({ label, pdfURLs }) => {
+const Document: FC<DocumentOrLaw> = ({ label, pdfURLs, id }) => {
   return (
     <div
       className={`${documentsStyles.documentsContainer__document}`}
       id={label}
     >
       <div className={documentsStyles.documentsContainer__documentTitle}>
-        <h3>{label}</h3>
+        <MarkableHeading
+          textContent={label}
+          type="h3"
+          idUsed={`document-${id}`}
+        />
         <hr />
       </div>
       <ul className={documentsStyles.documentsContainer__documentPDFs}>
         {pdfURLs.map((url: string, index: number) => {
           return (
-            // eslint-disable-next-line react/no-array-index-key
-            <li key={index}>
+            <li key={url}>
               <iframe src={url} title={label} />
             </li>
           );

@@ -256,17 +256,23 @@ export const defaultAdminBookmarks: TemplateBookmark[] = [
 ];
 
 export const bookmarkIconShownMap: BookmarkIconShownMapType[] = [
-  { id: 1, dest: "/login", icon: BiLogIn({}) },
-  { id: 2, dest: "/signup", icon: IoPeople({}) },
-  { id: 3, dest: "/biblioteca", icon: IoLibrarySharp({}) },
-  { id: 4, dest: "/anunturi", icon: MdAnnouncement({}) },
-  { id: 5, dest: "/contact", icon: MdContactSupport({}) },
+  { id: 1, dest: "/home", icon: AiFillHome({}) },
+  { id: 2, dest: "/anunturi", icon: MdAnnouncement({}) },
+  { id: 3, dest: "/contact", icon: MdContactSupport({}) },
+  { id: 4, dest: "/oferta", icon: IoSchoolSharp({}) },
+  { id: 5, dest: "/documente", icon: HiDocumentText({}) },
   { id: 6, dest: "/profesori", icon: MdPeople({}) },
-  { id: 7, dest: "/profil", icon: CgProfile({}) },
-  { id: 8, dest: "/clase", icon: SiGoogleclassroom({}) },
-  { id: 9, dest: "/profil/#claseleProfesorului", icon: SiGoogleclassroom({}) },
-  { id: 10, dest: "/profil/#carnet", icon: AiFillIdcard({}) },
-  { id: 11, dest: "/clase/:classId", icon: SiGoogleclassroom({}) },
+  { id: 7, dest: "/istoric", icon: FaHistory({}) },
+  { id: 8, dest: "/", icon: FcAbout({}) },
+  { id: 9, dest: "/login", icon: BiLogIn({}) },
+  { id: 10, dest: "/signup", icon: IoPeople({}) },
+  { id: 11, dest: "/profil", icon: CgProfile({}) },
+  { id: 12, dest: "/clase", icon: SiGoogleclassroom({}) },
+  { id: 13, dest: "/biblioteca", icon: IoLibrarySharp({}) },
+
+  { id: 14, dest: "/profil/#claseleProfesorului", icon: SiGoogleclassroom({}) },
+  { id: 15, dest: "/profil/#carnet", icon: AiFillIdcard({}) },
+  { id: 16, dest: "/clase/:classId", icon: SiGoogleclassroom({}) },
 ];
 
 export const defaultGetAllQueryParams: GetAllQueryParams = {

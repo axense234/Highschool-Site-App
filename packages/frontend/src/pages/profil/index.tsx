@@ -5,20 +5,18 @@ import { Admin, Student, Teacher } from "@prisma/client";
 import { TemplateStudent, TemplateUser } from "types";
 // Components
 import Meta from "@/components/others/Meta";
-// SCSS
-import profileStyles from "../../scss/components/pages/Profile.module.scss";
-// Components
 import Overlay from "@/components/others/Overlay";
 import PageTitle from "@/components/home/PageTitle";
+import ProfileDashboard from "@/components/profile/ProfileDashboard";
+import ProfileStudentCatalogue from "@/components/profile/ProfileStudentCatalogue";
+// SCSS
+import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
 import useAuthorization from "@/hooks/useAuthorization";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { selectProfile, setOptionsContent } from "@/redux/slices/generalSlice";
-// Components
-import ProfileDashboard from "@/components/profile/ProfileDashboard";
-import ProfileStudentCatalogue from "@/components/profile/ProfileStudentCatalogue";
 
 const Profile: FC = () => {
   useGetPathname();

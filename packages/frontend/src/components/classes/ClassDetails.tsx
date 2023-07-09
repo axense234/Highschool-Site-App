@@ -7,6 +7,7 @@ import { Teacher, Student } from "@prisma/client";
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 // Components
 import ClassComponentPreview from "./ClassComponentPreview";
+import MarkableHeading from "../others/MarkableHeading";
 
 const ClassDetails: FC<TemplateClass> = ({
   class_uid,
@@ -27,7 +28,7 @@ const ClassDetails: FC<TemplateClass> = ({
 
   return (
     <section className={classStyles.classContainer__classDetailsContainer}>
-      <h2>Detaliile clasei {label}</h2>
+      <MarkableHeading textContent={`Detaliile clasei ${label}`} type="h2" />
       <div className={classStyles.classContainer__classDetails}>
         <div className={classStyles.classContainer__classMaster}>
           <h3>DIRIGINTE: </h3>
