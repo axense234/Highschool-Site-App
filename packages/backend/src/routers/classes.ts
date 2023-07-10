@@ -8,7 +8,7 @@ import {
   getAllClasses,
   getClassById,
   updateClassById,
-} from "../controllers/classes";
+} from "../app/interactors/classesInteractors";
 
 const router = express.Router();
 

@@ -7,7 +7,7 @@ import {
   getStudentById,
   getAllStudents,
   updateStudentById,
-} from "../controllers/students";
+} from "../app/interactors/studentsInteractors";
 
 const router = express.Router();
 

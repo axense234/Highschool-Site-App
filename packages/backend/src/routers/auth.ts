@@ -7,8 +7,9 @@ import {
   logoutUser,
   createUser,
   getUserProfile,
-} from "../controllers/auth";
+} from "../app/interactors/authInteractors";
 import authenticationMiddleware from "../middleware/authentication";
+import accountCodeValidation from "../middleware/accountCodeValidation";
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.post("/users/login", loginUser);
 
 router.delete("/users/options/logout", logoutUser);
 
-router.post("/users/create/:userType", createUser);
+router.post("/users/create/:userType", accountCodeValidation, createUser);
 
 // Exports
 export default router;

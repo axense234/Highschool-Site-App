@@ -8,7 +8,7 @@ import {
   getAllCards,
   getCardById,
   updateCardById,
-} from "../controllers/cards";
+} from "../app/interactors/cardsInteractors";
 
 const router = express.Router();
 

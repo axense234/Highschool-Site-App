@@ -25,7 +25,6 @@ import {
   setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import {
-  createBookmark,
   deleteBookmarkById,
   getAllBookmarks,
   selectAllBookmarks,
@@ -35,9 +34,9 @@ import {
 const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
   const dispatch = useAppDispatch();
   const bookmarksRef = useRef<HTMLElement>(null);
+
   const bookmarks = useAppSelector(selectAllBookmarks);
   const loadingBookmarks = useAppSelector(selectLoadingBookmarks);
-
   const profile = useAppSelector(selectProfile);
 
   let defaultBookmarksShown = defaultUserBookmarks;
@@ -62,36 +61,28 @@ const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
     if (loadingBookmarks === "IDLE") {
       dispatch(getAllBookmarks());
     }
-  }, []);
+  }, [loadingBookmarks]);
 
   useEffect(() => {
-    const bookmakrs = bookmarksRef.current as HTMLElement;
+    const bookmarks = bookmarksRef.current as HTMLElement;
     if (showBookmarks) {
-      bookmakrs.style.transform = "translateY(0%)";
+      bookmarks.style.transform = "translateY(0%)";
     } else {
-      bookmakrs.style.transform = "translateY(-150%)";
+      bookmarks.style.transform = "translateY(-150%)";
     }
   }, [showBookmarks]);
-
-  const bookmarksShown =
-    bookmarks.length >= 1
-      ? (bookmarks as TemplateBookmark[])
-      : defaultBookmarksShown;
 
   return (
     <nav
       className={bookmarksStyles.bookmarksContainer}
       ref={bookmarksRef}
       style={{
-        height:
-          bookmarksShown.length >= 1
-            ? `${bookmarksShown.length} * 3rem`
-            : "0rem",
-        visibility: bookmarksShown.length >= 1 ? "visible" : "hidden",
+        height: bookmarks.length >= 1 ? `${bookmarks.length} * 3rem` : "0rem",
+        visibility: bookmarks.length >= 1 ? "visible" : "hidden",
       }}
     >
       <ul className={bookmarksStyles.bookmarksContainer__bookmarks}>
-        {bookmarksShown.map((bookmark) => {
+        {(bookmarks as TemplateBookmark[]).map((bookmark) => {
           return (
             <li key={bookmark.id}>
               <Bookmark {...bookmark} />
@@ -108,6 +99,7 @@ const Bookmark: FC<TemplateBookmark> = ({
   label,
   bookmark_uid,
   type,
+  id,
 }) => {
   const dispatch = useAppDispatch();
   const [showDeleteBookmark, setShowDeleteBookmark] = useState<boolean>(false);

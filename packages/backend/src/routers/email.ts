@@ -6,7 +6,7 @@ import {
   sendEmail,
   resetPasswordEmail,
   verifyResetPassToken,
-} from "../controllers/email";
+} from "../app/interactors/emailInteractors";
 
 const router = express.Router();
 

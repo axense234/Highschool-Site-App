@@ -32,11 +32,11 @@ import bookmarksRouter from "./routers/bookmarks";
 // Middleware
 import errorHandlerMiddleware from "./middleware/errorHandler";
 import swaggerDocs from "./utils/swagger";
+import startServer from "./app/invoker";
 
 dotenv.config({ path: path.resolve("../../", ".env") });
 
-const app = express();
-const PORT = process.env.SERVER_PORT || 4000;
+export const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
@@ -74,21 +74,5 @@ app.use("/", [
 ]);
 app.use("/api/1.0.0/en/docs", expressUI.serve, expressUI.setup(swaggerDocs));
 app.use(errorHandlerMiddleware);
-
-const startServer = async () => {
-  try {
-    await connectToRedis().then(() => {
-      console.log("Connected to Redis!");
-    });
-    await connectToPostgres().then(() =>
-      console.log("Connected to PostgreSQL!")
-    );
-    app.listen(PORT, () => {
-      console.log(`Server is listening on port:${PORT}...`);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 startServer();

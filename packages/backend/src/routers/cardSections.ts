@@ -8,7 +8,7 @@ import {
   getAllCardSections,
   getCardSectionById,
   updateCardSectionById,
-} from "../controllers/cardSections";
+} from "../app/interactors/cardSectionsInteractors";
 
 const router = express.Router();
 

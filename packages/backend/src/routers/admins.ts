@@ -3,29 +3,31 @@ import express from "express";
 
 // Controllers and Middleware
 import {
-  deleteAdminByIdOrJWT,
-  getAdminByIdOrJWT,
+  deleteAdminById,
+  getAdminById,
   getAllAdmins,
-  updateAdminByIdOrJWT,
-} from "../controllers/admins";
+  updateAdminById,
+} from "../app/interactors/adminsInteractors";
 import authenticationMiddleware from "../middleware/authentication";
+import validateUserPassword from "../middleware/userPassValidation";
 
 const router = express.Router();
 
 router.get("/admins", authenticationMiddleware, getAllAdmins);
 
-router.get("/admins/admin/:userId", getAdminByIdOrJWT);
+router.get("/admins/admin/:userId", getAdminById);
 
 router.patch(
   "/admins/admin/update/:adminId",
   authenticationMiddleware,
-  updateAdminByIdOrJWT
+  validateUserPassword,
+  updateAdminById
 );
 
 router.delete(
   "/admins/admin/delete/:adminId",
   authenticationMiddleware,
-  deleteAdminByIdOrJWT
+  deleteAdminById
 );
 
 // EXPORTS

@@ -8,7 +8,7 @@ import {
   getAllGrades,
   getGradeById,
   updateGradeById,
-} from "../controllers/grades";
+} from "../app/interactors/gradesInteractors";
 
 const router = express.Router();
 

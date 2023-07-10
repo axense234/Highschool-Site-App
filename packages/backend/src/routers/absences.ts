@@ -8,7 +8,7 @@ import {
   getAbsenceById,
   getAllAbsences,
   updateAbsenceById,
-} from "../controllers/absences";
+} from "../app/interactors/absencesInteractors";
 
 const router = express.Router();
 

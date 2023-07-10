@@ -8,7 +8,7 @@ import {
   getAnnouncementById,
   deleteAnnouncementById,
   updateAnnouncementById,
-} from "../controllers/announcements";
+} from "../app/interactors/announcementsInteractors";
 
 const router = express.Router();
 

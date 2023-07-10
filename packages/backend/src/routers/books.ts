@@ -8,7 +8,7 @@ import {
   getAllBooks,
   getBookById,
   updateBookById,
-} from "../controllers/books";
+} from "../app/interactors/booksInteractors";
 
 const router = express.Router();
 

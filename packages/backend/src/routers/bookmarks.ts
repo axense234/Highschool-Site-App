@@ -8,7 +8,7 @@ import {
   getAllBookmarks,
   getBookmarkById,
   updateBookmarkById,
-} from "../controllers/bookmarks";
+} from "../app/interactors/bookmarksInteractors";
 
 const router = express.Router();
 

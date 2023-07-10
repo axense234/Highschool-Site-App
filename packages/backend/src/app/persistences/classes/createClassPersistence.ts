@@ -1,0 +1,93 @@
+// Status Codes
+import { StatusCodes } from "http-status-codes";
+// Types
+import { Class } from "@prisma/client";
+import type { TemplateClassType } from "../../../core/types/templateClassType";
+// Data
+import { classLabelPattern } from "../../../data";
+// Clients
+import {
+  teacherClient,
+  classClient,
+  studentClient,
+} from "../../../db/postgres";
+
+const createClassPersistence = async (classBody: TemplateClassType) => {
+  if (classBody.master_teacher) {
+    delete classBody.master_teacher;
+  }
+
+  if (!classLabelPattern.test(classBody.label)) {
+    return {
+      msg: `Etichetă de clasă invalidă!`,
+      class: {},
+      statusCode: StatusCodes.BAD_REQUEST,
+    };
+  }
+
+  if (classBody.students) {
+    classBody.students = {
+      connect: (classBody.students as string[]).map((student: string) => {
+        return { student_uid: student };
+      }),
+    };
+  }
+
+  if (classBody.teachers) {
+    classBody.teachers = {
+      connect: (classBody.teachers as string[]).map((teacher: string) => {
+        return { teacher_uid: teacher };
+      }),
+    };
+  }
+
+  if (classBody.master_teacher_uid) {
+    const foundTeacher = await teacherClient.findUnique({
+      where: { teacher_uid: classBody.master_teacher_uid as string },
+    });
+
+    if (foundTeacher) {
+      classBody.master_teacher_name = foundTeacher.fullname;
+    }
+  }
+
+  const createdClass = await classClient.create({
+    data: { ...(classBody as Class) },
+  });
+
+  if (!createdClass) {
+    return {
+      msg: "Could not create a class with the data received!",
+      class: {},
+      statusCode: StatusCodes.BAD_REQUEST,
+    };
+  }
+
+  await studentClient.updateMany({
+    where: { class_label: createdClass.label },
+    data: {
+      class_uid: createdClass.class_uid,
+      class_label: createdClass.label,
+    },
+  });
+
+  if (createdClass.master_teacher_uid) {
+    await teacherClient.update({
+      where: { teacher_uid: createdClass.master_teacher_uid },
+      data: {
+        master: true,
+        master_class: { connect: { class_uid: createdClass.class_uid } },
+        master_class_uid: createdClass.class_uid,
+        master_class_label: createdClass.label,
+      },
+    });
+  }
+
+  return {
+    msg: `Successfully created class with uid:${createdClass.class_uid}!`,
+    class: createdClass,
+    statusCode: StatusCodes.CREATED,
+  };
+};
+
+export default createClassPersistence;

@@ -7,7 +7,7 @@ import {
   deleteTeacherById,
   updateTeacherById,
   getTeacherById,
-} from "../controllers/teachers";
+} from "../app/interactors/teachersInteractors";
 
 const router = express.Router();
 

@@ -8,7 +8,7 @@ import {
   getAllCatalogues,
   getCatalogueById,
   updateCatalogueById,
-} from "../controllers/catalogues";
+} from "../app/interactors/cataloguesInteractors";
 
 const router = express.Router();
 
