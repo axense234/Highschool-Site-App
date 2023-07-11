@@ -68,7 +68,9 @@ export const getAllClasses = createAsyncThunk<Class[] | AxiosError>(
   "classes/getAllClasses",
   async () => {
     try {
-      const { data } = await axiosInstance.get(`/classes`);
+      const { data } = await axiosInstance.get(
+        `/classes?includeStudents=false`
+      );
       return data.classes as Class[];
     } catch (error) {
       return error as AxiosError;

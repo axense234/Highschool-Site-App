@@ -4,10 +4,21 @@ import { Teacher } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
 // Client
 import { teacherClient } from "../../../db/postgres";
+// Types
+import { TemplateTeacherType } from "../../../core/types/templateTeacherType";
+// Data
+import { defaultBookmarksTeacher } from "../../../data";
 
-const createTeacherPersistence = async (teacherBody: Teacher) => {
+const createTeacherPersistence = async (
+  teacherBody: TemplateTeacherType,
+  createDefaultBookmarks: string
+) => {
+  if (createDefaultBookmarks === "true") {
+    teacherBody.bookmarks = { createMany: { data: defaultBookmarksTeacher } };
+  }
+
   const createdTeacher = await teacherClient.create({
-    data: { ...teacherBody },
+    data: { ...(teacherBody as Teacher) },
   });
 
   if (!createdTeacher) {

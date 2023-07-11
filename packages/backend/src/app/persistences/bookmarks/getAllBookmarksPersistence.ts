@@ -3,8 +3,16 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { bookmarkClient } from "../../../db/postgres";
 
-const getAllBookmarksPersistence = async () => {
-  const foundBookmarks = await bookmarkClient.findMany({});
+const getAllBookmarksPersistence = async (
+  filter: string,
+  filterValue: string
+) => {
+  const filterCondition = {} as any;
+  filterCondition[filter] = filterValue;
+
+  const foundBookmarks = await bookmarkClient.findMany({
+    where: filterCondition,
+  });
 
   if (foundBookmarks.length < 1) {
     return {

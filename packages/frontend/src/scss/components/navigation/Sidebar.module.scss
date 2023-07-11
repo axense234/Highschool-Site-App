@@ -36,7 +36,11 @@
   transform: translateX(-150%);
   z-index: 4;
   transition: transform 0.3s, width 0.3s;
-
+  background: radial-gradient(
+    circle,
+    getColor("silver-white"),
+    getColor("silver-30")
+  );
   h1 {
     font-size: 1.75rem;
     letter-spacing: 2px;

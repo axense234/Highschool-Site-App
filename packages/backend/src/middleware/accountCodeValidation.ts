@@ -37,7 +37,7 @@ const accountCodeValidation = async (
       where: { code_uid: findAccountCode.code_uid },
     });
   }
-  return userBody;
+  next();
 };
 
 export default accountCodeValidation;

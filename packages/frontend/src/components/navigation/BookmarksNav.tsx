@@ -8,60 +8,29 @@ import Link from "next/link";
 import { AiFillDelete } from "react-icons/ai";
 // Types
 import { BookmarksMenuProps, TemplateBookmark } from "types";
+import { Bookmark } from "@prisma/client";
 // SCSS
 import bookmarksStyles from "../../scss/components/navigation/BookmarksNav.module.scss";
 // Data
-import {
-  bookmarkIconShownMap,
-  defaultAdminBookmarks,
-  defaultStudentBookmarks,
-  defaultTeacherBookmarks,
-  defaultUserBookmarks,
-} from "@/data";
+import { bookmarkIconShownMap } from "@/data";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   selectProfile,
   setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
-import {
-  deleteBookmarkById,
-  getAllBookmarks,
-  selectAllBookmarks,
-  selectLoadingBookmarks,
-} from "@/redux/slices/bookmarksSlice";
+import { deleteBookmarkById } from "@/redux/slices/bookmarksSlice";
 
 const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
-  const dispatch = useAppDispatch();
   const bookmarksRef = useRef<HTMLElement>(null);
-
-  const bookmarks = useAppSelector(selectAllBookmarks);
-  const loadingBookmarks = useAppSelector(selectLoadingBookmarks);
+  const [shownBookmarks, setShownBookmarks] = useState<Bookmark[]>([]);
   const profile = useAppSelector(selectProfile);
 
-  let defaultBookmarksShown = defaultUserBookmarks;
-  switch (profile.role) {
-    case "":
-      defaultBookmarksShown = defaultUserBookmarks;
-      break;
-    case "ADMIN":
-      defaultBookmarksShown = defaultAdminBookmarks;
-      break;
-    case "PROFESOR":
-      defaultBookmarksShown = defaultTeacherBookmarks;
-      break;
-    case "ELEV":
-      defaultBookmarksShown = defaultStudentBookmarks;
-      break;
-    default:
-      throw new Error("Invalid profile role.");
-  }
-
   useEffect(() => {
-    if (loadingBookmarks === "IDLE") {
-      dispatch(getAllBookmarks());
+    if (profile.bookmarks.length >= 1) {
+      setShownBookmarks(profile.bookmarks);
     }
-  }, [loadingBookmarks]);
+  }, [profile]);
 
   useEffect(() => {
     const bookmarks = bookmarksRef.current as HTMLElement;
@@ -77,12 +46,15 @@ const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
       className={bookmarksStyles.bookmarksContainer}
       ref={bookmarksRef}
       style={{
-        height: bookmarks.length >= 1 ? `${bookmarks.length} * 3rem` : "0rem",
-        visibility: bookmarks.length >= 1 ? "visible" : "hidden",
+        height:
+          shownBookmarks.length >= 1
+            ? `${shownBookmarks.length} * 3rem`
+            : "0rem",
+        visibility: shownBookmarks.length >= 1 ? "visible" : "hidden",
       }}
     >
       <ul className={bookmarksStyles.bookmarksContainer__bookmarks}>
-        {(bookmarks as TemplateBookmark[]).map((bookmark) => {
+        {(shownBookmarks as TemplateBookmark[]).map((bookmark) => {
           return (
             <li key={bookmark.id}>
               <Bookmark {...bookmark} />
@@ -94,13 +66,7 @@ const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
   );
 };
 
-const Bookmark: FC<TemplateBookmark> = ({
-  dest,
-  label,
-  bookmark_uid,
-  type,
-  id,
-}) => {
+const Bookmark: FC<TemplateBookmark> = ({ dest, label, bookmark_uid }) => {
   const dispatch = useAppDispatch();
   const [showDeleteBookmark, setShowDeleteBookmark] = useState<boolean>(false);
 

@@ -1,13 +1,17 @@
 // Prisma
-import { Student } from "@prisma/client";
+import { Bookmark, Prisma, Student } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Client
 import { studentClient } from "../../../db/postgres";
+// Types
+import { TemplateStudentType } from "../../../core/types/templateStudentType";
+import { defaultBookmarksStudent } from "../../../data";
 
 const createStudentPersistence = async (
-  studentBody: Student,
-  includeStudentCard: string
+  studentBody: TemplateStudentType,
+  includeStudentCard: string,
+  createDefaultBookmarks: string
 ) => {
   const includeObject = {} as any;
 
@@ -17,10 +21,16 @@ const createStudentPersistence = async (
     };
   }
 
+  if (createDefaultBookmarks === "true") {
+    studentBody.bookmarks = { createMany: { data: defaultBookmarksStudent } };
+  }
+
   const createdStudent = await studentClient.create({
-    data: { ...studentBody },
+    data: { ...(studentBody as Student) },
     include: includeObject,
   });
+
+  console.log(createdStudent);
 
   if (!createdStudent) {
     return {

@@ -42,7 +42,7 @@ const createUser = async (req: Request, res: Response) => {
 
   let createdUser;
   if (userType === "ADMIN") {
-    const createdUserPayload = await createAdminPersistence(userBody);
+    const createdUserPayload = await createAdminPersistence(userBody, "true");
     if (createdUserPayload.statusCode === 201) {
       createdUser = createdUserPayload.admin as Admin;
       createdUser.id = createdUser.admin_uid;
@@ -66,9 +66,13 @@ const createUser = async (req: Request, res: Response) => {
       userBody.class_uid = foundStudentClass.class_uid;
     }
 
-    const createdUserPayload = await createStudentPersistence(userBody, "true");
+    const createdUserPayload = await createStudentPersistence(
+      userBody,
+      "true",
+      "true"
+    );
+    createdUser = createdUserPayload.student as Student;
     if (createdUserPayload.statusCode === 201) {
-      createdUser = createdUserPayload.student as Student;
       createdUser.id = createdUser.student_uid;
     }
   } else if (userType === "PROFESOR") {
@@ -76,9 +80,12 @@ const createUser = async (req: Request, res: Response) => {
       delete userBody.classes;
     }
 
-    const createdTeacherPayload = await createTeacherPersistence(userBody);
+    const createdTeacherPayload = await createTeacherPersistence(
+      userBody,
+      "true"
+    );
+    createdUser = createdTeacherPayload.teacher as Teacher;
     if (createdTeacherPayload.statusCode === 201) {
-      createdUser = createdTeacherPayload.teacher as Teacher;
       createdUser.id = createdUser.teacher_uid;
 
       if (createdUser.master_class_label) {
@@ -101,6 +108,7 @@ const createUser = async (req: Request, res: Response) => {
     }
   }
 
+  console.log(createdUser);
   if (!createdUser) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       msg: "Could not create an user with the data provided!",

@@ -53,17 +53,19 @@ const initialState = bookmarksAdapter.getInitialState({
 }) as EntityState<Bookmark> & InitialStateType;
 
 // THUNKS
-export const getAllBookmarks = createAsyncThunk<Bookmark[] | AxiosError>(
-  "bookmarks/getAllBookmarks",
-  async () => {
-    try {
-      const { data } = await axiosInstance.get(`/bookmarks`);
-      return data.bookmarks as Bookmark[];
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const getAllBookmarks = createAsyncThunk<
+  Bookmark[] | AxiosError,
+  { userType: string; userTypeId: string }
+>("bookmarks/getAllBookmarks", async ({ userType, userTypeId }) => {
+  try {
+    const { data } = await axiosInstance.get(
+      `/bookmarks?filter=${userType}&filterValue=${userTypeId}`
+    );
+    return data.bookmarks as Bookmark[];
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
 export const getBookmarkById = createAsyncThunk<Bookmark | AxiosError, string>(
   "bookmarks/getBookmarkById",

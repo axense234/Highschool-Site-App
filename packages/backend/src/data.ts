@@ -1,4 +1,29 @@
-import { Subjects } from "@prisma/client";
+import { Bookmark, Prisma, Subjects } from "@prisma/client";
+
+export const defaultBookmarksAdmin: Prisma.BookmarkCreateManyInput[] = [
+  { dest: "/anunturi", label: "Anunțuri", type: "NORMAL" },
+  { dest: "/profesori", label: "Profesori", type: "NORMAL" },
+  { dest: "/profil", label: "Profilul tău", type: "NORMAL" },
+  { dest: "/clase", label: "Clasele liceului", type: "NORMAL" },
+  { dest: "/login", label: "Intră în alt cont", type: "NORMAL" },
+];
+export const defaultBookmarksStudent: Prisma.BookmarkCreateManyInput[] = [
+  { dest: "/anunturi", label: "Anunțuri", type: "NORMAL" },
+  { dest: "/biblioteca", label: "Profesori", type: "NORMAL" },
+  { dest: "/contact", label: "Profilul tău", type: "NORMAL" },
+  { dest: "/profil/#carnet", label: "Clasele liceului", type: "NORMAL" },
+];
+
+export const defaultBookmarksTeacher: Prisma.BookmarkCreateManyInput[] = [
+  { dest: "/anunturi", label: "Anunțuri", type: "NORMAL" },
+  { dest: "/biblioteca", label: "Profesori", type: "NORMAL" },
+  { dest: "/contact", label: "Profilul tău", type: "NORMAL" },
+  {
+    dest: "/profil?claseleProfesorului=true",
+    label: "Clasele liceului",
+    type: "NORMAL",
+  },
+];
 
 export const siteUrl =
   process.env.NODE_ENV === "prouduction"

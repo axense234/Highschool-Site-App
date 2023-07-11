@@ -4,10 +4,21 @@ import { Admin } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
 // Client
 import { adminClient } from "../../../db/postgres";
+// Types
+import { TemplateAdminType } from "../../../core/types/templateAdminType";
+// Data
+import { defaultBookmarksAdmin } from "../../../data";
 
-const createAdminPersistence = async (adminBody: Admin) => {
+const createAdminPersistence = async (
+  adminBody: TemplateAdminType,
+  createDefaultBookmarks: string
+) => {
+  if (createDefaultBookmarks === "true") {
+    adminBody.bookmarks = { createMany: { data: defaultBookmarksAdmin } };
+  }
+
   const createdAdmin = await adminClient.create({
-    data: { ...adminBody },
+    data: { ...(adminBody as Admin) },
   });
 
   if (!createdAdmin) {

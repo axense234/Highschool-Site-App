@@ -8,7 +8,12 @@ import deleteBookmarkByIdPersistence from "../persistences/bookmarks/deleteBookm
 import createBookmarkPersistence from "../persistences/bookmarks/createBookmarkPersistence";
 
 const getAllBookmarks = async (req: Request, res: Response) => {
-  const foundBookmarksPayload = await getAllBookmarksPersistence();
+  const { filter, filterValue } = req.query;
+
+  const foundBookmarksPayload = await getAllBookmarksPersistence(
+    filter as string,
+    filterValue as string
+  );
   return res
     .status(foundBookmarksPayload.statusCode)
     .json(foundBookmarksPayload);

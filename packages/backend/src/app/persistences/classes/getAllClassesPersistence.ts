@@ -5,8 +5,8 @@ import { classClient } from "../../../db/postgres";
 
 const getAllClassesPersistence = async (includeStudents: string) => {
   const includeObject = {} as any;
-  if (includeStudents === "true") {
-    includeObject.students = true;
+  if (includeStudents) {
+    includeObject.students = Boolean(includeStudents);
   }
 
   const foundClasses = await classClient.findMany({
