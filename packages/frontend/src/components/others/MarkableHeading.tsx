@@ -12,6 +12,7 @@ import markableHeadingStyles from "../../scss/components/navigation/MarkableHead
 import useGetPathname from "@/hooks/useGetPathname";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
+  getUserProfile,
   selectCurrentPathname,
   selectProfile,
   setScreenLoadingMessage,
@@ -26,6 +27,7 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
   idUsed,
   isLink,
   linkHref,
+  pageId,
 }) => {
   useGetPathname();
   const dispatch = useAppDispatch();
@@ -33,6 +35,8 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
 
   const currentPathName = useAppSelector(selectCurrentPathname);
   const profile = useAppSelector(selectProfile);
+
+  const isDynamicPath = currentPathName.includes("/[");
 
   let uidUsedBasedOnProfileRole: any;
   switch (profile.role) {
@@ -59,11 +63,15 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
     dispatch(
       createBookmark({
         label: textContent,
-        dest: currentPathName,
+        dest: isDynamicPath
+          ? currentPathName.replace(/\[(.*?)\]/g, pageId as string)
+          : currentPathName,
         type: "NORMAL",
         [uidUsedBasedOnProfileRole as string]: profile.id as string,
       })
-    );
+    )
+      .unwrap()
+      .then(() => dispatch(getUserProfile()));
   };
 
   if (type === "h1") {
@@ -84,12 +92,14 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
             textContent
           )}
         </h1>
-        <BsBookmarkPlusFill
-          style={{ opacity: showAddBookmark ? "1" : "0" }}
-          title="Adăugați la bara de marcaje"
-          aria-label="Adăugați la bara de marcaje"
-          onClick={() => addBookmark()}
-        />
+        {profile.role && (
+          <BsBookmarkPlusFill
+            style={{ opacity: showAddBookmark ? "1" : "0" }}
+            title="Adăugați la bara de marcaje"
+            aria-label="Adăugați la bara de marcaje"
+            onClick={() => addBookmark()}
+          />
+        )}
       </div>
     );
   }

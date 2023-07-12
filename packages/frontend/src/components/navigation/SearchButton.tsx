@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   getUserProfile,
   selectLoadingProfile,
+  selectProfile,
 } from "@/redux/slices/generalSlice";
 import {
   selectLoadingAnnouncements,
@@ -33,6 +34,8 @@ const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
   const loadingUpdateTeacher = useAppSelector(selectLoadingUpdateTeacher);
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
+
+  const profile = useAppSelector(selectProfile);
 
   useEffect(() => {
     const clicked = localStorage.getItem("SearchButtonClicked");
@@ -65,6 +68,7 @@ const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
     <div
       className={searchButtonStyles.searchButtonContainer}
       ref={searchButtonRef}
+      style={{ right: profile.role ? "6rem" : "1rem" }}
     >
       <BiSearch
         aria-label="Căutați in site"

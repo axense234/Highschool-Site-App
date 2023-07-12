@@ -272,7 +272,18 @@ export const bookmarkIconShownMap: BookmarkIconShownMapType[] = [
 
   { id: 14, dest: "/profil/#claseleProfesorului", icon: SiGoogleclassroom({}) },
   { id: 15, dest: "/profil/#carnet", icon: AiFillIdcard({}) },
-  { id: 16, dest: "/clase/:classId", icon: SiGoogleclassroom({}) },
+  {
+    id: 16,
+    dest: /\/clase\/[a-f0-9-]+/i,
+    icon: SiGoogleclassroom({}),
+    hasRegExpDest: true,
+  },
+  {
+    id: 17,
+    dest: /\/profil\/[a-f0-9-]+/i,
+    icon: CgProfile({}),
+    hasRegExpDest: true,
+  },
 ];
 
 export const defaultGetAllQueryParams: GetAllQueryParams = {

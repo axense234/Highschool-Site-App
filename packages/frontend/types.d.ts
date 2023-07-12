@@ -18,7 +18,7 @@ import {
 import { JSX, Dispatch, SetStateAction } from "react";
 
 // TYPES/INTERFACES FOR TEMPLATE DATA
-type User = Admin | Student | Teacher;
+type User = TemplateAdmin | TemplateStudent | TemplateTeacher;
 
 type TemplatePassReset = {
   recipient: string;
@@ -50,8 +50,9 @@ interface TemplateBookmark extends Bookmark {
 
 type BookmarkIconShownMapType = {
   id: number;
-  dest: string;
-  icon: JSX.Element;
+  dest: string | RegExp;
+  icon?: JSX.Element;
+  hasRegExpDest?: boolean;
 };
 
 type MarkableHeadingProps = {
@@ -62,6 +63,7 @@ type MarkableHeadingProps = {
   linkHref?: string;
   idUsed?: string;
   headingRef?: (node?: Element | null | undefined) => void;
+  pageId?: string;
 };
 
 interface TemplateClass extends Class {
@@ -164,6 +166,7 @@ interface TemplateUser {
   email: string;
   role: "ADMIN" | "ELEV" | "PROFESOR" | "";
   student_card?: TemplateStudentCard;
+  bookmarks?: TemplateBookmark[];
 }
 
 type OverlayType = {
@@ -369,6 +372,7 @@ interface PageTitleProps {
   title: string;
   quote?: string;
   backgroundUrl?: string;
+  pageId?: string;
 }
 
 interface SectionLoadingProps {
@@ -474,7 +478,7 @@ interface CardSectionProps {
   class_uid: string;
   section_uid: string;
   profile_used_uid: string;
-  ownProfile: Admin | Student | Teacher | TemplateUser;
+  ownProfile: User;
   teacherFullname: string | null;
   teacherProfileImage: string | null;
   teacherId: string | null;

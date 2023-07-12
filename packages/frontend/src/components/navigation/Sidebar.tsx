@@ -24,7 +24,6 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
   const profile = useAppSelector(selectProfile);
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
     const sidebar = sidebarRef.current as HTMLElement;
     if (showSidebar) {
       sidebar.style.transform = "translateX(0%)";
@@ -49,7 +48,7 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
           </h1>
           <div className={sidebarStyles.sidebarContainer__pageLinks}>
             {sidebarPageLinks.map((pageLink) => {
-              if (pageLink.dest === "/profil" && !profile.email) {
+              if (pageLink.dest === "/profil" && !profile.email && profile) {
                 return null;
               }
               return (

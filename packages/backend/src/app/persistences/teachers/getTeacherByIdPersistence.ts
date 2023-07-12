@@ -13,13 +13,8 @@ const getTeacherByIdPersistence = async (
   const filterCondition = {} as any;
   filterCondition[filter] = filterValue;
 
-  if (includeClassrooms === "true") {
-    includeObject.classes = true;
-  }
-
-  if (includeBookmarks === "true") {
-    includeObject.bookmarks = true;
-  }
+  includeObject.classes = Boolean(includeClassrooms);
+  includeObject.bookmarks = Boolean(includeBookmarks);
 
   const foundTeacher = await teacherClient.findUnique({
     where: filterCondition,

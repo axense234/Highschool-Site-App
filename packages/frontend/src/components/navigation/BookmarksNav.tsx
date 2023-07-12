@@ -8,7 +8,6 @@ import Link from "next/link";
 import { AiFillDelete } from "react-icons/ai";
 // Types
 import { BookmarksMenuProps, TemplateBookmark } from "types";
-import { Bookmark } from "@prisma/client";
 // SCSS
 import bookmarksStyles from "../../scss/components/navigation/BookmarksNav.module.scss";
 // Data
@@ -16,6 +15,7 @@ import { bookmarkIconShownMap } from "@/data";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
+  getUserProfile,
   selectProfile,
   setScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
@@ -23,50 +23,49 @@ import { deleteBookmarkById } from "@/redux/slices/bookmarksSlice";
 
 const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
   const bookmarksRef = useRef<HTMLElement>(null);
-  const [shownBookmarks, setShownBookmarks] = useState<Bookmark[]>([]);
   const profile = useAppSelector(selectProfile);
 
   useEffect(() => {
-    if (profile.bookmarks.length >= 1) {
-      setShownBookmarks(profile.bookmarks);
+    if (profile.bookmarks) {
+      const bookmarks = bookmarksRef.current as HTMLElement;
+      if (showBookmarks) {
+        bookmarks.style.transform = "translateY(0%)";
+      } else {
+        bookmarks.style.transform = "translateY(-150%)";
+      }
     }
-  }, [profile]);
+  }, [showBookmarks, profile.bookmarks]);
 
-  useEffect(() => {
-    const bookmarks = bookmarksRef.current as HTMLElement;
-    if (showBookmarks) {
-      bookmarks.style.transform = "translateY(0%)";
-    } else {
-      bookmarks.style.transform = "translateY(-150%)";
-    }
-  }, [showBookmarks]);
-
-  return (
-    <nav
-      className={bookmarksStyles.bookmarksContainer}
-      ref={bookmarksRef}
-      style={{
-        height:
-          shownBookmarks.length >= 1
-            ? `${shownBookmarks.length} * 3rem`
-            : "0rem",
-        visibility: shownBookmarks.length >= 1 ? "visible" : "hidden",
-      }}
-    >
-      <ul className={bookmarksStyles.bookmarksContainer__bookmarks}>
-        {(shownBookmarks as TemplateBookmark[]).map((bookmark) => {
-          return (
-            <li key={bookmark.id}>
-              <Bookmark {...bookmark} />
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
+  if (profile.bookmarks) {
+    return (
+      <nav
+        className={bookmarksStyles.bookmarksContainer}
+        ref={bookmarksRef}
+        style={{
+          height: `${profile.bookmarks.length} * 3rem`,
+          visibility: profile.bookmarks.length >= 1 ? "visible" : "hidden",
+        }}
+      >
+        <ul className={bookmarksStyles.bookmarksContainer__bookmarks}>
+          {(profile.bookmarks as TemplateBookmark[]).map((bookmark) => {
+            return (
+              <li key={bookmark.bookmark_uid}>
+                <BookmarkComponent {...bookmark} />
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    );
+  }
+  return null;
 };
 
-const Bookmark: FC<TemplateBookmark> = ({ dest, label, bookmark_uid }) => {
+const BookmarkComponent: FC<TemplateBookmark> = ({
+  dest,
+  label,
+  bookmark_uid,
+}) => {
   const dispatch = useAppDispatch();
   const [showDeleteBookmark, setShowDeleteBookmark] = useState<boolean>(false);
 
@@ -76,7 +75,9 @@ const Bookmark: FC<TemplateBookmark> = ({ dest, label, bookmark_uid }) => {
         "Încercăm să ștergem un marcaj, vă rugăm să așteptați..."
       )
     );
-    dispatch(deleteBookmarkById(bookmark_uid as string));
+    dispatch(deleteBookmarkById(bookmark_uid as string))
+      .unwrap()
+      .then(() => dispatch(getUserProfile()));
   };
 
   return (
@@ -86,9 +87,12 @@ const Bookmark: FC<TemplateBookmark> = ({ dest, label, bookmark_uid }) => {
       onMouseLeave={() => setShowDeleteBookmark(false)}
     >
       <Link href={dest} aria-label={label} title={label}>
-        {bookmarkIconShownMap.find((icon) => icon.dest === dest)?.icon || (
-          <BsQuestionLg aria-label={label} title={label} />
-        )}
+        {bookmarkIconShownMap.find((icon) => {
+          if (!icon.hasRegExpDest) {
+            return (icon.dest as string).includes(dest);
+          }
+          return (icon.dest as RegExp).test(dest);
+        })?.icon || <BsQuestionLg aria-label={label} title={label} />}
       </Link>
       <AiFillDelete
         style={{ opacity: showDeleteBookmark ? "1" : "0" }}

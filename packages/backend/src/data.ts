@@ -9,17 +9,17 @@ export const defaultBookmarksAdmin: Prisma.BookmarkCreateManyInput[] = [
 ];
 export const defaultBookmarksStudent: Prisma.BookmarkCreateManyInput[] = [
   { dest: "/anunturi", label: "Anunțuri", type: "NORMAL" },
-  { dest: "/biblioteca", label: "Profesori", type: "NORMAL" },
-  { dest: "/contact", label: "Profilul tău", type: "NORMAL" },
-  { dest: "/profil/#carnet", label: "Clasele liceului", type: "NORMAL" },
+  { dest: "/biblioteca", label: "Biblioteca liceului", type: "NORMAL" },
+  { dest: "/contact", label: "Contact", type: "NORMAL" },
+  { dest: "/profil/#carnet", label: "Carnetul tău de elev", type: "NORMAL" },
 ];
 
 export const defaultBookmarksTeacher: Prisma.BookmarkCreateManyInput[] = [
   { dest: "/anunturi", label: "Anunțuri", type: "NORMAL" },
-  { dest: "/biblioteca", label: "Profesori", type: "NORMAL" },
-  { dest: "/contact", label: "Profilul tău", type: "NORMAL" },
+  { dest: "/profesori", label: "Profesori", type: "NORMAL" },
+  { dest: "/contact", label: "Contact", type: "NORMAL" },
   {
-    dest: "/profil?claseleProfesorului=true",
+    dest: "/clase",
     label: "Clasele liceului",
     type: "NORMAL",
   },

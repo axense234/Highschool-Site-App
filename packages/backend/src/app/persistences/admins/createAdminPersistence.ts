@@ -32,7 +32,7 @@ const createAdminPersistence = async (
   return {
     msg: `Successfully created an admin with id:${createdAdmin.admin_uid}`,
     admin: createdAdmin,
-    statusCode: StatusCodes.OK,
+    statusCode: StatusCodes.CREATED,
   };
 };
 

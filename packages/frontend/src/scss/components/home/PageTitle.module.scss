@@ -17,6 +17,17 @@
     padding: 7.5rem 0rem;
   }
 
+  header {
+    @include flexCenter(column);
+    transition-delay: 0.2s;
+    transition: background-color 0.2s ease-in;
+    width: 75%;
+    gap: 1rem;
+    background-color: rgba($color: black, $alpha: 0);
+    border-radius: 0.5rem;
+    padding: 3rem 1.5rem;
+  }
+
   h1 {
     font-size: 4rem;
     letter-spacing: 5px;

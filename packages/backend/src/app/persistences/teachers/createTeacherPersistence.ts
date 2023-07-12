@@ -32,7 +32,7 @@ const createTeacherPersistence = async (
   return {
     msg: `Successfully created a teacher with id:${createdTeacher.teacher_uid}`,
     teacher: createdTeacher,
-    statusCode: StatusCodes.OK,
+    statusCode: StatusCodes.CREATED,
   };
 };
 

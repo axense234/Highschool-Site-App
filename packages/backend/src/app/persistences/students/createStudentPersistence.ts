@@ -1,11 +1,12 @@
 // Prisma
-import { Bookmark, Prisma, Student } from "@prisma/client";
+import { Student } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Client
 import { studentClient } from "../../../db/postgres";
 // Types
 import { TemplateStudentType } from "../../../core/types/templateStudentType";
+// Data
 import { defaultBookmarksStudent } from "../../../data";
 
 const createStudentPersistence = async (
@@ -22,15 +23,22 @@ const createStudentPersistence = async (
   }
 
   if (createDefaultBookmarks === "true") {
-    studentBody.bookmarks = { createMany: { data: defaultBookmarksStudent } };
+    studentBody.bookmarks = {
+      createMany: {
+        data: studentBody.class_label
+          ? defaultBookmarksStudent
+          : defaultBookmarksStudent.slice(
+              0,
+              defaultBookmarksStudent.length - 1
+            ),
+      },
+    };
   }
 
   const createdStudent = await studentClient.create({
     data: { ...(studentBody as Student) },
     include: includeObject,
   });
-
-  console.log(createdStudent);
 
   if (!createdStudent) {
     return {
@@ -43,7 +51,7 @@ const createStudentPersistence = async (
   return {
     msg: `Successfully created a student with id:${createdStudent.student_uid}`,
     student: createdStudent,
-    statusCode: StatusCodes.OK,
+    statusCode: StatusCodes.CREATED,
   };
 };
 

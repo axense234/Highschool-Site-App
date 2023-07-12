@@ -3,12 +3,11 @@
 .markableHeadingContainer {
   @include flexCenter(row);
   position: relative;
+  gap: 2rem;
 
   svg {
     transition: opacity 0.2s ease-in;
-    position: absolute;
-    right: -4rem;
     font-size: 3rem;
-    color: #8b4513;
+    color: black;
   }
 }

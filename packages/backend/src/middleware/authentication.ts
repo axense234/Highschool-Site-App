@@ -22,12 +22,8 @@ const authenticationMiddleware = async (
   const { authorization } = req.headers;
   const jwtFromRedis = await getCachedJWT(req.cookies.uniqueIdentifier);
 
-  console.log(jwtFromRedis);
-  console.log(req.cookies.uniqueIdentifier);
-
   if (req.cookies.uniqueIdentifier === undefined) {
     const uniqueIdentifier = uuid.v4();
-    console.log(uniqueIdentifier);
     res.cookie("uniqueIdentifier", uniqueIdentifier, {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",

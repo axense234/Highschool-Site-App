@@ -22,8 +22,8 @@ const Offer: FC = () => {
       />
       <main className={offerStyles.offerContainer}>
         <PageTitle
-          title="Oferta educațională pentru anul școlar 2023-2024"
-          quote="Educația modelează un viitor promițător."
+          title="Oferta educațională"
+          quote="Oferta educațională pentru anul școlar 2023-2024"
         />
         <section className={offerStyles.offerContainer__pdf}>
           <h2>Oferta educațională</h2>

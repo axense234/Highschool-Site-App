@@ -9,7 +9,10 @@ import {
   GradeOrAbsenceSectionType,
   ObjectKeyValueType,
   OverlayType,
+  TemplateAdmin,
   TemplatePassReset,
+  TemplateStudent,
+  TemplateTeacher,
   TemplateUser,
   User,
 } from "types";
@@ -34,7 +37,7 @@ type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingLoginProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingUpdateProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
-  profile: Admin | Student | Teacher | TemplateUser;
+  profile: TemplateAdmin | TemplateStudent | TemplateTeacher | TemplateUser;
   templateProfile: TemplateUser;
   formModal: FormModalType;
   cardModalId: string;
@@ -99,7 +102,7 @@ export const getUserProfile = createAsyncThunk<
   Admin | Student | Teacher | AxiosError
 >("general/getUserProfile", async () => {
   try {
-    const { data } = await axiosInstance.get("/users/user/profile", {});
+    const { data } = await axiosInstance.get("/users/user/profile");
     return data.user as Admin | Student | Teacher;
   } catch (error) {
     return error as AxiosError;
@@ -274,10 +277,12 @@ const generalSlice = createSlice({
         const account = action.payload;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          state.profile = defaultProfile;
-        } else {
-          state.profile = account as Admin | Teacher | Student;
+        if (!axiosError.response) {
+          state.profile = account as
+            | TemplateAdmin
+            | TemplateStudent
+            | TemplateTeacher
+            | TemplateUser;
         }
 
         state.loadingProfile = "SUCCEDED";
@@ -288,6 +293,7 @@ const generalSlice = createSlice({
           "Încercăm să intrăm în contul tău, vă rugăm să așteptați...";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        const account = action.payload;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
@@ -296,6 +302,7 @@ const generalSlice = createSlice({
           state.formModal.msg = data.msg;
           state.formModal.color = "#f53838";
         } else {
+          state.profile = account as User;
           state.formModal.showModal = true;
           state.formModal.msg = "Am intrat in cont cu success!";
           state.formModal.color = "#90ee90";

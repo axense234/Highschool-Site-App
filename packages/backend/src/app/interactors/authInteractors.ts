@@ -3,12 +3,7 @@ import { Request, Response } from "express";
 import { Admin, Student, StudentCard, Teacher } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
 // Prisma
-import {
-  adminClient,
-  classClient,
-  studentClient,
-  teacherClient,
-} from "../../db/postgres";
+import { classClient } from "../../db/postgres";
 import { encryptPassword, verifyPassword } from "../../utils/bcrypt";
 // Utils
 import { createJWT } from "../../utils/jwt";
@@ -43,10 +38,9 @@ const createUser = async (req: Request, res: Response) => {
   let createdUser;
   if (userType === "ADMIN") {
     const createdUserPayload = await createAdminPersistence(userBody, "true");
-    if (createdUserPayload.statusCode === 201) {
-      createdUser = createdUserPayload.admin as Admin;
-      createdUser.id = createdUser.admin_uid;
-    }
+    createdUser = createdUserPayload.admin as Admin;
+    createdUser.id =
+      createdUserPayload.statusCode === 201 ? createdUser.admin_uid : "";
   } else if (userType === "ELEV") {
     const createdCardPayload = await createCardPersistence();
     const card = createdCardPayload.card as StudentCard;
@@ -72,9 +66,8 @@ const createUser = async (req: Request, res: Response) => {
       "true"
     );
     createdUser = createdUserPayload.student as Student;
-    if (createdUserPayload.statusCode === 201) {
-      createdUser.id = createdUser.student_uid;
-    }
+    createdUser.id =
+      createdUserPayload.statusCode === 201 ? createdUser.student_uid : "";
   } else if (userType === "PROFESOR") {
     if (userBody.classes) {
       delete userBody.classes;
@@ -85,30 +78,28 @@ const createUser = async (req: Request, res: Response) => {
       "true"
     );
     createdUser = createdTeacherPayload.teacher as Teacher;
-    if (createdTeacherPayload.statusCode === 201) {
-      createdUser.id = createdUser.teacher_uid;
+    createdUser.id =
+      createdTeacherPayload.statusCode === 201 ? createdUser.teacher_uid : "";
 
-      if (createdUser.master_class_label) {
-        const foundClass = await classClient.findUnique({
-          where: { label: createdUser.master_class_label },
+    if (createdUser.master_class_label) {
+      const foundClass = await classClient.findUnique({
+        where: { label: createdUser.master_class_label },
+      });
+
+      if (foundClass) {
+        userBody.master = true;
+
+        await classClient.update({
+          where: { class_uid: foundClass.class_uid },
+          data: {
+            master_teacher_name: createdUser.fullname,
+            master_teacher_uid: createdUser.teacher_uid,
+          },
         });
-
-        if (foundClass) {
-          userBody.master = true;
-
-          await classClient.update({
-            where: { class_uid: foundClass.class_uid },
-            data: {
-              master_teacher_name: createdUser.fullname,
-              master_teacher_uid: createdUser.teacher_uid,
-            },
-          });
-        }
       }
     }
   }
 
-  console.log(createdUser);
   if (!createdUser) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       msg: "Could not create an user with the data provided!",
@@ -209,7 +200,6 @@ const getUserProfile = async (req: Request, res: Response) => {
   const foundUserId = req.user.userId;
   const foundUserType = req.user.userType;
 
-  let userFound;
   if (foundUserType === "ADMIN") {
     const foundAdminPayload = await getAdminByIdPersistence(
       "admin_uid",
@@ -217,8 +207,12 @@ const getUserProfile = async (req: Request, res: Response) => {
       "true"
     );
     if (foundAdminPayload.statusCode === 200) {
-      userFound = foundAdminPayload.admin as Admin;
+      const userFound = foundAdminPayload.admin as Admin;
       userFound.id = userFound.admin_uid;
+      return res.status(StatusCodes.OK).json({
+        msg: `Successfully found admin: ${userFound.fullname}.`,
+        user: userFound,
+      });
     }
   } else if (foundUserType === "ELEV") {
     const foundStudentPayload = await getStudentByIdPersistence(
@@ -228,8 +222,12 @@ const getUserProfile = async (req: Request, res: Response) => {
       "true"
     );
     if (foundStudentPayload.statusCode === 200) {
-      userFound = foundStudentPayload.student as Student;
+      const userFound = foundStudentPayload.student as Student;
       userFound.id = userFound.student_uid;
+      return res.status(StatusCodes.OK).json({
+        msg: `Successfully found student: ${userFound.fullname}.`,
+        user: userFound,
+      });
     }
   } else if (foundUserType === "PROFESOR") {
     const foundTeacherPayload = await getTeacherByIdPersistence(
@@ -239,21 +237,18 @@ const getUserProfile = async (req: Request, res: Response) => {
       "true"
     );
     if (foundTeacherPayload.statusCode === 200) {
-      userFound = foundTeacherPayload.teacher as Teacher;
+      const userFound = foundTeacherPayload.teacher as Teacher;
       userFound.id = userFound.teacher_uid;
+      return res.status(StatusCodes.OK).json({
+        msg: `Successfully found teacher: ${userFound.fullname}.`,
+        user: userFound,
+      });
     }
   }
 
-  if (!userFound) {
-    return res.status(StatusCodes.NOT_FOUND).json({
-      msg: `Could not find user with type:${foundUserType} and id:${foundUserId}!`,
-      user: {},
-    });
-  }
-
-  return res.status(StatusCodes.OK).json({
-    msg: `Successfully found user: ${userFound.fullname}.`,
-    user: userFound,
+  return res.status(StatusCodes.NOT_FOUND).json({
+    msg: `Could not find user with type:${foundUserType} and id:${foundUserId}!`,
+    user: {},
   });
 };
 

@@ -7,6 +7,7 @@ import {
   TemplateStudent,
   TemplateStudentCard,
   TemplateStudentCardSection,
+  User,
 } from "types";
 import { Subjects, Teacher } from "@prisma/client";
 // SCSS
@@ -25,6 +26,7 @@ import {
 } from "@/redux/slices/classesSlice";
 // Hooks
 import useCalculateCardStats from "@/hooks/useCalculateCardStats";
+import MarkableHeading from "../others/MarkableHeading";
 
 const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
   userProfile,
@@ -134,12 +136,19 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
 
   if (userProfile.class_label) {
     return (
-      <section className={profileStyles.profileContainer__studentCatalogue}>
-        <h2>
-          {type === "own"
-            ? "Carnetul tău de Elev"
-            : `Carnetul lui ${profileUsed.fullname} de Elev`}
-        </h2>
+      <section
+        className={profileStyles.profileContainer__studentCatalogue}
+        id="carnet"
+      >
+        <MarkableHeading
+          textContent={
+            type === "own"
+              ? "Carnetul tău de Elev"
+              : `Carnetul lui ${profileUsed.fullname} de Elev`
+          }
+          type="h2"
+          pageId={profileUsed.id}
+        />
         <div
           className={profileStyles.profileContainer__studentCatalogueSection}
         >
@@ -161,7 +170,7 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
                     class_uid={profileUsed.class_uid as string}
                     key={section.card_section_uid}
                     section_uid={section.card_section_uid}
-                    ownProfile={ownProfile}
+                    ownProfile={ownProfile as User}
                     profile_used_uid={profileUsed.student_uid as string}
                     absences={
                       studentCardAbsences.find(

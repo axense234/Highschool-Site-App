@@ -172,9 +172,10 @@ const IndividualProfile: FC = () => {
       <main className={profileStyles.profileContainer}>
         <Overlay />
         <PageTitle
-          title={`Profilul lui ${userShown?.fullname} de ${userShown?.role}`}
-          quote={`Vezi profilul lui ${userShown?.fullname}.`}
+          title={`${userShown?.fullname} - ${userShown?.role}`}
+          quote={`Vezi profilul lui ${userShown?.fullname} de ${userShown?.role}`}
           backgroundUrl="https://res.cloudinary.com/birthdayreminder/image/upload/v1686504536/Highschool%20Site%20App/nightschool2_zoolin.jpg"
+          pageId={userShown.id}
         />
         <ProfileDashboard
           profile={userShown as Teacher | Admin | Student}

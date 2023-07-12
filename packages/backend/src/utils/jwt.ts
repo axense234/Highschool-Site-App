@@ -2,7 +2,6 @@
 import jwt from "jsonwebtoken";
 
 const createJWT = (fullname: string, userId: string, userType: string) => {
-  console.log("create jwt expiration duration: ", process.env.JWT_EXP_DURATION);
   return jwt.sign(
     { fullname, userId, userType },
     process.env.JWT_PRIVATE_KEY as string,

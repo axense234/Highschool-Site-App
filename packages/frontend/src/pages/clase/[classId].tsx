@@ -70,6 +70,7 @@ const IndividualClass: FC = () => {
           title={`Clasa ${foundClass.label}`}
           quote="Unitatea clasei, izvor de putere și înțelepciune."
           backgroundUrl={foundClass.image_url}
+          pageId={foundClass.class_uid}
         />
         <ClassDetails {...foundClass} />
         {(profile.role === "ADMIN" ||
