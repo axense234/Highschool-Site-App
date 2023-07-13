@@ -63,15 +63,19 @@ type initialStateType = {
 };
 
 const initialState: initialStateType = {
+  // Loading States
   loadingProfile: "IDLE",
   loadingLoginProfile: "IDLE",
   loadingUpdateProfile: "IDLE",
+  // Profile State
   profile: defaultProfile,
   templateProfile: defaultTemplateProfile,
+  // Form Modal
   formModal: {
     showModal: false,
     msg: "",
   },
+  // Specific component ids
   cardModalId: "",
   gradeOrAbsenceSection: {
     sectionId: "",
@@ -80,7 +84,9 @@ const initialState: initialStateType = {
   gradeModalId: "",
   markedAbsenceOrGradeId: "",
   editableGradeId: "",
+  // Options
   optionsContent: "settings",
+  // Misc
   overlay: defaultOverlay,
   editMode: false,
   getAllQueryParams: defaultGetAllQueryParams,

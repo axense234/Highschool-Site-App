@@ -7,11 +7,8 @@ import MarkableHeading from "../others/MarkableHeading";
 
 const HomeLocation: FC = () => {
   return (
-    <section
-      className={homeLocationStyles.homeContainer__location}
-      id="location"
-    >
-      <MarkableHeading textContent="Localizare" type="h2" />
+    <section className={homeLocationStyles.homeContainer__location}>
+      <MarkableHeading textContent="Localizare" type="h2" idUsed="location" />
       <div className={homeLocationStyles.homeContainer__locationContent}>
         <div className={homeLocationStyles.homeContainer__streetView}>
           <div className={homeLocationStyles.homeContainer__locationTitle}>

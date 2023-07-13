@@ -17,7 +17,7 @@ import {
   TemplateAnnouncement,
 } from "types";
 // Axios
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // State
 import { State } from "../api/store";
@@ -43,9 +43,7 @@ type InitialStateType = {
   foundAnnouncementId: string;
 };
 
-const announcementsAdapter = createEntityAdapter<Announcement>({
-  sortComparer: (a, b) => a.title.localeCompare(b.title),
-});
+const announcementsAdapter = createEntityAdapter<Announcement>();
 
 const initialState = announcementsAdapter.getInitialState({
   loadingAnnouncements: "IDLE",
@@ -66,10 +64,13 @@ const initialState = announcementsAdapter.getInitialState({
 
 // THUNKS
 export const getAllAnnouncements = createAsyncThunk<
-  Announcement[] | AxiosError
->("announcements/getAllAnnouncements", async () => {
+  Announcement[] | AxiosError,
+  GetAllQueryParams
+>("announcements/getAllAnnouncements", async ({ query, sortByOption }) => {
   try {
-    const { data } = await axiosInstance.get(`/announcements`);
+    const { data } = await axiosInstance.get(
+      `/announcements?sortByFilter=${sortByOption}&filterQuery=${query}`
+    );
     return data.announcements as Announcement[];
   } catch (error) {
     return error as AxiosError;
@@ -183,14 +184,18 @@ const announcementsSlice = createSlice({
       })
       .addCase(getAllAnnouncements.fulfilled, (state, action) => {
         const announcements = action.payload as Announcement[];
+        const axiosError = action.payload as AxiosError;
 
-        if (announcements.length >= 1) {
+        if (!axiosError.response) {
           announcements.map((announcement) => {
             announcement.id = announcement.announcement_uid;
             return announcement;
           });
           announcementsAdapter.removeAll(state);
           announcementsAdapter.upsertMany(state, announcements);
+        } else {
+          announcementsAdapter.removeAll(state);
+          announcementsAdapter.upsertMany(state, []);
         }
         state.loadingAnnouncements = "SUCCEDED";
       })

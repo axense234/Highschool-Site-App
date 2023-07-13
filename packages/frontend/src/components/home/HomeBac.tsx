@@ -16,10 +16,11 @@ const HomeBac: FC = () => {
   usePopInAnimation("showVertical", inView, entry);
 
   return (
-    <section className={homeStyles.homeContainer__bac} id="bac">
+    <section className={homeStyles.homeContainer__bac}>
       <MarkableHeading
         textContent="Promovabilitatea la Bacalaureat"
         type="h2"
+        idUsed="bac"
       />
       <Image
         className="hidden"

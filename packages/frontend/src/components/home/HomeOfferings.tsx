@@ -18,8 +18,8 @@ import MarkableHeading from "../others/MarkableHeading";
 
 const HomeOfferings = () => {
   return (
-    <section className={homeStyles.homeContainer__offerings} id="offerings">
-      <MarkableHeading textContent="Ce oferim?" type="h2" />
+    <section className={homeStyles.homeContainer__offerings}>
+      <MarkableHeading textContent="Ce oferim?" type="h2" idUsed="offerings" />
       <ol className={homeStyles.homeContainer__offeringsList}>
         {offeringsList.map((offering, offIndex) => {
           return (

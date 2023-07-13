@@ -34,17 +34,32 @@ import {
 } from "types";
 import { Teacher } from "@prisma/client";
 // React Icons
-import { AiFillHome, AiFillIdcard } from "react-icons/ai";
+import { AiFillHome, AiFillInfoCircle } from "react-icons/ai";
 import { FcAbout } from "react-icons/fc";
-import { MdAnnouncement, MdContactSupport, MdPeople } from "react-icons/md";
+import {
+  MdAnnouncement,
+  MdContactSupport,
+  MdEmail,
+  MdPeople,
+  MdWebStories,
+} from "react-icons/md";
 import { CgProfile, CgFacebook } from "react-icons/cg";
-import { FaHistory, FaSchool } from "react-icons/fa";
-import { BsGithub } from "react-icons/bs";
+import { FaBookOpen, FaHistory, FaSchool } from "react-icons/fa";
+import {
+  BsFillPatchQuestionFill,
+  BsGithub,
+  BsGlobe2,
+  BsInfoLg,
+  BsPersonCircle,
+} from "react-icons/bs";
 import { TbOlympics } from "react-icons/tb";
-import { BiLogIn } from "react-icons/bi";
+import { BiBookBookmark, BiBookContent, BiLogIn } from "react-icons/bi";
 import { IoSchoolSharp, IoPeople, IoLibrarySharp } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 import { SiGoogleclassroom } from "react-icons/si";
+import { GrDesktop, GrDocument, GrDocumentUser } from "react-icons/gr";
+import { CiLocationOn } from "react-icons/ci";
+import { GiStack } from "react-icons/gi";
 
 // TEMPLATE DATA
 export const defaultTemplateAbsence: TemplateAbsence = {
@@ -269,18 +284,58 @@ export const bookmarkIconShownMap: BookmarkIconShownMapType[] = [
   { id: 11, dest: "/profil", icon: CgProfile({}) },
   { id: 12, dest: "/clase", icon: SiGoogleclassroom({}) },
   { id: 13, dest: "/biblioteca", icon: IoLibrarySharp({}) },
-
-  { id: 14, dest: "/profil/#claseleProfesorului", icon: SiGoogleclassroom({}) },
-  { id: 15, dest: "/profil/#carnet", icon: AiFillIdcard({}) },
+  { id: 14, dest: "/home#differences", icon: FaSchool({}) },
+  { id: 15, dest: "/home#facilities", icon: GrDesktop({}) },
+  { id: 16, dest: "/home#location", icon: CiLocationOn({}) },
+  { id: 17, dest: "/home#bac", icon: GrDocumentUser({}) },
+  { id: 18, dest: "/home#offerings", icon: BsGlobe2({}) },
+  { id: 19, dest: "/contact#info", icon: AiFillInfoCircle({}) },
+  { id: 21, dest: "/contact#email", icon: MdEmail({}) },
+  { id: 22, dest: "/#aboutMe", icon: BsPersonCircle({}) },
+  { id: 23, dest: "/#siteMotives", icon: BsFillPatchQuestionFill({}) },
+  { id: 24, dest: "/#pagesInfo", icon: MdWebStories({}) },
+  { id: 25, dest: "/#generalInfo", icon: BsInfoLg({}) },
+  { id: 26, dest: "/#homePage", icon: AiFillHome({}) },
+  { id: 27, dest: "/#announcementsPage", icon: MdAnnouncement({}) },
+  { id: 28, dest: "/#contactPage", icon: MdContactSupport({}) },
+  { id: 29, dest: "/#offerPage", icon: IoSchoolSharp({}) },
+  { id: 30, dest: "/#documentsPage", icon: HiDocumentText({}) },
+  { id: 31, dest: "/#teachersPage", icon: MdPeople({}) },
+  { id: 32, dest: "/#historyPage", icon: FaHistory({}) },
+  { id: 33, dest: "/#aboutPage", icon: FcAbout({}) },
+  { id: 34, dest: "/#technologiesUsed", icon: GiStack({}) },
   {
-    id: 16,
-    dest: /\/clase\/[a-f0-9-]+/i,
+    id: 35,
+    dest: /\/documente#document-([0-9]+)/i,
+    icon: GrDocument({}),
+    hasRegExpDest: true,
+  },
+  {
+    id: 36,
+    dest: /\/clase\/[a-z0-9-]+#classCatalogue/i,
+    icon: FaBookOpen({}),
+    hasRegExpDest: true,
+  },
+  {
+    id: 37,
+    dest: /\/clase\/[a-z0-9-]+/i,
     icon: SiGoogleclassroom({}),
     hasRegExpDest: true,
   },
   {
-    id: 17,
-    dest: /\/profil\/[a-f0-9-]+/i,
+    id: 38,
+    dest: "/profil#studentCard",
+    icon: BiBookContent({}),
+  },
+  {
+    id: 39,
+    dest: /\/profil\/[a-z0-9-]+\?type=student#studentCard/i,
+    icon: BiBookBookmark({}),
+    hasRegExpDest: true,
+  },
+  {
+    id: 40,
+    dest: /\/profil\/[a-z0-9-]+/i,
     icon: CgProfile({}),
     hasRegExpDest: true,
   },
@@ -292,14 +347,16 @@ export const defaultGetAllQueryParams: GetAllQueryParams = {
 };
 
 export const sortByAnnouncementOptions: SortByOption[] = [
-  { id: 1, label: "Titlu Anunț", value: "titlu" },
-  { id: 2, label: "Descriere Anunț", value: "descriere" },
-  { id: 3, label: "Anunțuri Recente", value: "creatLa" },
+  { id: 1, label: "Titlu Anunț", value: "title" },
+  { id: 2, label: "Descriere Anunț", value: "description" },
+  { id: 3, label: "Anunțuri Recente", value: "createdAt" },
 ];
 
 export const sortByTeacherOptions: SortByOption[] = [
   { id: 1, label: "Nume Profesor", value: "fullname" },
-  { id: 2, label: "Descriere Profesor", value: "descriere" },
+  { id: 2, label: "Descriere Profesor", value: "description" },
+  { id: 3, label: "Materie Profesor", value: "subject" },
+  { id: 4, label: "Profesori adăugați recent", value: "subject" },
 ];
 
 export const profileOptionsAdmin: ProfileOption[] = [

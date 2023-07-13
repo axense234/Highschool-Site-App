@@ -3,8 +3,17 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { teacherClient } from "../../../db/postgres";
 
-const getAllTeachersPersistence = async () => {
-  const foundTeachers = await teacherClient.findMany({});
+const getAllTeachersPersistence = async (
+  sortByFilter?: string,
+  filter?: string,
+  filterQuery?: string
+) => {
+  const foundTeachers = await teacherClient.findMany({
+    orderBy: { [sortByFilter || "description"]: "desc" },
+    where: {
+      [filter || "fullname"]: { contains: filterQuery, mode: "insensitive" },
+    },
+  });
 
   if (foundTeachers.length < 1) {
     return {

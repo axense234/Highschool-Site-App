@@ -12,6 +12,7 @@ import {
 import {
   ErrorPayloadType,
   FormModalType,
+  GetAllQueryParams,
   ObjectKeyValueType,
   TemplateTeacher,
   TemplateUpdateTeacher,
@@ -25,9 +26,7 @@ import { State } from "../api/store";
 import { defaultTemplateTeacher } from "@/data";
 import { baseSiteUrl } from "@/config";
 
-export const teachersAdapter = createEntityAdapter<Teacher>({
-  sortComparer: (a, b) => a.fullname.localeCompare(b.fullname),
-});
+export const teachersAdapter = createEntityAdapter<Teacher>();
 
 type InitialStateType = {
   loadingTeachers: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -61,17 +60,19 @@ const initialState = teachersAdapter.getInitialState({
 }) as EntityState<Teacher> & InitialStateType;
 
 // THUNKS
-export const getAllTeachers = createAsyncThunk<Teacher[] | AxiosError>(
-  "teachers/getAllTeachers",
-  async () => {
-    try {
-      const { data } = await axiosInstance.get(`/teachers`);
-      return data.teachers as Teacher[];
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const getAllTeachers = createAsyncThunk<
+  Teacher[] | AxiosError,
+  GetAllQueryParams
+>("teachers/getAllTeachers", async ({ query, sortByOption }) => {
+  try {
+    const { data } = await axiosInstance.get(
+      `/teachers?sortByFilter=${sortByOption}&filterQuery=${query}`
+    );
+    return data.teachers as Teacher[];
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
 export const getTeacherById = createAsyncThunk<Teacher | AxiosError, string>(
   "teachers/getTeacherById",
@@ -178,12 +179,17 @@ const teachersSlice = createSlice({
       })
       .addCase(getAllTeachers.fulfilled, (state, action) => {
         const teachers = action.payload as Teacher[];
-        if (teachers.length >= 1) {
+        const axiosError = action.payload as AxiosError;
+        if (!axiosError.response) {
           teachers.map((teacher) => {
             teacher.id = teacher.teacher_uid;
             return teacher;
           });
-          teachersAdapter.upsertMany(state, teachers);
+          teachersAdapter.removeAll(state);
+          teachersAdapter.upsertMany(state, teachers || []);
+        } else {
+          teachersAdapter.removeAll(state);
+          teachersAdapter.upsertMany(state, []);
         }
         state.loadingTeachers = "SUCCEDED";
       })

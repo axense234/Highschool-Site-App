@@ -76,7 +76,7 @@ const IndividualProfile: FC = () => {
   const admin = useAppSelector((state: State) =>
     selectAdminById(
       state,
-      router.query?.userID ? (router.query?.userId as string) : ""
+      router.query?.userId ? (router.query?.userId as string) : ""
     )
   );
 
@@ -124,7 +124,7 @@ const IndividualProfile: FC = () => {
       default:
         break;
     }
-  }, [router.query, loadingTeacher, loadingStudent, loadingAdmin]);
+  }, [router, loadingTeacher, loadingStudent, loadingAdmin]);
 
   useEffect(() => {
     if (router.query.type === "admin" && router.query.userId) {

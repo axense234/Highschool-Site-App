@@ -17,8 +17,12 @@ import MarkableHeading from "../others/MarkableHeading";
 
 const HomeInfo: FC = () => {
   return (
-    <section className={homeStyles.homeContainer__info} id="differences">
-      <MarkableHeading textContent="Ce ne diferențiază?" type="h2" />
+    <section className={homeStyles.homeContainer__info}>
+      <MarkableHeading
+        textContent="Ce ne diferențiază?"
+        type="h2"
+        idUsed="differences"
+      />
       <div className={homeStyles.homeContainer__infoSections}>
         {infoSections.map((infoSection) => {
           return <InfoSection {...infoSection} key={infoSection.id} />;

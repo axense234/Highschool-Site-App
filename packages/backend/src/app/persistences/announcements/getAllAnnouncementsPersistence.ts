@@ -3,8 +3,17 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { announcementClient } from "../../../db/postgres";
 
-const getAllAnnouncementsPersistence = async () => {
-  const foundAnnouncements = await announcementClient.findMany({});
+const getAllAnnouncementsPersistence = async (
+  sortByFilter?: string,
+  filter?: string,
+  filterQuery?: string
+) => {
+  const foundAnnouncements = await announcementClient.findMany({
+    orderBy: { [sortByFilter || "description"]: "desc" },
+    where: {
+      [filter || "title"]: { contains: filterQuery || "", mode: "insensitive" },
+    },
+  });
 
   if (foundAnnouncements.length < 1) {
     return {

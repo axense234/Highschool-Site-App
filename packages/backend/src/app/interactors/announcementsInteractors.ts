@@ -8,7 +8,12 @@ import deleteAnnouncementByIdPersistence from "../persistences/announcements/del
 import updateAnnouncementByIdPersistence from "../persistences/announcements/updateAnnouncementByIdPersistence";
 
 const getAllAnnouncements = async (req: Request, res: Response) => {
-  const foundAnnouncementsPayload = await getAllAnnouncementsPersistence();
+  const { sortByFilter, filter, filterQuery } = req.query;
+  const foundAnnouncementsPayload = await getAllAnnouncementsPersistence(
+    sortByFilter as string,
+    filter as string,
+    filterQuery as string
+  );
   return res
     .status(foundAnnouncementsPayload.statusCode)
     .json(foundAnnouncementsPayload);

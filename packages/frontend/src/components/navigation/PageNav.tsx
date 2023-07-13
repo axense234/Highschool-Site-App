@@ -47,6 +47,21 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
   const functionUsedOnSubmit: FunctionUsedOnPageNavSubmit =
     componentType === "announcement" ? getAllAnnouncements : getAllTeachers;
 
+  const triggerSortBy = (value: string) => {
+    dispatch(
+      updateGetAllQueryParams({
+        key: "sortByOption",
+        value,
+      })
+    );
+    dispatch(
+      functionUsedOnSubmit({
+        query,
+        sortByOption: value,
+      })
+    );
+  };
+
   const sortByOptions =
     componentType === "announcement"
       ? sortByAnnouncementOptions.map((categorie) => {
@@ -85,7 +100,7 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
     if (componentType === "announcement") {
       dispatch(clearCategoryToggles());
       dispatch(
-        addCategoryToggle(foundElement?.categorie as AnnouncementCategory)
+        addCategoryToggle(foundElement?.category as AnnouncementCategory)
       );
       dispatch(setFoundAnnouncementId(foundElement?.id as string));
     } else if (componentType === "teacher") {
@@ -105,20 +120,7 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
             name="sortBy"
             id="sortBy"
             value={sortByOption}
-            onChange={(e) => {
-              dispatch(
-                updateGetAllQueryParams({
-                  key: "sortByOption",
-                  value: e.target.value,
-                })
-              );
-              dispatch(
-                functionUsedOnSubmit({
-                  query,
-                  sortByOption: e.target.value,
-                })
-              );
-            }}
+            onChange={(e) => triggerSortBy(e.target.value)}
           >
             {sortByOptions}
           </select>

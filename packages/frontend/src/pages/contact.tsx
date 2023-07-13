@@ -54,8 +54,12 @@ const Contact: FC = () => {
           title="Contactați-ne"
           quote="Comunicarea este cheia relațiilor umane."
         />
-        <section className={contactStyles.contactContainer__contact} id="info">
-          <MarkableHeading textContent="Informații de contact" type="h2" />
+        <section className={contactStyles.contactContainer__contact}>
+          <MarkableHeading
+            textContent="Informații de contact"
+            type="h2"
+            idUsed="info"
+          />
           <div className={contactStyles.contactContainer__content}>
             <div className={contactStyles.contactContainer__info}>
               <address>Strada Transilvania 6, Pitești</address>
@@ -76,12 +80,13 @@ const Contact: FC = () => {
             />
           </div>
         </section>
-        <section className={contactStyles.contactContainer__email} id="email">
+        <section className={contactStyles.contactContainer__email}>
           <MarkableHeading
             textContent="Trimite-ne un email!"
             type="h2"
             hasHiddenClassname
             headingRef={refTitle}
+            idUsed="email"
           />
           <div className={contactStyles.contactContainer__emailContent}>
             <form

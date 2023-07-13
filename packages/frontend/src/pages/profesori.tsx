@@ -9,6 +9,8 @@ import SectionLoading from "@/components/loading/SectionLoading";
 import Overlay from "@/components/others/Overlay";
 import PageNav from "@/components/navigation/PageNav";
 import InactiveTeacher from "@/components/teachers/InactiveTeacher";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -16,10 +18,10 @@ import {
   selectAllTeachers,
   selectLoadingTeachers,
 } from "@/redux/slices/teachersSlice";
-// Hooks
-import useGetPathname from "@/hooks/useGetPathname";
-import { selectProfile } from "@/redux/slices/generalSlice";
-import MarkableHeading from "@/components/others/MarkableHeading";
+import {
+  selectGetAllQueryParams,
+  selectProfile,
+} from "@/redux/slices/generalSlice";
 
 const Teachers: FC = () => {
   useGetPathname();
@@ -29,6 +31,7 @@ const Teachers: FC = () => {
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
 
   const profile = useAppSelector(selectProfile);
+  const getAllAnnouncementQuery = useAppSelector(selectGetAllQueryParams);
 
   let shownTeachers = teachers;
   if (profile.role === "PROFESOR") {
@@ -38,10 +41,8 @@ const Teachers: FC = () => {
   }
 
   useEffect(() => {
-    if (loadingTeachers === "IDLE") {
-      dispatch(getAllTeachers());
-    }
-  }, [loadingTeachers]);
+    dispatch(getAllTeachers(getAllAnnouncementQuery));
+  }, [getAllAnnouncementQuery]);
 
   return (
     <>
@@ -65,9 +66,13 @@ const Teachers: FC = () => {
             <SectionLoading />
           ) : (
             <div className={teachersStyles.teachersContainer__teachers}>
-              {shownTeachers.map((teacher) => {
-                return <InactiveTeacher {...teacher} key={teacher.id} />;
-              })}
+              {shownTeachers.length >= 1 ? (
+                shownTeachers.map((teacher) => {
+                  return <InactiveTeacher {...teacher} key={teacher.id} />;
+                })
+              ) : (
+                <p>Nu am gasit niciun profesor.</p>
+              )}
             </div>
           )}
         </section>

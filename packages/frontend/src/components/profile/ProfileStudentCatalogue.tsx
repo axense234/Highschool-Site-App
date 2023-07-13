@@ -15,6 +15,7 @@ import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components
 import SectionLoading from "../loading/SectionLoading";
 import CardSection from "./CardSection";
+import MarkableHeading from "../others/MarkableHeading";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { selectProfile } from "@/redux/slices/generalSlice";
@@ -26,7 +27,6 @@ import {
 } from "@/redux/slices/classesSlice";
 // Hooks
 import useCalculateCardStats from "@/hooks/useCalculateCardStats";
-import MarkableHeading from "../others/MarkableHeading";
 
 const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
   userProfile,
@@ -136,10 +136,7 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
 
   if (userProfile.class_label) {
     return (
-      <section
-        className={profileStyles.profileContainer__studentCatalogue}
-        id="carnet"
-      >
+      <section className={profileStyles.profileContainer__studentCatalogue}>
         <MarkableHeading
           textContent={
             type === "own"
@@ -147,7 +144,8 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
               : `Carnetul lui ${profileUsed.fullname} de Elev`
           }
           type="h2"
-          pageId={profileUsed.id}
+          pageId={`${profileUsed.id}?type=student`}
+          idUsed="studentCard"
         />
         <div
           className={profileStyles.profileContainer__studentCatalogueSection}

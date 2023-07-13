@@ -9,31 +9,31 @@ import SectionLoading from "@/components/loading/SectionLoading";
 import Overlay from "@/components/others/Overlay";
 import Category from "@/components/announcements/Category";
 import PageNav from "@/components/navigation/PageNav";
+// Hooks
+import useGetPathname from "@/hooks/useGetPathname";
+// Data
+import { announcementCategories } from "@/data";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   getAllAnnouncements,
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
-// Data
-import { announcementCategories } from "@/data";
-// Hooks
-import useGetPathname from "@/hooks/useGetPathname";
+import { selectGetAllQueryParams } from "@/redux/slices/generalSlice";
 
 const Announcements: FC = () => {
   useGetPathname();
 
   const dispatch = useAppDispatch();
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
+  const getAllAnnouncementQuery = useAppSelector(selectGetAllQueryParams);
 
   const isLoadingAnnouncements =
     loadingAnnouncements === "PENDING" || loadingAnnouncements === "IDLE";
 
   useEffect(() => {
-    if (loadingAnnouncements === "IDLE") {
-      dispatch(getAllAnnouncements());
-    }
-  }, []);
+    dispatch(getAllAnnouncements(getAllAnnouncementQuery));
+  }, [getAllAnnouncementQuery]);
 
   return (
     <>

@@ -57,7 +57,7 @@ const PageTitle: FC<PageTitleProps> = ({
     >
       <header
         style={{
-          backgroundColor: headerBg ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0)",
+          backgroundColor: headerBg ? "rgba(0,0,0,0.65)" : "rgba(0,0,0,0)",
         }}
       >
         <MarkableHeading

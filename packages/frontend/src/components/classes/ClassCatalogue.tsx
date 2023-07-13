@@ -26,7 +26,12 @@ const ClassCatalogue: FC<TemplateClass> = ({ label, students, class_uid }) => {
 
   return (
     <section className={classStyles.classContainer__classCatalogue}>
-      <MarkableHeading textContent={`Catalogul Clasei ${label}`} type="h2" />
+      <MarkableHeading
+        textContent={`Catalogul Clasei ${label}`}
+        type="h2"
+        idUsed="classCatalogue"
+        pageId={class_uid}
+      />
       <table className={classStyles.classContainer__classCatalogueContent}>
         <ClassCatalogueHead
           currentClassSubjectsShownId={currentClassSubjectsShownId}

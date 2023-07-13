@@ -37,6 +37,13 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
   const profile = useAppSelector(selectProfile);
 
   const isDynamicPath = currentPathName.includes("/[");
+  const idAddedToBookmarkDestination = idUsed ? `#${idUsed}` : "";
+  const bookmarkDestination = isDynamicPath
+    ? `${currentPathName.replace(
+        /\[(.*?)\]/g,
+        pageId as string
+      )}${idAddedToBookmarkDestination}`
+    : `${currentPathName}${idAddedToBookmarkDestination}`;
 
   let uidUsedBasedOnProfileRole: any;
   switch (profile.role) {
@@ -55,6 +62,7 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
   }
 
   const addBookmark = () => {
+    console.log("adding boomark...");
     dispatch(
       setScreenLoadingMessage(
         "Încercăm să adăugăm un marcaj, vă rugăm să așteptați..."
@@ -63,9 +71,7 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
     dispatch(
       createBookmark({
         label: textContent,
-        dest: isDynamicPath
-          ? currentPathName.replace(/\[(.*?)\]/g, pageId as string)
-          : currentPathName,
+        dest: bookmarkDestination,
         type: "NORMAL",
         [uidUsedBasedOnProfileRole as string]: profile.id as string,
       })
@@ -73,6 +79,11 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
       .unwrap()
       .then(() => dispatch(getUserProfile()));
   };
+
+  const usedTextContentBasedOnHomePageTitle =
+    textContent === 'Liceul Teoretic "Ion Barbu" Pitești'
+      ? 'Liceul Teoretic \n "Ion Barbu" Pitești'
+      : textContent;
 
   if (type === "h1") {
     return (
@@ -87,14 +98,16 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
           id={idUsed}
         >
           {isLink ? (
-            <Link href={linkHref as string}>{textContent}</Link>
+            <Link href={linkHref as string}>
+              {usedTextContentBasedOnHomePageTitle}
+            </Link>
           ) : (
-            textContent
+            usedTextContentBasedOnHomePageTitle
           )}
         </h1>
         {profile.role && (
           <BsBookmarkPlusFill
-            style={{ opacity: showAddBookmark ? "1" : "0" }}
+            style={{ opacity: showAddBookmark ? "1" : "0", color: "white" }}
             title="Adăugați la bara de marcaje"
             aria-label="Adăugați la bara de marcaje"
             onClick={() => addBookmark()}
@@ -126,6 +139,7 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
           style={{ opacity: showAddBookmark ? "1" : "0" }}
           title="Adăugați la bara de marcaje"
           aria-label="Adăugați la bara de marcaje"
+          onClick={() => addBookmark()}
         />
       </div>
     );
@@ -152,6 +166,7 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
           style={{ opacity: showAddBookmark ? "1" : "0" }}
           title="Adăugați la bara de marcaje"
           aria-label="Adăugați la bara de marcaje"
+          onClick={() => addBookmark()}
         />
       </div>
     );

@@ -50,6 +50,10 @@
     gap: 4rem;
     border: 3px solid getColor("silver-50");
 
+    p {
+      font-size: 1.25rem;
+    }
+
     @media all and (max-width: 875px) {
       padding: 2rem;
     }

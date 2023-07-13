@@ -7,7 +7,12 @@ import deleteTeacherByIdPersistence from "../persistences/teachers/deleteTeacher
 import updateTeacherByIdPersistence from "../persistences/teachers/updateTeacherByIdPersistence";
 
 const getAllTeachers = async (req: Request, res: Response) => {
-  const foundTeachersPayload = await getAllTeachersPersistence();
+  const { sortByFilter, filter, filterQuery } = req.query;
+  const foundTeachersPayload = await getAllTeachersPersistence(
+    sortByFilter as string,
+    filter as string,
+    filterQuery as string
+  );
   return res.status(foundTeachersPayload.statusCode).json(foundTeachersPayload);
 };
 

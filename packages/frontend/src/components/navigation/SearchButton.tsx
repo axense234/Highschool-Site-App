@@ -57,10 +57,10 @@ const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
 
   useEffect(() => {
     if (loadingAnnouncements === "IDLE") {
-      dispatch(getAllAnnouncements());
+      dispatch(getAllAnnouncements({ query: "", sortByOption: "" }));
     }
     if (loadingTeachers === "IDLE") {
-      dispatch(getAllTeachers());
+      dispatch(getAllTeachers({ query: "", sortByOption: "" }));
     }
   }, []);
 
