@@ -3,8 +3,21 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { bookClient } from "../../../db/postgres";
 
-const getAllBooksPersistence = async () => {
-  const foundBooks = await bookClient.findMany({});
+const getAllBooksPersistence = async (
+  sortByFilter?: string,
+  sortByFilterValue?: string,
+  filterQuery?: string,
+  filterQueryValue?: string
+) => {
+  const foundBooks = await bookClient.findMany({
+    where: {
+      [filterQuery || "title"]: {
+        contains: filterQueryValue,
+        mode: "insensitive",
+      },
+    },
+    orderBy: { [sortByFilter || "title"]: sortByFilterValue },
+  });
 
   if (foundBooks.length < 1) {
     return {

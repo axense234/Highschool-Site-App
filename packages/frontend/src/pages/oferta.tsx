@@ -7,7 +7,6 @@ import Meta from "@/components/others/Meta";
 import PageTitle from "@/components/home/PageTitle";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
-import MarkableHeading from "@/components/others/MarkableHeading";
 
 const Offer: FC = () => {
   useGetPathname();

@@ -32,10 +32,6 @@ type EmailFormTemplate = {
   message: string;
 };
 
-interface TemplateAnnouncement extends Announcement {
-  announcement_uid?: string;
-}
-
 interface TemplateBook extends Book {
   book_uid?: string;
 }
@@ -193,6 +189,14 @@ interface TemplateAbsence extends Absence {
 
 // TYPES/INTERFACES FOR OPTIONS DATA
 type GetAllQueryParams = { sortByOption: string; query: string };
+
+type BookSortingOptions = {
+  sortByFilter?: string;
+  sortByFilterValue?: string;
+  filterQuery?: string;
+  filterQueryValue?: string;
+  hasPdfFileUrl?: boolean;
+};
 
 type TypeNavOptionLabel =
   | "ADMIN"
@@ -546,7 +550,6 @@ export {
   SectionLoadingProps,
   CardModalProps,
   SubjectType,
-  TemplateAnnouncement,
   TemplateTeacher,
   OverlayType,
   FormModalProps,
@@ -610,4 +613,5 @@ export {
   TemplateBookmark,
   BookmarkIconShownMapType,
   MarkableHeadingProps,
+  BookSortingOptions,
 };

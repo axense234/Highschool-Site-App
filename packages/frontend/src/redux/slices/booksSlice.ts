@@ -10,13 +10,14 @@ import {
 } from "@reduxjs/toolkit";
 // Types
 import {
+  BookSortingOptions,
   ErrorPayloadType,
   FormModalType,
   ObjectKeyValueType,
   TemplateBook,
 } from "types";
 // Axios
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // State
 import { State } from "../api/store";
@@ -42,9 +43,7 @@ type InitialStateType = {
   foundBookId: string;
 };
 
-const booksAdapter = createEntityAdapter<Book>({
-  sortComparer: (a, b) => a.title.localeCompare(b.title),
-});
+const booksAdapter = createEntityAdapter<Book>();
 
 const initialState = booksAdapter.getInitialState({
   loadingBooks: "IDLE",
@@ -64,17 +63,19 @@ const initialState = booksAdapter.getInitialState({
 }) as EntityState<Book> & InitialStateType;
 
 // THUNKS
-export const getAllBooks = createAsyncThunk<Book[] | AxiosError>(
-  "books/getAllBooks",
-  async () => {
-    try {
-      const { data } = await axiosInstance.get(`/books`);
-      return data.books as Book[];
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const getAllBooks = createAsyncThunk<
+  Book[] | AxiosError,
+  BookSortingOptions
+>("books/getAllBooks", async ({ sortByFilter, sortByFilterValue }) => {
+  try {
+    const { data } = await axiosInstance.get(
+      `/books?filterQuery=author&sortByFilter=${sortByFilter}&sortByFilterValue=${sortByFilterValue}`
+    );
+    return data.books as Book[];
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
 export const getBookById = createAsyncThunk<Book | AxiosError, string>(
   "books/getBookById",
@@ -178,14 +179,18 @@ const booksSlice = createSlice({
       })
       .addCase(getAllBooks.fulfilled, (state, action) => {
         const books = action.payload as Book[];
+        const axiosError = action.payload as AxiosError;
 
-        if (books.length >= 1) {
+        if (!axiosError.response) {
           books.map((book) => {
             book.id = book.book_uid;
             return book;
           });
           booksAdapter.removeAll(state);
           booksAdapter.upsertMany(state, books);
+        } else {
+          booksAdapter.removeAll(state);
+          booksAdapter.upsertMany(state, []);
         }
         state.loadingBooks = "SUCCEDED";
       })

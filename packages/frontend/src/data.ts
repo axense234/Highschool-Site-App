@@ -17,7 +17,6 @@ import {
   ProfileOption,
   SidebarLink,
   SortByOption,
-  TemplateAnnouncement,
   TemplateTeacher,
   TemplateUser,
   InfoSectionType,
@@ -31,6 +30,7 @@ import {
   TemplateBook,
   TemplateBookmark,
   BookmarkIconShownMapType,
+  BookSortingOptions,
 } from "types";
 import { Teacher } from "@prisma/client";
 // React Icons
@@ -60,6 +60,8 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { GrDesktop, GrDocument, GrDocumentUser } from "react-icons/gr";
 import { CiLocationOn } from "react-icons/ci";
 import { GiStack } from "react-icons/gi";
+// Templates
+import TemplateAnnouncement from "./core/interfaces/templates/TemplateAnnouncements";
 
 // TEMPLATE DATA
 export const defaultTemplateAbsence: TemplateAbsence = {
@@ -344,6 +346,14 @@ export const bookmarkIconShownMap: BookmarkIconShownMapType[] = [
 export const defaultGetAllQueryParams: GetAllQueryParams = {
   query: "",
   sortByOption: "",
+};
+
+export const defaultBookSortingOptions: BookSortingOptions = {
+  sortByFilter: "createdAt",
+  sortByFilterValue: "asc",
+  filterQuery: "author",
+  filterQueryValue: "",
+  hasPdfFileUrl: false,
 };
 
 export const sortByAnnouncementOptions: SortByOption[] = [

@@ -3,7 +3,7 @@ import { FC, SyntheticEvent, useState } from "react";
 // Next
 import Link from "next/link";
 // Types
-import { FormStepProps } from "types";
+import { FormStepProps, TemplateUser } from "types";
 import { Subjects } from "@prisma/client";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -126,7 +126,7 @@ const TeacherForm: FC<FormStepProps> = ({
           "Încercăm să intrăm în contul tău, vă rugăm să așteptați..."
         )
       );
-      dispatch(loginUser(templateTeacher));
+      dispatch(loginUser(templateTeacher as TemplateUser));
     }
   };
 

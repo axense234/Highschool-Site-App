@@ -5,8 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 // Types
 import { TemplateBook } from "types";
+import { BsFillPersonFill } from "react-icons/bs";
 // React Icons
 import { AiFillBook } from "react-icons/ai";
+import { BiSortAlt2 } from "react-icons/bi";
 // SCSS
 import libraryStyles from "../scss/components/pages/Library.module.scss";
 // Hooks
@@ -16,24 +18,21 @@ import Meta from "@/components/others/Meta";
 import PageTitle from "@/components/home/PageTitle";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getAllBooks, selectAllBooks } from "@/redux/slices/booksSlice";
 import {
-  getAllBooks,
-  selectAllBooks,
-  selectLoadingBooks,
-} from "@/redux/slices/booksSlice";
+  selectBookSortingOptions,
+  updateBookSortingOptions,
+} from "@/redux/slices/generalSlice";
 
 const Library: FC = () => {
   useGetPathname();
 
   const dispatch = useAppDispatch();
-  const loadingBooks = useAppSelector(selectLoadingBooks);
-  const books = useAppSelector(selectAllBooks);
+  const bookSortingOptions = useAppSelector(selectBookSortingOptions);
 
   useEffect(() => {
-    if (loadingBooks === "IDLE") {
-      dispatch(getAllBooks());
-    }
-  }, []);
+    dispatch(getAllBooks(bookSortingOptions));
+  }, [bookSortingOptions.sortByFilterValue]);
 
   return (
     <>
@@ -49,23 +48,131 @@ const Library: FC = () => {
         <section className={libraryStyles.libraryContainer__libraryContent}>
           <h2>Cărțile noastre valabile</h2>
           <div className={libraryStyles.libraryContainer__libraryBooksWrapper}>
-            {books.length >= 1 ? (
-              <ul className={libraryStyles.libraryContainer__libraryBooks}>
-                {books.map((book) => {
-                  return (
-                    <li key={book.book_uid}>
-                      <Book {...book} />
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p>Nu avem cărți momentan.</p>
-            )}
+            <BooksPageNav />
+            <Books />
           </div>
         </section>
       </main>
     </>
+  );
+};
+
+const BooksPageNav: FC = () => {
+  const dispatch = useAppDispatch();
+  const books = useAppSelector(selectAllBooks);
+  const bookSortingOptions = useAppSelector(selectBookSortingOptions);
+
+  const bookAuthors = books.map((book) => {
+    return { book_uid: book.book_uid, authorName: book.author };
+  });
+
+  const onAuthorChange = (author: string) => {
+    dispatch(
+      updateBookSortingOptions({ key: "filterQueryValue", value: author })
+    );
+  };
+
+  const onBookOrderChange = (order: string) => {
+    dispatch(
+      updateBookSortingOptions({ key: "sortByFilterValue", value: order })
+    );
+  };
+
+  const onHasPdfFileUrlChange = (hasPdf: boolean) => {
+    dispatch(updateBookSortingOptions({ key: "hasPdfFileUrl", value: hasPdf }));
+  };
+
+  return (
+    <div className={libraryStyles.libraryContainer__booksPageNavContainer}>
+      <h3>Opțiuni de Filtrare </h3>
+      <form className={libraryStyles.libraryContainer__booksPageNavForm}>
+        <div className={libraryStyles.libraryContainer__selectFilter}>
+          <div className={libraryStyles.libraryContainer__controlLabel}>
+            <BsFillPersonFill />
+            <label htmlFor="author">Autor Carte: </label>
+          </div>
+          <select
+            name="author"
+            id="author"
+            value={bookSortingOptions.filterQueryValue}
+            onChange={(e) => onAuthorChange(e.target.value)}
+          >
+            <option value="">Orice Autor</option>
+            {bookAuthors?.map((author) => {
+              return (
+                <option key={author.book_uid} value={author.authorName}>
+                  {author.authorName}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className={libraryStyles.libraryContainer__selectFilter}>
+          <div className={libraryStyles.libraryContainer__controlLabel}>
+            <BiSortAlt2 />
+            <label htmlFor="createdAt">Sortați după vechime </label>
+          </div>
+          <select
+            name="createdAt"
+            id="createdAt"
+            value={bookSortingOptions.sortByFilterValue}
+            onChange={(e) => onBookOrderChange(e.target.value)}
+          >
+            <option value="asc">Crescător</option>
+            <option value="desc">Descrescător</option>
+          </select>
+        </div>
+      </form>
+      <div className={libraryStyles.libraryContainer__checkboxFilter}>
+        <div className={libraryStyles.libraryContainer__controlLabel}>
+          <label htmlFor="pdfOnly">Numai Cărți cu PDF Valabil</label>
+        </div>
+        <input
+          type="checkbox"
+          id="pdfOnly"
+          required={false}
+          checked={bookSortingOptions.hasPdfFileUrl}
+          onChange={() =>
+            onHasPdfFileUrlChange(!bookSortingOptions.hasPdfFileUrl)
+          }
+        />
+      </div>
+    </div>
+  );
+};
+
+const Books: FC = () => {
+  const bookSortingOptions = useAppSelector(selectBookSortingOptions);
+  const books = useAppSelector(selectAllBooks);
+
+  const filteredBooks = books.filter((book) =>
+    bookSortingOptions.filterQueryValue
+      ? book.author === bookSortingOptions.filterQueryValue
+      : book.author
+  );
+
+  const filteredBooksThatHavePdfFileUrls = filteredBooks.filter(
+    (book) => book.pdf_file_url
+  );
+
+  const usedBooks = bookSortingOptions.hasPdfFileUrl
+    ? filteredBooksThatHavePdfFileUrls
+    : filteredBooks;
+
+  if (usedBooks.length < 1) {
+    return <p>Nu avem cărți momentan.</p>;
+  }
+
+  return (
+    <ul className={libraryStyles.libraryContainer__libraryBooks}>
+      {usedBooks.map((book) => {
+        return (
+          <li key={book.book_uid}>
+            <Book {...book} />
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
@@ -77,7 +184,6 @@ const Book: FC<TemplateBook> = ({
   pdf_file_url,
   pdf_file_preview_url,
 }) => {
-  console.log(pdf_file_url);
   const [toggle, setToggle] = useState<boolean>(false);
   const componentHeightBasedOnPdfFileUrl = pdf_file_url ? "30rem" : "20rem";
   const componentHeight = toggle ? componentHeightBasedOnPdfFileUrl : "0px";

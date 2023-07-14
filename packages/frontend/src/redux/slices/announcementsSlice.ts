@@ -14,11 +14,12 @@ import {
   ErrorPayloadType,
   FormModalType,
   ObjectKeyValueType,
-  TemplateAnnouncement,
 } from "types";
 // Axios
 import axios, { Axios, AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Templates
+import TemplateAnnouncement from "@/core/interfaces/templates/TemplateAnnouncements";
 // State
 import { State } from "../api/store";
 // Data

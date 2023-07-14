@@ -1,0 +1,26 @@
+@use "../functions" as *;
+@use "../variables" as *;
+
+@mixin flexCenter($direction) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin pageSection($bgColor, $direction) {
+  padding: $sectionPadding;
+  @include flexCenter($direction);
+  width: 100%;
+
+  background: linear-gradient(to right, $bgColor, $bgColor);
+
+  @media all and (max-width: 650px) {
+    padding: 7.5rem 2.5rem;
+  }
+}
+
+@mixin pageLayout() {
+  width: 100%;
+  @include flexCenter(column);
+}

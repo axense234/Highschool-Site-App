@@ -8,7 +8,15 @@ import deleteBookByIdPersistence from "../persistences/books/deleteBookByIdPersi
 import createBookPersistence from "../persistences/books/createBookPersistence";
 
 const getAllBooks = async (req: Request, res: Response) => {
-  const foundBooksPayload = await getAllBooksPersistence();
+  const { sortByFilter, sortByFilterValue, filterQuery, filterQueryValue } =
+    req.query;
+
+  const foundBooksPayload = await getAllBooksPersistence(
+    sortByFilter as string,
+    sortByFilterValue as string,
+    filterQuery as string,
+    filterQueryValue as string
+  );
   return res.status(foundBooksPayload.statusCode).json(foundBooksPayload);
 };
 

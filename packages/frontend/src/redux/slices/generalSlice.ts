@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // Types
 import {
+  BookSortingOptions,
   EmailFormTemplate,
   ErrorPayloadType,
   FormModalType,
@@ -26,6 +27,7 @@ import { State } from "../api/store";
 import { baseSiteUrl } from "@/config";
 // Data
 import {
+  defaultBookSortingOptions,
   defaultEmailFormTemplate,
   defaultGetAllQueryParams,
   defaultOverlay,
@@ -48,6 +50,7 @@ type initialStateType = {
   optionsContent: string;
   overlay: OverlayType;
   editMode: boolean;
+  bookSortingOptions: BookSortingOptions;
   getAllQueryParams: GetAllQueryParams;
   toggleMoveAnnouncementModal: boolean;
   emailFormTemplate: EmailFormTemplate;
@@ -86,10 +89,12 @@ const initialState: initialStateType = {
   editableGradeId: "",
   // Options
   optionsContent: "settings",
+  // For sorting/searching purposes
+  getAllQueryParams: defaultGetAllQueryParams,
+  bookSortingOptions: defaultBookSortingOptions,
   // Misc
   overlay: defaultOverlay,
   editMode: false,
-  getAllQueryParams: defaultGetAllQueryParams,
   toggleMoveAnnouncementModal: false,
   emailFormTemplate: defaultEmailFormTemplate,
   currentPathname: "",
@@ -243,6 +248,12 @@ const generalSlice = createSlice({
     updateGetAllQueryParams(state, action: PayloadAction<ObjectKeyValueType>) {
       state.getAllQueryParams = {
         ...state.getAllQueryParams,
+        [action.payload.key]: action.payload.value,
+      };
+    },
+    updateBookSortingOptions(state, action: PayloadAction<ObjectKeyValueType>) {
+      state.bookSortingOptions = {
+        ...state.bookSortingOptions,
         [action.payload.key]: action.payload.value,
       };
     },
@@ -440,6 +451,9 @@ export const selectResetPassTokenAuthorized = (state: State) =>
 export const selectSubjectsSlicer = (state: State) =>
   state.general.subjectsSlicer;
 
+export const selectBookSortingOptions = (state: State) =>
+  state.general.bookSortingOptions;
+
 export const {
   updateTemplateProfile,
   updateGeneralFormModal,
@@ -463,6 +477,7 @@ export const {
   setMarkedAbsenceOrGradeId,
   setEditableGradeId,
   setSubjectsSlicer,
+  updateBookSortingOptions,
 } = generalSlice.actions;
 
 export default generalSlice.reducer;
