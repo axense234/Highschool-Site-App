@@ -8,22 +8,21 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-  TemplateStudent,
-  TemplateUpdateStudent,
-} from "types";
 // Axios
 import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import { FormModalType, ErrorPayloadType } from "@/core/types/variables";
 // Store
 import { State } from "../api/store";
 // Data
 import { defaultTemplateStudent } from "@/data";
+// Config
 import { baseSiteUrl } from "@/config";
+// Interfaces
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
+import TemplateUpdateStudent from "@/core/interfaces/template/TemplateUpdateStudent";
 
 export const studentsAdapter = createEntityAdapter<Student>({
   sortComparer: (a, b) => a.fullname.localeCompare(b.fullname),

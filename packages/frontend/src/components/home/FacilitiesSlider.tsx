@@ -1,9 +1,9 @@
 // React
 import { FC, useEffect, useRef, useState } from "react";
-// Types
-import { SliderButtonsProps } from "types";
 // Next
 import Image from "next/image";
+// Types
+import SliderButtonsProps from "@/core/interfaces/component/SliderButtonsProps";
 // Data
 import {
   AUTO_SLIDER_DELAY,

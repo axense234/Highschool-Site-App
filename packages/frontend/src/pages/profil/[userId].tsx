@@ -4,7 +4,8 @@ import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // Types
 import { Admin, Student, Teacher } from "@prisma/client";
-import { TemplateClass, TemplateStudent, TemplateUser } from "types";
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
 // Components
 import Meta from "@/components/others/Meta";
 // SCSS

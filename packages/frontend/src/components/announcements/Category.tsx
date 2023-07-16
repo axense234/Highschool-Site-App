@@ -1,9 +1,9 @@
 // React
 import { FC, useRef } from "react";
-// Types
-import { CategoryType } from "types";
 // React Icons
 import { MdArrowDropDownCircle } from "react-icons/md";
+// Types
+import { CategoryType } from "@/core/types/variables";
 // SCSS
 import announcementsStyles from "@/scss/components/pages/Announcements.module.scss";
 // Redux Toolkit

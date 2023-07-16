@@ -3,12 +3,12 @@ import { FC, useEffect, useState } from "react";
 // Next
 import Link from "next/link";
 import Image from "next/image";
-// Types
-import { TemplateBook } from "types";
-import { BsFillPersonFill } from "react-icons/bs";
 // React Icons
 import { AiFillBook } from "react-icons/ai";
 import { BiSortAlt2 } from "react-icons/bi";
+// Types
+import { BsFillPersonFill } from "react-icons/bs";
+import TemplateBook from "@/core/interfaces/template/TemplateBook";
 // SCSS
 import libraryStyles from "../scss/components/pages/Library.module.scss";
 // Hooks
@@ -208,7 +208,7 @@ const Book: FC<TemplateBook> = ({
           <span> - </span>
           <h3>{title}</h3>
         </div>
-        <p>Data creării: {new Date(createdAt).toLocaleDateString()}</p>
+        <p>Data creării: {new Date(createdAt as Date).toLocaleDateString()}</p>
       </div>
       <div
         className={libraryStyles.libraryContainer__bookContainerContent}
@@ -225,7 +225,7 @@ const Book: FC<TemplateBook> = ({
               <Image
                 height={70}
                 width={70}
-                alt={title}
+                alt={title as string}
                 src={pdf_file_preview_url}
               />
             )}

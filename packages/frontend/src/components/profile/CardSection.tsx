@@ -3,11 +3,11 @@ import { FC, useEffect } from "react";
 // Next
 import Image from "next/image";
 import Link from "next/link";
-// Types
-import { CardSectionProps } from "types";
-import { Absence, Grade, Teacher } from "@prisma/client";
 // React Icons
 import { AiFillDelete } from "react-icons/ai";
+// Types
+import { Absence, Grade, Teacher } from "@prisma/client";
+import CardSectionProps from "@/core/interfaces/component/CardSectionProps";
 // Components
 import CreateGradeOrAbsence from "../others/CreateGradeOrAbsence";
 // Redux

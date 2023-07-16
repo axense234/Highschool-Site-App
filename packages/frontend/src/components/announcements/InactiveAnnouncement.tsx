@@ -3,8 +3,8 @@ import { FC } from "react";
 // React Icons
 import { MdArrowDropDownCircle } from "react-icons/md";
 // Types
-import { InactiveAnnouncementProps } from "types";
 import { Announcement } from "@prisma/client";
+import InactiveAnnouncementProps from "@/core/interfaces/component/InactiveAnnouncementProps";
 // SCSS
 import announcementsStyles from "../../scss/components/pages/Announcements.module.scss";
 // Components

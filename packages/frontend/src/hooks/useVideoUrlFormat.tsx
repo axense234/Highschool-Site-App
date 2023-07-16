@@ -1,7 +1,7 @@
 // React
 import { useEffect } from "react";
 // Types
-import TemplateAnnouncement from "@/core/interfaces/templates/TemplateAnnouncements";
+import TemplateAnnouncement from "@/core/interfaces/template/TemplateAnnouncement";
 // Redux
 import { updateTemplateAnnouncement } from "@/redux/slices/announcementsSlice";
 import { useAppDispatch } from "./redux";

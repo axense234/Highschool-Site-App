@@ -5,11 +5,9 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { BsBoxArrowInUpLeft } from "react-icons/bs";
 import { VscTriangleDown } from "react-icons/vsc";
 // Types
-import {
-  CardModalProps,
-  CategoryType,
-  MoveAnnouncementsModalProps,
-} from "types";
+import CardModalProps from "@/core/interfaces/component/CardModalProps";
+import MoveAnnouncementsModalProps from "@/core/interfaces/component/MoveAnnouncementModalProps";
+import { CategoryType } from "@/core/types/variables";
 // SCSS
 import cardStyles from "../../scss/components/modals/CardModal.module.scss";
 // Hooks

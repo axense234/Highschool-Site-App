@@ -1,7 +1,5 @@
 // React
 import { FC, useEffect } from "react";
-// Types
-import { Class } from "@prisma/client";
 // SCSS
 import classStyles from "../../scss/components/pages/Classes.module.scss";
 // Components
@@ -11,16 +9,14 @@ import SectionLoading from "@/components/loading/SectionLoading";
 import ClassItem from "@/components/classes/ClassItem";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
+// Redix
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   getAllClasses,
   selectAllClasses,
   selectLoadingClasses,
 } from "@/redux/slices/classesSlice";
-import {
-  selectLoadingProfile,
-  selectProfile,
-} from "@/redux/slices/generalSlice";
+import { selectProfile } from "@/redux/slices/generalSlice";
 
 const Classrooms: FC = () => {
   useGetPathname();

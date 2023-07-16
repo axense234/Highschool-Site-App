@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 // React Spinners
 import { FadeLoader } from "react-spinners";
 // Types
-import { SectionLoadingProps } from "types";
+import SectionLoadingProps from "@/core/interfaces/component/SectionLoadingProps";
 // SCSS
 import loadingStyles from "../../scss/components/loading/SectionLoading.module.scss";
 
@@ -19,6 +19,7 @@ const SectionLoading: FC<SectionLoadingProps> = ({ padding }) => {
 
     return () => {
       window.removeEventListener("resize", () => {
+        // eslint-disable-next-line no-console
         console.log("removed resize window event listener");
       });
     };

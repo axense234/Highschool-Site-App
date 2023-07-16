@@ -1,13 +1,13 @@
 // React
 import { FC, SyntheticEvent, useEffect, useState } from "react";
-// Types
-import { TemplateTeacher, TemplateUpdateTeacher } from "types";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdAttachEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RxAvatar } from "react-icons/rx";
+// Types
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Redux
@@ -60,7 +60,7 @@ const UpdateTeacherForm: FC = () => {
         "Încercăm să actualizăm contul tău, vă rugăm să așteptați..."
       )
     );
-    dispatch(updateTeacherById(templateTeacher as TemplateUpdateTeacher));
+    dispatch(updateTeacherById(templateTeacher as TemplateTeacher));
   };
 
   useEffect(() => {

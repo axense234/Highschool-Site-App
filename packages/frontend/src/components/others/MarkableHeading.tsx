@@ -2,10 +2,10 @@
 import { FC, useState } from "react";
 // Next
 import Link from "next/link";
-// Types
-import { MarkableHeadingProps } from "types";
 // React Icons
 import { BsBookmarkPlusFill } from "react-icons/bs";
+// Types
+import MarkableHeadingProps from "@/core/interfaces/component/MarkableHeadingProps";
 // SCSS
 import markableHeadingStyles from "../../scss/components/navigation/MarkableHeading.module.scss";
 // Hooks
@@ -62,7 +62,6 @@ const MarkableHeading: FC<MarkableHeadingProps> = ({
   }
 
   const addBookmark = () => {
-    console.log("adding boomark...");
     dispatch(
       setScreenLoadingMessage(
         "Încercăm să adăugăm un marcaj, vă rugăm să așteptați..."

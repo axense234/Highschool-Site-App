@@ -8,22 +8,20 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-  TemplateClass,
-} from "types";
 // Axios
 import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import { FormModalType, ErrorPayloadType } from "@/core/types/variables";
 // State
 import { State } from "../api/store";
 // Data
 import { defaultTemplateClass } from "@/data";
 // Config
 import { baseSiteUrl } from "@/config";
+// Interfaces
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
 
 type InitialStateType = {
   loadingClasses: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -222,7 +220,7 @@ const classesSlice = createSlice({
             classItem.master_teacher.id = classItem.master_teacher.teacher_uid;
           }
 
-          classItem.id = classItem.class_uid;
+          classItem.id = classItem.class_uid as string;
           classesAdapter.upsertOne(state, classItem as Class);
         }
         state.loadingClass = "SUCCEDED";
@@ -240,7 +238,6 @@ const classesSlice = createSlice({
       .addCase(createClass.fulfilled, (state, action) => {
         const classItem = action.payload as Class;
         const axiosError = action.payload as AxiosError;
-        console.log(axiosError);
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
           const data = axiosError.response?.data as ErrorPayloadType;

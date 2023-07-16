@@ -1,10 +1,10 @@
 // React
 import { FC } from "react";
-// Types
-import { ProfileDetailsProps } from "types";
-import { Student, Teacher } from "@prisma/client";
 // Next
 import Image from "next/image";
+// Types
+import { Student, Teacher } from "@prisma/client";
+import ProfileDetailsProps from "@/core/interfaces/component/ProfileDetailsProps";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 

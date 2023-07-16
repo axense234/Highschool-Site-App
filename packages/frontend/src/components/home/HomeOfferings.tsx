@@ -3,10 +3,10 @@ import { FC } from "react";
 // Next
 import Image from "next/image";
 import Link from "next/link";
-// Types
-import { OfferingItemProps } from "types";
 // Pop-in Animations
 import { useInView } from "react-intersection-observer";
+// Types
+import OfferingItemProps from "@/core/interfaces/component/OfferingItemProps";
 // Data
 import { offeringsList } from "@/data";
 // SCSS
@@ -54,9 +54,9 @@ const OfferingItem: FC<OfferingItemProps> = ({
       </p>
       <Link href={dest as string}>
         <Image
-          alt={title}
-          src={logoUrl}
-          title={title}
+          alt={title as string}
+          src={logoUrl as string}
+          title={title as string}
           width={200}
           height={100}
         />

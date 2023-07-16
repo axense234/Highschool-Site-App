@@ -7,8 +7,8 @@ import { MdArrowDropDownCircle } from "react-icons/md";
 // Next
 import Image from "next/image";
 // Types
-import { EditableAnnouncementProps } from "types";
-import TemplateAnnouncement from "@/core/interfaces/templates/TemplateAnnouncements";
+import TemplateAnnouncement from "@/core/interfaces/template/TemplateAnnouncement";
+import EditableAnnouncementProps from "@/core/interfaces/component/EditableAnnouncementProps";
 // SCSS
 import announcementsStyles from "../../scss/components/pages/Announcements.module.scss";
 // Components

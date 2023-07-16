@@ -1,26 +1,21 @@
 // Redux Toolkit
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-// Types
-import {
-  BookSortingOptions,
-  EmailFormTemplate,
-  ErrorPayloadType,
-  FormModalType,
-  GetAllQueryParams,
-  GradeOrAbsenceSectionType,
-  ObjectKeyValueType,
-  OverlayType,
-  TemplateAdmin,
-  TemplatePassReset,
-  TemplateStudent,
-  TemplateTeacher,
-  TemplateUser,
-  User,
-} from "types";
+// Prisma
 import { Admin, Student, Teacher } from "@prisma/client";
 // Axios
 import { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import {
+  FormModalType,
+  GradeOrAbsenceSectionType,
+  OverlayType,
+  BookSortingOptions,
+  GetAllQueryParams,
+  User,
+  ErrorPayloadType,
+} from "@/core/types/variables";
 // State
 import { State } from "../api/store";
 // Config
@@ -34,6 +29,13 @@ import {
   defaultProfile,
   defaultTemplateProfile,
 } from "@/data";
+// Interfaces
+import TemplateAdmin from "@/core/interfaces/template/TemplateAdmin";
+import TemplatePassReset from "@/core/interfaces/template/TemplatePassReset";
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
+import TemplateUser from "@/core/interfaces/template/TemplateUser";
+import TemplateEmailForm from "@/core/interfaces/template/TemplateEmailForm";
 
 type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
@@ -53,7 +55,7 @@ type initialStateType = {
   bookSortingOptions: BookSortingOptions;
   getAllQueryParams: GetAllQueryParams;
   toggleMoveAnnouncementModal: boolean;
-  emailFormTemplate: EmailFormTemplate;
+  emailFormTemplate: TemplateEmailForm;
   currentPathname: string;
   searchbarQuery: string;
   screenLoadingMessage: string;
@@ -150,7 +152,7 @@ export const logoutProfile = createAsyncThunk<string | AxiosError>(
 
 export const sendEmail = createAsyncThunk<
   string | AxiosError,
-  EmailFormTemplate
+  TemplateEmailForm
 >("general/sendEmail", async (templateEmail) => {
   try {
     const { data } = await axiosInstance.post(

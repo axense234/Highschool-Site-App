@@ -8,22 +8,21 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-  TemplateAdmin,
-  TemplateUpdateAdmin,
-} from "types";
 // Axios
 import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import { FormModalType, ErrorPayloadType } from "@/core/types/variables";
 // Store
 import { State } from "../api/store";
 // Data
 import { defaultTemplateAdmin } from "@/data";
+// Config
 import { baseSiteUrl } from "@/config";
+// Interfaces
+import TemplateAdmin from "@/core/interfaces/template/TemplateAdmin";
+import TemplateUpdateAdmin from "@/core/interfaces/template/TemplateUpdateAdmin";
 
 const adminsAdapter = createEntityAdapter<Admin>({
   sortComparer: (a, b) => a.fullname.localeCompare(b.fullname),

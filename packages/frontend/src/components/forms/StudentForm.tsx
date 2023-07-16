@@ -1,9 +1,7 @@
 // React
-import { FC, SyntheticEvent, useEffect, useState } from "react";
+import { FC, SyntheticEvent, useState } from "react";
 // Next
 import Link from "next/link";
-// Types
-import { FormStepProps } from "types";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { GrNext, GrPrevious } from "react-icons/gr";
@@ -12,6 +10,9 @@ import { MdAttachEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RxAvatar } from "react-icons/rx";
 import { FaGraduationCap } from "react-icons/fa";
+// Types
+import FormStepProps from "@/core/interfaces/component/FormStepProps";
+import TemplateUser from "@/core/interfaces/template/TemplateUser";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data
@@ -101,7 +102,7 @@ const StudentForm: FC<FormStepProps> = ({
           "Încercăm să intrăm în contul tău, vă rugăm să așteptați..."
         )
       );
-      dispatch(loginUser(templateStudent));
+      dispatch(loginUser(templateStudent as TemplateUser));
     }
   };
 

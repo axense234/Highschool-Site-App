@@ -8,20 +8,18 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-  TemplateAbsence,
-} from "types";
 // Axios
 import { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import { FormModalType, ErrorPayloadType } from "@/core/types/variables";
 // Store
 import { State } from "../api/store";
 // Data
 import { defaultTemplateAbsence } from "@/data";
+// Interfaces
+import TemplateAbsence from "@/core/interfaces/template/TemplateAbsence";
 
 export const absencesAdapter = createEntityAdapter<Absence>({
   sortComparer: (a, b) =>
@@ -116,7 +114,6 @@ export const updateAbsenceById = createAsyncThunk<
   TemplateAbsence
 >("absences/updateAbsenceById", async (templateAbsence) => {
   try {
-    console.log(templateAbsence);
     const { data } = await axiosInstance.patch(
       `/absences/absence/update/${templateAbsence.absence_uid}`,
       templateAbsence

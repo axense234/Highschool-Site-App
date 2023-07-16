@@ -8,20 +8,18 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-  TemplateBookmark,
-} from "types";
 // Axios
 import { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import { FormModalType, ErrorPayloadType } from "@/core/types/variables";
 // Store
 import { State } from "../api/store";
 // Data
 import { defaultTemplateBookmark } from "@/data";
+// Interfaces
+import TemplateBookmark from "@/core/interfaces/template/TemplateBookmark";
 
 const bookmarksAdapter = createEntityAdapter<Bookmark>({
   sortComparer: (a, b) => a.label.localeCompare(b.label),
@@ -115,7 +113,6 @@ export const updateBookmarkById = createAsyncThunk<
   TemplateBookmark
 >("bookmarks/updateBookmarkById", async (templateBookmark) => {
   try {
-    console.log(templateBookmark);
     const { data } = await axiosInstance.patch(
       `/bookmarks/bookmark/update/${templateBookmark.bookmark_uid}`,
       templateBookmark

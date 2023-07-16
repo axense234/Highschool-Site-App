@@ -2,12 +2,12 @@
 import { FC, SyntheticEvent, useRef } from "react";
 // Next
 import Image from "next/image";
-// Types
-import { Subjects } from "@prisma/client";
-import { EditableTeacherProps } from "types";
 // React Icons
 import { FcCheckmark } from "react-icons/fc";
 import { FiPlus } from "react-icons/fi";
+// Types
+import { Subjects } from "@prisma/client";
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
 // SCSS
 import teachersStyles from "../../scss/components/pages/Teachers.module.scss";
 // Data
@@ -27,15 +27,21 @@ import {
   createCloudinaryImageForTeacher,
   updateTemplateTeacher,
   updateTeacherById,
+  selectTemplateTeacher,
 } from "@/redux/slices/teachersSlice";
 
-const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
+const EditableTeacher: FC<TemplateTeacher> = ({
+  teacher_uid,
+  profile_img_url,
+  fullname,
+  description,
+  subject,
+}) => {
   const dispatch = useAppDispatch();
 
-  const { teacher_uid, profile_img_url, fullname, description, subject } =
-    templateTeacher;
   const hiddenFileInputRef = useRef<HTMLInputElement>(null);
   const overlay = useAppSelector(selectOverlay);
+  const templateTeacher = useAppSelector(selectTemplateTeacher);
 
   const handleImagineProfilChange = (imagine: File | string) => {
     dispatch(createCloudinaryImageForTeacher(imagine as File));
@@ -62,7 +68,7 @@ const EditableTeacher: FC<EditableTeacherProps> = ({ templateTeacher }) => {
       )
     );
     dispatch(updateTeacherById(templateTeacher));
-    if (templateTeacher.fullname) {
+    if (fullname) {
       dispatch(setEditMode(false));
     }
   };

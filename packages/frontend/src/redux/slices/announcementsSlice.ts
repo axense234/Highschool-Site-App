@@ -8,18 +8,19 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
+
+// Axios
+import axios, { AxiosError } from "axios";
+import axiosInstance from "@/utils/axios";
 // Types
+import { ObjectKeyValueType } from "@/core/types/constants";
 import {
+  FormModalType,
   GetAllQueryParams,
   ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-} from "types";
-// Axios
-import axios, { Axios, AxiosError } from "axios";
-import axiosInstance from "@/utils/axios";
+} from "@/core/types/variables";
 // Templates
-import TemplateAnnouncement from "@/core/interfaces/templates/TemplateAnnouncements";
+import TemplateAnnouncement from "@/core/interfaces/template/TemplateAnnouncement";
 // State
 import { State } from "../api/store";
 // Data

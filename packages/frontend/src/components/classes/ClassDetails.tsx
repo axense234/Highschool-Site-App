@@ -1,8 +1,10 @@
 // React
 import { FC, useEffect, useState } from "react";
 // Types
-import { TemplateTeacher, TemplateStudent, TemplateClass } from "types";
 import { Teacher, Student } from "@prisma/client";
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 // Components

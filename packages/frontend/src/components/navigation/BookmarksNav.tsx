@@ -7,7 +7,8 @@ import Link from "next/link";
 // React Icons
 import { AiFillDelete } from "react-icons/ai";
 // Types
-import { BookmarksMenuProps, TemplateBookmark } from "types";
+import BookmarksMenuProps from "@/core/interfaces/component/BookmarksMenuProps";
+import TemplateBookmark from "@/core/interfaces/template/TemplateBookmark";
 // SCSS
 import bookmarksStyles from "../../scss/components/navigation/BookmarksNav.module.scss";
 // Data
@@ -86,12 +87,12 @@ const BookmarkComponent: FC<TemplateBookmark> = ({
       onMouseEnter={() => setShowDeleteBookmark(true)}
       onMouseLeave={() => setShowDeleteBookmark(false)}
     >
-      <Link href={dest} aria-label={label} title={label}>
+      <Link href={dest as string} aria-label={label} title={label}>
         {bookmarkIconShownMap.find((icon) => {
           if (!icon.hasRegExpDest) {
-            return (icon.dest as string).includes(dest);
+            return (icon.dest as string).includes(dest as string);
           }
-          return (icon.dest as RegExp).test(dest);
+          return (icon.dest as RegExp).test(dest as string);
         })?.icon || <BsQuestionLg aria-label={label} title={label} />}
       </Link>
       <AiFillDelete

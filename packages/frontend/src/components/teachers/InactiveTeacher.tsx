@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 // Types
 import { Teacher } from "@prisma/client";
-import { TemplateTeacher, TemplateUpdateTeacher } from "types";
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
 // SCSS
 import teachersStyles from "../../scss/components/pages/Teachers.module.scss";
 // Components
@@ -54,11 +54,7 @@ const InactiveTeacher: FC<Teacher> = ({
   useScrollToTeacher(foundTeacherId, teacher_uid, teacherRef);
 
   if (editModeAvailable) {
-    return (
-      <EditableTeacher
-        templateTeacher={templateTeacher as TemplateUpdateTeacher}
-      />
-    );
+    return <EditableTeacher {...templateTeacher} />;
   }
 
   return (

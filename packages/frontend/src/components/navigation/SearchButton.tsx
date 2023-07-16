@@ -1,9 +1,9 @@
 // React
 import { FC, useEffect, useRef } from "react";
-// Types
-import { SearchButtonProps } from "types";
 // React Icons
 import { BiSearch } from "react-icons/bi";
+// Types
+import SearchButtonProps from "@/core/interfaces/component/SearchButtonProps";
 // SCSS
 import searchButtonStyles from "../../scss/components/navigation/SearchButton.module.scss";
 // Redux

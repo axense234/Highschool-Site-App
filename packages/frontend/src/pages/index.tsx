@@ -8,6 +8,7 @@ import aboutStyles from "../scss/components/pages/About.module.scss";
 // Components
 import PageTitle from "@/components/home/PageTitle";
 import Meta from "@/components/others/Meta";
+import MarkableHeading from "@/components/others/MarkableHeading";
 // Data
 import {
   aboutTechnologiesUsedBackend,
@@ -15,7 +16,6 @@ import {
 } from "@/data";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
-import MarkableHeading from "@/components/others/MarkableHeading";
 
 const About: FC = () => {
   useGetPathname();

@@ -4,11 +4,9 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 // Types
-import {
-  ClassCatalogueSectionProps,
-  TemplateStudent,
-  TemplateStudentCard,
-} from "types";
+import ClassCatalogueSectionProps from "@/core/interfaces/component/ClassCatalogueSectionProps";
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
+import TemplateStudentCard from "@/core/interfaces/template/TemplateStudentCard";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 // Components
@@ -42,7 +40,7 @@ const ClassCatalogueSection: FC<ClassCatalogueSectionProps> = ({
       <td className={classStyles.classContainer__classCatalogueStudent}>
         <Link href={`/profil/${student.student_uid}?type=student`}>
           <Image
-            alt={student.fullname}
+            alt={student.fullname as string}
             src={student.profile_img_url as string}
             height={100}
             width={100}

@@ -1,9 +1,9 @@
 // React
 import { FC, useEffect, useRef } from "react";
-// Types
-import { BookmarksMenuProps } from "types";
 // React Icons
 import { CiMenuKebab } from "react-icons/ci";
+// Types
+import BookmarksMenuProps from "@/core/interfaces/component/BookmarksMenuProps";
 // Styles
 import bookmarksMenuStyles from "../../scss/components/navigation/BookmarksMenu.module.scss";
 // Redux

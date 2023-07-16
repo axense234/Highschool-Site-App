@@ -4,7 +4,8 @@ import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 // Types
-import { ComponentPreviewProps, TemplateTeacher } from "types";
+import ComponentPreviewProps from "@/core/interfaces/component/ComponentPreviewProps";
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 
@@ -27,7 +28,7 @@ const ClassComponentPreview: FC<ComponentPreviewProps> = ({
       <Image
         width={200}
         height={200}
-        alt={fullname}
+        alt={fullname as string}
         src={profile_img_url as string}
       />
       <h4>{fullname}</h4>

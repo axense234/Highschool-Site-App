@@ -4,7 +4,7 @@ import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 // Types
-import { TemplateClass } from "types";
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
 // SCSS
 import classesStyles from "../../scss/components/pages/Classes.module.scss";
 
@@ -17,8 +17,8 @@ const ClassItem: FC<TemplateClass> = ({
   return (
     <div className={classesStyles.classesContainer__classContainer}>
       <Image
-        alt={label}
-        src={image_url}
+        alt={label as string}
+        src={image_url as string}
         title={label}
         aria-label={label}
         width={400}

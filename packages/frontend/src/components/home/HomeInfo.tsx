@@ -1,11 +1,11 @@
 // React
 import { FC } from "react";
-// Types
-import { InfoSectionProps } from "types";
 // Next
 import Image from "next/image";
 // Pop-in Animations
 import { useInView } from "react-intersection-observer";
+// Types
+import InfoSectionProps from "@/core/interfaces/component/InfoSectionProps";
 // SCSS
 import homeStyles from "../../scss/components/pages/Home.module.scss";
 // Data
@@ -42,9 +42,9 @@ const InfoSection: FC<InfoSectionProps> = ({ logoUrl, title, desc }) => {
       ref={ref}
     >
       <Image
-        src={logoUrl}
-        alt={title}
-        title={title}
+        src={logoUrl as string}
+        alt={title as string}
+        title={title as string}
         width={1000}
         height={1000}
       />

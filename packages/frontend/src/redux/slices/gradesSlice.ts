@@ -8,20 +8,18 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-  TemplateGrade,
-} from "types";
 // Axios
 import { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import { FormModalType, ErrorPayloadType } from "@/core/types/variables";
 // Store
 import { State } from "../api/store";
 // Data
 import { defaultTemplateGrade } from "@/data";
+// Interfaces
+import TemplateGrade from "@/core/interfaces/template/TemplateGrade";
 
 export const gradesAdapter = createEntityAdapter<Grade>({
   sortComparer: (a, b) =>

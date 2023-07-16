@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 // Pop-in Animations
 import { useInView } from "react-intersection-observer";
 // Types
-import { PageTitleProps } from "types";
+import PageTitleProps from "@/core/interfaces/component/PageTitleProps";
 // Hooks
 import usePopInAnimation from "@/hooks/usePopInAnimation";
 // SCSS

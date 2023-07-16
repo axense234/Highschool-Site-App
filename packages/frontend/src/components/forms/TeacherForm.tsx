@@ -2,9 +2,6 @@
 import { FC, SyntheticEvent, useState } from "react";
 // Next
 import Link from "next/link";
-// Types
-import { FormStepProps, TemplateUser } from "types";
-import { Subjects } from "@prisma/client";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { GrNext, GrPrevious } from "react-icons/gr";
@@ -17,6 +14,10 @@ import { SlSpeech } from "react-icons/sl";
 import { FiBook } from "react-icons/fi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
+// Types
+import { Subjects } from "@prisma/client";
+import FormStepProps from "@/core/interfaces/component/FormStepProps";
+import TemplateUser from "@/core/interfaces/template/TemplateUser";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data

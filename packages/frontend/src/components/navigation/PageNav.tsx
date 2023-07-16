@@ -1,10 +1,15 @@
 // React
 import { FC, SyntheticEvent } from "react";
-// Types
-import { FunctionUsedOnPageNavSubmit, PageNavProps } from "types";
-import { Announcement, AnnouncementCategory, Teacher } from "@prisma/client";
 // React Icons
 import { BiSearch } from "react-icons/bi";
+// Types
+import { Announcement, AnnouncementCategory, Teacher } from "@prisma/client";
+import {
+  FunctionUsedOnPageNavSubmit,
+  GetAllAnnouncementsThunkInterface,
+  GetAllTeachersThunkInterface,
+} from "@/core/types/variables";
+import PageNavProps from "@/core/interfaces/component/PageNavProps";
 // SCSS
 import pageNavStyles from "../../scss/components/navigation/PageNav.module.scss";
 // Data
@@ -45,7 +50,9 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
       : "ex: Elena Maria, Ion Oprea";
 
   const functionUsedOnSubmit: FunctionUsedOnPageNavSubmit =
-    componentType === "announcement" ? getAllAnnouncements : getAllTeachers;
+    componentType === "announcement"
+      ? (getAllAnnouncements as GetAllAnnouncementsThunkInterface)
+      : (getAllTeachers as GetAllTeachersThunkInterface);
 
   const triggerSortBy = (value: string) => {
     dispatch(
@@ -54,12 +61,9 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
         value,
       })
     );
-    dispatch(
-      functionUsedOnSubmit({
-        query,
-        sortByOption: value,
-      })
-    );
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    dispatch(functionUsedOnSubmit({ query, sortByOption: value as string }));
   };
 
   const sortByOptions =

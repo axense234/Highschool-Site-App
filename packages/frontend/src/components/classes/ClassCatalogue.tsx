@@ -3,8 +3,10 @@ import { FC, useState } from "react";
 // React Icons
 import { BsArrowBarLeft, BsArrowBarRight } from "react-icons/bs";
 // Types
-import { ClassCatalogueHeadProps, TemplateClass, TemplateStudent } from "types";
 import { Student } from "@prisma/client";
+import ClassCatalogueHeadProps from "@/core/interfaces/component/ClassCatalogueHeadProps";
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 // Data

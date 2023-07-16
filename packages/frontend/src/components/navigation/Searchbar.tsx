@@ -3,12 +3,13 @@ import { FC, SyntheticEvent, useEffect, useRef } from "react";
 // Next
 import Link from "next/link";
 import { useRouter } from "next/router";
-// Types
-import { PageData, SearchbarProps } from "types";
-import { AnnouncementCategory } from "@prisma/client";
 // React Icons
 import { IoMdArrowBack } from "react-icons/io";
 import { BiSearch } from "react-icons/bi";
+// Types
+import { AnnouncementCategory } from "@prisma/client";
+import { PageData } from "@/core/types/constants";
+import SearchbarProps from "@/core/interfaces/component/SearchbarProps";
 // SCSS
 import searchbarStyles from "../../scss/components/navigation/Searchbar.module.scss";
 // Data

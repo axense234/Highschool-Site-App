@@ -1,10 +1,10 @@
 // React
 import { FC, useEffect } from "react";
-// Types
-import { TemplateClass } from "types";
-import { Teacher } from "@prisma/client";
 // Next
 import { useRouter } from "next/router";
+// Types
+import { Teacher } from "@prisma/client";
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 // Components

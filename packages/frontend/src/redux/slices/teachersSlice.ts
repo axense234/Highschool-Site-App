@@ -8,23 +8,25 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  ErrorPayloadType,
-  FormModalType,
-  GetAllQueryParams,
-  ObjectKeyValueType,
-  TemplateTeacher,
-  TemplateUpdateTeacher,
-} from "types";
 // Axios
 import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import {
+  FormModalType,
+  GetAllQueryParams,
+  ErrorPayloadType,
+} from "@/core/types/variables";
 // Store
 import { State } from "../api/store";
 // Data
 import { defaultTemplateTeacher } from "@/data";
+// Config
 import { baseSiteUrl } from "@/config";
+// Interfaces
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
+import TemplateUpdateTeacher from "@/core/interfaces/template/TemplateUpdateTeacher";
 
 export const teachersAdapter = createEntityAdapter<Teacher>();
 
@@ -139,7 +141,6 @@ export const updateTeacherById = createAsyncThunk<
   Teacher | AxiosError,
   TemplateUpdateTeacher
 >("teachers/updateTeacherById", async (templateTeacher) => {
-  console.log(templateTeacher);
   try {
     const { data } = await axiosInstance.patch(
       `/teachers/teacher/update/${templateTeacher.teacher_uid}`,
@@ -147,7 +148,6 @@ export const updateTeacherById = createAsyncThunk<
     );
     return data.teacher as Teacher;
   } catch (error) {
-    console.log(error);
     return error as AxiosError;
   }
 });

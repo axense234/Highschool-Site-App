@@ -1,15 +1,13 @@
 // React
+import { Teacher, Subjects } from "@prisma/client";
 import { FC, useEffect } from "react";
 // Types
-import {
-  ProfileStudentCatalogueProps,
-  TemplateClass,
-  TemplateStudent,
-  TemplateStudentCard,
-  TemplateStudentCardSection,
-  User,
-} from "types";
-import { Subjects, Teacher } from "@prisma/client";
+import ProfileStudentCatalogueProps from "@/core/interfaces/component/ProfileStudentCatalogueProps";
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
+import TemplateStudentCard from "@/core/interfaces/template/TemplateStudentCard";
+import TemplateStudentCardSection from "@/core/interfaces/template/TemplateStudentCardSection";
+import { User } from "@/core/types/variables";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components

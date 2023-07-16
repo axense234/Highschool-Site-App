@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { RiLockPasswordFill, RiLockPasswordLine } from "react-icons/ri";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 // Types
-import { FormModalPropsType } from "types";
+import { FormModalPropsType } from "@/core/types/constants";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Components

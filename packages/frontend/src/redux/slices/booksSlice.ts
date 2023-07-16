@@ -8,23 +8,24 @@ import {
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
-// Types
-import {
-  BookSortingOptions,
-  ErrorPayloadType,
-  FormModalType,
-  ObjectKeyValueType,
-  TemplateBook,
-} from "types";
 // Axios
 import axios, { Axios, AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
+// Types
+import { ObjectKeyValueType } from "@/core/types/constants";
+import {
+  FormModalType,
+  BookSortingOptions,
+  ErrorPayloadType,
+} from "@/core/types/variables";
 // State
 import { State } from "../api/store";
 // Data
 import { defaultTemplateBook } from "@/data";
 // Config
 import { baseSiteUrl } from "@/config";
+// Interfaces
+import TemplateBook from "@/core/interfaces/template/TemplateBook";
 
 type InitialStateType = {
   loadingBooks: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";

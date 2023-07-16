@@ -3,8 +3,9 @@ import { FC, useEffect } from "react";
 // Next
 import Link from "next/link";
 // Types
-import { ProfileDashboardProps, ProfileOption } from "types";
 import { Student } from "@prisma/client";
+import { ProfileOption } from "@/core/types/constants";
+import ProfileDashboardProps from "@/core/interfaces/component/ProfileDashboardProps";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components

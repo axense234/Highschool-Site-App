@@ -1,7 +1,7 @@
 // React
 import { FC } from "react";
 // Types
-import { ProfileContentProps } from "types";
+import ProfileContentProps from "@/core/interfaces/component/ProfileContentProps";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components

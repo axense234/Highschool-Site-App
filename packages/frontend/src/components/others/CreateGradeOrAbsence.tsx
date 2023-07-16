@@ -3,7 +3,7 @@ import { FC, RefObject, useRef } from "react";
 // React Icons
 import { GrAdd } from "react-icons/gr";
 // Types
-import { CreateGradeOrAbsenceButtonProps } from "types";
+import CreateGradeOrAbsenceButtonProps from "@/core/interfaces/component/CreateGradeOrAbsenceButtonProps";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Components

@@ -1,13 +1,13 @@
 // React
 import { FC, SyntheticEvent, useEffect, useState } from "react";
-// Types
-import { TemplateAdmin, TemplateUpdateAdmin } from "types";
 // React Icons
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdAttachEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RxAvatar } from "react-icons/rx";
+// Types
+import TemplateAdmin from "@/core/interfaces/template/TemplateAdmin";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Redux
@@ -60,7 +60,7 @@ const UpdateAdminForm: FC = () => {
         "Încercăm să actualizăm contul tău, vă rugăm să așteptați..."
       )
     );
-    dispatch(updateAdminById(templateAdmin as TemplateUpdateAdmin));
+    dispatch(updateAdminById(templateAdmin as TemplateAdmin));
   };
 
   useEffect(() => {

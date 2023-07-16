@@ -1,7 +1,7 @@
 // React
 import { FC } from "react";
 // Types
-import { VideoContainerProps } from "types";
+import VideoContainerProps from "@/core/interfaces/component/VideoContainerProps";
 // SCSS
 import announcementsStyles from "../../scss/components/pages/Announcements.module.scss";
 

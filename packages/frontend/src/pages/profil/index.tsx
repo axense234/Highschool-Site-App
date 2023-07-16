@@ -2,7 +2,7 @@
 import { FC, useEffect } from "react";
 // Types
 import { Admin, Student, Teacher } from "@prisma/client";
-import { TemplateStudent, TemplateUser } from "types";
+import TemplateStudent from "@/core/interfaces/template/TemplateStudent";
 // Components
 import Meta from "@/components/others/Meta";
 import Overlay from "@/components/others/Overlay";

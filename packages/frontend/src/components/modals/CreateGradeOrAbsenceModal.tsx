@@ -1,9 +1,9 @@
 // React
 import { FC, useRef, SyntheticEvent } from "react";
-// Types
-import { CreateGradeOrAbsenceModalProps } from "types";
 // React Icons
 import { AiFillCloseCircle } from "react-icons/ai";
+// Types
+import CreateGradeOrAbsenceModalProps from "@/core/interfaces/component/CreateGradeOrAbsenceModalProps";
 // SCSS
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 // Hooks

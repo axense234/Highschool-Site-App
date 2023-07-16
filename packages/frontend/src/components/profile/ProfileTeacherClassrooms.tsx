@@ -1,14 +1,12 @@
 // React
 import { FC } from "react";
-// Types
-import {
-  ProfileTeacherClassroomsProps,
-  TemplateClass,
-  TemplateTeacher,
-} from "types";
 // Next
 import Link from "next/link";
 import Image from "next/image";
+// Types
+import ProfileTeacherClassroomsProps from "@/core/interfaces/component/ProfileTeacherClassroomsProps";
+import TemplateClass from "@/core/interfaces/template/TemplateClass";
+import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
 // SCSS
 import profileSettingsStyles from "../../scss/components/profile/ProfileSettingsForm.module.scss";
 // Redux
@@ -67,7 +65,12 @@ const TeacherClassroom: FC<TemplateClass> = ({
       aria-label={`Mai multe detalii despre clasa ${label}`}
       href={`/clase/${class_uid}`}
     >
-      <Image alt={label} src={image_url} width={100} height={100} />
+      <Image
+        alt={label as string}
+        src={image_url as string}
+        width={100}
+        height={100}
+      />
       <h3>{label}</h3>
     </Link>
   );

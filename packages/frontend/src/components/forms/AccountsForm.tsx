@@ -1,7 +1,8 @@
 // React
 import { FC, useEffect, useState } from "react";
 // Types
-import { AccountsFormProps, TypeNavOptionLabel } from "types";
+import AccountsFormProps from "@/core/interfaces/component/AccountsFormProps";
+import { TypeNavOptionLabel } from "@/core/types/constants";
 // SCSS
 import accountsFormStyles from "../../scss/components/others/AccountsForm.module.scss";
 // Data

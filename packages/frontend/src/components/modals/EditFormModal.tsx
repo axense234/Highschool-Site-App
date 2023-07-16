@@ -1,9 +1,10 @@
 // React
 import { FC, useEffect, useRef } from "react";
-// Types
-import { FormModalProps, FormModalType } from "types";
 // Redux Toolkit
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+// Types
+import FormModalProps from "@/core/interfaces/component/FormModalProps";
+import { FormModalType } from "@/core/types/variables";
 // SCSS
 import editFormModalStyles from "../../scss/components/modals/EditFormModal.module.scss";
 // Hooks

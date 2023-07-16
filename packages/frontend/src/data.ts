@@ -1,37 +1,4 @@
-// Types
-import {
-  AboutTechnologyType,
-  BackgroundImageUrl,
-  CategoryType,
-  DocumentOrLaw,
-  EmailFormTemplate,
-  FacilityImageType,
-  FacilityRoomType,
-  GetAllQueryParams,
-  IndividualPageData,
-  IstoricPinPoint,
-  SubjectType,
-  OfferingItemType,
-  OverlayType,
-  PageData,
-  ProfileOption,
-  SidebarLink,
-  SortByOption,
-  TemplateTeacher,
-  TemplateUser,
-  InfoSectionType,
-  TypeNavOption,
-  SelectOptionType,
-  TemplateAdmin,
-  TemplateStudent,
-  TemplateClass,
-  TemplateGrade,
-  TemplateAbsence,
-  TemplateBook,
-  TemplateBookmark,
-  BookmarkIconShownMapType,
-  BookSortingOptions,
-} from "types";
+// Prisma
 import { Teacher } from "@prisma/client";
 // React Icons
 import { AiFillHome, AiFillInfoCircle } from "react-icons/ai";
@@ -60,8 +27,44 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { GrDesktop, GrDocument, GrDocumentUser } from "react-icons/gr";
 import { CiLocationOn } from "react-icons/ci";
 import { GiStack } from "react-icons/gi";
+// Types
+import {
+  BookmarkIconShownMapType,
+  SortByOption,
+  ProfileOption,
+  TypeNavOption,
+  SelectOptionType,
+  IstoricPinPoint,
+  SubjectType,
+  AboutTechnologyType,
+  SidebarLink,
+  InfoSectionType,
+  FacilityImageType,
+  FacilityRoomType,
+  OfferingItemType,
+  IndividualPageData,
+  PageData,
+  BackgroundImageUrl,
+} from "./core/types/constants";
+import {
+  OverlayType,
+  GetAllQueryParams,
+  BookSortingOptions,
+  CategoryType,
+  DocumentOrLaw,
+} from "./core/types/variables";
 // Templates
-import TemplateAnnouncement from "./core/interfaces/templates/TemplateAnnouncements";
+import TemplateAnnouncement from "./core/interfaces/template/TemplateAnnouncement";
+import TemplateAbsence from "./core/interfaces/template/TemplateAbsence";
+import TemplateAdmin from "./core/interfaces/template/TemplateAdmin";
+import TemplateBook from "./core/interfaces/template/TemplateBook";
+import TemplateBookmark from "./core/interfaces/template/TemplateBookmark";
+import TemplateClass from "./core/interfaces/template/TemplateClass";
+import TemplateGrade from "./core/interfaces/template/TemplateGrade";
+import TemplateStudent from "./core/interfaces/template/TemplateStudent";
+import TemplateTeacher from "./core/interfaces/template/TemplateTeacher";
+import TemplateUser from "./core/interfaces/template/TemplateUser";
+import TemplateEmailForm from "./core/interfaces/template/TemplateEmailForm";
 
 // TEMPLATE DATA
 export const defaultTemplateAbsence: TemplateAbsence = {
@@ -98,7 +101,7 @@ export const defaultTemplateGrade: TemplateGrade = {
   value: 1,
 };
 
-export const defaultEmailFormTemplate: EmailFormTemplate = {
+export const defaultEmailFormTemplate: TemplateEmailForm = {
   emailAddress: "",
   message: "",
   sender: "",
@@ -170,6 +173,7 @@ export const defaultTemplateTeacher: TemplateTeacher = {
 
 export const defaultTemplateClass: TemplateClass = {
   label: "",
+  id: "",
   created_by_admin_uid: "",
   public: true,
   students: [],
@@ -196,81 +200,6 @@ export const defaultOverlay: OverlayType = {
   showOverlay: false,
   title: "",
 };
-
-// OPTIONS DATA(EITHER PROFILE OR SORTING OPTIONS FOR A MODEL)
-export const defaultUserBookmarks: TemplateBookmark[] = [
-  {
-    id: 1,
-    type: "DEFAULT",
-    dest: "/login",
-    label: "Intră în contul tău",
-  },
-  {
-    id: 2,
-    type: "DEFAULT",
-    dest: "/signup",
-    label: "Creează-ți un cont",
-  },
-  { id: 3, type: "DEFAULT", dest: "/biblioteca", label: "Biblioteca liceului" },
-  {
-    id: 4,
-    type: "DEFAULT",
-    dest: "/anunturi",
-    label: "Anunțuri",
-  },
-  { id: 5, type: "DEFAULT", dest: "/contact", label: "Contact" },
-];
-export const defaultStudentBookmarks: TemplateBookmark[] = [
-  { id: 1, type: "DEFAULT", dest: "/biblioteca", label: "Biblioteca liceului" },
-  {
-    id: 2,
-    type: "DEFAULT",
-    dest: "/anunturi",
-    label: "Anunțuri",
-  },
-  { id: 3, type: "DEFAULT", dest: "/contact", label: "Contact" },
-  {
-    id: 4,
-    type: "SPECIAL",
-    dest: "/profil/#carnet",
-    label: "Carnetul tău de elev",
-  },
-  { id: 5, type: "SPECIAL", dest: "/clase/:classId", label: "Clasa ta" },
-];
-export const defaultTeacherBookmarks: TemplateBookmark[] = [
-  { id: 1, type: "DEFAULT", dest: "/biblioteca", label: "Biblioteca liceului" },
-  {
-    id: 2,
-    type: "DEFAULT",
-    dest: "/anunturi",
-    label: "Anunțuri",
-  },
-  { id: 3, type: "DEFAULT", dest: "/contact", label: "Contact" },
-  {
-    id: 4,
-    type: "SPECIAL",
-    dest: "/profil/#claseleProfesorului",
-    label: "Clasele tale",
-  },
-  { id: 5, type: "SPECIAL", dest: "/clase/:classId", label: "Clasa ta" },
-];
-export const defaultAdminBookmarks: TemplateBookmark[] = [
-  {
-    id: 1,
-    type: "DEFAULT",
-    dest: "/anunturi",
-    label: "Anunțuri",
-  },
-  { id: 2, type: "DEFAULT", dest: "/profesori", label: "Profesori" },
-  {
-    id: 3,
-    type: "DEFAULT",
-    dest: "/profil",
-    label: "Profilul tau",
-  },
-  { id: 4, type: "DEFAULT", dest: "/clase", label: "Clasele liceului" },
-  { id: 5, type: "DEFAULT", dest: "/login", label: "Intră în alt cont" },
-];
 
 export const bookmarkIconShownMap: BookmarkIconShownMapType[] = [
   { id: 1, dest: "/home", icon: AiFillHome({}) },

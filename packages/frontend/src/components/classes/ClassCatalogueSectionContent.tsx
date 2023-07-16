@@ -1,10 +1,10 @@
 // React
 import { FC, useEffect } from "react";
-// Types
-import { Teacher, Absence, Grade } from "@prisma/client";
-import { ClassCatalogueSectionContentProps } from "types";
 // React Icons
 import { AiFillDelete } from "react-icons/ai";
+// Types
+import { Teacher, Absence, Grade } from "@prisma/client";
+import ClassCatalogueSectionContentProps from "@/core/interfaces/component/ClassCatalogueSectionContentProps";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
 // Components
