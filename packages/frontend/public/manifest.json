@@ -1,0 +1,32 @@
+{
+    "theme_color": "#C0C0C0",
+    "background_color": "#C0C0C0",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Liceul Teoretic \"Ion Barbu\" Pite\u0219ti",
+    "short_name": "LTIBP",
+    "description": "Descoper\u0103 Liceul Teoretic \"Ion Barbu\" Pite\u0219ti - excelent\u0103 educa\u021bional\u0103, resurse avansate \u0219i un mediu stimulant pentru formarea liderilor de m\u00e2ine. Promov\u0103m excelen\u021ba academic\u0103 \u0219i cultiv\u0103m valori precum creativitatea \u0219i responsabilitatea. \u00cenva\u021b\u0103, cre\u0219te \u0219i exploreaz\u0103 lumea al\u0103turi de noi.",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

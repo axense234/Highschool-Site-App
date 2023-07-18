@@ -24,16 +24,22 @@ import {
 } from "@/redux/slices/teachersSlice";
 import { selectLoadingUpdateAdmin } from "@/redux/slices/adminsSlice";
 import { selectLoadingUpdateStudent } from "@/redux/slices/studentsSlice";
+import {
+  getAllClasses,
+  selectLoadingClasses,
+} from "@/redux/slices/classesSlice";
 
 const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
   const dispatch = useAppDispatch();
   const searchButtonRef = useRef<HTMLDivElement>(null);
+
   const loadingProfile = useAppSelector(selectLoadingProfile);
   const loadingUpdateAdmin = useAppSelector(selectLoadingUpdateAdmin);
   const loadingUpdateStudent = useAppSelector(selectLoadingUpdateStudent);
   const loadingUpdateTeacher = useAppSelector(selectLoadingUpdateTeacher);
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
   const loadingTeachers = useAppSelector(selectLoadingTeachers);
+  const loadingClasses = useAppSelector(selectLoadingClasses);
 
   const profile = useAppSelector(selectProfile);
 
@@ -61,6 +67,9 @@ const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
     }
     if (loadingTeachers === "IDLE") {
       dispatch(getAllTeachers({ query: "", sortByOption: "" }));
+    }
+    if (loadingClasses === "IDLE") {
+      dispatch(getAllClasses());
     }
   }, []);
 

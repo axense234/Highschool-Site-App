@@ -17,6 +17,7 @@ import Searchbar from "@/components/navigation/Searchbar";
 import ScreenLoading from "@/components/loading/ScreenLoading";
 import BookmarksMenu from "@/components/navigation/BookmarksMenu";
 import BookmarksNav from "@/components/navigation/BookmarksNav";
+import NotificationsModal from "@/components/modals/NotificationsModal";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -41,6 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
           showBookmarks={showBookmarks}
           setShowBookmarks={setShowBookmarks}
         />
+        <NotificationsModal />
         <Component {...pageProps} />
         <Footer />
         <ScreenLoading />

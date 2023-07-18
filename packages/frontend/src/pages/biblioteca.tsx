@@ -6,6 +6,7 @@ import Image from "next/image";
 // React Icons
 import { AiFillBook } from "react-icons/ai";
 import { BiSortAlt2 } from "react-icons/bi";
+import { TbPdf } from "react-icons/tb";
 // Types
 import { BsFillPersonFill } from "react-icons/bs";
 import TemplateBook from "@/core/interfaces/template/TemplateBook";
@@ -122,21 +123,22 @@ const BooksPageNav: FC = () => {
             <option value="desc">Descrescător</option>
           </select>
         </div>
-      </form>
-      <div className={libraryStyles.libraryContainer__checkboxFilter}>
-        <div className={libraryStyles.libraryContainer__controlLabel}>
-          <label htmlFor="pdfOnly">Numai Cărți cu PDF Valabil</label>
+        <div className={libraryStyles.libraryContainer__checkboxFilter}>
+          <div className={libraryStyles.libraryContainer__controlLabel}>
+            <TbPdf />
+            <label htmlFor="pdfOnly">Numai Cărți cu PDF Valabil</label>
+          </div>
+          <input
+            type="checkbox"
+            id="pdfOnly"
+            required={false}
+            checked={bookSortingOptions.hasPdfFileUrl}
+            onChange={() =>
+              onHasPdfFileUrlChange(!bookSortingOptions.hasPdfFileUrl)
+            }
+          />
         </div>
-        <input
-          type="checkbox"
-          id="pdfOnly"
-          required={false}
-          checked={bookSortingOptions.hasPdfFileUrl}
-          onChange={() =>
-            onHasPdfFileUrlChange(!bookSortingOptions.hasPdfFileUrl)
-          }
-        />
-      </div>
+      </form>
     </div>
   );
 };

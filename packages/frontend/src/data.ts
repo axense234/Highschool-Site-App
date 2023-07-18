@@ -978,6 +978,7 @@ export const individualPagesData: IndividualPageData[] = [
     pageDest: "/istoric",
     searchbarPlaceholder: "Căutați în tot site-ul și pagina Istoric:",
   },
+  // !!!
   // About Project Page
   {
     id: 1007,
@@ -1016,14 +1017,35 @@ export const individualPagesData: IndividualPageData[] = [
     id: 1008,
     recommendations: [],
     pageDest: "/login",
-    searchbarPlaceholder: "Căutați în tot site-ul și pagina Intră în cont:",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Intrați în Cont:",
   },
-  // Profile Page
   {
     id: 1009,
     recommendations: [],
+    pageDest: "/signup",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Creați un Cont:",
+  },
+  // Profile Page
+  {
+    id: 1010,
+    recommendations: [],
     pageDest: "/profil",
     searchbarPlaceholder: "Căutați în tot site-ul și pagina Profilul Tău:",
+  },
+  // Classrooms Page
+  {
+    id: 1011,
+    recommendations: [],
+    pageDest: "/clase",
+    searchbarPlaceholder: "Căutați în tot site-ul și pagina Clasele Liceului:",
+  },
+  // Library Page
+  {
+    id: 1012,
+    recommendations: [],
+    pageDest: "/biblioteca",
+    searchbarPlaceholder:
+      "Căutați în tot site-ul și pagina Biblioteca Liceului:",
   },
 ];
 
@@ -1047,6 +1069,8 @@ export const pagesData: PageData[] = [
   { id: 2009, label: "Pagină - Intră în cont", dest: "/login" },
   { id: 2010, label: "Pagină - Crează-ți un cont", dest: "/signup" },
   { id: 2011, label: "Pagină - Profil", dest: "/profil" },
+  { id: 2012, label: "Pagină - Clasele Liceului", dest: "/clase" },
+  { id: 2013, label: "Pagină - Biblioteca Liceului", dest: "/biblioteca" },
 ];
 
 export const pageTitleBackgroundImageUrls: BackgroundImageUrl[] = [

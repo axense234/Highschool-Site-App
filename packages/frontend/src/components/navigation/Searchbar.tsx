@@ -34,20 +34,34 @@ import {
   selectAllTeachers,
   setFoundTeacherId,
 } from "@/redux/slices/teachersSlice";
+import { selectAllClasses } from "@/redux/slices/classesSlice";
 
 const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
+  const dispatch = useAppDispatch();
   const searchbarRef = useRef<HTMLDivElement>(null);
 
   const categoryNames = announcementCategories.map((cat) => cat.name);
 
-  const dispatch = useAppDispatch();
   const profile = useAppSelector(selectProfile);
   const pathname = useAppSelector(selectCurrentPathname);
   const searchbarQuery = useAppSelector(selectSearchbarQuery);
+
   const announcements = useAppSelector(selectAllAnnouncements);
   const teachers = useAppSelector(selectAllTeachers);
+  const classes = useAppSelector(selectAllClasses);
+
+  const usableClasses = classes.filter((classItem) => classItem.public);
 
   const router = useRouter();
+
+  const recommendationsFromClasses = usableClasses.map((usableClass) => {
+    return {
+      id: usableClass.class_uid,
+      dest: `/clase/${usableClass.class_uid}`,
+      label: `Clasa ${usableClass.label}`,
+      type: "class",
+    };
+  });
 
   const recommendationsFromAnnouncements = announcements.map((ann) => {
     return {
@@ -87,7 +101,8 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
     )
     .concat(allPageRecommendations)
     .concat(recommendationsFromAnnouncements)
-    .concat(recommendationsFromTeachers);
+    .concat(recommendationsFromTeachers)
+    .concat(recommendationsFromClasses);
 
   const shownRecommendations = allPageRecommendationsInOrder.filter((rec) =>
     normalizeString(rec.label).includes(searchbarQuery.toLocaleLowerCase())

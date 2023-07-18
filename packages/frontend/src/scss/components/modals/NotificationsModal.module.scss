@@ -1,0 +1,10 @@
+@use "../../abstracts" as *;
+
+.notificationsModalContainer {
+  @include flexCenter(column);
+  border: 2px solid black;
+  width: 50%;
+  font-size: 3rem;
+  position: absolute;
+  top: 2rem;
+}

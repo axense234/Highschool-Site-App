@@ -51,8 +51,7 @@
 }
 
 @mixin textControl() {
-  @include flexCenter(column);
-  align-items: flex-start;
+  @include flexCenter(row);
   justify-content: space-between;
   gap: 1rem;
 
@@ -67,7 +66,7 @@
   transition: transform 0.1s ease-in;
 
   input {
-    @include controlInput(1rem, 90%);
+    @include controlInput(1rem, 60%);
     transition: transform 0.1s ease-in;
     padding: 0.5rem 0.75rem;
 
@@ -81,7 +80,7 @@
   @include flexCenter(row);
   justify-content: space-around;
   position: relative;
-  width: 90%;
+  width: 60%;
 
   svg {
     position: absolute;
@@ -92,9 +91,8 @@
 }
 
 @mixin passControl {
-  @include flexCenter(column);
+  @include flexCenter(row);
   justify-content: space-between;
-  align-items: flex-start;
   gap: 1rem;
 
   background-color: getColor("silver-white");
@@ -107,12 +105,8 @@
 
   transition: transform 0.1s ease-in;
 
-  label {
-    font-size: 1.5rem;
-  }
-
   input {
-    @include controlInput(1rem, 90%);
+    @include controlInput(1rem, 100%);
     transition: transform 0.1s ease-in;
     padding: 0.5rem 0.75rem;
 
@@ -123,8 +117,7 @@
 }
 
 @mixin imageControl {
-  @include flexCenter(column);
-  align-items: flex-start;
+  @include flexCenter(row);
   justify-content: space-between;
   gap: 1rem;
 
@@ -138,12 +131,8 @@
 
   transition: transform 0.1s ease-in;
 
-  label {
-    font-size: 1.5rem;
-  }
-
   input {
-    @include controlInput(1rem, 55%);
+    @include controlInput(1rem, 45%);
 
     &:hover {
       transform: scale(1.01);
@@ -167,16 +156,12 @@
 
   transition: transform 0.1s ease-in;
 
-  label {
-    font-size: 1.5rem;
-  }
-
   textarea {
     min-width: 50%;
-    max-width: 50%;
+    max-width: 100%;
     font-size: 1rem;
     padding: 0.5rem;
-    max-height: 5rem;
+    max-height: 20rem;
     border-radius: 1rem;
     border: 2px solid getColor("silver-50");
 
@@ -200,10 +185,6 @@
 
   transition: transform 0.1s ease-in;
 
-  label {
-    font-size: 1.5rem;
-  }
-
   input {
     @include controlInput(1rem, 10%);
     transition: transform 0.1s ease;
@@ -216,8 +197,7 @@
 }
 
 @mixin selectControl {
-  @include flexCenter(column);
-  align-items: flex-start;
+  @include flexCenter(row);
   justify-content: space-between;
   gap: 1rem;
 
@@ -234,7 +214,6 @@
   select {
     @include controlSelect();
     font-size: 1rem;
-    width: 35%;
     gap: 1rem;
 
     &:hover {
@@ -261,7 +240,7 @@
   gap: 1rem;
 
   label {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
   }
 
   svg {
@@ -269,7 +248,7 @@
     padding: 0.25rem;
     background-color: black;
     border-radius: 50%;
-    font-size: 2.5rem;
+    font-size: 2.15rem;
     border: 1px solid black;
   }
 }

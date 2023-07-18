@@ -15,12 +15,14 @@
 
   #{&}__libraryContent {
     @include pageSection(getColor("silver-20"), column);
-    gap: 2.5rem;
+    gap: 5rem;
   }
 
   #{&}__libraryBooksWrapper {
     @include flexCenter(row);
     width: 100%;
+    gap: 5rem;
+    align-items: flex-start;
 
     p {
       font-size: 1.25rem;
@@ -29,7 +31,7 @@
 
   #{&}__libraryBooks {
     @include flexCenter(column);
-    width: 100%;
+    width: 50%;
     gap: 1.5rem;
 
     li {
@@ -40,7 +42,7 @@
 
   #{&}__bookContainer {
     @include flexCenter(column);
-    width: 50%;
+    width: 100%;
     background-color: getColor("silver-white");
     border-radius: 0.2rem;
     box-shadow: 1px 1px 5px 2px getColor("silver-50");
@@ -130,5 +132,47 @@
         transform: scale(1.1);
       }
     }
+  }
+
+  #{&}__booksPageNavContainer {
+    @include flexCenter(column);
+    align-items: flex-start;
+    width: 40%;
+    background-color: getColor("silver-white");
+    gap: 2rem;
+    padding: 1.5rem;
+    border-radius: 0.2rem;
+    box-shadow: 1px 1px 5px 2px getColor("silver-50");
+
+    h3 {
+      font-size: 2rem;
+      align-self: center;
+    }
+  }
+
+  #{&}__booksPageNavForm {
+    @include flexCenter(column);
+    width: 100%;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  #{&}__selectFilter {
+    @include selectControl();
+    background-color: getColor("silver-0");
+  }
+
+  #{&}__controlLabel {
+    @include controlLabel();
+
+    label {
+      font-size: 1.25rem;
+    }
+  }
+
+  #{&}__checkboxFilter {
+    @include checkboxControl();
+    width: 100%;
+    background-color: getColor("silver-0");
   }
 }
