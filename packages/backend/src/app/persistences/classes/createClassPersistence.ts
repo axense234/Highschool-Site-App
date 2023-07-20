@@ -17,7 +17,7 @@ const createClassPersistence = async (classBody: TemplateClassType) => {
     delete classBody.master_teacher;
   }
 
-  if (!classLabelPattern.test(classBody.label)) {
+  if (!classLabelPattern.test(classBody.label as string)) {
     return {
       msg: `Etichetă de clasă invalidă!`,
       class: {},
@@ -49,6 +49,9 @@ const createClassPersistence = async (classBody: TemplateClassType) => {
     if (foundTeacher) {
       classBody.master_teacher_name = foundTeacher.fullname;
     }
+  } else {
+    delete classBody.master_teacher_name;
+    delete classBody.master_teacher_uid;
   }
 
   const createdClass = await classClient.create({
