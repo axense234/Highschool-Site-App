@@ -1,4 +1,4 @@
-import { Admin, Bookmark, WebPushSubscription } from "@prisma/client";
+import { Admin, Bookmark } from "@prisma/client";
 
 interface TemplateAdmin extends Partial<Admin> {
   role: "ADMIN" | "ELEV" | "PROFESOR";
