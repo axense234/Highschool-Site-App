@@ -7,7 +7,7 @@
   "schema.prisma": "./packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "nodemon src/index.ts",
-  "build": "npm install && npx prisma generate && npx prisma migrate deploy && tsc",
+    "build": "npm install && npx prisma generate && npx prisma migrate deploy && tsc",
     "start": "node dist/index.js"
   },
   "author": "axense234",
@@ -26,6 +26,8 @@
     "jsonwebtoken": "^9.0.0",
     "nodemailer": "^6.9.2",
     "redis": "^4.6.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.0",
     "web-push": "^3.6.3"
   },
