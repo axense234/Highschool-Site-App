@@ -259,6 +259,8 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                       sendNotificationToUser(
                         student_uid as string,
                         "ELEV",
+                        "test",
+                        "test message",
                         dispatch
                       );
                     }}
