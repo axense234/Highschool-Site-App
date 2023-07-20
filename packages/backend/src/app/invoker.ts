@@ -12,9 +12,7 @@ const startServer = async () => {
     await connectToRedis().then(() => {
       console.log("Connected to Redis!");
     });
-    await connectToPostgres().then(() =>
-      console.log("Connected to PostgreSQL!")
-    );
+    await connectToPostgres();
     app.listen(PORT, () => {
       console.log(`Server is listening on port:${PORT}...`);
     });

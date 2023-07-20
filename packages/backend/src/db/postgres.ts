@@ -18,7 +18,9 @@ const accountCodeClient = prisma.accountCode;
 const bookmarkClient = prisma.bookmark;
 
 const connectToPostgres = async () => {
-  await prisma.$connect();
+  await prisma.$connect().then(async () => {
+    console.log(`Connected to Postgres through Prisma.`);
+  }, prisma.$disconnect);
 };
 
 export {
