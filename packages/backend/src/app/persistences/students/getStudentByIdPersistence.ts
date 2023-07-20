@@ -13,9 +13,7 @@ const getStudentByIdPersistence = async (
   const filterCondition = {} as any;
   filterCondition[filter] = filterValue;
 
-  if (includeBookmarks === "true") {
-    includeObject.bookmarks = true;
-  }
+  includeObject.bookmarks = Boolean(includeBookmarks);
 
   if (includeStudentCard === "true") {
     includeObject.student_card = {
@@ -28,6 +26,8 @@ const getStudentByIdPersistence = async (
         },
       },
     };
+  } else {
+    includeObject.student_card = false;
   }
 
   const foundStudent = await studentClient.findUnique({

@@ -6,14 +6,20 @@ import { StatusCodes } from "http-status-codes";
 import { encryptPassword } from "../../../utils/bcrypt";
 // Client
 import { adminClient } from "../../../db/postgres";
+// Interfaces
+import { TemplateAdminType } from "../../../core/types/templateAdminType";
 
 const updateAdminByIdPersistence = async (
   adminId: string,
-  adminBody: Admin
+  adminBody: TemplateAdminType
 ) => {
   if (adminBody.password) {
     const encryptedPassword = await encryptPassword(adminBody.password);
     adminBody.password = encryptedPassword;
+  }
+
+  if (adminBody.bookmarks) {
+    delete adminBody.bookmarks;
   }
 
   if (!adminId) {
@@ -38,7 +44,7 @@ const updateAdminByIdPersistence = async (
 
   const updatedAdmin = await adminClient.update({
     where: { admin_uid: adminId },
-    data: { ...adminBody },
+    data: { ...(adminBody as Admin) },
   });
 
   if (!updatedAdmin) {

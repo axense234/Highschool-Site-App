@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // Prisma
 import { Admin, Student, Teacher } from "@prisma/client";
 // Axios
-import { AxiosError } from "axios";
+import { Axios, AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // Types
 import { ObjectKeyValueType } from "@/core/types/constants";
@@ -15,6 +15,7 @@ import {
   GetAllQueryParams,
   User,
   ErrorPayloadType,
+  TemplateUserNotification,
 } from "@/core/types/variables";
 // State
 import { State } from "../api/store";
@@ -40,7 +41,7 @@ import TemplateEmailForm from "@/core/interfaces/template/TemplateEmailForm";
 type initialStateType = {
   loadingProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   loadingLoginProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
-  loadingUpdateProfile: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
+  loadingSendNotificationToUser: "IDLE" | "PENDING" | "SUCCEDED" | "FAILED";
   profile: TemplateAdmin | TemplateStudent | TemplateTeacher | TemplateUser;
   templateProfile: TemplateUser;
   formModal: FormModalType;
@@ -71,7 +72,7 @@ const initialState: initialStateType = {
   // Loading States
   loadingProfile: "IDLE",
   loadingLoginProfile: "IDLE",
-  loadingUpdateProfile: "IDLE",
+  loadingSendNotificationToUser: "IDLE",
   // Profile State
   profile: defaultProfile,
   templateProfile: defaultTemplateProfile,
@@ -111,6 +112,24 @@ const initialState: initialStateType = {
 };
 
 // THUNKS
+export const notifyUser = createAsyncThunk<
+  string | AxiosError,
+  TemplateUserNotification
+>(
+  "general/notifyUser",
+  async ({ userId, userType, notificationTitle, notificationMessage }) => {
+    try {
+      const { data } = await axiosInstance.post(
+        `/notifications/notify/${userId}/${userType}`,
+        { notificationTitle, notificationMessage }
+      );
+      return data as string;
+    } catch (error) {
+      return error as AxiosError;
+    }
+  }
+);
+
 export const getUserProfile = createAsyncThunk<
   Admin | Student | Teacher | AxiosError
 >("general/getUserProfile", async () => {
@@ -379,6 +398,19 @@ const generalSlice = createSlice({
       })
       .addCase(verifyResetPassToken.rejected, (state, action) => {
         console.log(action);
+      })
+      .addCase(notifyUser.pending, (state, action) => {
+        state.loadingSendNotificationToUser = "PENDING";
+      })
+      .addCase(notifyUser.fulfilled, (state, action) => {
+        const axiosError = action.payload as AxiosError;
+        const message = action.payload as string;
+
+        if (!axiosError.response) {
+          console.log(message);
+        }
+
+        state.loadingSendNotificationToUser = "SUCCEDED";
       });
   },
 });
@@ -395,9 +427,6 @@ export const selectLoadingProfile = (state: State) =>
 
 export const selectLoadingLoginProfile = (state: State) =>
   state.general.loadingLoginProfile;
-
-export const selectLoadingUpdateProfile = (state: State) =>
-  state.general.loadingUpdateProfile;
 
 export const selectCardModalId = (state: State) => state.general.cardModalId;
 

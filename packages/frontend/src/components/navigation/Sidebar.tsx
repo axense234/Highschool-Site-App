@@ -7,12 +7,26 @@ import { AiFillCloseCircle } from "react-icons/ai";
 // SCSS
 import sidebarStyles from "../../scss/components/navigation/Sidebar.module.scss";
 // Data
-import { sidebarPageLinks, sidebarSocialMediaLinks } from "@/data";
+import {
+  PUBLIC_VAPID_KEY,
+  sidebarPageLinks,
+  sidebarSocialMediaLinks,
+} from "@/data";
 // Components
 import Logo from "../others/Logo";
 // Redux
-import { useAppSelector } from "@/hooks/redux";
-import { selectProfile } from "@/redux/slices/generalSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  selectProfile,
+  setScreenLoadingMessage,
+} from "@/redux/slices/generalSlice";
+import { updateAdminById } from "@/redux/slices/adminsSlice";
+import { updateStudentById } from "@/redux/slices/studentsSlice";
+import { updateTeacherById } from "@/redux/slices/teachersSlice";
+// Interfaces
+import TemplateUpdateAdmin from "@/core/interfaces/template/TemplateUpdateAdmin";
+import TemplateUpdateStudent from "@/core/interfaces/template/TemplateUpdateStudent";
+import TemplateUpdateTeacher from "@/core/interfaces/template/TemplateUpdateTeacher";
 
 interface SidebarProps {
   showSidebar: boolean;
@@ -20,8 +34,53 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
+  const dispatch = useAppDispatch();
   const sidebarRef = useRef<HTMLElement>(null);
   const profile = useAppSelector(selectProfile);
+
+  const subscribeUserToNotifications = async () => {
+    const sw = await navigator.serviceWorker.ready;
+    const subscription = await sw.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: PUBLIC_VAPID_KEY,
+    });
+
+    dispatch(
+      setScreenLoadingMessage(
+        "Încercăm să actualizăm contul tău, vă rugăm să așteptați..."
+      )
+    );
+
+    switch (profile.role) {
+      case "ADMIN":
+        console.log("yes");
+        dispatch(
+          updateAdminById({
+            ...(profile as TemplateUpdateAdmin),
+            subscription: JSON.stringify(subscription),
+          })
+        );
+        break;
+      case "ELEV":
+        dispatch(
+          updateStudentById({
+            ...(profile as TemplateUpdateStudent),
+            subscription: JSON.stringify(subscription),
+          })
+        );
+        break;
+      case "PROFESOR":
+        dispatch(
+          updateTeacherById({
+            ...(profile as TemplateUpdateTeacher),
+            subscription: JSON.stringify(subscription),
+          })
+        );
+        break;
+      default:
+        throw new Error("Invalid profile role value.");
+    }
+  };
 
   useEffect(() => {
     const sidebar = sidebarRef.current as HTMLElement;
@@ -31,6 +90,20 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
       sidebar.style.transform = "translateX(-150%)";
     }
   }, [showSidebar]);
+
+  useEffect(() => {
+    if (
+      "Notification" in window &&
+      profile.role &&
+      Notification.permission === "default"
+    ) {
+      Notification.requestPermission().then((res) => {
+        if (res === "granted") {
+          subscribeUserToNotifications();
+        }
+      });
+    }
+  }, [profile.role]);
 
   return (
     <aside className={sidebarStyles.sidebarContainer} ref={sidebarRef}>

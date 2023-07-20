@@ -8,7 +8,7 @@ import authenticationMiddleware from "../middleware/authentication";
 const router = express.Router();
 
 router.post(
-  "/notifications/notify/:userId",
+  "/notifications/notify/:userId/:userType",
   authenticationMiddleware,
   notifyUser
 );

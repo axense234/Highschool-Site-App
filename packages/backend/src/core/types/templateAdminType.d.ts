@@ -1,7 +1,6 @@
-import { Admin, Prisma, WebPushSubscription } from "@prisma/client";
-import { TemplateWebPushSubscription } from "./templateWebPushSubscription";
+import { Admin, Prisma } from "@prisma/client";
 
 export type TemplateAdminType = Admin & {
   bookmarks?: { createMany: { data: Prisma.BookmarkCreateManyInput[] } };
-  subscription?: TemplateWebPushSubscription;
+  subscription?: string;
 };

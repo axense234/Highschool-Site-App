@@ -26,6 +26,7 @@ import {
 } from "@/redux/slices/generalSlice";
 // Components
 import FormModal from "../modals/FormModal";
+import TemplateUpdateAdmin from "@/core/interfaces/template/TemplateUpdateAdmin";
 
 const UpdateAdminForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +61,7 @@ const UpdateAdminForm: FC = () => {
         "Încercăm să actualizăm contul tău, vă rugăm să așteptați..."
       )
     );
-    dispatch(updateAdminById(templateAdmin as TemplateAdmin));
+    dispatch(updateAdminById(templateAdmin as TemplateUpdateAdmin));
   };
 
   useEffect(() => {

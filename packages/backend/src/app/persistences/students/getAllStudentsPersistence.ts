@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { studentClient } from "../../../db/postgres";
 
-const getAllStudentsPersistence = async (classLabel: string) => {
+const getAllStudentsPersistence = async (classLabel?: string) => {
   const queryObject = {} as Student;
 
   if (classLabel === "true") {

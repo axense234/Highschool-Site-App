@@ -12,9 +12,7 @@ const getAdminByIdPersistence = async (
   const filterCondition = {} as any;
   filterCondition[filter] = filterValue;
 
-  if (includeBookmarks === "true") {
-    includeObject.bookmarks = true;
-  }
+  includeObject.bookmarks = Boolean(includeBookmarks);
 
   const foundAdmin = await adminClient.findUnique({
     where: filterCondition,

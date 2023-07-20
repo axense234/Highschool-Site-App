@@ -61,6 +61,7 @@ const ClassCatalogueSection: FC<ClassCatalogueSectionProps> = ({
               class_uid={class_uid}
               section_uid={studentSection.card_section_uid}
               studentCardContent={studentCardContent}
+              student_uid={student.student_uid}
             />
           );
         })}

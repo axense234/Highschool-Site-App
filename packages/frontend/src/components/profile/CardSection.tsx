@@ -6,14 +6,13 @@ import Link from "next/link";
 // React Icons
 import { AiFillDelete } from "react-icons/ai";
 // Types
-import { Absence, Grade, Teacher } from "@prisma/client";
+import { Absence, Teacher } from "@prisma/client";
 import CardSectionProps from "@/core/interfaces/component/CardSectionProps";
 // Components
 import CreateGradeOrAbsence from "../others/CreateGradeOrAbsence";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
-  deleteAbsenceById,
   updateAbsenceById,
   updateTemplateAbsence,
 } from "@/redux/slices/absencesSlice";
@@ -26,12 +25,13 @@ import {
   setEditableGradeId,
   selectEditableGradeId,
 } from "@/redux/slices/generalSlice";
-import {
-  deleteGradeById,
-  updateGradeById,
-  updateTemplateGrade,
-} from "@/redux/slices/gradesSlice";
+import { updateTemplateGrade } from "@/redux/slices/gradesSlice";
 import { getStudentById } from "@/redux/slices/studentsSlice";
+// Helpers
+import deleteGrade from "@/helpers/deleteGrade";
+import updateGrade from "@/helpers/updateGrade";
+import deleteAbsence from "@/helpers/deleteAbsence";
+import updateAbsence from "@/helpers/updateAbsence";
 
 const CardSection: FC<CardSectionProps> = ({
   absences,
@@ -64,52 +64,6 @@ const CardSection: FC<CardSectionProps> = ({
 
   const allowEditGrade =
     ownProfile.role === "ADMIN" || ownProfile.role === "PROFESOR";
-
-  const updateAbsence = (absence: Absence) => {
-    if (allowAbsenceReasoning) {
-      dispatch(
-        updateAbsenceById({
-          reasoned: !absence.reasoned,
-          absence_uid: absence.absence_uid,
-          card_section_uid: section_uid,
-          id: absence.absence_uid,
-        })
-      )
-        .unwrap()
-        .then(() => dispatch(getStudentById(profile_used_uid as string)));
-    }
-  };
-
-  const deleteAbsence = (absence_uid: string) => {
-    if (allowDeleteAbsenceOrGrade) {
-      dispatch(deleteAbsenceById(absence_uid))
-        .unwrap()
-        .then(() => dispatch(getStudentById(profile_used_uid as string)));
-    }
-  };
-
-  const updateGrade = (grade: Grade, value: number) => {
-    if (allowEditGrade) {
-      dispatch(
-        updateGradeById({
-          card_section_uid: section_uid,
-          id: grade.grade_uid,
-          value,
-          grade_uid: grade.grade_uid,
-        })
-      )
-        .unwrap()
-        .then(() => dispatch(getStudentById(profile_used_uid as string)));
-    }
-  };
-
-  const deleteGrade = (grade_uid: string) => {
-    if (allowDeleteAbsenceOrGrade) {
-      dispatch(deleteGradeById(grade_uid))
-        .unwrap()
-        .then(() => dispatch(getStudentById(profile_used_uid as string)));
-    }
-  };
 
   useEffect(() => {
     if (gradeModalId === section_uid) {
@@ -212,7 +166,15 @@ const CardSection: FC<CardSectionProps> = ({
                   <AiFillDelete
                     title="Ștergeți nota"
                     aria-label="Ștergeți nota"
-                    onClick={() => deleteGrade(grade.grade_uid)}
+                    onClick={() =>
+                      deleteGrade(
+                        grade.grade_uid,
+                        allowDeleteAbsenceOrGrade,
+                        "student",
+                        dispatch,
+                        profile_used_uid
+                      )
+                    }
                   />
                 ) : null}
                 {editableGradeId === grade.grade_uid && allowEditGrade ? (
@@ -221,7 +183,17 @@ const CardSection: FC<CardSectionProps> = ({
                     min={1}
                     max={10}
                     value={grade.value}
-                    onChange={(e) => updateGrade(grade, e.target.valueAsNumber)}
+                    onChange={(e) =>
+                      updateGrade(
+                        grade,
+                        e.target.valueAsNumber,
+                        allowEditGrade,
+                        "student",
+                        section_uid,
+                        dispatch,
+                        profile_used_uid
+                      )
+                    }
                   />
                 ) : (
                   <>
@@ -275,7 +247,16 @@ const CardSection: FC<CardSectionProps> = ({
             return (
               <li
                 key={absence.absence_uid}
-                onClick={() => updateAbsence(absence)}
+                onClick={() =>
+                  updateAbsence(
+                    absence,
+                    allowAbsenceReasoning,
+                    section_uid,
+                    "student",
+                    dispatch,
+                    profile_used_uid
+                  )
+                }
                 onFocus={() =>
                   dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
                 }
@@ -288,7 +269,15 @@ const CardSection: FC<CardSectionProps> = ({
                   <AiFillDelete
                     title="Ștergeți absența"
                     aria-label="Ștergeți absența"
-                    onClick={() => deleteAbsence(absence.absence_uid)}
+                    onClick={() =>
+                      deleteAbsence(
+                        absence.absence_uid,
+                        allowDeleteAbsenceOrGrade,
+                        "student",
+                        dispatch,
+                        profile_used_uid
+                      )
+                    }
                   />
                 ) : null}
                 <h5

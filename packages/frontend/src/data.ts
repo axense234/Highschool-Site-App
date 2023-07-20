@@ -1153,3 +1153,5 @@ export const AUTO_SLIDER_FREQUENCY = 3000; // 3 seconds
 export const classLabelPattern = /^(9|10|11|12)[A-F]$/;
 export const websiteLogoUrl =
   "https://res.cloudinary.com/birthdayreminder/image/upload/v1685015242/Highschool%20Site%20App/ltibp_logo_ptonmd.png";
+export const PUBLIC_VAPID_KEY =
+  "BFSQhRVxQAMK_qOEeIeUIMe6dmTjB-9b2kc_UjthPs607XJHIeSz3vPHTlSl9Fc287y0cKvHilGOSeFUGrrYC68";

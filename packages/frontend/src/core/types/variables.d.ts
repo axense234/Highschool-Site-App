@@ -72,6 +72,13 @@ type GradeOrAbsenceSectionType = {
   type: "absence" | "grade";
 };
 
+type TemplateUserNotification = {
+  userId: string;
+  userType: "ADMIN" | "PROFESOR" | "ELEV";
+  notificationTitle: string;
+  notificationMessage: string;
+};
+
 export {
   OverlayType,
   GetAllQueryParams,
@@ -85,4 +92,5 @@ export {
   FormModalType,
   ErrorPayloadType,
   GradeOrAbsenceSectionType,
+  TemplateUserNotification,
 };

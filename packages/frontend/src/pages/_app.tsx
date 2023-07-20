@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 // React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Global SCSS
 import "@/scss/abstracts/globals.scss";
 // Next

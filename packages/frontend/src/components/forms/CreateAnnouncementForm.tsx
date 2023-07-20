@@ -2,6 +2,7 @@
 import { FC, SyntheticEvent, useEffect } from "react";
 // Types
 import { Admin, Teacher } from "@prisma/client";
+import { AxiosError } from "axios";
 // React Icons
 import { BsFillMegaphoneFill } from "react-icons/bs";
 import { TiDocumentText } from "react-icons/ti";
@@ -72,7 +73,13 @@ const CreateAnnouncementForm: FC = () => {
         "Încercăm să creăm anunțul tău, vă rugăm să așteptați..."
       )
     );
-    dispatch(createAnnouncement(templateAnnouncement));
+    dispatch(createAnnouncement(templateAnnouncement))
+      .unwrap()
+      .then((res) => {
+        if (!(res as AxiosError).response) {
+          // dispatch(sendNotification())
+        }
+      });
   };
 
   useEffect(() => {

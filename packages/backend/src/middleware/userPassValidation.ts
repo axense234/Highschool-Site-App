@@ -26,9 +26,8 @@ const validateUserPassword = (
       .json({ msg: "Introduceti parole identice!", user: {} });
   }
 
-  delete userBody.passwordVer;
-
-  return userBody;
+  delete req.body.passwordVer;
+  next();
 };
 
 export default validateUserPassword;

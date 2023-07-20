@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 // React Icons
 import { AiFillDelete } from "react-icons/ai";
 // Types
-import { Teacher, Absence, Grade } from "@prisma/client";
+import { Teacher } from "@prisma/client";
 import ClassCatalogueSectionContentProps from "@/core/interfaces/component/ClassCatalogueSectionContentProps";
 // SCSS
 import classStyles from "../../scss/components/pages/IndividualClass.module.scss";
@@ -11,12 +11,7 @@ import classStyles from "../../scss/components/pages/IndividualClass.module.scss
 import CreateGradeOrAbsence from "../others/CreateGradeOrAbsence";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  updateAbsenceById,
-  deleteAbsenceById,
-  updateTemplateAbsence,
-} from "@/redux/slices/absencesSlice";
-import { getClassById } from "@/redux/slices/classesSlice";
+import { updateTemplateAbsence } from "@/redux/slices/absencesSlice";
 import {
   selectGradeOrAbsenceSection,
   selectGradeModalId,
@@ -27,16 +22,19 @@ import {
   setMarkedAbsenceOrGradeId,
   setEditableGradeId,
 } from "@/redux/slices/generalSlice";
-import {
-  updateGradeById,
-  deleteGradeById,
-  updateTemplateGrade,
-} from "@/redux/slices/gradesSlice";
+import { updateTemplateGrade } from "@/redux/slices/gradesSlice";
+// Helpers
+import deleteGrade from "@/helpers/deleteGrade";
+import updateGrade from "@/helpers/updateGrade";
+import deleteAbsence from "@/helpers/deleteAbsence";
+import updateAbsence from "@/helpers/updateAbsence";
+import sendNotificationToUser from "@/helpers/sendNotification";
 
 const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
   section_uid,
   class_uid,
   studentCardContent,
+  student_uid,
 }) => {
   const dispatch = useAppDispatch();
   const gradeOrAbsenceSection = useAppSelector(selectGradeOrAbsenceSection);
@@ -78,52 +76,6 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
       };
     }) || []
   ).find((absence) => absence.id === section_uid)?.absences;
-
-  const updateAbsence = (absence: Absence) => {
-    if (allowAbsenceReasoning) {
-      dispatch(
-        updateAbsenceById({
-          reasoned: !absence.reasoned,
-          absence_uid: absence.absence_uid,
-          card_section_uid: section_uid,
-          id: absence.absence_uid,
-        })
-      )
-        .unwrap()
-        .then(() => dispatch(getClassById(class_uid as string)));
-    }
-  };
-
-  const deleteAbsence = (absence_uid: string) => {
-    if (allowDeleteAbsenceOrGrade) {
-      dispatch(deleteAbsenceById(absence_uid))
-        .unwrap()
-        .then(() => dispatch(getClassById(class_uid as string)));
-    }
-  };
-
-  const updateGrade = (grade: Grade, value: number) => {
-    if (allowEditGrade) {
-      dispatch(
-        updateGradeById({
-          card_section_uid: section_uid,
-          id: grade.grade_uid,
-          value,
-          grade_uid: grade.grade_uid,
-        })
-      )
-        .unwrap()
-        .then(() => dispatch(getClassById(class_uid as string)));
-    }
-  };
-
-  const deleteGrade = (grade_uid: string) => {
-    if (allowDeleteAbsenceOrGrade) {
-      dispatch(deleteGradeById(grade_uid))
-        .unwrap()
-        .then(() => dispatch(getClassById(class_uid as string)));
-    }
-  };
 
   useEffect(() => {
     if (gradeModalId === section_uid) {
@@ -204,7 +156,15 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                       <AiFillDelete
                         title="Ștergeți nota"
                         aria-label="Ștergeți nota"
-                        onClick={() => deleteGrade(grade.grade_uid)}
+                        onClick={() =>
+                          deleteGrade(
+                            grade.grade_uid,
+                            allowDeleteAbsenceOrGrade,
+                            "class",
+                            dispatch,
+                            class_uid
+                          )
+                        }
                       />
                     ) : null}
                     {editableGradeId === grade.grade_uid && allowEditGrade ? (
@@ -214,7 +174,15 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                         max={10}
                         value={grade.value}
                         onChange={(e) =>
-                          updateGrade(grade, e.target.valueAsNumber)
+                          updateGrade(
+                            grade,
+                            e.target.valueAsNumber,
+                            allowEditGrade,
+                            "class",
+                            section_uid,
+                            dispatch,
+                            class_uid
+                          )
                         }
                       />
                     ) : (
@@ -280,7 +248,19 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                   <li
                     key={absence.absence_uid}
                     onClick={() => {
-                      updateAbsence(absence);
+                      updateAbsence(
+                        absence,
+                        allowAbsenceReasoning,
+                        section_uid,
+                        "class",
+                        dispatch,
+                        class_uid
+                      );
+                      sendNotificationToUser(
+                        student_uid as string,
+                        "ELEV",
+                        dispatch
+                      );
                     }}
                     onFocus={() =>
                       dispatch(setMarkedAbsenceOrGradeId(absence.absence_uid))
@@ -299,7 +279,15 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                       <AiFillDelete
                         title="Ștergeți absența"
                         aria-label="Ștergeți absența"
-                        onClick={() => deleteAbsence(absence.absence_uid)}
+                        onClick={() =>
+                          deleteAbsence(
+                            absence.absence_uid,
+                            allowDeleteAbsenceOrGrade,
+                            "class",
+                            dispatch,
+                            class_uid
+                          )
+                        }
                       />
                     ) : null}
                     <h6>

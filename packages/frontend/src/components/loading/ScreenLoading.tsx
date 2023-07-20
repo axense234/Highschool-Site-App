@@ -10,7 +10,6 @@ import useOverlayTransition from "@/hooks/useOverlayTransition";
 import { useAppSelector } from "@/hooks/redux";
 import {
   selectLoadingLoginProfile,
-  selectLoadingUpdateProfile,
   selectScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import {
@@ -36,7 +35,6 @@ const ScreenLoading: FC = () => {
   );
 
   const loadingLoginProfile = useAppSelector(selectLoadingLoginProfile);
-  const loadingUpdateProfile = useAppSelector(selectLoadingUpdateProfile);
 
   const loadingUpdateAnnouncement = useAppSelector(
     selectLoadingUpdateAnnouncement
@@ -52,8 +50,6 @@ const ScreenLoading: FC = () => {
   const loadingUpdateTeacher = useAppSelector(selectLoadingUpdateTeacher);
   const loadingDeleteTeacher = useAppSelector(selectLoadingDeleteTeacher);
 
-  const loadingUpdateAdmin = useAppSelector(selectLoadingUpdateAdmin);
-
   const loadingCreateGrade = useAppSelector(selectLoadingCreateGrade);
   const loadingCreateAbsence = useAppSelector(selectLoadingCreateAbsence);
 
@@ -62,14 +58,12 @@ const ScreenLoading: FC = () => {
   useEffect(() => {
     const show =
       loadingLoginProfile === "PENDING" ||
-      loadingUpdateProfile === "PENDING" ||
       loadingCreateAnnouncement === "PENDING" ||
       loadingCreateTeacher === "PENDING" ||
       loadingUpdateAnnouncement === "PENDING" ||
       loadingDeleteAnnouncement === "PENDING" ||
       loadingUpdateTeacher === "PENDING" ||
       loadingDeleteTeacher === "PENDING" ||
-      loadingUpdateAdmin === "PENDING" ||
       loadingCreateGrade === "PENDING" ||
       loadingCreateAbsence === "PENDING" ||
       loadingClass === "PENDING";
@@ -77,14 +71,12 @@ const ScreenLoading: FC = () => {
     setShowLoading(show);
   }, [
     loadingLoginProfile,
-    loadingUpdateProfile,
     loadingCreateAnnouncement,
     loadingCreateTeacher,
     loadingUpdateAnnouncement,
     loadingDeleteAnnouncement,
     loadingUpdateTeacher,
     loadingDeleteTeacher,
-    loadingUpdateAdmin,
     loadingCreateGrade,
     loadingCreateAbsence,
     loadingClass,
