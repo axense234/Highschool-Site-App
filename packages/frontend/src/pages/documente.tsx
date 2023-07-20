@@ -1,8 +1,8 @@
 // React
 import { FC } from "react";
 // Types and Data
-import { DocumentOrLaw } from "types";
 import { documentsAndLawsInfo } from "@/data";
+import { DocumentOrLaw } from "@/core/types/variables";
 // SCSS
 import documentsStyles from "../scss/components/pages/Documents.module.scss";
 // Hooks

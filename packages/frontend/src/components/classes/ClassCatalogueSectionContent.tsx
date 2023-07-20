@@ -162,7 +162,7 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                             allowDeleteAbsenceOrGrade,
                             "class",
                             dispatch,
-                            class_uid
+                            class_uid as string
                           )
                         }
                       />
@@ -181,7 +181,7 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                             "class",
                             section_uid,
                             dispatch,
-                            class_uid
+                            class_uid as string
                           )
                         }
                       />
@@ -254,7 +254,7 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                         section_uid,
                         "class",
                         dispatch,
-                        class_uid
+                        class_uid as string
                       );
                       sendNotificationToUser(
                         student_uid as string,
@@ -285,7 +285,7 @@ const ClassCatalogueSectionContent: FC<ClassCatalogueSectionContentProps> = ({
                             allowDeleteAbsenceOrGrade,
                             "class",
                             dispatch,
-                            class_uid
+                            class_uid as string
                           )
                         }
                       />

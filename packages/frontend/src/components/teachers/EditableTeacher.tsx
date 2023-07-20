@@ -8,6 +8,7 @@ import { FiPlus } from "react-icons/fi";
 // Types
 import { Subjects } from "@prisma/client";
 import TemplateTeacher from "@/core/interfaces/template/TemplateTeacher";
+import TemplateUpdateTeacher from "@/core/interfaces/template/TemplateUpdateTeacher";
 // SCSS
 import teachersStyles from "../../scss/components/pages/Teachers.module.scss";
 // Data
@@ -67,7 +68,7 @@ const EditableTeacher: FC<TemplateTeacher> = ({
         "Încercăm să actualizăm un profesor, vă rugăm să așteptați..."
       )
     );
-    dispatch(updateTeacherById(templateTeacher));
+    dispatch(updateTeacherById(templateTeacher as TemplateUpdateTeacher));
     if (fullname) {
       dispatch(setEditMode(false));
     }

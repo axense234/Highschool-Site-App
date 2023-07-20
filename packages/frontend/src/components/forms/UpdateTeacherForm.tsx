@@ -26,6 +26,8 @@ import {
 } from "@/redux/slices/generalSlice";
 // Components
 import FormModal from "../modals/FormModal";
+// Interfaces
+import TemplateUpdateTeacher from "@/core/interfaces/template/TemplateUpdateTeacher";
 
 const UpdateTeacherForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +62,7 @@ const UpdateTeacherForm: FC = () => {
         "Încercăm să actualizăm contul tău, vă rugăm să așteptați..."
       )
     );
-    dispatch(updateTeacherById(templateTeacher as TemplateTeacher));
+    dispatch(updateTeacherById(templateTeacher as TemplateUpdateTeacher));
   };
 
   useEffect(() => {

@@ -26,6 +26,8 @@ import {
 } from "@/redux/slices/generalSlice";
 // Components
 import FormModal from "../modals/FormModal";
+// Interfaces
+import TemplateUpdateStudent from "@/core/interfaces/template/TemplateUpdateStudent";
 
 const UpdateStudentForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +62,7 @@ const UpdateStudentForm: FC = () => {
         "Încercăm să actualizăm contul tău, vă rugăm să așteptați..."
       )
     );
-    dispatch(updateStudentById(templateStudent as TemplateStudent));
+    dispatch(updateStudentById(templateStudent as TemplateUpdateStudent));
   };
 
   useEffect(() => {
