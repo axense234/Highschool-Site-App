@@ -1,6 +1,6 @@
 // Types
 import { Absence, Grade, Subjects } from "@prisma/client";
-import { CountMapObject } from "types";
+import { CountMapObject } from "@/core/types/constants";
 
 const useCalculateCardStats = (
   studentCardSubjects: {
