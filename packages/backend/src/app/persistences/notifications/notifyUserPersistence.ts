@@ -14,6 +14,7 @@ const notifyUserPersistence = async (
   notifcationMessage: string,
   user: TemplateAdminType | TemplateTeacherType | TemplateStudentType
 ) => {
+  console.log(publicVapidKey, privateVapidKey);
   webpush.setVapidDetails(
     "mailto:contact@pomana.com",
     publicVapidKey,
@@ -41,7 +42,7 @@ const notifyUserPersistence = async (
 
   return {
     msg: notificationRes.body,
-    statusCode: notificationRes.statusCode,
+    statusCode: notificationRes.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
   };
 };
 

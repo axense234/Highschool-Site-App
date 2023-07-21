@@ -104,7 +104,9 @@ const notifyUser = async (req: Request, res: Response) => {
         .json({ msg: `Could not find any teachers with id: ${userId}.` });
 
     default:
-      break;
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Invalid user type." });
   }
 };
 
