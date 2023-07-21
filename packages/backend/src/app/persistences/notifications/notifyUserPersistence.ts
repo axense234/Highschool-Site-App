@@ -28,6 +28,7 @@ const notifyUserPersistence = async (
   }
 
   const userSubscription = JSON.parse(user.subscription as string);
+  console.log(user.profile_img_url);
 
   const notificationRes = await webpush.sendNotification(
     userSubscription,

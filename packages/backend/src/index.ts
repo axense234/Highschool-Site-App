@@ -11,9 +11,6 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 // Swagger
 import expressUI from "swagger-ui-express";
-// DB
-import { connectToPostgres } from "./db/postgres";
-import { connectToRedis } from "./db/redis";
 // Routers
 import absencesRouter from "./routers/absences";
 import adminsRouter from "./routers/admins";
