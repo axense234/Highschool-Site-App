@@ -28,6 +28,7 @@ const notifyUserPersistence = async (
     };
   }
 
+  console.log(user.subscription);
   const userSubscription = JSON.parse(user.subscription as string);
   console.log(user.profile_img_url);
 
