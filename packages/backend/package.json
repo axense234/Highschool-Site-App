@@ -7,7 +7,7 @@
   "schema.prisma": "./packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install &&  npx prisma migrate deploy && npx prisma generate && npx tsc",
+    "build": "npm install && npx prisma generate && npx prisma migrate deploy && npx tsc",
     "start": "node dist/index.js"
   },
   "author": "axense234",
