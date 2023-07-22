@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({
   errorFormat: "pretty",
-  log: ["error", "info", "query", "warn"],
+  log: ["error", "info", "warn"],
 });
 
 const announcementClient = prisma.announcement;
