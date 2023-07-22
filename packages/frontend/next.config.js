@@ -32,7 +32,6 @@ const nextConfig = {
 const withPWA = require("next-pwa")({
   dest: "public",
   cleanupOutdatedCaches: true,
-  // disable: process.env.NODE_ENV === "development",
   register: true,
 });
 
