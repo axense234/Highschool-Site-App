@@ -10,6 +10,5 @@
     "target": "ES2015",
     "plugins": [{ "transform": "transformer-module" }]
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules","dist"]
 }
