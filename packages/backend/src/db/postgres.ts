@@ -1,7 +1,10 @@
 // Prisma Client
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  errorFormat: "pretty",
+  log: ["error", "info", "query", "warn"],
+});
 
 const announcementClient = prisma.announcement;
 const adminClient = prisma.admin;
