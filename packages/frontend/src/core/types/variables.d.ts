@@ -1,10 +1,16 @@
 import { AsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
-import { Announcement, AnnouncementCategory, Teacher } from "@prisma/client";
+import {
+  Announcement,
+  AnnouncementCategory,
+  Teacher,
+  WebPushSubscription,
+} from "@prisma/client";
 import TemplateAdmin from "../interfaces/template/TemplateAdmin";
 import TemplateStudent from "../interfaces/template/TemplateStudent";
 import TemplateTeacher from "../interfaces/template/TemplateTeacher";
+import TemplateWebPushSubscription from "../interfaces/template/TemplateWebPushSubscription";
 
 type OverlayType = {
   overlayFunctionUsed: string;
@@ -79,6 +85,12 @@ type TemplateUserNotification = {
   notificationMessage: string;
 };
 
+type TemplateSubscribeUser = {
+  subscription: TemplateWebPushSubscription;
+  userId: string;
+  userType: "ADMIN" | "PROFESOR" | "ELEV";
+};
+
 export {
   OverlayType,
   GetAllQueryParams,
@@ -93,4 +105,5 @@ export {
   ErrorPayloadType,
   GradeOrAbsenceSectionType,
   TemplateUserNotification,
+  TemplateSubscribeUser,
 };

@@ -71,7 +71,7 @@ const CreateGradeOrAbsenceModal: FC<CreateGradeOrAbsenceModalProps> = ({
         <input
           type="number"
           name="addGrade"
-          id="addGrade"
+          id={`addGrade-${templateGrade.grade_uid}`}
           min={1}
           max={10}
           required

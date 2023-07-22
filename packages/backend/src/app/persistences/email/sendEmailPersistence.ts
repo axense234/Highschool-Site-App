@@ -5,8 +5,8 @@ import { MailOptions } from "nodemailer/lib/json-transport";
 import { StatusCodes } from "http-status-codes";
 // Config
 import transporterConfig from "../../../config/transporterConfig";
+import { EmailFormType } from "../../../core/types/emailFormType";
 // Types
-import type { EmailFormType } from "../../../core/types/emailFormType";
 
 const sendEmailPersistence = async (emailForm: EmailFormType) => {
   const transporter = nodemailer.createTransport(transporterConfig);

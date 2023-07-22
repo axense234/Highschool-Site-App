@@ -1,4 +1,4 @@
-import { Student, Bookmark } from "@prisma/client";
+import { Student, Bookmark, WebPushSubscription } from "@prisma/client";
 import TemplateStudentCard from "./TemplateStudentCard";
 
 interface TemplateStudent extends Partial<Student> {
@@ -10,6 +10,7 @@ interface TemplateStudent extends Partial<Student> {
   student_card_uid?: string;
   student_card?: TemplateStudentCard;
   bookmarks?: Bookmark[];
+  subscription?: WebPushSubscription;
 }
 
 export default TemplateStudent;

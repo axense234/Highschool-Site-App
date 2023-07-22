@@ -1,7 +1,7 @@
 // Redux Toolkit
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // Prisma
-import { Admin, Student, Teacher } from "@prisma/client";
+import { Admin, Student, Teacher, WebPushSubscription } from "@prisma/client";
 // Axios
 import { Axios, AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
@@ -16,6 +16,7 @@ import {
   User,
   ErrorPayloadType,
   TemplateUserNotification,
+  TemplateSubscribeUser,
 } from "@/core/types/variables";
 // State
 import { State } from "../api/store";
@@ -112,6 +113,37 @@ const initialState: initialStateType = {
 };
 
 // THUNKS
+export const unsubscribeUser = createAsyncThunk<
+  WebPushSubscription | AxiosError,
+  TemplateSubscribeUser
+>("general/unsubscribeUser", async ({ userId, userType }) => {
+  try {
+    const { data } = await axiosInstance.delete(
+      `notifications/unsubscribe/${userId}/${userType}`
+    );
+    return data.subscription as WebPushSubscription;
+  } catch (error) {
+    console.log(error);
+    return error as AxiosError;
+  }
+});
+
+export const subscribeUser = createAsyncThunk<
+  WebPushSubscription | AxiosError,
+  TemplateSubscribeUser
+>("general/subscribeUser", async ({ subscription, userId, userType }) => {
+  try {
+    const { data } = await axiosInstance.post(
+      `notifications/subscribe/${userId}/${userType}`,
+      subscription
+    );
+    return data.subscription as WebPushSubscription;
+  } catch (error) {
+    console.log(error);
+    return error as AxiosError;
+  }
+});
+
 export const notifyUser = createAsyncThunk<
   string | AxiosError,
   TemplateUserNotification

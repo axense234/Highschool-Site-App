@@ -19,6 +19,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   selectProfile,
   setScreenLoadingMessage,
+  subscribeUser,
+  unsubscribeUser,
 } from "@/redux/slices/generalSlice";
 import { updateAdminById } from "@/redux/slices/adminsSlice";
 import { updateStudentById } from "@/redux/slices/studentsSlice";
@@ -51,35 +53,19 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
       )
     );
 
-    switch (profile.role) {
-      case "ADMIN":
-        console.log("yes");
-        dispatch(
-          updateAdminById({
-            ...(profile as TemplateUpdateAdmin),
-            subscription: JSON.stringify(subscription),
-          })
-        );
-        break;
-      case "ELEV":
-        dispatch(
-          updateStudentById({
-            ...(profile as TemplateUpdateStudent),
-            subscription: JSON.stringify(subscription),
-          })
-        );
-        break;
-      case "PROFESOR":
-        dispatch(
-          updateTeacherById({
-            ...(profile as TemplateUpdateTeacher),
-            subscription: JSON.stringify(subscription),
-          })
-        );
-        break;
-      default:
-        throw new Error("Invalid profile role value.");
-    }
+    const usableSub = subscription.toJSON();
+
+    dispatch(
+      subscribeUser({
+        subscription: {
+          endpoint: usableSub.endpoint,
+          auth: usableSub.keys?.auth,
+          p256dh: usableSub.keys?.p256dh,
+        },
+        userId: profile.id as string,
+        userType: profile.role as "ADMIN" | "PROFESOR" | "ELEV",
+      })
+    );
   };
 
   useEffect(() => {
@@ -100,6 +86,14 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
       Notification.requestPermission().then((res) => {
         if (res === "granted") {
           subscribeUserToNotifications();
+        } else if (res === "denied") {
+          dispatch(
+            unsubscribeUser({
+              userId: profile.id as string,
+              userType: profile.role as "ADMIN" | "PROFESOR" | "ELEV",
+              subscription: {},
+            })
+          );
         }
       });
     }

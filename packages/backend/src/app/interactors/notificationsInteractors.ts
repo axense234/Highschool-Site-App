@@ -1,113 +1,69 @@
 // Express
 import { Request, Response } from "express";
-// Status Codes
-import { StatusCodes } from "http-status-codes";
 // Persistences
 import notifyUserPersistence from "../persistences/notifications/notifyUserPersistence";
-import getAdminByIdPersistence from "../persistences/admins/getAdminByIdPersistence";
-import getStudentByIdPersistence from "../persistences/students/getStudentByIdPersistence";
-import getTeacherByIdPersistence from "../persistences/teachers/getTeacherByIdPersistence";
+import createUserSubscriptionPersistence from "../persistences/notifications/createUserSubscriptionPersistence";
 // Templates
-import { TemplateAdminType } from "../../core/types/templateAdminType";
-import { TemplateStudentType } from "../../core/types/templateStudentType";
-import { TemplateTeacherType } from "../../core/types/templateTeacherType";
+import getSingleSubscriptionPersistence from "../persistences/notifications/getSingleSubscriptionPersistence";
+import removeUserSubscriptionPersistence from "../persistences/notifications/removeUserSubscriptionPersistence";
 
 const publicVapidKey = (process.env.PUBLIC_VAPID_KEY as string) || "";
 const privateVapidKey = (process.env.PRIVATE_VAPID_KEY as string) || "";
+
+const subscribeUser = async (req: Request, res: Response) => {
+  const subBody = req.body;
+  const { userId, userType } = req.params;
+
+  const createdSubPayload = await createUserSubscriptionPersistence(
+    subBody,
+    userId as string,
+    userType as "ADMIN" | "PROFESOR" | "ELEV"
+  );
+
+  return res.status(createdSubPayload.statusCode).json(createdSubPayload);
+};
 
 const notifyUser = async (req: Request, res: Response) => {
   const { userId, userType } = req.params;
   const { notificationTitle, notificationMessage } = req.body;
 
-  switch (userType) {
-    case "ADMIN":
-      const foundAdminPayload = await getAdminByIdPersistence(
-        "admin_uid",
-        userId,
-        "false"
-      );
+  const foundSubscriptionPayload = await getSingleSubscriptionPersistence(
+    userId,
+    userType as "ADMIN" | "PROFESOR" | "ELEV"
+  );
 
-      const foundAdmin =
-        foundAdminPayload.statusCode === 200 && foundAdminPayload.admin;
+  if (
+    foundSubscriptionPayload.statusCode === 200 &&
+    foundSubscriptionPayload.subscription
+  ) {
+    const notificationPayload = await notifyUserPersistence(
+      publicVapidKey,
+      privateVapidKey,
+      notificationTitle,
+      notificationMessage,
+      foundSubscriptionPayload.subscription
+    );
 
-      if (foundAdmin) {
-        const notifiedUserPayload = await notifyUserPersistence(
-          publicVapidKey,
-          privateVapidKey,
-          notificationTitle,
-          notificationMessage,
-          foundAdmin as TemplateAdminType
-        );
-
-        return res
-          .status(notifiedUserPayload.statusCode)
-          .json(notifiedUserPayload);
-      }
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: `Could not find any admins with id: ${userId}.` });
-
-    case "ELEV":
-      const foundStudentPayload = await getStudentByIdPersistence(
-        "student_uid",
-        userId,
-        "false",
-        "false"
-      );
-
-      const foundStudent =
-        foundStudentPayload.statusCode === 200 && foundStudentPayload.student;
-
-      if (foundStudent) {
-        const notifiedUserPayload = await notifyUserPersistence(
-          publicVapidKey,
-          privateVapidKey,
-          notificationTitle,
-          notificationMessage,
-          foundStudent as TemplateStudentType
-        );
-
-        return res
-          .status(notifiedUserPayload.statusCode)
-          .json(notifiedUserPayload);
-      }
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: `Could not find any students with id: ${userId}.` });
-
-    case "PROFESOR":
-      const foundTeacherPayload = await getTeacherByIdPersistence(
-        "teacher_uid",
-        userId,
-        "false",
-        "false"
-      );
-
-      const foundTeacher =
-        foundTeacherPayload.statusCode === 200 && foundTeacherPayload.teacher;
-
-      if (foundTeacher) {
-        const notifiedUserPayload = await notifyUserPersistence(
-          publicVapidKey,
-          privateVapidKey,
-          notificationTitle,
-          notificationMessage,
-          foundTeacher as TemplateTeacherType
-        );
-
-        return res
-          .status(notifiedUserPayload.statusCode)
-          .json(notifiedUserPayload);
-      }
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: `Could not find any teachers with id: ${userId}.` });
-
-    default:
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "Invalid user type." });
+    console.log(notificationPayload);
+    return res.status(notificationPayload.statusCode).json(notificationPayload);
   }
+
+  return res
+    .status(foundSubscriptionPayload.statusCode)
+    .json(foundSubscriptionPayload);
 };
 
-export { notifyUser };
+const removeUserSubscription = async (req: Request, res: Response) => {
+  const { userId, userType } = req.params;
+
+  const removedSubscriptionPayload = await removeUserSubscriptionPersistence(
+    userId,
+    userType as "ADMIN" | "ELEV" | "PROFESOR"
+  );
+
+  return res
+    .status(removedSubscriptionPayload.statusCode)
+    .json(removedSubscriptionPayload);
+};
+
+export { notifyUser, subscribeUser, removeUserSubscription };

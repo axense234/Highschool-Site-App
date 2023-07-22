@@ -2,7 +2,7 @@
 import { StatusCodes } from "http-status-codes";
 // Types
 import { Class } from "@prisma/client";
-import type { TemplateClassType } from "../../../core/types/templateClassType";
+import { TemplateClassType } from "../../../core/types/templateClassType";
 // Data
 import { classLabelPattern } from "../../../data";
 // Clients

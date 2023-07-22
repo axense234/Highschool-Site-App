@@ -39,7 +39,7 @@ model Admin {
   email           String @unique
   password        String
 
-  subscription String?
+  subscription WebPushSubscription?
 
   books_created         Book[]
   classes_created       Class[]
@@ -66,7 +66,7 @@ model Student {
   class_uid   String?
   class_label String?
 
-  subscription String?
+  subscription WebPushSubscription?
 
   bookmarks Bookmark[]
 
@@ -95,7 +95,7 @@ model Teacher {
   sections              StudentCardSection[]
   bookmarks             Bookmark[]
 
-  subscription String?
+  subscription WebPushSubscription?
 
   master_class       Class?
   master_class_uid   String?
@@ -259,6 +259,24 @@ model AccountCode {
   id       String @default("")
 
   value String @unique
+}
+
+model WebPushSubscription {
+  subscription_uid String @id @unique @default(uuid())
+  id               String @default("")
+
+  endpoint String @unique
+  auth     String
+  p256dh   String
+
+  created_by_admin     Admin?  @relation(fields: [created_by_admin_uid], references: [admin_uid])
+  created_by_admin_uid String? @unique
+
+  created_by_teacher     Teacher? @relation(fields: [created_by_teacher_uid], references: [teacher_uid])
+  created_by_teacher_uid String?  @unique
+
+  created_by_student     Student? @relation(fields: [created_by_student_uid], references: [student_uid])
+  created_by_student_uid String?  @unique
 }
 
 enum Subjects {

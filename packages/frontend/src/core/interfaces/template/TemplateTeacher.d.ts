@@ -1,4 +1,4 @@
-import { Teacher, Class, Bookmark } from "@prisma/client";
+import { Teacher, Class, Bookmark, WebPushSubscription } from "@prisma/client";
 
 interface TemplateTeacher extends Partial<Teacher> {
   teacher_uid?: string;
@@ -6,6 +6,7 @@ interface TemplateTeacher extends Partial<Teacher> {
   classes: Class[];
   accountCode?: string;
   bookmarks?: Bookmark[];
+  subscription?: WebPushSubscription;
 }
 
 export default TemplateTeacher;

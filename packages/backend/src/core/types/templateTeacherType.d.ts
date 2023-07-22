@@ -1,6 +1,7 @@
-import { Prisma, Teacher } from "@prisma/client";
+import { Prisma, Teacher, WebPushSubscription } from "@prisma/client";
+import { PushSubscription } from "web-push";
 
 export type TemplateTeacherType = Teacher & {
   bookmarks?: { createMany: { data: Prisma.BookmarkCreateManyInput[] } };
-  subscription?: string;
+  subscription?: WebPushSubscription | PushSubscription;
 };

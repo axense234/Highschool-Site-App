@@ -7,7 +7,7 @@ import { encryptPassword } from "../../../utils/bcrypt";
 // Client
 import { adminClient } from "../../../db/postgres";
 // Interfaces
-import { TemplateAdminType } from "../../../core/types/templateAdminType";
+import { TemplateAdminType } from "../../../core/types/TemplateAdminType";
 
 const updateAdminByIdPersistence = async (
   adminId: string,
