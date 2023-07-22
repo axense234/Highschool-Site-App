@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": false,
-    "outDir": "dist",
+    "outDir": "./dist",
     "strict": true,
     "lib": ["ESNext"],
     "esModuleInterop": true,
@@ -10,7 +10,7 @@
     "isolatedModules": true,
     "incremental": true,
     "allowJs": true,
-    "noEmit": true,
+    "noEmit": false,
     "forceConsistentCasingInFileNames":true,
     "module": "CommonJS",
     "moduleResolution": "Node",
@@ -18,5 +18,4 @@
     "plugins": [{ "transform": "transformer-module" }]
   },
   "include": ["src","**/*.ts"],
-  "exclude": ["node_modules"]
 }
