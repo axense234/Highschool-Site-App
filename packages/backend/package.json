@@ -1,9 +1,6 @@
 {
   "name": "@ion-barbu/backend",
   "version": "1.0.0",
-  "ttypescript": {
-    "tsconfig": "tsconfig.json"
-  },
   "schema.prisma": "./packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "nodemon src/index.ts",
