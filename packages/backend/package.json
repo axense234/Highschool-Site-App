@@ -7,7 +7,7 @@
   "schema.prisma": "./packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install && npx prisma migrate deploy && npx prisma generate && npm install typescript && npx tsc",
+    "build": "npm install && npx prisma migrate deploy && npx prisma generate",
     "start": "node dist/index.js"
   },
   "author": "axense234",
@@ -31,7 +31,6 @@
     "redis": "^4.6.5",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "typescript": "^5.1.6",
     "uuid": "^9.0.0",
     "web-push": "^3.6.3"
   },
@@ -49,6 +48,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.21",
     "prisma": "^5.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
   }
 }
