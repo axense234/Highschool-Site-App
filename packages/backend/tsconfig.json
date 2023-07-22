@@ -5,10 +5,18 @@
     "strict": true,
     "lib": ["ESNext"],
     "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "allowJs": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames":true,
     "module": "CommonJS",
     "moduleResolution": "Node",
     "target": "ES2015",
     "plugins": [{ "transform": "transformer-module" }]
   },
-  "exclude": ["node_modules","dist"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
