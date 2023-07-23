@@ -6,7 +6,7 @@
     "lib": ["ES5","DOM"],
     "esModuleInterop": true,
     "module": "CommonJS",
-    "moduleResolution": "Node",
+    "moduleResolution": "Node16",
     "skipLibCheck": true,
     "target": "ES5",
     "plugins": [{"transform":"transformer-module"}],
