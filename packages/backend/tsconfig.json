@@ -11,6 +11,6 @@
     "target": "ES2015",
     "plugins": [{"transform":"transformer-module"}]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*","src/core/*"],
   "exclude": ["node_internals"]
 }
