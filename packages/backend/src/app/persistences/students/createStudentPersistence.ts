@@ -1,6 +1,8 @@
 // Prisma
 import { Student } from "@prisma/client";
 // Types
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { TemplateStudentType } from "core/types/TemplateStudentType";
 // Status Codes
 import { StatusCodes } from "http-status-codes";

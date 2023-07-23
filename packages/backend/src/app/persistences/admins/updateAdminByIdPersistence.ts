@@ -3,6 +3,8 @@ import { Admin } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Interfaces
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { TemplateAdminType } from "core/types/TemplateAdminType";
 // Utils
 import { encryptPassword } from "../../../utils/bcrypt";

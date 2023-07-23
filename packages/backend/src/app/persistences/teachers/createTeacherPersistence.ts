@@ -3,6 +3,8 @@ import { Teacher } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Types
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import { TemplateTeacherType } from "core/types/TemplateTeacherType";
 // Client
 import { teacherClient } from "../../../db/postgres";
