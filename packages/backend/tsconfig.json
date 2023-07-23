@@ -11,5 +11,5 @@
     "plugins": [{"transform":"transformer-module"}]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_internals","dist"]
+  "exclude": ["node_internals"]
 }
