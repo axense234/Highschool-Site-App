@@ -2,10 +2,10 @@
 import { Admin } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Types
+import { TemplateAdminType } from "core/types/TemplateAdminType";
 // Client
 import { adminClient } from "../../../db/postgres";
-// Types
-import type { TemplateAdminType } from "../../../core/types/TemplateAdminType.d.ts";
 // Data
 import { defaultBookmarksAdmin } from "../../../data";
 

@@ -2,10 +2,10 @@
 import { Teacher } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Types
+import { TemplateTeacherType } from "core/types/TemplateTeacherType";
 // Client
 import { teacherClient } from "../../../db/postgres";
-// Types
-import type { TemplateTeacherType } from "../../../core/types/TemplateTeacherType.d.ts";
 // Data
 import { defaultBookmarksTeacher } from "../../../data";
 

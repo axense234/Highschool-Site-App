@@ -2,12 +2,12 @@
 import { Admin } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Interfaces
+import { TemplateAdminType } from "core/types/TemplateAdminType";
 // Utils
 import { encryptPassword } from "../../../utils/bcrypt";
 // Client
 import { adminClient } from "../../../db/postgres";
-// Interfaces
-import type { TemplateAdminType } from "../../../core/types/TemplateAdminType.d.ts";
 
 const updateAdminByIdPersistence = async (
   adminId: string,

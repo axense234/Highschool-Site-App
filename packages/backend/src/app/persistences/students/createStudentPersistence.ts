@@ -1,11 +1,11 @@
 // Prisma
 import { Student } from "@prisma/client";
+// Types
+import { TemplateStudentType } from "core/types/TemplateStudentType";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Client
 import { studentClient } from "../../../db/postgres";
-// Types
-import type { TemplateStudentType } from "../../../core/types/TemplateStudentType.d.ts";
 // Data
 import { defaultBookmarksStudent } from "../../../data";
 
