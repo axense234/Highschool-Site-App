@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { teacherClient } from "../../../db/postgres";
 // Types
-import { TemplateTeacherType } from "../../../core/types/TemplateTeacherType";
+import type { TemplateTeacherType } from "../../../core/types/TemplateTeacherType.d.ts";
 // Data
 import { defaultBookmarksTeacher } from "../../../data";
 

@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { adminClient } from "../../../db/postgres";
 // Types
-import { TemplateAdminType } from "../../../core/types/TemplateAdminType";
+import type { TemplateAdminType } from "../../../core/types/TemplateAdminType.d.ts";
 // Data
 import { defaultBookmarksAdmin } from "../../../data";
 
