@@ -6,7 +6,7 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install --production; npm install -g typescript;tsc",
+    "build": "npm install --production && npm install typescript;npx tsc",
     "start": "node dist/index.js"
   },
   "author": "axense234",
