@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "sourceMap": false,
-    "outDir": "dist",
-    "strict": true,
+    "outDir": "build",
+    "strict": false,
     "lib": ["ESNext"],
     "esModuleInterop": true,
     "module": "CommonJS",
