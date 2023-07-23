@@ -9,7 +9,7 @@
     "dev": "lerna run dev",
     "build": "lerna run build",
     "clean": "lerna clean",
-    "bootstrap":"lerna bootstrap --hoist",
+    "bootstrap": "lerna bootstrap --hoist",
     "migration": "cd packages/backend && npx prisma migrate dev",
     "generation": "cd packages/backend && npx prisma generate "
   },
