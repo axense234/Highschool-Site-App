@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@ion-barbu/frontend": "^1.0.0",
+    "@ion-barbu/backend":"^1.0.0",
     "@next/font": "^13.1.6",
     "@prisma/client": "^5.0.0",
     "@reduxjs/toolkit": "^1.9.3",
