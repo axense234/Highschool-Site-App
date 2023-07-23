@@ -9,7 +9,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 // Axios
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import axiosInstance from "@/utils/axios";
 // Types
 import { ObjectKeyValueType } from "@/core/types/constants";
@@ -167,9 +167,7 @@ const absencesSlice = createSlice({
         const absence = action.payload as Absence;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          console.log(axiosError);
-        } else {
+        if (!axiosError.response) {
           absence.id = absence.absence_uid;
           absencesAdapter.upsertOne(state, absence);
         }

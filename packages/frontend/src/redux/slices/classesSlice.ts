@@ -112,7 +112,6 @@ export const createClass = createAsyncThunk<Class | AxiosError, TemplateClass>(
   "classes/createClass",
   async (templateClass) => {
     try {
-      console.log(templateClass);
       const { data } = await axiosInstance.post(
         "/classes/class/create",
         templateClass

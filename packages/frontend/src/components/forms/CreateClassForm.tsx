@@ -142,7 +142,7 @@ const CreateClassForm: FC = () => {
   return (
     <div className={profileSettingsStyles.profileSettingsContainer}>
       <form
-        className={`${profileSettingsStyles.profileSettingsContainer__form}`}
+        className={profileSettingsStyles.profileSettingsContainer__form}
         onSubmit={(e) => handleSubmitClass(e)}
       >
         <FormModal type="classes" />

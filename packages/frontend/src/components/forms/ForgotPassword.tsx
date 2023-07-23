@@ -35,7 +35,7 @@ const ForgotPassForm: FC = () => {
 
   return (
     <form
-      className={`${accountsFormStyles.accountsFormContainer__form}`}
+      className={accountsFormStyles.accountsFormContainer__form}
       onSubmit={(e) => handleForgotPassSubmit(e)}
     >
       <FormModal type="general" />

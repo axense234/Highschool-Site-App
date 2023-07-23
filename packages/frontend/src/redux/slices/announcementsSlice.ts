@@ -102,7 +102,6 @@ export const createAnnouncement = createAsyncThunk<
   TemplateAnnouncement
 >("announcements/createAnnouncement", async (templateAnnouncement) => {
   try {
-    console.log(templateAnnouncement);
     const { data } = await axiosInstance.post(
       "/announcements/announcement/create",
       templateAnnouncement
@@ -223,7 +222,6 @@ const announcementsSlice = createSlice({
       .addCase(createAnnouncement.fulfilled, (state, action) => {
         const announcement = action.payload as Announcement;
         const axiosError = action.payload as AxiosError;
-        console.log(axiosError);
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
           const data = axiosError.response?.data as ErrorPayloadType;

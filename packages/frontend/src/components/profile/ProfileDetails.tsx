@@ -9,7 +9,6 @@ import ProfileDetailsProps from "@/core/interfaces/component/ProfileDetailsProps
 import profileStyles from "../../scss/components/pages/Profile.module.scss";
 
 const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
-  console.log(profile);
   if (profile.role === "ADMIN") {
     return (
       <div className={profileStyles.profileContainer__profileDetails}>

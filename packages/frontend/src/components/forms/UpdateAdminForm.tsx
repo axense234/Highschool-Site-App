@@ -74,7 +74,7 @@ const UpdateAdminForm: FC = () => {
 
   return (
     <form
-      className={`${profileSettingsStyles.profileSettingsContainer__form}`}
+      className={profileSettingsStyles.profileSettingsContainer__form}
       onSubmit={(e) => handleSubmitAdmin(e)}
     >
       <FormModal type="admins" />

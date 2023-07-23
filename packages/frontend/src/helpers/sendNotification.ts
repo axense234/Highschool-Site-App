@@ -12,6 +12,7 @@ const sendNotificationToUser = (
     notifyUser({ userId, userType, notificationMessage, notificationTitle })
   )
     .unwrap()
+    // eslint-disable-next-line no-console
     .then((res: any) => console.log(res));
 };
 

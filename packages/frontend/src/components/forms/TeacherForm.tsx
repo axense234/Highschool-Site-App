@@ -134,7 +134,7 @@ const TeacherForm: FC<FormStepProps> = ({
   if (step === 1) {
     return (
       <form
-        className={`${accountsFormStyles.accountsFormContainer__form}`}
+        className={accountsFormStyles.accountsFormContainer__form}
         onSubmit={(e) => handleSubmitTeacher(e)}
       >
         <FormModal type={pageType === "login" ? "general" : "teachers"} />
@@ -294,7 +294,7 @@ const TeacherForm: FC<FormStepProps> = ({
 
   if (step === 2 && pageType === "signup") {
     return (
-      <form className={`${accountsFormStyles.accountsFormContainer__form}`}>
+      <form className={accountsFormStyles.accountsFormContainer__form}>
         <FormModal type="teachers" />
         <div className={accountsFormStyles.accountsFormContainer__content}>
           <div

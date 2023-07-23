@@ -123,7 +123,6 @@ export const unsubscribeUser = createAsyncThunk<
     );
     return data.subscription as WebPushSubscription;
   } catch (error) {
-    console.log(error);
     return error as AxiosError;
   }
 });
@@ -139,7 +138,6 @@ export const subscribeUser = createAsyncThunk<
     );
     return data.subscription as WebPushSubscription;
   } catch (error) {
-    console.log(error);
     return error as AxiosError;
   }
 });
@@ -428,9 +426,7 @@ const generalSlice = createSlice({
           state.resetPassTokenAuthorized = true;
         }
       })
-      .addCase(verifyResetPassToken.rejected, (state, action) => {
-        console.log(action);
-      })
+
       .addCase(notifyUser.pending, (state, action) => {
         state.loadingSendNotificationToUser = "PENDING";
       })
@@ -439,6 +435,7 @@ const generalSlice = createSlice({
         const message = action.payload as string;
 
         if (!axiosError.response) {
+          // eslint-disable-next-line no-console
           console.log(message);
         }
 

@@ -191,10 +191,7 @@ const studentsSlice = createSlice({
         const student = action.payload as Student;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          console.log(axiosError);
-        } else {
-          console.log(student);
+        if (!axiosError.response) {
           student.id = student.student_uid;
           studentsAdapter.upsertOne(state, student);
         }

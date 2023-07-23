@@ -136,15 +136,12 @@ export const updateAdminById = createAsyncThunk<
   TemplateUpdateAdmin
 >("admins/updateAdminById", async (templateAdmin) => {
   try {
-    console.log("frick");
     const { data } = await axiosInstance.patch(
       `/admins/admin/update/${templateAdmin.admin_uid}`,
       templateAdmin
     );
-    console.log(data);
     return data.admin as Admin;
   } catch (error) {
-    console.log(error);
     return error as AxiosError;
   }
 });
@@ -192,9 +189,7 @@ const adminsSlice = createSlice({
         const admin = action.payload as Admin;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          console.log(axiosError);
-        } else {
+        if (!axiosError.response) {
           admin.id = admin.admin_uid;
           adminsAdapter.upsertOne(state, admin);
         }
@@ -250,8 +245,6 @@ const adminsSlice = createSlice({
         const admin = action.payload as Admin;
         const axiosError = action.payload as AxiosError;
 
-        console.log(axiosError);
-
         if (axiosError.response?.status !== 200 && axiosError.response) {
           const data = axiosError.response?.data as ErrorPayloadType;
           state.formModal.showModal = true;
@@ -270,9 +263,6 @@ const adminsSlice = createSlice({
           state.templateAdmin = { ...state.templateAdmin, password: "PAROLA" };
         }
         state.loadingUpdateAdmin = "SUCCEDED";
-      })
-      .addCase(updateAdminById.rejected, (state, action) => {
-        console.log(action.payload);
       });
   },
 });

@@ -121,7 +121,7 @@ const CreateAnnouncementForm: FC = () => {
   return (
     <div className={profileSettingsStyles.profileSettingsContainer}>
       <form
-        className={`${profileSettingsStyles.profileSettingsContainer__form}`}
+        className={profileSettingsStyles.profileSettingsContainer__form}
         onSubmit={(e) => handleSubmitAnnouncement(e)}
       >
         <FormModal type="announcements" />

@@ -166,9 +166,7 @@ const bookmarksSlice = createSlice({
         const bookmark = action.payload as Bookmark;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          console.log(axiosError);
-        } else {
+        if (!axiosError.response) {
           bookmark.id = bookmark.bookmark_uid;
           bookmarksAdapter.upsertOne(state, bookmark);
         }

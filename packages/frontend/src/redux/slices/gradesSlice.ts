@@ -171,9 +171,7 @@ const gradesSlice = createSlice({
         const grade = action.payload as Grade;
         const axiosError = action.payload as AxiosError;
 
-        if (axiosError.response?.status !== 200 && axiosError.response) {
-          console.log(axiosError);
-        } else {
+        if (!axiosError.response) {
           grade.id = grade.grade_uid;
           gradesAdapter.upsertOne(state, grade);
         }

@@ -209,7 +209,6 @@ const teachersSlice = createSlice({
           }
 
           teacher.id = teacher.teacher_uid as string;
-          console.log(teacher);
           teachersAdapter.upsertOne(state, teacher as Teacher);
         }
 

@@ -112,7 +112,6 @@ export const createBook = createAsyncThunk<Book | AxiosError, TemplateBook>(
   "books/createBook",
   async (templateBook) => {
     try {
-      console.log(templateBook);
       const { data } = await axiosInstance.post(
         "/books/book/create",
         templateBook
@@ -224,7 +223,6 @@ const booksSlice = createSlice({
       .addCase(createBook.fulfilled, (state, action) => {
         const book = action.payload as Book;
         const axiosError = action.payload as AxiosError;
-        console.log(axiosError);
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
           const data = axiosError.response?.data as ErrorPayloadType;

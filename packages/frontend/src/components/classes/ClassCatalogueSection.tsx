@@ -49,7 +49,9 @@ const ClassCatalogueSection: FC<ClassCatalogueSectionProps> = ({
         </Link>
       </td>
       <td
-        className={`${classStyles.classContainer__classCatalogueStudentContentWrapper}`}
+        className={
+          classStyles.classContainer__classCatalogueStudentContentWrapper
+        }
         onMouseLeave={() => {
           dispatch(setEditableGradeId(""));
         }}

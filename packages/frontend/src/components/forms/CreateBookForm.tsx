@@ -85,7 +85,7 @@ const CreateBookForm: FC = () => {
   return (
     <div className={profileSettingsStyles.profileSettingsContainer}>
       <form
-        className={`${profileSettingsStyles.profileSettingsContainer__form}`}
+        className={profileSettingsStyles.profileSettingsContainer__form}
         onSubmit={(e) => handleSubmitBook(e)}
       >
         <FormModal type="books" />

@@ -60,10 +60,7 @@ const Documents: FC = () => {
 
 const Document: FC<DocumentOrLaw> = ({ label, pdfURLs, id }) => {
   return (
-    <div
-      className={`${documentsStyles.documentsContainer__document}`}
-      id={label}
-    >
+    <div className={documentsStyles.documentsContainer__document} id={label}>
       <div className={documentsStyles.documentsContainer__documentTitle}>
         <MarkableHeading
           textContent={label}

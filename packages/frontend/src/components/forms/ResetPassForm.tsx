@@ -82,7 +82,7 @@ const ResetPassForm: FC = () => {
 
   return (
     <form
-      className={`${accountsFormStyles.accountsFormContainer__form}`}
+      className={accountsFormStyles.accountsFormContainer__form}
       onSubmit={(e) => handleResetPassSubmit(e)}
     >
       <FormModal type={typeOfModalUsed as unknown as FormModalPropsType} />

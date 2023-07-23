@@ -101,7 +101,7 @@ const AdminForm: FC<FormStepProps> = ({
   if (step === 1) {
     return (
       <form
-        className={`${accountsFormStyles.accountsFormContainer__form}`}
+        className={accountsFormStyles.accountsFormContainer__form}
         onSubmit={(e) => handleSubmitAdmin(e)}
       >
         <FormModal type={pageType === "login" ? "general" : "admins"} />
@@ -262,7 +262,7 @@ const AdminForm: FC<FormStepProps> = ({
   if (step === 2 && pageType === "signup") {
     return (
       <form
-        className={`${accountsFormStyles.accountsFormContainer__form}`}
+        className={accountsFormStyles.accountsFormContainer__form}
         onSubmit={(e) => handleSubmitAdmin(e)}
       >
         <FormModal type="admins" />
