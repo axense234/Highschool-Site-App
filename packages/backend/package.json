@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install typescript && npx tsc && npx prisma migrate deploy && npx prisma generate",
+    "build": "npm install typescript; npx tsc && npx prisma migrate deploy && npx prisma generate",
     "start": "node dist/index.js"
   },
   "author": "axense234",
