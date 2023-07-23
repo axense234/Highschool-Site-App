@@ -5,7 +5,6 @@
     "packages/*"
   ],
   "version": "1.0.0",
-  "schema.prisma": "./packages/backend/prisma/schema.prisma",
   "scripts": {
     "dev": "lerna run dev",
     "build": "lerna run build",

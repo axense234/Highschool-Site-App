@@ -1,8 +1,6 @@
 {
   "name": "@ion-barbu/backend",
   "version": "1.0.0",
-  "private": true,
-  "workspaces": [],
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "npm install -g && npx prisma migrate deploy && npx prisma generate && npx tsc",
