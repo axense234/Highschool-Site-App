@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "dist",
     "strict": true,
     "lib": ["ESNext"],
     "esModuleInterop": true,
     "module": "CommonJS",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "target": "ES2015",
+    "plugins": [{"transform":"transformer-module"}]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_internals","dist"]
 }

@@ -1,7 +1,10 @@
 {
   "name": "@ion-barbu/backend",
   "version": "1.0.0",
-  "scripts": {
+  "ttypescript": {
+    "tsconfig": "tsconfig.json"
+  },
+    "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "npm install -g && npm i -g @types/node && npx prisma migrate deploy && npx prisma generate && tsc",
     "start": "node dist/index.js"
