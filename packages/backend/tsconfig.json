@@ -3,7 +3,7 @@
     "sourceMap": false,
     "outDir": "build",
     "strict": false,
-    "lib": ["ESNext"],
+    "lib": ["ESNext","DOM"],
     "esModuleInterop": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
@@ -12,5 +12,5 @@
     "plugins": [{"transform":"transformer-module"}]
   },
   "include": ["src/**/*","src/core/*"],
-  "exclude": ["node_internals"]
+  "exclude": ["node_modules"]
 }
