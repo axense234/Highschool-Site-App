@@ -6,7 +6,7 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install --production && npm uninstall prisma && npm install prisma && npm uninstall typescript && npm install typescript && tsc",
+    "build": "npm install --production && npm uninstall prisma && npm install prisma@4.14.1 && npm uninstall typescript && npm install typescript && tsc",
     "start": "node build/index.js"
   },
   "author": "axense234",
