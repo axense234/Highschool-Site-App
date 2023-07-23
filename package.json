@@ -1,9 +1,6 @@
 {
   "name": "ion-barbu",
   "private": "true",
-  "workspaces": [
-    "packages/*"
-  ],
   "version": "1.0.0",
   "scripts": {
     "dev": "lerna run dev",
