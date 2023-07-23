@@ -6,6 +6,7 @@ import getStudentByIdPersistence from "../persistences/students/getStudentByIdPe
 import updateStudentByIdPersistence from "../persistences/students/updateStudentByIdPersistence";
 import deleteStudentByIdPersistence from "../persistences/students/deleteStudentByIdPersistence";
 
+// @ts-ignore
 declare module "express-serve-static-core" {
   export interface Request {
     user: any;

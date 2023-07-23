@@ -8,6 +8,7 @@ import * as uuid from "uuid";
 import { verifyJWT } from "../utils/jwt";
 import { getCachedJWT } from "../utils/redis";
 
+// @ts-ignore
 declare module "express-serve-static-core" {
   export interface Request {
     user: any;
