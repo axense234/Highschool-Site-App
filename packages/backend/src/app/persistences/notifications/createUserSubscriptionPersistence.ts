@@ -37,6 +37,18 @@ const createUserSubscriptionPersistence = async (
     };
   }
 
+  const foundSub = await webPushSubscriptionClient.findUnique({
+    where: { endpoint: subBody.endpoint as string },
+  });
+
+  if (foundSub) {
+    return {
+      msg: "User is already subscribed!",
+      statusCode: StatusCodes.CONFLICT,
+      subscription: foundSub,
+    };
+  }
+
   const createdSub = await webPushSubscriptionClient.create({
     data: {
       auth: subBody.auth as string,

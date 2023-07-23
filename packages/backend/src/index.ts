@@ -4,7 +4,8 @@ import express, { Response, Request } from "express";
 require("express-async-errors");
 // Dotenv
 import * as dotenv from "dotenv";
-import path from "path";
+
+dotenv.config({});
 // Security Middleware
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -31,8 +32,6 @@ import notificationsRouter from "./routers/notifications";
 import errorHandlerMiddleware from "./middleware/errorHandler";
 import swaggerDocs from "./utils/swagger";
 import startServer from "./app/invoker";
-
-dotenv.config({ path: path.resolve("../../", ".env") });
 
 export const app = express();
 

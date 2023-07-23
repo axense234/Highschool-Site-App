@@ -10,8 +10,8 @@
     "dev": "lerna run dev",
     "build": "lerna run build",
     "clean": "lerna clean",
-    "migration": "npx prisma migrate dev --schema=./packages/backend/prisma/schema.prisma",
-    "generation": "npx prisma generate --schema=./packages/backend/prisma/schema.prisma"
+    "migration": "cd packages/backend && npx prisma migrate dev",
+    "generation": "cd packages/backend && npx prisma generate "
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
