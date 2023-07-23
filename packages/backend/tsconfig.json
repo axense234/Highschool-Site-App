@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
     "module": "CommonJS",
-    "moduleResolution": "Node",
-    "target": "ES2015",
-    "sourceMap": false,
-    "outDir": "./dist",
-    "strict": false,
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "./backend",
+    "strict": true,
+    "declaration": true,
+    "skipLibCheck": true,
     "lib": ["ESNext"],
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-    "allowJs": true,
+    "resolveJsonModule": true
   },
-  "include": ["src","**/*.ts"],
+  "include": ["backend/**/*.ts"],
   "exclude": ["node_modules"]
 }
