@@ -5,7 +5,7 @@
   "workspaces": [],
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install -g typescript && npx prisma migrate deploy && npx prisma generate && npx tsc",
+    "build": "npm install -g && npx prisma migrate deploy && npx prisma generate && npx tsc",
     "start": "node dist/index.js"
   },
   "author": "axense234",
@@ -26,7 +26,9 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.0",
-    "web-push": "^3.6.3",
+    "web-push": "^3.6.3"
+  },
+  "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
@@ -46,7 +48,5 @@
     "prisma": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
-  },
-  "devDependencies": {
   }
 }
