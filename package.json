@@ -2,6 +2,7 @@
   "name": "ion-barbu",
   "private": "true",
   "workspaces": [
+    "packages/*"
   ],
   "version": "1.0.0",
   "schema.prisma": "./packages/backend/prisma/schema.prisma",
