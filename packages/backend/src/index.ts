@@ -3,11 +3,15 @@ import express, { Response, Request } from "express";
 // Async Error Wrapper
 require("express-async-errors");
 // Dotenv
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import * as dotenv from "dotenv";
 import path from "path";
 // Security Middleware
 import cors from "cors";
 import cookieParser from "cookie-parser";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import morgan from "morgan";
 // Swagger
 import expressUI from "swagger-ui-express";
