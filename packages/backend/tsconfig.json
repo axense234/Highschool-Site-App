@@ -10,8 +10,11 @@
     "skipLibCheck": true,
     "lib": ["ESNext"],
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "plugins": [
+      { "transform": "transformer-module" },
+  ]
   },
-  "include": ["backend/**/*.ts"],
+  "include": ["backend/**/*"],
   "exclude": ["node_modules"]
 }
