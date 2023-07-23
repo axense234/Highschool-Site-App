@@ -5,16 +5,13 @@
     "moduleResolution": "NodeNext",
     "outDir": "dist",
     "strict": false,
-    "noImplicitAny": false,
     "declaration": true,
     "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "lib": ["ESNext","DOM"],
     "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "plugins": [
-      { "transform": "transformer-module" },
-  ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
