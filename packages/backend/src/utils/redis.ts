@@ -6,7 +6,7 @@ const cacheJWT = async (jwt: string, uniqueIdentifier: string) => {
     "cache jwt seconds: ",
     Number(process.env.JWT_EXP_DURATION?.split("h")[0]) * 3600
   );
-  console.log(uniqueIdentifier);
+  console.log(uniqueIdentifier, jwt);
   await redisClient.setEx(
     `${uniqueIdentifier}:hsa-jwt`,
     Number(process.env.JWT_EXP_DURATION?.split("h")[0]) * 3600,
