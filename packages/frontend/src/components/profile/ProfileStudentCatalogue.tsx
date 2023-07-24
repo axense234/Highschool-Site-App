@@ -220,10 +220,6 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
                 </span>
               </li>
               <li>
-                Poziția în Clasamentul Clasei:{" "}
-                <span>{studentClassPosition}</span>
-              </li>
-              <li>
                 Total Absențe: <span>{studentTotalAbsences}</span>
               </li>
               <li>
