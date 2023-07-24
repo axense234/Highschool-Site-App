@@ -250,7 +250,7 @@ const classesSlice = createSlice({
           state.formModal.color = "#90ee90";
           classItem.id = classItem.class_uid;
           classesAdapter.addOne(state, classItem);
-          window.location.href = `${baseSiteUrl}/clase/${classItem.class_uid}`;
+          window.location.href = `${baseSiteUrl}/clase`;
         }
         state.loadingCreateClass = "SUCCEDED";
       })
