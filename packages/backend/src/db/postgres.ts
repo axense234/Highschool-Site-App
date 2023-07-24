@@ -22,12 +22,9 @@ const bookmarkClient = prisma.bookmark;
 const webPushSubscriptionClient = prisma.webPushSubscription;
 
 const connectToPostgres = async () => {
-  await prisma
-    .$connect()
-    .then(async () => {
-      console.log(`Connected to Postgres through Prisma.`);
-    })
-    .catch((err) => prisma.$disconnect);
+  await prisma.$connect().then(async () => {
+    console.log(`Connected to Postgres through Prisma.`);
+  });
 };
 
 export {
