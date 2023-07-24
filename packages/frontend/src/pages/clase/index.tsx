@@ -68,13 +68,19 @@ const Classrooms: FC = () => {
             <SectionLoading />
           ) : (
             <ul className={classStyles.classesContainer__classes}>
-              {shownClasses.map((classItem) => {
-                return (
-                  <li key={classItem.class_uid}>
-                    <ClassItem {...classItem} />
-                  </li>
-                );
-              })}
+              {shownClasses.length >= 1 ? (
+                shownClasses.map((classItem) => {
+                  return (
+                    <li key={classItem.class_uid}>
+                      <ClassItem {...classItem} />
+                    </li>
+                  );
+                })
+              ) : (
+                <li>
+                  <p>Nu avem clase momentan.</p>
+                </li>
+              )}
             </ul>
           )}
         </section>

@@ -67,7 +67,7 @@ const Profile: FC = () => {
       <main className={profileStyles.profileContainer}>
         <Overlay />
         <PageTitle
-          title={`Profilul Tău de ${profile.role}`}
+          title={`Profilul Tău de ${profile.role || "loading..."}`}
           quote={profileTitleQuote}
         />
         <ProfileDashboard

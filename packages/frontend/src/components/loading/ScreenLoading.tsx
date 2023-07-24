@@ -10,6 +10,7 @@ import useOverlayTransition from "@/hooks/useOverlayTransition";
 import { useAppSelector } from "@/hooks/redux";
 import {
   selectLoadingLoginProfile,
+  selectLoadingProfile,
   selectScreenLoadingMessage,
 } from "@/redux/slices/generalSlice";
 import {
@@ -22,10 +23,15 @@ import {
   selectLoadingDeleteTeacher,
   selectLoadingUpdateTeacher,
 } from "@/redux/slices/teachersSlice";
-import { selectLoadingUpdateAdmin } from "@/redux/slices/adminsSlice";
 import { selectLoadingCreateGrade } from "@/redux/slices/gradesSlice";
 import { selectLoadingCreateAbsence } from "@/redux/slices/absencesSlice";
-import { selectLoadingClass } from "@/redux/slices/classesSlice";
+import {
+  selectLoadingClass,
+  selectLoadingCreateClass,
+} from "@/redux/slices/classesSlice";
+import { selectLoadingCreateStudent } from "@/redux/slices/studentsSlice";
+import { selectLoadingCreateAdmin } from "@/redux/slices/adminsSlice";
+import { selectLoadingCreateBook } from "@/redux/slices/booksSlice";
 
 const ScreenLoading: FC = () => {
   const screenLoadingRef = useRef<HTMLDivElement>(null);
@@ -35,6 +41,7 @@ const ScreenLoading: FC = () => {
   );
 
   const loadingLoginProfile = useAppSelector(selectLoadingLoginProfile);
+  const loadingProfile = useAppSelector(selectLoadingProfile);
 
   const loadingUpdateAnnouncement = useAppSelector(
     selectLoadingUpdateAnnouncement
@@ -50,8 +57,15 @@ const ScreenLoading: FC = () => {
   const loadingUpdateTeacher = useAppSelector(selectLoadingUpdateTeacher);
   const loadingDeleteTeacher = useAppSelector(selectLoadingDeleteTeacher);
 
+  const loadingCreateStudent = useAppSelector(selectLoadingCreateStudent);
+  const loadingCreateAdmin = useAppSelector(selectLoadingCreateAdmin);
+
   const loadingCreateGrade = useAppSelector(selectLoadingCreateGrade);
   const loadingCreateAbsence = useAppSelector(selectLoadingCreateAbsence);
+
+  const loadingCreateBookmark = useAppSelector(selectLoadingCreateBook);
+
+  const loadingCreateClass = useAppSelector(selectLoadingCreateClass);
 
   const loadingClass = useAppSelector(selectLoadingClass);
 
@@ -66,7 +80,11 @@ const ScreenLoading: FC = () => {
       loadingDeleteTeacher === "PENDING" ||
       loadingCreateGrade === "PENDING" ||
       loadingCreateAbsence === "PENDING" ||
-      loadingClass === "PENDING";
+      loadingClass === "PENDING" ||
+      loadingCreateStudent === "PENDING" ||
+      loadingCreateAdmin === "PENDING" ||
+      loadingCreateClass === "PENDING" ||
+      loadingProfile === "PENDING";
 
     setShowLoading(show);
   }, [
@@ -80,6 +98,11 @@ const ScreenLoading: FC = () => {
     loadingCreateGrade,
     loadingCreateAbsence,
     loadingClass,
+    loadingCreateStudent,
+    loadingCreateAdmin,
+    loadingCreateBookmark,
+    loadingCreateClass,
+    loadingProfile,
   ]);
 
   useOverlayTransition(showLoading, screenLoadingRef);

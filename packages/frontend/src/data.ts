@@ -325,13 +325,11 @@ export const profileOptionsTeacherRead: ProfileOption[] = [
 export const profileOptionsStudent: ProfileOption[] = [
   { id: 1, label: "Setări", content: "settings" },
   { id: 2, label: "Clasa Dumneavoastră", content: "viewStudentClassroom" },
-  { id: 3, label: "Realizările Dumneavoastră", content: "studentAchievments" },
   { id: 4, label: "Ieșiți din Cont", content: "logout" },
 ];
 
 export const profileOptionsStudentRead: ProfileOption[] = [
   { id: 2, label: "Clasa Elevului", content: "viewStudentClassroom" },
-  { id: 3, label: "Realizările Elevlui", content: "studentAchievments" },
 ];
 
 export const announcementCategories: CategoryType[] = [

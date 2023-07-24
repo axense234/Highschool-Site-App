@@ -194,7 +194,7 @@ const adminsSlice = createSlice({
           adminsAdapter.upsertOne(state, admin);
         }
 
-        state.loadingCreateAdmin = "SUCCEDED";
+        state.loadingAdmin = "SUCCEDED";
       })
       .addCase(createCloudinaryImageForAdmin.pending, (state, action) => {
         state.loadingCreateCloudinaryImageForAdmin = "PENDING";
@@ -223,7 +223,6 @@ const adminsSlice = createSlice({
           adminsAdapter.addOne(state, admin);
           window.location.href = `${baseSiteUrl}/profil`;
         }
-
         state.loadingCreateAdmin = "SUCCEDED";
       })
       .addCase(deleteAdminById.pending, (state, action) => {
