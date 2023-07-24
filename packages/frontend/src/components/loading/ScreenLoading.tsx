@@ -68,6 +68,7 @@ const ScreenLoading: FC = () => {
   const loadingCreateClass = useAppSelector(selectLoadingCreateClass);
 
   const loadingClass = useAppSelector(selectLoadingClass);
+  const loadingCreateBook = useAppSelector(selectLoadingCreateBook);
 
   useEffect(() => {
     const show =
@@ -84,7 +85,8 @@ const ScreenLoading: FC = () => {
       loadingCreateStudent === "PENDING" ||
       loadingCreateAdmin === "PENDING" ||
       loadingCreateClass === "PENDING" ||
-      loadingProfile === "PENDING";
+      loadingProfile === "PENDING" ||
+      loadingCreateBook === "PENDING";
 
     setShowLoading(show);
   }, [
@@ -103,6 +105,7 @@ const ScreenLoading: FC = () => {
     loadingCreateBookmark,
     loadingCreateClass,
     loadingProfile,
+    loadingCreateBook,
   ]);
 
   useOverlayTransition(showLoading, screenLoadingRef);
