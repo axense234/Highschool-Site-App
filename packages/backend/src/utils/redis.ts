@@ -13,6 +13,8 @@ const cacheJWT = async (jwt: string, uniqueIdentifier: string) => {
 
 const getCachedJWT = async (uniqueIdentifier: string) => {
   await redisClient.del("undefined:hsa-jwt");
+  const allKeys = await redisClient.keys("*");
+  console.log(allKeys);
   const jwt = await redisClient.get(`${uniqueIdentifier}:hsa-jwt`);
   return jwt;
 };
