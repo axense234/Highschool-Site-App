@@ -30,6 +30,7 @@ const Library: FC = () => {
 
   const dispatch = useAppDispatch();
   const bookSortingOptions = useAppSelector(selectBookSortingOptions);
+  const books = useAppSelector(selectAllBooks);
 
   useEffect(() => {
     dispatch(getAllBooks(bookSortingOptions));
@@ -49,8 +50,14 @@ const Library: FC = () => {
         <section className={libraryStyles.libraryContainer__libraryContent}>
           <h2>Cărțile noastre valabile</h2>
           <div className={libraryStyles.libraryContainer__libraryBooksWrapper}>
-            <BooksPageNav />
-            <Books />
+            {books.length >= 1 ? (
+              <>
+                <BooksPageNav />
+                <Books />
+              </>
+            ) : (
+              <p>Nu avem cărți disponibile.</p>
+            )}
           </div>
         </section>
       </main>
@@ -160,10 +167,6 @@ const Books: FC = () => {
   const usedBooks = bookSortingOptions.hasPdfFileUrl
     ? filteredBooksThatHavePdfFileUrls
     : filteredBooks;
-
-  if (usedBooks.length < 1) {
-    return <p>Nu avem cărți momentan.</p>;
-  }
 
   return (
     <ul className={libraryStyles.libraryContainer__libraryBooks}>

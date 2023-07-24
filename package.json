@@ -2,13 +2,14 @@
   "name": "ion-barbu",
   "private": "true",
   "version": "1.0.0",
+  "workspaces":["packages/*"],
   "scripts": {
     "dev": "lerna run dev",
     "build": "lerna run build",
     "clean": "lerna clean",
     "bootstrap": "lerna bootstrap --hoist",
-    "migration": "cd packages/backend && npx prisma migrate dev",
-    "generation": "cd packages/backend && npx prisma generate "
+    "migration": "npx prisma migrate dev --schema=./packages/backend/prisma/schema.prisma",
+    "generation": "npx prisma generate --schema=./packages/backend/prisma/schema.prisma"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
