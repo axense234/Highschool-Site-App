@@ -131,6 +131,7 @@ const StudentForm: FC<FormStepProps> = ({
                 id="fullname"
                 required
                 placeholder="ex: Irina Ionescu"
+                maxLength={40}
                 value={templateStudent.fullname}
                 onChange={(e) => onFullnameChange(e.target.value)}
               />

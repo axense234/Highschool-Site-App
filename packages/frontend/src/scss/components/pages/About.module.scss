@@ -169,7 +169,7 @@
 
     a {
       @include flexCenter(row);
-      width: 20%;
+      width: 15%;
 
       @media all and (max-width: 650px) {
         width: 40%;

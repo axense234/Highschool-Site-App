@@ -150,6 +150,7 @@ const AdminForm: FC<FormStepProps> = ({
                   id="fullname"
                   required
                   placeholder="ex: Irina Ionescu"
+                  maxLength={40}
                   value={templateAdmin.fullname}
                   onChange={(e) => onFullnameChange(e.target.value)}
                 />

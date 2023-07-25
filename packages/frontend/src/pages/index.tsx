@@ -524,95 +524,119 @@ const About: FC = () => {
               </li>
             </ul>
           </div>
-        </section>
-        <section className={aboutStyles.aboutContainer__adminInfo}>
-          <MarkableHeading
-            textContent="Informații despre Contul Admin"
-            type="h2"
-            idUsed="adminInfo"
-          />
-          <p>
-            Contul Admin reprezintă contul unui utilizator cu proprietatea
-            "rolUtilizator" setată la ADMIN. Daca sunteți conectat la contul
-            ADMIN, puteți creea/șterge/edita profesori/anunțuri, puteți să vă
-            deconectați de la cont și puteți să schimbați
-            parola/username-ul/email-ul contului însine.
-          </p>
-          <h3>Pași pentru a vă conecta la Contul Admin:</h3>
-          <ul className={aboutStyles.aboutContainer__pageInfoSections}>
-            <li>
-              <h4>
-                <Link href="/login">
-                  1.Intrați pe pagina "Intră în Cont" prin deschiderea barei de
-                  navigare sau prin apăsarea pe acest text.
-                </Link>
-              </h4>
-            </li>
-            <li>
-              <h4>
-                <Link href="/login">2.Introduceți datele corecte</Link>
-              </h4>
-              <p>
-                Dacă nu ați editat detaliile contului din Profil, introduceți
-                aceste date:
-                <br />
-                Email: testing@gmail.com
-                <br />
-                Parolă: testing
-                <br />
-                Rol Utilizator: ADMIN
-              </p>
-            </li>
-          </ul>
-          <h3>Ce puteți să faceți după ce ați intrat în Contul Admin?</h3>
-          <ul className={aboutStyles.aboutContainer__pageInfoSections}>
-            <li>
-              <h4>
-                <Link href="/login">
-                  1.Puteți să schimbați detaliile Contului Admin
-                </Link>
-              </h4>
-              <p>
-                Ca să schimbați detaliile Contului Admin apăsați pe bara de
-                opțiuni pe opțiunea "Setări Profil". Aceasta este selectată la
-                început.
-              </p>
-            </li>
-            <li>
-              <h4>
-                <Link href="/login">
-                  2.Puteți să vă deconectați de la Contul Admin
-                </Link>
-              </h4>
-              <p>
-                Dacă vreți să vă deconectați de la Contul Admin apăsați pe
-                opțiunea "Ieși din Cont", așteptați puțin și apăsați pe butonul
-                "Da".
-              </p>
-            </li>
-            <li>
-              <h4>
-                <Link href="/login">3.Puteți să creați un Anunț</Link>
-              </h4>
-              <p>
-                Dacă vreți să creați un Anunț apăsați pe opțiunea "Creează un
-                Anunț" și introduceți informațiile dorite. Dacă introduceți
-                informații invalide un component "modal" vă va arăta greșeala
-                dumneavoastră.
-              </p>
-            </li>
-            <li>
-              <h4>
-                <Link href="/login">4.Puteți să creați un Profesor</Link>
-              </h4>
-              <p>
-                Dacă vreți să creați un Profesor apăsați pe opțiunea "Creează un
-                Profesor" și introduceți informațiile dorite. Daca introduceți
-                informații invalide un component "modal" vă va arăta greșeala
-                dumneavoastră.
-              </p>
-            </li>
-          </ul>
+          <div className={aboutStyles.aboutContainer__pageInfo}>
+            <MarkableHeading
+              textContent="10.Crează-ți un cont"
+              type="h3"
+              idUsed="signupPage"
+              isLink
+              linkHref="/signup"
+            />
+            <p>
+              Pagina "Crează-ți un cont" este compusă dintr-o singură secțiune
+              care conține un formular. În cazul în care se introduc informatii
+              corecte, puteți să creați un cont de elev, profesor sau admin.
+              Această secțiune are 2 abilități interesante despre ea.
+            </p>
+            <ul className={aboutStyles.aboutContainer__pageInfoSections}>
+              <li>
+                <h4>
+                  <Link href="/login">
+                    1.Abilitatea de a creea un cont cu informațiile corecte
+                  </Link>
+                </h4>
+                <p>
+                  Abilitatea de a creea un cont cu informațiile corecte este
+                  făcuta posibilă cu interfața formularului și tehnologia numită
+                  "Redux" care îmi stochează informațiile introduse și le
+                  trimite la server.
+                </p>
+              </li>
+              <li>
+                <h4>
+                  <Link href="/login">2.Validarea informației incorecte</Link>
+                </h4>
+                <p>
+                  Validarea informației incorecte este facută posibil cu
+                  ajutorul unui component "modal" care apare când informațiile
+                  introduce sunt greșite. Mesajul vizibil de acest "modal" este
+                  cel primit de la server în cazul de eroare.
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div className={aboutStyles.aboutContainer__pageInfo}>
+            <MarkableHeading
+              textContent="11.Clasele Noastre"
+              type="h3"
+              idUsed="ourClasses"
+              isLink
+              linkHref="/clase"
+            />
+            <p>
+              Pagina "Clasele Noastre" este compusă dintr-o singură secțiune
+              care conține clasele valabile, publice. Utilizatorii pot accesa
+              paginile individuale ale claselor.
+            </p>
+          </div>
+          <div className={aboutStyles.aboutContainer__pageInfo}>
+            <MarkableHeading
+              textContent="12.Bibliotecă"
+              type="h3"
+              idUsed="library"
+              isLink
+              linkHref="/biblioteca"
+            />
+            <p>
+              Pagina "Bibliotecă" conține componente Carte care pot fi
+              ordonate/filtrate printr-un alt component vecin.
+            </p>
+          </div>
+          <div className={aboutStyles.aboutContainer__pageInfo}>
+            <MarkableHeading
+              textContent="13.Profil"
+              type="h3"
+              idUsed="profilePage"
+              isLink
+              linkHref="/profil"
+            />
+            <p>
+              Pagina "Profil" reprezinta pagina profilului tau sau pagina
+              profilului altui cont.Pagina Profil poate fi de 3 tipuri.
+            </p>
+            <ul className={aboutStyles.aboutContainer__pageInfoSections}>
+              <li>
+                <h4>
+                  <Link href="/profil">Profil de Elev</Link>
+                </h4>
+                <p>
+                  Profilul de Elev continue detaliile profilului de elev, mai
+                  multe opțiuni generale pentru profil, clasa elevului
+                  respectiv. Dacă elevul aparține unei clase, el are access la
+                  carnetul lui de elev.
+                </p>
+              </li>
+              <li>
+                <h4>
+                  <Link href="/login">Profil de Profesor</Link>
+                </h4>
+                <p>
+                  Profilul de Profesor conține detaliile profilului de profesor,
+                  mai multe opțiuni generale pentru profil și clasele la care
+                  aparține profesorul.
+                </p>
+              </li>
+              <li>
+                <h4>
+                  <Link href="/login">Profil de Admin</Link>
+                </h4>
+                <p>
+                  Profilul de Admin conține detaliile profilului de admin și
+                  multe opțiuni de creeare a unor: anunțuri, cărți, clase, ...
+                </p>
+              </li>
+            </ul>
+          </div>
         </section>
         <section className={aboutStyles.aboutContainer__technologiesUsed}>
           <MarkableHeading
