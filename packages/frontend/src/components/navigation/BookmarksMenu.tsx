@@ -1,5 +1,5 @@
 // React
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 // React Icons
 import { CiMenuKebab } from "react-icons/ci";
 // Types
@@ -16,13 +16,14 @@ const BookmarksMenu: FC<BookmarksMenuProps> = ({
 }) => {
   const bookmarksMenuRef = useRef<HTMLDivElement>(null);
   const profile = useAppSelector(selectProfile);
+  const [clickedMenu, setClickedMenu] = useState<boolean>(false);
 
   useEffect(() => {
     const clicked = localStorage.getItem("BookmarksMenuClicked");
     if (clicked && profile.role) {
       (bookmarksMenuRef.current as HTMLDivElement).style.animation = "none";
     }
-  }, [profile, bookmarksMenuRef]);
+  }, [profile, bookmarksMenuRef, clickedMenu]);
 
   if (profile.role) {
     return (
@@ -35,6 +36,7 @@ const BookmarksMenu: FC<BookmarksMenuProps> = ({
           onClick={() => {
             localStorage.setItem("BookmarksMenuClicked", "true");
             setShowBookmarks(!showBookmarks);
+            setClickedMenu(true);
           }}
           title={`${showBookmarks ? "Închideți" : "Deschideți"} Marcaje`}
           aria-label={`${showBookmarks ? "Închideți" : "Deschideți"} Marcaje`}

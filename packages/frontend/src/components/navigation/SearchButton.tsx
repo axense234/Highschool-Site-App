@@ -1,5 +1,5 @@
 // React
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 // React Icons
 import { BiSearch } from "react-icons/bi";
 // Types
@@ -32,6 +32,7 @@ import {
 const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
   const dispatch = useAppDispatch();
   const searchButtonRef = useRef<HTMLDivElement>(null);
+  const [clickedSearch, setClickedSearch] = useState<boolean>(false);
 
   const loadingProfile = useAppSelector(selectLoadingProfile);
   const loadingUpdateAdmin = useAppSelector(selectLoadingUpdateAdmin);
@@ -48,7 +49,7 @@ const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
     if (clicked) {
       (searchButtonRef.current as HTMLDivElement).style.animation = "none";
     }
-  }, []);
+  }, [clickedSearch]);
 
   useEffect(() => {
     if (
@@ -85,6 +86,7 @@ const SearchButton: FC<SearchButtonProps> = ({ setShowSearchbar }) => {
         onClick={() => {
           localStorage.setItem("SearchButtonClicked", "true");
           setShowSearchbar(true);
+          setClickedSearch(true);
         }}
       />
     </div>

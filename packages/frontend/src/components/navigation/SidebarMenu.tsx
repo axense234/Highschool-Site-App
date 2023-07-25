@@ -1,5 +1,12 @@
 // React
-import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 // React Icons
 import { AiOutlineMenu } from "react-icons/ai";
 // SCSS
@@ -11,13 +18,14 @@ interface SidebarMenuProps {
 
 const SidebarMenu: FC<SidebarMenuProps> = ({ setShowSidebar }) => {
   const sidebarMenuRef = useRef<HTMLDivElement>(null);
+  const [clickedMenu, setClickedMenu] = useState<boolean>(false);
 
   useEffect(() => {
     const clicked = localStorage.getItem("SidebarMenuClicked");
     if (clicked) {
       (sidebarMenuRef.current as HTMLDivElement).style.animation = "none";
     }
-  }, []);
+  }, [clickedMenu]);
 
   return (
     <div
@@ -29,6 +37,7 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ setShowSidebar }) => {
         onClick={() => {
           localStorage.setItem("SidebarMenuClicked", "true");
           setShowSidebar(true);
+          setClickedMenu(true);
         }}
       />
     </div>
