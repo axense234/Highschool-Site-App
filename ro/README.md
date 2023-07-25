@@ -1,10 +1,10 @@
-# Highschool Site App -> Ion Barbu(INCOMPLETĂ)
+# Highschool Site App -> Ion Barbu
 
 Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp construind un proiect bun pentru un portofolio viitor.
 
 ## **Descriere**
 
-Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp construind un proiect bun pentru un portofolio viitor. Proiectul m-a forțat să învăț mai în detaliu arhitectura "monorepo" cu Lerna și să creez fișiere README.md mai bune, în diferite limbi. Proiectul mi-a luat peste 30 de ore la momentul scrierii, ceea ce a fost destul de neplăcut dar na.
+Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi perfecționa cunoștințele asupra dezvoltării web la un nivel mai avansat, în același timp construind un proiect bun pentru un portofolio viitor. Proiectul m-a forțat să învăț mai în detaliu arhitectura "monorepo" cu Lerna și să creez fișiere README.md mai bune, în diferite limbi.
 
 ## **Incepeti**
 
@@ -21,7 +21,7 @@ Un proiect Fullstack Mern Typescript cu Sass și Redux, creat în scopul de a-mi
 git clone https://github.com/axense234/Highschool-Site-App.git
 cd Highschool-Site-App
 npm install
-npx prisma generate --schema=./packages/backend/prisma/schema.prisma
+npm run migration; npm run generation
 ```
 
 ### Executarea programului

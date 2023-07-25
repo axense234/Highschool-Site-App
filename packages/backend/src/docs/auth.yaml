@@ -4,6 +4,17 @@ paths:
    description: Route for logging in an account(teacher, student or admin).
    tags:
     - AUTH Routes
+   parameters:
+    - in: path
+      name: userType
+      required: true
+      description: The type of user you want to log.
+      schema:
+       type: string
+       enum:
+        - PROFESOR
+        - ELEV
+        - ADMIN
    requestBody:
     description: The body of the login request.
     content:
@@ -70,3 +81,13 @@ paths:
      description: Successfully created a user.
     400:
      description: Could not create a user with the data provided
+ /users/user/profile:
+  get:
+   description: Route for getting your profile.
+   tags:
+    - AUTH Routes
+   responses:
+    200:
+     description: Successfully got yo profile.
+    404:
+     description: Did not find anything.

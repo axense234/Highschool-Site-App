@@ -4,6 +4,25 @@ paths:
    description: Route for fetching all announcements.
    tags:
     - ANNOUNCEMENTS Routes
+   parameters:
+    - in: query
+      name: sortByFilter
+      required: true
+      schema:
+       type: string
+      description: The key of the Announcement that you want the announcements to be sorted by.
+    - in: query
+      name: filter
+      required: true
+      schema:
+       type: string
+      description: The key of the Announcement that you want the announcements to be filtered by.
+    - in: query
+      name: filterQuery
+      required: true
+      schema:
+       type: string
+      description: The key of the Announcement that you want the announcements to be filtered by its value.
    responses:
     200:
      description: Successfully found announcements.

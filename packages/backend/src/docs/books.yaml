@@ -4,6 +4,31 @@ paths:
    description: Route for fetching all books.
    tags:
     - BOOKS Routes
+   parameters:
+    - in: query
+      name: sortByFilter
+      required: true
+      schema:
+       type: string
+      description: The key of the Book that you want the books to be sorted by.
+    - in: query
+      name: sortByFilterValue
+      required: true
+      schema:
+       type: string
+      description: The key of the Book that you want the books to be sorted by its value.
+    - in: query
+      name: filterQuery
+      required: true
+      schema:
+       type: string
+      description: The key of the Book that you want the books to be filtered by.
+    - in: query
+      name: filterQueryValue
+      required: true
+      schema:
+       type: string
+      description: The key of the Book that you want the books to be filtered by its value.
    responses:
     200:
      description: Successfully found books.

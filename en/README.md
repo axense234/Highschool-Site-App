@@ -1,4 +1,4 @@
-# Highschool Site App -> Ion Barbu(NOT FINISHED)
+# Highschool Site App -> Ion Barbu
 
 A Fullstack Mern Typescript with Sass and Redux project with the purpose of improving my overall web developer skills, at the same time building a good project for a future portfolio.
 
@@ -21,7 +21,7 @@ A Fullstack Mern Typescript with Sass and Redux project with the purpose of impr
 git clone https://github.com/axense234/Highschool-Site-App.git
 cd Highschool-Site-App
 npm install
-npx prisma generate --schema=./packages/backend/prisma/schema.prisma
+npm run migration;npm run generation
 ```
 
 ### Executing program

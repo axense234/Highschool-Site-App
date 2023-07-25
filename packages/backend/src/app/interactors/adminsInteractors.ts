@@ -6,6 +6,7 @@ import getAdminByIdPersistence from "../persistences/admins/getAdminByIdPersiste
 import updateAdminByIdPersistence from "../persistences/admins/updateAdminByIdPersistence";
 import deleteAdminByIdPersistence from "../persistences/admins/deleteAdminByIdPersistence";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 declare module "express-serve-static-core" {
   export interface Request {
