@@ -6,9 +6,9 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "npm install --production",
-    "transpile": "npm uninstall @types/node && npm install @types/node && npm uninstall typescript && npm install typescript && tsc",
-    "migrate": "npm uninstall prisma && npm install prisma@4.14.1 && npx prisma migrate deploy && npx prisma generate",
+    "build": "npm install",
+    "transpile": "npm uninstall typescript && npm install typescript && tsc",
+    "migrate": "npm uninstall prisma && npm install prisma && npx prisma migrate deploy && npx prisma generate",
     "start": "node build/index.js"
   },
   "author": "axense234",
