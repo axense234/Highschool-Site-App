@@ -1,10 +1,15 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { absenceClient } from "../../../db/postgres";
 
-const getAllAbsencesPersistence = async () => {
-  const foundAbsences = await absenceClient.findMany({});
+const getAllAbsencesPersistence = async (userId: string) => {
+  const foundAbsences = await getOrSetCache(`absences`, async () => {
+    const absences = await absenceClient.findMany({});
+    return absences;
+  });
 
   if (foundAbsences.length < 1) {
     return {

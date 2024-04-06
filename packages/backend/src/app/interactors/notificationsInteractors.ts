@@ -44,7 +44,6 @@ const notifyUser = async (req: Request, res: Response) => {
       foundSubscriptionPayload.subscription
     );
 
-    console.log(notificationPayload);
     return res.status(notificationPayload.statusCode).json(notificationPayload);
   }
 

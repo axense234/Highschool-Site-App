@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { teacherClient } from "../../../db/postgres";
 
@@ -8,11 +10,14 @@ const getAllTeachersPersistence = async (
   filter?: string,
   filterQuery?: string
 ) => {
-  const foundTeachers = await teacherClient.findMany({
-    orderBy: { [sortByFilter || "description"]: "desc" },
-    where: {
-      [filter || "fullname"]: { contains: filterQuery, mode: "insensitive" },
-    },
+  const foundTeachers = await getOrSetCache("teachers", async () => {
+    const teachers = await teacherClient.findMany({
+      orderBy: { [sortByFilter || "description"]: "desc" },
+      where: {
+        [filter || "fullname"]: { contains: filterQuery, mode: "insensitive" },
+      },
+    });
+    return teachers;
   });
 
   if (foundTeachers.length < 1) {

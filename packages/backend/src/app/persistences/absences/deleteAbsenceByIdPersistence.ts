@@ -1,9 +1,14 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache } from "utils/redis";
 // Client
 import { absenceClient } from "../../../db/postgres";
 
-const deleteAbsenceByIdPersistence = async (absenceId: string) => {
+const deleteAbsenceByIdPersistence = async (
+  absenceId: string,
+  userId: string
+) => {
   if (!absenceId) {
     return {
       msg: "Please enter a absence id!",
@@ -35,6 +40,10 @@ const deleteAbsenceByIdPersistence = async (absenceId: string) => {
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`absences`);
+  await deleteCache(`${userId}:absences`);
+  await deleteCache(`${userId}:absences:${deletedAbsence.absence_uid}`);
 
   return {
     msg: `Successfully deleted absence with id:${absenceId}!`,

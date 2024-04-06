@@ -2,10 +2,15 @@
 import { Bookmark } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { bookmarkClient } from "../../../db/postgres";
 
-const createBookmarkPersistence = async (bookmarkBody: Bookmark) => {
+const createBookmarkPersistence = async (
+  bookmarkBody: Bookmark,
+  userId: string
+) => {
   const createdBookmark = await bookmarkClient.create({
     data: { ...bookmarkBody },
   });
@@ -17,6 +22,14 @@ const createBookmarkPersistence = async (bookmarkBody: Bookmark) => {
       statusCode: StatusCodes.BAD_REQUEST,
     };
   }
+
+  await deleteCache("bookmarks");
+  await deleteCache(`${userId}:bookmarks`);
+
+  await setCache(
+    `${userId}:bookmarks:${createdBookmark.bookmark_uid}`,
+    createdBookmark
+  );
 
   return {
     msg: `Successfully created a bookmark with id:${createdBookmark.bookmark_uid}`,

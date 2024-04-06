@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache } from "utils/redis";
 // Client
 import { adminClient } from "../../../db/postgres";
 
@@ -35,6 +37,9 @@ const deleteAdminByIdPersistence = async (adminId: string) => {
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache("admins");
+  await deleteCache(`admins:${deletedAdmin.admin_uid}`);
 
   return {
     msg: `Successfully deleted admin:${deletedAdmin.fullname}!`,

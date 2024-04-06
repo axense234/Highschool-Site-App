@@ -2,12 +2,15 @@
 import { Class } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { classClient } from "../../../db/postgres";
 
 const updateClassByIdPersistence = async (
   classId: string,
-  classBody: Class
+  classBody: Class,
+  userId: string
 ) => {
   if (!classId) {
     return {
@@ -41,6 +44,10 @@ const updateClassByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`classes`);
+  await deleteCache(`${userId}:classes`);
+  await setCache(`${userId}:classes:${classId}`, updatedClass);
 
   return {
     msg: `Successfully updated class with id:${classId}!`,

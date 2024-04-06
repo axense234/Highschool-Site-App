@@ -1,10 +1,18 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+import { getOrSetCache } from "utils/redis";
 // Utils
-import { getPassResetToken } from "../../../utils/redis";
 
-const verifyResetPassTokenPersistence = async (token: string) => {
-  const foundToken = await getPassResetToken(token as string);
+const verifyResetPassTokenPersistence = async (
+  token: string,
+  userId: string
+) => {
+  const foundToken = await getOrSetCache(
+    `${userId}:hsa-pass-token`,
+    async () => {
+      return "";
+    }
+  );
 
   if (!foundToken) {
     return {

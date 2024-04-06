@@ -17,6 +17,7 @@ import { announcementCategories } from "@/data";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   getAllAnnouncements,
+  selectAllAnnouncements,
   selectLoadingAnnouncements,
 } from "@/redux/slices/announcementsSlice";
 import { selectGetAllQueryParams } from "@/redux/slices/generalSlice";
@@ -27,12 +28,15 @@ const Announcements: FC = () => {
   const dispatch = useAppDispatch();
   const loadingAnnouncements = useAppSelector(selectLoadingAnnouncements);
   const getAllAnnouncementQuery = useAppSelector(selectGetAllQueryParams);
+  const announcements = useAppSelector(selectAllAnnouncements);
 
   const isLoadingAnnouncements =
     loadingAnnouncements === "PENDING" || loadingAnnouncements === "IDLE";
 
   useEffect(() => {
-    dispatch(getAllAnnouncements(getAllAnnouncementQuery));
+    if (loadingAnnouncements === "IDLE") {
+      dispatch(getAllAnnouncements(getAllAnnouncementQuery));
+    }
   }, [getAllAnnouncementQuery]);
 
   return (
@@ -63,9 +67,13 @@ const Announcements: FC = () => {
                 announcementsStyles.announcementsContainer__announcements
               }
             >
-              {announcementCategories.map((category) => {
-                return <Category {...category} key={category.id} />;
-              })}
+              {announcements.length > 0 ? (
+                announcementCategories.map((category) => {
+                  return <Category {...category} key={category.id} />;
+                })
+              ) : (
+                <p>Nu avem anunțuri momentan.</p>
+              )}
             </div>
           )}
         </section>

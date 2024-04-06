@@ -8,10 +8,16 @@ import deleteBookByIdPersistence from "../persistences/books/deleteBookByIdPersi
 import createBookPersistence from "../persistences/books/createBookPersistence";
 
 const getAllBooks = async (req: Request, res: Response) => {
-  const { sortByFilter, sortByFilterValue, filterQuery, filterQueryValue } =
-    req.query;
+  const {
+    sortByFilter,
+    sortByFilterValue,
+    filterQuery,
+    filterQueryValue,
+    userId,
+  } = req.query;
 
   const foundBooksPayload = await getAllBooksPersistence(
+    userId as string,
     sortByFilter as string,
     sortByFilterValue as string,
     filterQuery as string,
@@ -22,28 +28,42 @@ const getAllBooks = async (req: Request, res: Response) => {
 
 const getBookById = async (req: Request, res: Response) => {
   const { bookId } = req.params;
+  const { userId } = req.query;
 
-  const foundBookPayload = await getBookByIdPersistence(bookId);
+  const foundBookPayload = await getBookByIdPersistence(
+    bookId,
+    userId as string
+  );
   return res.status(foundBookPayload.statusCode).json(foundBookPayload);
 };
 
 const updateBookById = async (req: Request, res: Response) => {
   const { bookId } = req.params;
   const bookBody = req.body;
+  const { userId } = req.query;
 
-  const updatedBookPayload = await updateBookByIdPersistence(bookId, bookBody);
+  const updatedBookPayload = await updateBookByIdPersistence(
+    bookId,
+    bookBody,
+    userId as string
+  );
   return res.status(updatedBookPayload.statusCode).json(updatedBookPayload);
 };
 
 const deleteBookById = async (req: Request, res: Response) => {
   const { bookId } = req.params;
+  const { userId } = req.query;
 
-  const deletedBookPayload = await deleteBookByIdPersistence(bookId);
+  const deletedBookPayload = await deleteBookByIdPersistence(
+    bookId,
+    userId as string
+  );
   return res.status(deletedBookPayload.statusCode).json(deletedBookPayload);
 };
 
 const createBook = async (req: Request, res: Response) => {
   const bookBody = req.body;
+  const { userId } = req.query;
 
   if (bookBody.created_by_admin_uid) {
     delete bookBody.created_by_teacher_uid;
@@ -51,7 +71,10 @@ const createBook = async (req: Request, res: Response) => {
     delete bookBody.created_by_admin_uid;
   }
 
-  const createdBookPayload = await createBookPersistence(bookBody);
+  const createdBookPayload = await createBookPersistence(
+    bookBody,
+    userId as string
+  );
   return res.status(createdBookPayload.statusCode).json(createdBookPayload);
 };
 

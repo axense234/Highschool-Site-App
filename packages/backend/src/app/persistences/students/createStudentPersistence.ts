@@ -6,6 +6,8 @@ import { Student } from "@prisma/client";
 import { TemplateStudentType } from "core/types/TemplateStudentType";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { studentClient } from "../../../db/postgres";
 // Data
@@ -49,6 +51,9 @@ const createStudentPersistence = async (
       statusCode: StatusCodes.BAD_REQUEST,
     };
   }
+
+  await deleteCache("students");
+  await setCache(`students:${createdStudent.student_uid}`, createdStudent);
 
   return {
     msg: `Successfully created a student with id:${createdStudent.student_uid}`,

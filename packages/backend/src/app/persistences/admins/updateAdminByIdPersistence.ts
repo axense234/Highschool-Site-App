@@ -7,6 +7,7 @@ import { StatusCodes } from "http-status-codes";
 // @ts-ignore
 import { TemplateAdminType } from "core/types/TemplateAdminType";
 // Utils
+import { deleteCache, setCache } from "utils/redis";
 import { encryptPassword } from "../../../utils/bcrypt";
 // Client
 import { adminClient } from "../../../db/postgres";
@@ -56,6 +57,9 @@ const updateAdminByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`admins`);
+  await setCache(`admins:${updatedAdmin.admin_uid}`, updatedAdmin);
 
   return {
     msg: `Successfully updated admin:${updatedAdmin.fullname}!`,

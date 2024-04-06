@@ -9,12 +9,10 @@ const createJWT = (fullname: string, userId: string, userType: string) => {
       expiresIn: process.env.JWT_EXP_DURATION || "6h",
     }
   );
-  console.log(jwtRes);
   return jwtRes;
 };
 
 const verifyJWT = (token: string) => {
-  console.log(token);
   return jwt.verify(token, process.env.JWT_PRIVATE_KEY as string);
 };
 

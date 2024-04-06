@@ -1,5 +1,7 @@
 // Prisma
 import { Announcement } from "@prisma/client";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Client
@@ -7,7 +9,8 @@ import { announcementClient } from "../../../db/postgres";
 
 const updateAnnouncementByIdPersistence = async (
   announcementId: string,
-  announcementBody: Announcement
+  announcementBody: Announcement,
+  userId: string
 ) => {
   if (!announcementId) {
     return {
@@ -41,6 +44,13 @@ const updateAnnouncementByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`announcements`);
+  await deleteCache(`${userId}:announcements`);
+  await setCache(
+    `${userId}:announcements:${announcementId}`,
+    updatedAnnouncement
+  );
 
   return {
     msg: `Successfully updated announcement: ${updatedAnnouncement.title}!`,

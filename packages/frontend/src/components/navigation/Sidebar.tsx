@@ -17,18 +17,12 @@ import Logo from "../others/Logo";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
+  logoutProfile,
   selectProfile,
   setScreenLoadingMessage,
   subscribeUser,
   unsubscribeUser,
 } from "@/redux/slices/generalSlice";
-import { updateAdminById } from "@/redux/slices/adminsSlice";
-import { updateStudentById } from "@/redux/slices/studentsSlice";
-import { updateTeacherById } from "@/redux/slices/teachersSlice";
-// Interfaces
-import TemplateUpdateAdmin from "@/core/interfaces/template/TemplateUpdateAdmin";
-import TemplateUpdateStudent from "@/core/interfaces/template/TemplateUpdateStudent";
-import TemplateUpdateTeacher from "@/core/interfaces/template/TemplateUpdateTeacher";
 
 interface SidebarProps {
   showSidebar: boolean;
@@ -118,6 +112,21 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
               if (pageLink.dest === "/profil" && !profile.email && profile) {
                 return null;
               }
+
+              if (pageLink.dest === "/logout") {
+                return (
+                  <button
+                    type="button"
+                    key={pageLink.id}
+                    title={pageLink.label}
+                    onClick={() => dispatch(logoutProfile())}
+                  >
+                    <i>{pageLink.logoUrl}</i>
+                    <h2>{pageLink.label}</h2>
+                  </button>
+                );
+              }
+
               return (
                 <Link
                   href={pageLink.dest}

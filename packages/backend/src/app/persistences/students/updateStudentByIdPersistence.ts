@@ -2,10 +2,11 @@
 import { Student } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
+import { encryptPassword } from "../../../utils/bcrypt";
 // Client
 import { studentClient } from "../../../db/postgres";
-// Utils
-import { encryptPassword } from "../../../utils/bcrypt";
 
 const updateStudentByIdPersistence = async (
   studentId: string,
@@ -48,6 +49,9 @@ const updateStudentByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`students`);
+  await setCache(`students:${updatedStudent.student_uid}`, updatedStudent);
 
   return {
     msg: `Successfully updated student:${updatedStudent.fullname}!`,

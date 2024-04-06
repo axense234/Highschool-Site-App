@@ -2,10 +2,16 @@
 import { Book } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { bookClient } from "../../../db/postgres";
 
-const updateBookByIdPersistence = async (bookId: string, bookBody: Book) => {
+const updateBookByIdPersistence = async (
+  bookId: string,
+  bookBody: Book,
+  userId: string
+) => {
   if (!bookId) {
     return {
       msg: "Please enter a book id!",
@@ -38,6 +44,10 @@ const updateBookByIdPersistence = async (bookId: string, bookBody: Book) => {
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`books`);
+  await deleteCache(`${userId}:books`);
+  await setCache(`${userId}:books:${bookId}`, updatedBook);
 
   return {
     msg: `Successfully updated book with id: ${bookId}`,

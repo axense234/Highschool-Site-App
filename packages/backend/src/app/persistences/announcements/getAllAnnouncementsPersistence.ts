@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { announcementClient } from "../../../db/postgres";
 
@@ -8,11 +10,17 @@ const getAllAnnouncementsPersistence = async (
   filter?: string,
   filterQuery?: string
 ) => {
-  const foundAnnouncements = await announcementClient.findMany({
-    orderBy: { [sortByFilter || "description"]: "desc" },
-    where: {
-      [filter || "title"]: { contains: filterQuery || "", mode: "insensitive" },
-    },
+  const foundAnnouncements = await getOrSetCache(`announcements`, async () => {
+    const announcements = await announcementClient.findMany({
+      orderBy: { [sortByFilter || "description"]: "desc" },
+      where: {
+        [filter || "title"]: {
+          contains: filterQuery || "",
+          mode: "insensitive",
+        },
+      },
+    });
+    return announcements;
   });
 
   if (foundAnnouncements.length < 1) {

@@ -10,14 +10,22 @@ import deleteAbsenceByIdPersistence from "../persistences/absences/deleteAbsence
 import createAbsencePersistence from "../persistences/absences/createAbsencePersistence";
 
 const getAllAbsences = async (req: Request, res: Response) => {
-  const foundAbsencesPayload = await getAllAbsencesPersistence();
+  const { userId } = req.query;
+
+  const foundAbsencesPayload = await getAllAbsencesPersistence(
+    userId as string
+  );
   return res.status(foundAbsencesPayload.statusCode).json(foundAbsencesPayload);
 };
 
 const getAbsenceById = async (req: Request, res: Response) => {
   const { absenceId } = req.params;
+  const { userId } = req.query;
 
-  const foundAbsencePayload = await getAbsenceByIdPersistence(absenceId);
+  const foundAbsencePayload = await getAbsenceByIdPersistence(
+    absenceId,
+    userId as string
+  );
 
   return res.status(foundAbsencePayload.statusCode).json(foundAbsencePayload);
 };
@@ -25,10 +33,12 @@ const getAbsenceById = async (req: Request, res: Response) => {
 const updateAbsenceById = async (req: Request, res: Response) => {
   const { absenceId } = req.params;
   const absenceBody = req.body as Absence;
+  const { userId } = req.query;
 
   const updatedAbsencePayload = await updateAbsenceByIdPersistence(
     absenceId,
-    absenceBody
+    absenceBody,
+    userId as string
   );
 
   return res
@@ -38,8 +48,12 @@ const updateAbsenceById = async (req: Request, res: Response) => {
 
 const deleteAbsenceById = async (req: Request, res: Response) => {
   const { absenceId } = req.params;
+  const { userId } = req.query;
 
-  const deletedAbsencePayload = await deleteAbsenceByIdPersistence(absenceId);
+  const deletedAbsencePayload = await deleteAbsenceByIdPersistence(
+    absenceId,
+    userId as string
+  );
 
   return res
     .status(deletedAbsencePayload.statusCode)
@@ -48,9 +62,11 @@ const deleteAbsenceById = async (req: Request, res: Response) => {
 
 const createAbsence = async (req: Request, res: Response) => {
   const { card_section_uid } = req.body;
+  const { userId } = req.query;
 
   const createdAbsencePayload = await createAbsencePersistence(
-    card_section_uid
+    card_section_uid,
+    userId as string
   );
 
   return res

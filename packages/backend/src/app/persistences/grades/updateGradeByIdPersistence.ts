@@ -1,5 +1,7 @@
 // Prisma
 import { Grade } from "@prisma/client";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Client
@@ -7,7 +9,8 @@ import { gradeClient } from "../../../db/postgres";
 
 const updateGradeByIdPersistence = async (
   gradeId: string,
-  gradeBody: Grade
+  gradeBody: Grade,
+  userId: string
 ) => {
   if (!gradeId) {
     return {
@@ -41,6 +44,10 @@ const updateGradeByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`grades`);
+  await deleteCache(`${userId}:grades`);
+  await setCache(`${userId}:grades:${gradeId}`, updatedGrade);
 
   return {
     msg: `Successfully updated grade with id: ${gradeId}`,

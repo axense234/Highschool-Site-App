@@ -1,9 +1,14 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { absenceClient } from "../../../db/postgres";
 
-const createAbsencePersistence = async (card_section_uid: string) => {
+const createAbsencePersistence = async (
+  card_section_uid: string,
+  userId: string
+) => {
   if (!card_section_uid) {
     return {
       msg: "Please enter a card section uid!",
@@ -23,6 +28,14 @@ const createAbsencePersistence = async (card_section_uid: string) => {
       statusCode: StatusCodes.BAD_REQUEST,
     };
   }
+
+  await deleteCache("absences");
+  await deleteCache(`${userId}:absences`);
+
+  await setCache(
+    `${userId}:absences:${createdAbsence.absence_uid}`,
+    createdAbsence
+  );
 
   return {
     msg: `Successfully created an absence with id:${createdAbsence.absence_uid}`,

@@ -6,6 +6,8 @@ import { StatusCodes } from "http-status-codes";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { TemplateTeacherType } from "core/types/TemplateTeacherType";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { teacherClient } from "../../../db/postgres";
 // Data
@@ -30,6 +32,9 @@ const createTeacherPersistence = async (
       statusCode: StatusCodes.BAD_REQUEST,
     };
   }
+
+  await deleteCache("teachers");
+  await setCache(`teachers:${createdTeacher.teacher_uid}`, createdTeacher);
 
   return {
     msg: `Successfully created a teacher with id:${createdTeacher.teacher_uid}`,

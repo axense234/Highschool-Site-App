@@ -139,7 +139,8 @@
       gap: 0.25rem;
     }
 
-    a {
+    a,
+    button {
       display: flex;
       align-items: center;
       justify-content: flex;
@@ -149,6 +150,9 @@
       text-align: center;
 
       transition: 0.1s ease-in;
+
+      background-color: inherit;
+      border: none;
 
       &:hover {
         transform: translateX(0.5rem);

@@ -2,11 +2,14 @@
 import { Announcement } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { announcementClient } from "../../../db/postgres";
 
 const createAnnouncementPersistence = async (
-  announcementBody: Announcement
+  announcementBody: Announcement,
+  userId: string
 ) => {
   if (!announcementBody.title || !announcementBody.description) {
     return {
@@ -27,6 +30,14 @@ const createAnnouncementPersistence = async (
       statusCode: StatusCodes.BAD_REQUEST,
     };
   }
+
+  await deleteCache("announcements");
+  await deleteCache(`${userId}:announcements`);
+
+  await setCache(
+    `${userId}:announcements:${createdAnnouncement.announcement_uid}`,
+    createdAnnouncement
+  );
 
   return {
     msg: `Successfully created announcement with uid:${createdAnnouncement.announcement_uid} and title:${createdAnnouncement.title}!`,

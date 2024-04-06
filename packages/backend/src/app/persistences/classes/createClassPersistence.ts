@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Types
 import { Class } from "@prisma/client";
 import { TemplateClassType } from "../../../core/types/templateClassType";
@@ -12,7 +14,10 @@ import {
   studentClient,
 } from "../../../db/postgres";
 
-const createClassPersistence = async (classBody: TemplateClassType) => {
+const createClassPersistence = async (
+  classBody: TemplateClassType,
+  userId: string
+) => {
   if (classBody.master_teacher) {
     delete classBody.master_teacher;
   }
@@ -66,6 +71,11 @@ const createClassPersistence = async (classBody: TemplateClassType) => {
     };
   }
 
+  await deleteCache("classes");
+  await deleteCache(`${userId}:classes`);
+
+  await setCache(`${userId}:classes:${createdClass.class_uid}`, createdClass);
+
   await studentClient.updateMany({
     where: { class_label: createdClass.label },
     data: {
@@ -74,8 +84,10 @@ const createClassPersistence = async (classBody: TemplateClassType) => {
     },
   });
 
+  await deleteCache("students");
+
   if (createdClass.master_teacher_uid) {
-    await teacherClient.update({
+    const updatedTeacher = await teacherClient.update({
       where: { teacher_uid: createdClass.master_teacher_uid },
       data: {
         master: true,
@@ -84,6 +96,8 @@ const createClassPersistence = async (classBody: TemplateClassType) => {
         master_class_label: createdClass.label,
       },
     });
+    await deleteCache("teachers");
+    await setCache(`teachers:${updatedTeacher.teacher_uid}`, updatedTeacher);
   }
 
   return {

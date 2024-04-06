@@ -2,13 +2,10 @@
 import { NextFunction, Request, Response } from "express";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
-// UUID
-import * as uuid from "uuid";
 // Utils
-import { verifyJWT } from "../utils/jwt";
-import { getCachedJWT } from "../utils/redis";
+import { createJWT, verifyJWT } from "../utils/jwt";
+import { getOrSetCache } from "../utils/redis";
 
-// @ts-ignore
 declare module "express-serve-static-core" {
   export interface Request {
     user: any;
@@ -20,37 +17,36 @@ const authenticationMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { authorization } = req.headers;
-  const jwtFromRedis = await getCachedJWT(req.cookies.uniqueIdentifier);
+  const authHeader = req.headers.authorization as string;
+  const userId = req.query.userId || req.params.userId;
 
-  if (req.cookies.uniqueIdentifier === undefined) {
-    const uniqueIdentifier = uuid.v4();
-    res.cookie("uniqueIdentifier", uniqueIdentifier, {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-    });
+  if (!userId || userId === "null" || userId === "undefined") {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide an userId!" });
   }
 
-  if (
-    (!authorization || !authorization.startsWith("Bearer ")) &&
-    !jwtFromRedis
-  ) {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Please enter the Bearer Token in the auth header!",
-      failedJWT: jwtFromRedis,
-    });
-  }
+  const token = await getOrSetCache(`${userId}:hsa-jwt`, () => {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return null;
+    }
 
-  const token = authorization?.split(" ")[1] || (jwtFromRedis as string);
+    return authHeader.split(" ")[1];
+  });
+
+  if (!token) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Please provide a jwt!", type: "jwt" });
+  }
 
   try {
-    const payload = verifyJWT(token);
-    req.user = payload;
+    req.user = verifyJWT(token);
     next();
   } catch (error) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .json({ msg: "Unauthorized.", error });
+      .json({ msg: "Expired jwt.", type: "jwt" });
   }
 };
 

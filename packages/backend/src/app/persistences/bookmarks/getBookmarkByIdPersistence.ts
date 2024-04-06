@@ -1,9 +1,14 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { bookmarkClient } from "../../../db/postgres";
 
-const getBookmarkByIdPersistence = async (bookmarkId: string) => {
+const getBookmarkByIdPersistence = async (
+  bookmarkId: string,
+  userId: string
+) => {
   if (!bookmarkId) {
     return {
       msg: "Please enter a valid bookmark id!",
@@ -12,9 +17,15 @@ const getBookmarkByIdPersistence = async (bookmarkId: string) => {
     };
   }
 
-  const foundBookmark = await bookmarkClient.findUnique({
-    where: { bookmark_uid: bookmarkId },
-  });
+  const foundBookmark = await getOrSetCache(
+    `${userId}:bookmarks:${bookmarkId}`,
+    async () => {
+      const bookmark = await bookmarkClient.findUnique({
+        where: { bookmark_uid: bookmarkId },
+      });
+      return bookmark;
+    }
+  );
 
   if (!foundBookmark) {
     return {

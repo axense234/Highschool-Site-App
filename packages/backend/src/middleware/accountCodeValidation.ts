@@ -13,7 +13,7 @@ const accountCodeValidation = async (
   const userBody = req.body;
   const { userType } = req.params;
 
-  if (userType === "ADMIN" || userType === "PROFESOR") {
+  if (userType) {
     if (!userBody.accountCode) {
       return res
         .status(StatusCodes.BAD_REQUEST)

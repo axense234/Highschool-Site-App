@@ -48,6 +48,11 @@
     gap: 5rem;
     width: 80%;
 
+    p {
+      align-self: center;
+      font-size: 1.25rem;
+    }
+
     @media all and (max-width: getScreenSize("laptopL")) {
       width: 100%;
     }

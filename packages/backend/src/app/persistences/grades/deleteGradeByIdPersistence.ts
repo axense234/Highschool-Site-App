@@ -1,9 +1,11 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache } from "utils/redis";
 // Client
 import { gradeClient } from "../../../db/postgres";
 
-const deleteGradeByIdPersistence = async (gradeId: string) => {
+const deleteGradeByIdPersistence = async (gradeId: string, userId: string) => {
   if (!gradeId) {
     return {
       msg: "Please enter a grade id!",
@@ -35,6 +37,10 @@ const deleteGradeByIdPersistence = async (gradeId: string) => {
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`grades`);
+  await deleteCache(`${userId}:grades`);
+  await deleteCache(`${userId}:grades:${deletedGrade.grade_uid}`);
 
   return {
     msg: `Successfully deleted grade with id:${gradeId}!`,

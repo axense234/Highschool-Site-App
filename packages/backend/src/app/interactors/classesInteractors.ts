@@ -10,9 +10,10 @@ import deleteClassByIdPersistence from "../persistences/classes/deleteClassByIdP
 import updateClassByIdPersistence from "../persistences/classes/updateClassByIdPersistence";
 
 const getAllClasses = async (req: Request, res: Response) => {
-  const { includeStudents } = req.query;
+  const { includeStudents, userId } = req.query;
   const foundClassesPayload = await getAllClassesPersistence(
-    includeStudents as string
+    includeStudents as string,
+    userId as string
   );
   return res.status(foundClassesPayload.statusCode).json(foundClassesPayload);
 };
@@ -39,25 +40,35 @@ const getClassById = async (req: Request, res: Response) => {
 
 const createClass = async (req: Request, res: Response) => {
   const classBody = req.body;
+  const { userId } = req.query;
 
-  const createdClassPayload = await createClassPersistence(classBody);
+  const createdClassPayload = await createClassPersistence(
+    classBody,
+    userId as string
+  );
   return res.status(createdClassPayload.statusCode).json(createdClassPayload);
 };
 
 const deleteClassById = async (req: Request, res: Response) => {
   const { classId } = req.params;
+  const { userId } = req.query;
 
-  const deletedClassPayload = await deleteClassByIdPersistence(classId);
+  const deletedClassPayload = await deleteClassByIdPersistence(
+    classId,
+    userId as string
+  );
   return res.status(deletedClassPayload.statusCode).json(deletedClassPayload);
 };
 
 const updateClassById = async (req: Request, res: Response) => {
   const { classId } = req.params;
   const classBody = req.body as Class;
+  const { userId } = req.query;
 
   const updatedClassPayload = await updateClassByIdPersistence(
     classId,
-    classBody
+    classBody,
+    userId as string
   );
   return res.status(updatedClassPayload.statusCode).json(updatedClassPayload);
 };

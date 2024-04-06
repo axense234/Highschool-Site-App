@@ -2,12 +2,12 @@
 import { Request, Response } from "express";
 import { Admin, Student, StudentCard, Teacher } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { setCache, deleteCache } from "utils/redis";
+import { createJWT } from "../../utils/jwt";
 // Prisma
 import { classClient } from "../../db/postgres";
 import { encryptPassword, verifyPassword } from "../../utils/bcrypt";
-// Utils
-import { createJWT } from "../../utils/jwt";
-import { cacheJWT, deleteCachedJWT } from "../../utils/redis";
 // Persistences
 import createCardPersistence from "../persistences/cards/createCardPersistence";
 import createAdminPersistence from "../persistences/admins/createAdminPersistence";
@@ -108,7 +108,7 @@ const createUser = async (req: Request, res: Response) => {
   }
 
   const token = createJWT(createdUser.fullname, createdUser.id, userType);
-  await cacheJWT(token, req.cookies.uniqueIdentifier);
+  await setCache(`${createdUser.id}:hsa-jwt`, token);
 
   return res.status(StatusCodes.CREATED).json({
     token,
@@ -178,7 +178,7 @@ const loginUser = async (req: Request, res: Response) => {
   }
 
   const token = createJWT(userFound.fullname, userFound.id, userFound.role);
-  await cacheJWT(token, req.cookies.uniqueIdentifier);
+  await setCache(`${userFound.id}:hsa-jwt`, token);
 
   return res.status(StatusCodes.OK).json({
     token,
@@ -189,7 +189,15 @@ const loginUser = async (req: Request, res: Response) => {
 
 // LOG OUT USER
 const logoutUser = async (req: Request, res: Response) => {
-  await deleteCachedJWT(`${req.cookies.uniqueIdentifier}:hsa-jwt`);
+  const { userId } = req.user;
+
+  if (!userId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "No user id!", user: {} });
+  }
+
+  await deleteCache(`${userId}:hsa-jwt`);
   return res
     .status(StatusCodes.OK)
     .json({ msg: "Successfully logged out!", user: {} });

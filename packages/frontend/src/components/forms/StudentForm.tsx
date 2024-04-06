@@ -10,6 +10,7 @@ import { MdAttachEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RxAvatar } from "react-icons/rx";
 import { FaGraduationCap } from "react-icons/fa";
+import { BiKey } from "react-icons/bi";
 // Types
 import FormStepProps from "@/core/interfaces/component/FormStepProps";
 import TemplateUser from "@/core/interfaces/template/TemplateUser";
@@ -43,6 +44,7 @@ const StudentForm: FC<FormStepProps> = ({
   const dispatch = useAppDispatch();
   const classes = useAppSelector(selectAllClasses);
   const [showPass, setShowPass] = useState<boolean>(false);
+  const [accountCode, setAccountCode] = useState<string>("");
 
   const foundCurrentTypeStepsLength = typeNavOptions.find(
     (option) => option.label === "ELEV"
@@ -95,7 +97,7 @@ const StudentForm: FC<FormStepProps> = ({
           "Încercăm să creăm un elev, vă rugăm să așteptați..."
         )
       );
-      dispatch(createStudent(templateStudent));
+      dispatch(createStudent({ ...templateStudent, accountCode }));
     } else {
       dispatch(
         setScreenLoadingMessage(
@@ -115,27 +117,55 @@ const StudentForm: FC<FormStepProps> = ({
         <FormModal type={pageType === "login" ? "general" : "students"} />
         <div className={accountsFormStyles.accountsFormContainer__content}>
           {pageType === "signup" && (
-            <div
-              className={accountsFormStyles.accountsFormContainer__textControl}
-            >
+            <>
               <div
                 className={
-                  accountsFormStyles.accountsFormContainer__controlLabel
+                  accountsFormStyles.accountsFormContainer__textControl
                 }
               >
-                <BsFillPersonFill />
-                <label htmlFor="fullname">Nume Complet: </label>
+                <div
+                  className={
+                    accountsFormStyles.accountsFormContainer__controlLabel
+                  }
+                >
+                  <BiKey />
+                  <label htmlFor="code">Cod: </label>
+                </div>
+                <input
+                  type="text"
+                  id="code"
+                  required
+                  minLength={1}
+                  maxLength={20}
+                  placeholder="ex: B6daw82ad_8awd8"
+                  value={accountCode}
+                  onChange={(e) => setAccountCode(e.target.value)}
+                />
               </div>
-              <input
-                type="text"
-                id="fullname"
-                required
-                placeholder="ex: Irina Ionescu"
-                maxLength={40}
-                value={templateStudent.fullname}
-                onChange={(e) => onFullnameChange(e.target.value)}
-              />
-            </div>
+              <div
+                className={
+                  accountsFormStyles.accountsFormContainer__textControl
+                }
+              >
+                <div
+                  className={
+                    accountsFormStyles.accountsFormContainer__controlLabel
+                  }
+                >
+                  <BsFillPersonFill />
+                  <label htmlFor="fullname">Nume Complet: </label>
+                </div>
+                <input
+                  type="text"
+                  id="fullname"
+                  required
+                  placeholder="ex: Irina Ionescu"
+                  maxLength={40}
+                  value={templateStudent.fullname}
+                  onChange={(e) => onFullnameChange(e.target.value)}
+                />
+              </div>
+            </>
           )}
           <div
             className={accountsFormStyles.accountsFormContainer__textControl}

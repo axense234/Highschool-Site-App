@@ -1,9 +1,14 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { announcementClient } from "../../../db/postgres";
 
-const getAnnouncementByIdPersistence = async (announcementId: string) => {
+const getAnnouncementByIdPersistence = async (
+  announcementId: string,
+  userId: string
+) => {
   if (!announcementId) {
     return {
       msg: "Please provide an announcementId!",
@@ -12,9 +17,15 @@ const getAnnouncementByIdPersistence = async (announcementId: string) => {
     };
   }
 
-  const foundAnnouncement = await announcementClient.findUnique({
-    where: { announcement_uid: announcementId },
-  });
+  const foundAnnouncement = await getOrSetCache(
+    `${userId}:announcements:${announcementId}`,
+    async () => {
+      const announcement = await announcementClient.findUnique({
+        where: { announcement_uid: announcementId },
+      });
+      return announcement;
+    }
+  );
 
   if (!foundAnnouncement) {
     return {

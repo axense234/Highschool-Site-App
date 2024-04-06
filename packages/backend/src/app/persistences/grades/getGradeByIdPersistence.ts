@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { gradeClient } from "../../../db/postgres";
 
@@ -12,8 +14,11 @@ const getGradeByIdPersistence = async (gradeId: string) => {
     };
   }
 
-  const foundGrade = await gradeClient.findUnique({
-    where: { grade_uid: gradeId },
+  const foundGrade = await getOrSetCache(`grades:${gradeId}`, async () => {
+    const grade = await gradeClient.findUnique({
+      where: { grade_uid: gradeId },
+    });
+    return grade;
   });
 
   if (!foundGrade) {

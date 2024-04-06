@@ -8,7 +8,8 @@ import deleteGradeByIdPersistence from "../persistences/grades/deleteGradeByIdPe
 import createGradePersistence from "../persistences/grades/createGradePersistence";
 
 const getAllGrades = async (req: Request, res: Response) => {
-  const foundGradesPayload = await getAllGradesPersistence();
+  const { userId } = req.query;
+  const foundGradesPayload = await getAllGradesPersistence(userId as string);
 
   return res.status(foundGradesPayload.statusCode).json(foundGradesPayload);
 };
@@ -24,28 +25,38 @@ const getGradeById = async (req: Request, res: Response) => {
 const updateGradeById = async (req: Request, res: Response) => {
   const { gradeId } = req.params;
   const gradeBody = req.body;
+  const { userId } = req.query;
 
   const updatedGradePayload = await updateGradeByIdPersistence(
     gradeId,
-    gradeBody
+    gradeBody,
+    userId as string
   );
   return res.status(updatedGradePayload.statusCode).json(updatedGradePayload);
 };
 
 const deleteGradeById = async (req: Request, res: Response) => {
   const { gradeId } = req.params;
+  const { userId } = req.query;
 
-  const deletedGradePayload = await deleteGradeByIdPersistence(gradeId);
+  const deletedGradePayload = await deleteGradeByIdPersistence(
+    gradeId,
+    userId as string
+  );
   return res.status(deletedGradePayload.statusCode).json(deletedGradePayload);
 };
 
 const createGrade = async (req: Request, res: Response) => {
   const gradeBody = req.body;
+  const { userId } = req.query;
 
   delete gradeBody.grade_uid;
   delete gradeBody.date;
 
-  const createdGradePayload = await createGradePersistence(gradeBody);
+  const createdGradePayload = await createGradePersistence(
+    gradeBody,
+    userId as string
+  );
 
   return res.status(createdGradePayload.statusCode).json(createdGradePayload);
 };

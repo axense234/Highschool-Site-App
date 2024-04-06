@@ -2,12 +2,15 @@
 import { StatusCodes } from "http-status-codes";
 // Prisma
 import { Absence } from "@prisma/client";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { absenceClient } from "../../../db/postgres";
 
 const updateAbsenceByIdPersistence = async (
   absenceId: string,
-  absenceBody: Absence
+  absenceBody: Absence,
+  userId: string
 ) => {
   if (!absenceId) {
     return {
@@ -45,6 +48,10 @@ const updateAbsenceByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`absences`);
+  await deleteCache(`${userId}:absences`);
+  await setCache(`${userId}:absences:${absenceId}`, updatedAbsence);
 
   return {
     msg: `Successfully updated absence with id: ${absenceId}`,

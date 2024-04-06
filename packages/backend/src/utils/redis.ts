@@ -1,45 +1,29 @@
 // Redis
 import { redisClient } from "../db/redis";
 
-const cacheJWT = async (jwt: string, uniqueIdentifier: string) => {
-  await redisClient
-    .setEx(
-      `${uniqueIdentifier}:hsa-jwt`,
-      Number(process.env.JWT_EXP_DURATION?.split("h")[0]) * 3600,
-      jwt
-    )
-    .then((res) => console.log(res));
+const DEF_EXP_TIME = 24 * 3600;
+
+const getOrSetCache = async (key, cb) => {
+  const data = await redisClient.get(key);
+
+  if (data !== null) {
+    return JSON.parse(data);
+  }
+  const freshData = await cb();
+  await redisClient.setEx(key, DEF_EXP_TIME, JSON.stringify(freshData));
+  return freshData;
 };
 
-const getCachedJWT = async (uniqueIdentifier: string) => {
-  await redisClient.del("undefined:hsa-jwt");
-  const allKeys = await redisClient.keys("*");
-  console.log(allKeys, uniqueIdentifier);
-  const jwt = await redisClient.get(`${uniqueIdentifier}:hsa-jwt`);
-  return jwt;
+const setCache = async (key, data) => {
+  await redisClient.setEx(key, DEF_EXP_TIME, JSON.stringify(data));
 };
 
-const cachePassResetToken = async (uniqueIdentifier: string) => {
-  await redisClient.setEx(
-    `${uniqueIdentifier}:hsa-pass-token`,
-    Number(process.env.PASS_TOKEN_EXP_DURATION?.split("h")[0]) * 3600,
-    uniqueIdentifier
-  );
-};
-
-const getPassResetToken = async (uniqueIdentifier: string) => {
-  const token = await redisClient.get(`${uniqueIdentifier}:hsa-pass-token`);
-  return token;
-};
-
-const deleteCachedJWT = async (key: string) => {
+const deleteCache = async (key: string) => {
   await redisClient.del(key);
 };
 
-export {
-  cacheJWT,
-  getCachedJWT,
-  deleteCachedJWT,
-  cachePassResetToken,
-  getPassResetToken,
+const deleteAllCache = async () => {
+  await redisClient.flushAll();
 };
+
+export { getOrSetCache, deleteAllCache, setCache, deleteCache };

@@ -1,22 +1,28 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { bookClient } from "../../../db/postgres";
 
 const getAllBooksPersistence = async (
+  userId: string,
   sortByFilter?: string,
   sortByFilterValue?: string,
   filterQuery?: string,
   filterQueryValue?: string
 ) => {
-  const foundBooks = await bookClient.findMany({
-    where: {
-      [filterQuery || "title"]: {
-        contains: filterQueryValue,
-        mode: "insensitive",
+  const foundBooks = await getOrSetCache("books", async () => {
+    const books = await bookClient.findMany({
+      where: {
+        [filterQuery || "title"]: {
+          contains: filterQueryValue,
+          mode: "insensitive",
+        },
       },
-    },
-    orderBy: { [sortByFilter || "title"]: sortByFilterValue },
+      orderBy: { [sortByFilter || "title"]: sortByFilterValue },
+    });
+    return books;
   });
 
   if (foundBooks.length < 1) {

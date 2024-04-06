@@ -25,7 +25,7 @@ import { IoSchoolSharp, IoPeople, IoLibrarySharp } from "react-icons/io5";
 import { HiDocumentText } from "react-icons/hi2";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GrDesktop, GrDocument, GrDocumentUser } from "react-icons/gr";
-import { CiLocationOn } from "react-icons/ci";
+import { CiLocationOn, CiLogout } from "react-icons/ci";
 import { GiStack } from "react-icons/gi";
 // Types
 import {
@@ -124,6 +124,7 @@ export const defaultTemplateStudent: TemplateStudent = {
   fullname: "",
   role: "ELEV",
   class_label: "",
+  accountCode: "",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -722,6 +723,12 @@ export const sidebarPageLinks: SidebarLink[] = [
     label: "Bibliotecă",
     dest: "/biblioteca",
     logoUrl: IoLibrarySharp({}),
+  },
+  {
+    id: 14,
+    label: "Ieșiți din Cont",
+    dest: "/logout",
+    logoUrl: CiLogout({}),
   },
 ];
 

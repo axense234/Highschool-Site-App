@@ -1,0 +1,15 @@
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '1111');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '2222');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '3333');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '4444');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '5555');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '6666');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '7777');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '8888');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '9999');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '919191');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '121212');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '131313');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '141414');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '565656');
+INSERT INTO "AccountCode" (code_uid, value) VALUES (gen_random_uuid(), '898989');

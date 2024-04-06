@@ -1,9 +1,11 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { absenceClient } from "../../../db/postgres";
 
-const getAbsenceByIdPersistence = async (absenceId: string) => {
+const getAbsenceByIdPersistence = async (absenceId: string, userId: string) => {
   if (!absenceId) {
     return {
       msg: "Please enter a valid absence id!",
@@ -12,9 +14,15 @@ const getAbsenceByIdPersistence = async (absenceId: string) => {
     };
   }
 
-  const foundAbsence = await absenceClient.findUnique({
-    where: { absence_uid: absenceId },
-  });
+  const foundAbsence = await getOrSetCache(
+    `${userId}:absences:${absenceId}`,
+    async () => {
+      const absence = await absenceClient.findUnique({
+        where: { absence_uid: absenceId },
+      });
+      return absence;
+    }
+  );
 
   if (!foundAbsence) {
     return {

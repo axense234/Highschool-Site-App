@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { classClient } from "../../../db/postgres";
 
@@ -62,9 +64,12 @@ const getClassByIdPersistence = async (
     };
   }
 
-  const foundClass = await classClient.findUnique({
-    where: { class_uid: classId },
-    include: includeObject,
+  const foundClass = await getOrSetCache(`classes:${classId}`, async () => {
+    const foundClassEntity = await classClient.findUnique({
+      where: { class_uid: classId },
+      include: includeObject,
+    });
+    return foundClassEntity;
   });
 
   if (!foundClass) {

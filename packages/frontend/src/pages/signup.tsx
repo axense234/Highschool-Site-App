@@ -25,7 +25,7 @@ const Signup: FC = () => {
     if (loadingClasses === "IDLE" || loadingClasses === "PENDING") {
       dispatch(getAllClasses());
     }
-  }, []);
+  }, [loadingClasses, loadingClasses]);
 
   if (loadingClasses === "IDLE" || loadingClasses === "PENDING") {
     return (

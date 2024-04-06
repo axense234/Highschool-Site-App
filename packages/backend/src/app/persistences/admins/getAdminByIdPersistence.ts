@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { adminClient } from "../../../db/postgres";
 
@@ -14,9 +16,12 @@ const getAdminByIdPersistence = async (
 
   includeObject.bookmarks = Boolean(includeBookmarks);
 
-  const foundAdmin = await adminClient.findUnique({
-    where: filterCondition,
-    include: includeObject,
+  const foundAdmin = await getOrSetCache(`admins:${filterValue}`, async () => {
+    const admin = await adminClient.findUnique({
+      where: filterCondition,
+      include: includeObject,
+    });
+    return admin;
   });
 
   if (!foundAdmin) {

@@ -1,9 +1,14 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache } from "utils/redis";
 // Client
 import { bookmarkClient } from "../../../db/postgres";
 
-const deleteBookmarkByIdPersistence = async (bookmarkId: string) => {
+const deleteBookmarkByIdPersistence = async (
+  bookmarkId: string,
+  userId: string
+) => {
   if (!bookmarkId) {
     return {
       msg: "Please enter a bookmark id!",
@@ -35,6 +40,10 @@ const deleteBookmarkByIdPersistence = async (bookmarkId: string) => {
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`bookmarks`);
+  await deleteCache(`${userId}:bookmarks`);
+  await deleteCache(`${userId}:bookmarks:${deletedBookmark.bookmark_uid}`);
 
   return {
     msg: `Successfully deleted bookmark with id:${bookmarkId}!`,

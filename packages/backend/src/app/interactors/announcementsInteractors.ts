@@ -21,9 +21,11 @@ const getAllAnnouncements = async (req: Request, res: Response) => {
 
 const getAnnouncementById = async (req: Request, res: Response) => {
   const { announcementId } = req.params;
+  const { userId } = req.query;
 
   const foundAnnouncementPayload = await getAnnouncementByIdPersistence(
-    announcementId
+    announcementId,
+    userId as string
   );
   return res
     .status(foundAnnouncementPayload.statusCode)
@@ -32,9 +34,11 @@ const getAnnouncementById = async (req: Request, res: Response) => {
 
 const createAnnouncement = async (req: Request, res: Response) => {
   const announcementBody = req.body;
+  const { userId } = req.query;
 
   const createdAnnouncementBody = await createAnnouncementPersistence(
-    announcementBody
+    announcementBody,
+    userId as string
   );
   return res
     .status(createdAnnouncementBody.statusCode)
@@ -43,9 +47,11 @@ const createAnnouncement = async (req: Request, res: Response) => {
 
 const deleteAnnouncementById = async (req: Request, res: Response) => {
   const { announcementId } = req.params;
+  const { userId } = req.query;
 
   const deletedAnnouncementPayload = await deleteAnnouncementByIdPersistence(
-    announcementId
+    announcementId,
+    userId as string
   );
   return res
     .status(deletedAnnouncementPayload.statusCode)
@@ -55,10 +61,12 @@ const deleteAnnouncementById = async (req: Request, res: Response) => {
 const updateAnnouncementById = async (req: Request, res: Response) => {
   const { announcementId } = req.params;
   const announcementBody = req.body;
+  const { userId } = req.query;
 
   const updatedAnnouncementPayload = await updateAnnouncementByIdPersistence(
     announcementId,
-    announcementBody
+    announcementBody,
+    userId as string
   );
   return res
     .status(updatedAnnouncementPayload.statusCode)

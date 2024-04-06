@@ -1,5 +1,3 @@
-// Notifications
-import { PushSubscription } from "web-push";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Prisma
@@ -12,8 +10,6 @@ const createUserSubscriptionPersistence = async (
   user_uid: string,
   userType: "ADMIN" | "PROFESOR" | "ELEV"
 ) => {
-  console.log(subBody);
-
   let userIdKeyUsed;
   switch (userType) {
     case "ADMIN":

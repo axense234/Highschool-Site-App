@@ -1,9 +1,14 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache } from "utils/redis";
 // Client
 import { announcementClient } from "../../../db/postgres";
 
-const deleteAnnouncementByIdPersistence = async (announcementId: string) => {
+const deleteAnnouncementByIdPersistence = async (
+  announcementId: string,
+  userId: string
+) => {
   if (!announcementId) {
     return {
       msg: "Please provide an announcementId!",
@@ -35,6 +40,12 @@ const deleteAnnouncementByIdPersistence = async (announcementId: string) => {
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`announcements`);
+  await deleteCache(`${userId}:announcements`);
+  await deleteCache(
+    `${userId}:announcements:${deletedAnnouncement.announcement_uid}`
+  );
 
   return {
     msg: `Successfully deleted announcement with title:${deletedAnnouncement.title}!`,

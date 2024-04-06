@@ -28,7 +28,7 @@ const ResetPassword: FC = () => {
 
   useEffect(() => {
     dispatch(verifyResetPassToken(router.query.token as string));
-  });
+  }, []);
 
   return (
     <>

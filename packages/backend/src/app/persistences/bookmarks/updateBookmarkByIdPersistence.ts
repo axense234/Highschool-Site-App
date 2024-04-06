@@ -2,12 +2,15 @@
 import { Bookmark } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Client
 import { bookmarkClient } from "../../../db/postgres";
 
 const updateBookmarkByIdPersistence = async (
   bookmarkId: string,
-  bookmarkBody: Bookmark
+  bookmarkBody: Bookmark,
+  userId: string
 ) => {
   if (!bookmarkId) {
     return {
@@ -41,6 +44,10 @@ const updateBookmarkByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`bookmarks`);
+  await deleteCache(`${userId}:bookmarks`);
+  await setCache(`${userId}:bookmarks:${bookmarkId}`, updatedBookmark);
 
   return {
     msg: `Successfully updated bookmark with id: ${bookmarkId}`,

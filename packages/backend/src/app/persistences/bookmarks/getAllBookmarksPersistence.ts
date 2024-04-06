@@ -1,17 +1,23 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { bookmarkClient } from "../../../db/postgres";
 
 const getAllBookmarksPersistence = async (
   filter: string,
-  filterValue: string
+  filterValue: string,
+  userId: string
 ) => {
   const filterCondition = {} as any;
   filterCondition[filter] = filterValue;
 
-  const foundBookmarks = await bookmarkClient.findMany({
-    where: filterCondition,
+  const foundBookmarks = await getOrSetCache("bookmarks", async () => {
+    const bookmarks = await bookmarkClient.findMany({
+      where: filterCondition,
+    });
+    return bookmarks;
   });
 
   if (foundBookmarks.length < 1) {

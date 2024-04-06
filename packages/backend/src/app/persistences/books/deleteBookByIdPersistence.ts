@@ -1,8 +1,11 @@
-// Client
+// Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache } from "utils/redis";
+// Client
 import { bookClient } from "../../../db/postgres";
 
-const deleteBookByIdPersistence = async (bookId: string) => {
+const deleteBookByIdPersistence = async (bookId: string, userId: string) => {
   if (!bookId) {
     return {
       msg: "Please enter a book id!",
@@ -34,6 +37,10 @@ const deleteBookByIdPersistence = async (bookId: string) => {
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache(`books`);
+  await deleteCache(`${userId}:books`);
+  await deleteCache(`${userId}:books:${deletedBook.book_uid}`);
 
   return {
     msg: `Successfully deleted book with id:${bookId}!`,

@@ -7,6 +7,7 @@ interface TemplateStudent extends Partial<Student> {
   profile_img_url?: string;
   role: "ADMIN" | "ELEV" | "PROFESOR";
   class_uid?: string;
+  accountCode: string;
   student_card_uid?: string;
   student_card?: TemplateStudentCard;
   bookmarks?: Bookmark[];

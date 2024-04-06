@@ -4,10 +4,10 @@ import { Request, Response } from "express";
 import { v4 } from "uuid";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { setCache } from "utils/redis";
 // Prisma
 import { adminClient, studentClient, teacherClient } from "../../db/postgres";
-// Utils
-import { cachePassResetToken } from "../../utils/redis";
 // Data
 import { resetPassEmailMessage, siteUrl } from "../../data";
 // Persistences
@@ -53,7 +53,7 @@ const resetPasswordEmail = async (req: Request, res: Response) => {
   }
 
   const randomToken = v4();
-  await cachePassResetToken(randomToken);
+  await setCache(`${foundUser.id}:hsa-pass-token`, randomToken);
   const resetPassLink = `${siteUrl}?token=${randomToken}&type=${modelType}&accountId=${foundUser.id}`;
   const emailMessage = resetPassEmailMessage(modelType, resetPassLink);
 

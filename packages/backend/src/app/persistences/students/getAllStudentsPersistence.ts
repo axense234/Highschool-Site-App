@@ -2,6 +2,8 @@
 import { Student } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { studentClient } from "../../../db/postgres";
 
@@ -12,7 +14,10 @@ const getAllStudentsPersistence = async (classLabel?: string) => {
     queryObject.class_label = classLabel as string;
   }
 
-  const foundStudents = await studentClient.findMany({ where: queryObject });
+  const foundStudents = await getOrSetCache("students", async () => {
+    const students = await studentClient.findMany({ where: queryObject });
+    return students;
+  });
 
   if (foundStudents.length < 1) {
     return {

@@ -1,5 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { getOrSetCache } from "utils/redis";
 // Client
 import { teacherClient } from "../../../db/postgres";
 
@@ -16,10 +18,16 @@ const getTeacherByIdPersistence = async (
   includeObject.classes = Boolean(includeClassrooms);
   includeObject.bookmarks = Boolean(includeBookmarks);
 
-  const foundTeacher = await teacherClient.findUnique({
-    where: filterCondition,
-    include: includeObject,
-  });
+  const foundTeacher = await getOrSetCache(
+    `teachers:${filterValue}`,
+    async () => {
+      const teacher = await teacherClient.findUnique({
+        where: filterCondition,
+        include: includeObject,
+      });
+      return teacher;
+    }
+  );
 
   if (!foundTeacher) {
     return {

@@ -2,9 +2,9 @@
 import { Admin } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "utils/redis";
 // Types
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { TemplateAdminType } from "../../../core/types/TemplateAdminType";
 // Client
 import { adminClient } from "../../../db/postgres";
@@ -30,6 +30,9 @@ const createAdminPersistence = async (
       statusCode: StatusCodes.BAD_REQUEST,
     };
   }
+
+  await deleteCache("admins");
+  await setCache(`admins:${createdAdmin.admin_uid}`, createdAdmin);
 
   return {
     msg: `Successfully created an admin with id:${createdAdmin.admin_uid}`,
