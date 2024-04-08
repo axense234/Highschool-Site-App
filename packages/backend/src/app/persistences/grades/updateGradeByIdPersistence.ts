@@ -1,7 +1,7 @@
 // Prisma
 import { Grade } from "@prisma/client";
 // Utils
-import { deleteCache, setCache } from "utils/redis";
+import { deleteCache, setCache } from "../../../utils/redis";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Client

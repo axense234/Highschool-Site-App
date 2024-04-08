@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 // Client
 import { studentCatalogueClient } from "../../../db/postgres";
 
-const deleteCatalogueById = async (catalogueId: string) => {
+const deleteCatalogueByIdPersistence = async (catalogueId: string) => {
   if (!catalogueId) {
     return {
       msg: `Please enter a valid catalogueId!`,
@@ -42,3 +42,5 @@ const deleteCatalogueById = async (catalogueId: string) => {
     statusCode: StatusCodes.OK,
   };
 };
+
+export default deleteCatalogueByIdPersistence;

@@ -3,7 +3,7 @@ import { Teacher } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { deleteCache, setCache } from "utils/redis";
+import { deleteCache, setCache } from "../../../utils/redis";
 import { encryptPassword } from "../../../utils/bcrypt";
 // Client
 import { teacherClient } from "../../../db/postgres";

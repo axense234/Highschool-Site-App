@@ -1,7 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { deleteCache, setCache } from "utils/redis";
+import { deleteCache, setCache } from "../../../utils/redis";
 // Types
 import { Class } from "@prisma/client";
 import { TemplateClassType } from "../../../core/types/templateClassType";

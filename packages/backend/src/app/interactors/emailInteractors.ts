@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { setCache } from "utils/redis";
+import { setCache } from "../../utils/redis";
 // Prisma
 import { adminClient, studentClient, teacherClient } from "../../db/postgres";
 // Data
@@ -68,9 +68,10 @@ const resetPasswordEmail = async (req: Request, res: Response) => {
 };
 
 const verifyResetPassToken = async (req: Request, res: Response) => {
-  const { token } = req.query;
+  const { token, userId } = req.query;
   const verifyPassTokenPayload = await verifyResetPassTokenPersistence(
-    token as string
+    token as string,
+    userId as string
   );
   return res
     .status(verifyPassTokenPayload.statusCode)

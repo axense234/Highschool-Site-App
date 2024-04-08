@@ -3,7 +3,7 @@ import { Book } from "@prisma/client";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { deleteCache, setCache } from "utils/redis";
+import { deleteCache, setCache } from "../../../utils/redis";
 // Client
 import { bookClient } from "../../../db/postgres";
 

@@ -1,7 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { getOrSetCache } from "utils/redis";
+import { getOrSetCache } from "../../../utils/redis";
 // Client
 import { studentClient } from "../../../db/postgres";
 

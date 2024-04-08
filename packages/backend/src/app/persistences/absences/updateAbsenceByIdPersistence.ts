@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 // Prisma
 import { Absence } from "@prisma/client";
 // Utils
-import { deleteCache, setCache } from "utils/redis";
+import { deleteCache, setCache } from "../../../utils/redis";
 // Client
 import { absenceClient } from "../../../db/postgres";
 

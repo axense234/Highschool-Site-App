@@ -1,10 +1,10 @@
 // Express
 import { Request, Response } from "express";
 // Persistences
+import deleteCatalogueByIdPersistence from "../persistences/catalogues/deleteCatalogueByIdPersistence";
 import getAllCataloguesPersistence from "../persistences/catalogues/getAllCataloguesPersistence";
 import getCatalogueByIdPersistence from "../persistences/catalogues/getCatalogueByIdPersistence";
 import updateCatalogueByIdPersistence from "../persistences/catalogues/updateCatalogueByIdPersistence";
-import deleteAbsenceByIdPersistence from "../persistences/absences/deleteAbsenceByIdPersistence";
 import createCataloguePersistence from "../persistences/catalogues/createCatalougePersistence";
 
 const getAllCatalogues = async (req: Request, res: Response) => {
@@ -39,7 +39,7 @@ const updateCatalogueById = async (req: Request, res: Response) => {
 const deleteCatalogueById = async (req: Request, res: Response) => {
   const { catalogueId } = req.params;
 
-  const deletedCataloguePayload = await deleteAbsenceByIdPersistence(
+  const deletedCataloguePayload = await deleteCatalogueByIdPersistence(
     catalogueId
   );
   return res

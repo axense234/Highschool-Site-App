@@ -7,7 +7,7 @@ import { StatusCodes } from "http-status-codes";
 // @ts-ignore
 import { TemplateTeacherType } from "core/types/TemplateTeacherType";
 // Utils
-import { deleteCache, setCache } from "utils/redis";
+import { deleteCache, setCache } from "../../../utils/redis";
 // Client
 import { teacherClient } from "../../../db/postgres";
 // Data

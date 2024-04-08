@@ -1,7 +1,7 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { deleteCache } from "utils/redis";
+import { deleteCache } from "../../../utils/redis";
 // Client
 import { bookClient } from "../../../db/postgres";
 

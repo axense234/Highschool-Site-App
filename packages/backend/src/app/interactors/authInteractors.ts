@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { Admin, Student, StudentCard, Teacher } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { setCache, deleteCache } from "utils/redis";
+import { setCache, deleteCache } from "../../utils/redis";
 import { createJWT } from "../../utils/jwt";
 // Prisma
 import { classClient } from "../../db/postgres";

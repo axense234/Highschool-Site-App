@@ -1,6 +1,6 @@
 // Status Codes
 import { StatusCodes } from "http-status-codes";
-import { getOrSetCache } from "utils/redis";
+import { getOrSetCache } from "../../../utils/redis";
 // Utils
 
 const verifyResetPassTokenPersistence = async (
