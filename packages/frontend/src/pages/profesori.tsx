@@ -41,8 +41,10 @@ const Teachers: FC = () => {
   }
 
   useEffect(() => {
-    dispatch(getAllTeachers(getAllAnnouncementQuery));
-  }, [getAllAnnouncementQuery]);
+    if (loadingTeachers === "IDLE") {
+      dispatch(getAllTeachers(getAllAnnouncementQuery));
+    }
+  }, [getAllAnnouncementQuery, loadingTeachers]);
 
   return (
     <>

@@ -49,6 +49,9 @@ const updateAbsenceByIdPersistence = async (
     };
   }
 
+  await deleteCache("students");
+  await deleteCache(`students:${userId}`);
+
   await deleteCache(`absences`);
   await deleteCache(`${userId}:absences`);
   await setCache(`${userId}:absences:${absenceId}`, updatedAbsence);

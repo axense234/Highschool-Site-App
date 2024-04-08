@@ -17,6 +17,8 @@ const createAbsencePersistence = async (
     };
   }
 
+  console.log(card_section_uid);
+
   const createdAbsence = await absenceClient.create({
     data: { card_section_uid },
   });
@@ -28,6 +30,9 @@ const createAbsencePersistence = async (
       statusCode: StatusCodes.BAD_REQUEST,
     };
   }
+
+  await deleteCache("students");
+  await deleteCache(`students:${userId}`);
 
   await deleteCache("absences");
   await deleteCache(`${userId}:absences`);

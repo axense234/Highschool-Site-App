@@ -8,8 +8,7 @@ import { deleteCache, setCache } from "../../../utils/redis";
 import { announcementClient } from "../../../db/postgres";
 
 const createAnnouncementPersistence = async (
-  announcementBody: Announcement,
-  userId: string
+  announcementBody: Announcement
 ) => {
   if (!announcementBody.title || !announcementBody.description) {
     return {
@@ -31,11 +30,15 @@ const createAnnouncementPersistence = async (
     };
   }
 
+  const creatorId =
+    createdAnnouncement.created_by_admin_uid ||
+    createdAnnouncement.created_by_teacher_uid;
+
   await deleteCache("announcements");
-  await deleteCache(`${userId}:announcements`);
+  await deleteCache(`${creatorId}:announcements`);
 
   await setCache(
-    `${userId}:announcements:${createdAnnouncement.announcement_uid}`,
+    `${creatorId}:announcements:${createdAnnouncement.announcement_uid}`,
     createdAnnouncement
   );
 

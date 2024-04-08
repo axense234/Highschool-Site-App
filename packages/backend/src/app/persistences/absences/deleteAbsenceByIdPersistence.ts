@@ -41,6 +41,9 @@ const deleteAbsenceByIdPersistence = async (
     };
   }
 
+  await deleteCache("students");
+  await deleteCache(`students:${userId}`);
+
   await deleteCache(`absences`);
   await deleteCache(`${userId}:absences`);
   await deleteCache(`${userId}:absences:${deletedAbsence.absence_uid}`);

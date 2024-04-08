@@ -11,7 +11,7 @@ const deleteAbsence = (
   usedId: string
 ) => {
   if (allowDeleteAbsenceOrGrade) {
-    dispatch(deleteAbsenceById(absence_uid))
+    dispatch(deleteAbsenceById({ absenceId: absence_uid, studentId: usedId }))
       .unwrap()
       .then(() => {
         if (origin === "class") {

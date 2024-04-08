@@ -45,7 +45,7 @@ const CreateGradeOrAbsenceModal: FC<CreateGradeOrAbsenceModalProps> = ({
         "Încercăm să adaugăm o notă, vă rugăm să așteptați..."
       )
     );
-    dispatch(createGrade(templateGrade))
+    dispatch(createGrade({ templateGrade, studentId: studentId as string }))
       .unwrap()
       .then(() => {
         if (location === "inStudentCard") {

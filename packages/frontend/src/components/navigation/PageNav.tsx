@@ -103,9 +103,7 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
 
     if (componentType === "announcement") {
       dispatch(clearCategoryToggles());
-      dispatch(
-        addCategoryToggle(foundElement?.category as AnnouncementCategory)
-      );
+      dispatch(addCategoryToggle((foundElement as Announcement).category));
       dispatch(setFoundAnnouncementId(foundElement?.id as string));
     } else if (componentType === "teacher") {
       dispatch(setFoundTeacherId(foundElement?.id as string));

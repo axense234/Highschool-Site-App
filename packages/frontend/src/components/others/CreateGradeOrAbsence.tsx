@@ -81,7 +81,9 @@ const CreateGradeOrAbsence: FC<CreateGradeOrAbsenceButtonProps> = ({
               "Încercăm să adaugăm o absentă, vă rugăm să așteptați..."
             )
           );
-          dispatch(createAbsence(templateAbsence))
+          dispatch(
+            createAbsence({ templateAbsence, studentId: studentId as string })
+          )
             .unwrap()
             .then(() => {
               if (location === "inStudentCard") {

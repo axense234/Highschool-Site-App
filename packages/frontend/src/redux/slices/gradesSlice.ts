@@ -84,42 +84,42 @@ export const getGradeById = createAsyncThunk<Grade | AxiosError, string>(
   }
 );
 
-export const createGrade = createAsyncThunk<Grade | AxiosError, TemplateGrade>(
-  "grades/createGrade",
-  async (templateGrade) => {
-    try {
-      const { data } = await axiosInstance.post(
-        "/grades/grade/create",
-        templateGrade
-      );
-      return data.grade as Grade;
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const createGrade = createAsyncThunk<
+  Grade | AxiosError,
+  { templateGrade: TemplateGrade; studentId: string }
+>("grades/createGrade", async ({ templateGrade, studentId }) => {
+  try {
+    const { data } = await axiosInstance.post(
+      `/grades/grade/create?userId=${studentId}`,
+      templateGrade
+    );
+    return data.grade as Grade;
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
-export const deleteGradeById = createAsyncThunk<Grade | AxiosError, string>(
-  "grades/deleteGradeById",
-  async (gradeId) => {
-    try {
-      const { data } = await axiosInstance.delete(
-        `/grades/grade/delete/${gradeId}`
-      );
-      return data.student as Grade;
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const deleteGradeById = createAsyncThunk<
+  Grade | AxiosError,
+  { gradeId: string; studentId: string }
+>("grades/deleteGradeById", async ({ gradeId, studentId }) => {
+  try {
+    const { data } = await axiosInstance.delete(
+      `/grades/grade/delete/${gradeId}?userId=${studentId}`
+    );
+    return data.student as Grade;
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
 export const updateGradeById = createAsyncThunk<
   Grade | AxiosError,
-  TemplateGrade
->("grades/updateGradeById", async (templateGrade) => {
+  { templateGrade: TemplateGrade; studentId: string }
+>("grades/updateGradeById", async ({ templateGrade, studentId }) => {
   try {
     const { data } = await axiosInstance.patch(
-      `/grades/grade/update/${templateGrade.grade_uid}`,
+      `/grades/grade/update/${templateGrade.grade_uid}?userId=${studentId}`,
       templateGrade
     );
     return data.grade as Grade;

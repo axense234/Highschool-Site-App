@@ -7,11 +7,7 @@ import { deleteCache, setCache } from "../../../utils/redis";
 // Client
 import { bookClient } from "../../../db/postgres";
 
-const updateBookByIdPersistence = async (
-  bookId: string,
-  bookBody: Book,
-  userId: string
-) => {
+const updateBookByIdPersistence = async (bookId: string, bookBody: Book) => {
   if (!bookId) {
     return {
       msg: "Please enter a book id!",
@@ -45,9 +41,12 @@ const updateBookByIdPersistence = async (
     };
   }
 
+  const creatorId =
+    updatedBook.created_by_admin_uid || updatedBook.created_by_teacher_uid;
+
   await deleteCache(`books`);
-  await deleteCache(`${userId}:books`);
-  await setCache(`${userId}:books:${bookId}`, updatedBook);
+  await deleteCache(`${creatorId}:books`);
+  await setCache(`${creatorId}:books:${bookId}`, updatedBook);
 
   return {
     msg: `Successfully updated book with id: ${bookId}`,

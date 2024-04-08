@@ -93,7 +93,9 @@ const ScreenLoading: FC = () => {
       loadingCreateBook === "PENDING" ||
       loadingUpdateAbsence === "PENDING";
 
-    setShowLoading(show);
+    setTimeout(() => {
+      setShowLoading(show);
+    }, 3000);
   }, [
     loadingLoginProfile,
     loadingCreateAnnouncement,
@@ -123,7 +125,7 @@ const ScreenLoading: FC = () => {
     >
       <div className={screenLoadingStyles.screenLoadingContainer__content}>
         <h3>{screenLoadingMessageGeneral}</h3>
-        <PulseLoader size={35} />
+        <PulseLoader size={16} />
       </div>
     </div>
   );

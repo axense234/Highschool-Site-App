@@ -1,28 +1,26 @@
 // React
 import { useEffect } from "react";
-// Types
-import TemplateAnnouncement from "@/core/interfaces/template/TemplateAnnouncement";
 // Redux
-import { updateTemplateAnnouncement } from "@/redux/slices/announcementsSlice";
 import { useAppDispatch } from "./redux";
 
-const useVideoUrlFormat = (templateAnnouncement: TemplateAnnouncement) => {
+const useVideoUrlFormat = (
+  entityProperty: string,
+  onEntityPropertyValueChange: (specifier: any) => void
+) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (
-      templateAnnouncement.video_url?.startsWith(
-        "https://www.youtube.com/watch?v="
-      )
+      entityProperty &&
+      entityProperty.startsWith("https://www.youtube.com/watch?v=")
     ) {
-      const newVideoUrl = templateAnnouncement.video_url.replace(
-        "/watch?v=",
-        "/embed/"
-      );
-      dispatch(
-        updateTemplateAnnouncement({ key: "video_url", value: newVideoUrl })
+      const newVideoUrl = entityProperty.replace("/watch?v=", "/embed/");
+      onEntityPropertyValueChange(
+        newVideoUrl.indexOf("&") === -1
+          ? newVideoUrl
+          : newVideoUrl.substring(0, newVideoUrl.indexOf("&"))
       );
     }
-  }, [templateAnnouncement.video_url, dispatch]);
+  }, [entityProperty, dispatch]);
 };
 
 export default useVideoUrlFormat;

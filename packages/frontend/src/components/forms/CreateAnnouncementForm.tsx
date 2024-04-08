@@ -116,7 +116,9 @@ const CreateAnnouncementForm: FC = () => {
     }
   }, [profile]);
 
-  useVideoUrlFormat(templateAnnouncement);
+  useVideoUrlFormat(templateAnnouncement.video_url as string, (specifier) =>
+    dispatch(updateTemplateAnnouncement({ key: "video_url", value: specifier }))
+  );
 
   return (
     <div className={profileSettingsStyles.profileSettingsContainer}>

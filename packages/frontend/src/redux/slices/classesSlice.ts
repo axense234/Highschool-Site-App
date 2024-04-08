@@ -112,8 +112,9 @@ export const createClass = createAsyncThunk<Class | AxiosError, TemplateClass>(
   "classes/createClass",
   async (templateClass) => {
     try {
+      const creatorId = localStorage.getItem("hsa-userId");
       const { data } = await axiosInstance.post(
-        "/classes/class/create",
+        `/classes/class/create?userId=${creatorId}`,
         templateClass
       );
       return data.class as Class;
@@ -127,8 +128,9 @@ export const deleteClassById = createAsyncThunk<Class | AxiosError, string>(
   "classes/deleteClass",
   async (classId) => {
     try {
+      const creatorId = localStorage.getItem("hsa-userId");
       const { data } = await axiosInstance.delete(
-        `/classes/class/delete/${classId}`
+        `/classes/class/delete/${classId}?userId=${creatorId}`
       );
       return data.class as Class;
     } catch (error) {
@@ -142,8 +144,9 @@ export const updateClassById = createAsyncThunk<
   TemplateClass
 >("classes/updateClass", async (templateClass) => {
   try {
+    const creatorId = localStorage.getItem("hsa-userId");
     const { data } = await axiosInstance.patch(
-      `/classes/announcement/update/${templateClass.class_uid}`,
+      `/classes/announcement/update/${templateClass.class_uid}?userId=${creatorId}`,
       templateClass
     );
     return data.class as Class;

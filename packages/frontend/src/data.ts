@@ -296,7 +296,7 @@ export const sortByTeacherOptions: SortByOption[] = [
   { id: 1, label: "Nume Profesor", value: "fullname" },
   { id: 2, label: "Descriere Profesor", value: "description" },
   { id: 3, label: "Materie Profesor", value: "subject" },
-  { id: 4, label: "Profesori adăugați recent", value: "subject" },
+  { id: 4, label: "Profesori adăugați recent", value: "createdAt" },
 ];
 
 export const profileOptionsAdmin: ProfileOption[] = [

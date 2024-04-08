@@ -40,30 +40,20 @@ const getBookById = async (req: Request, res: Response) => {
 const updateBookById = async (req: Request, res: Response) => {
   const { bookId } = req.params;
   const bookBody = req.body;
-  const { userId } = req.query;
 
-  const updatedBookPayload = await updateBookByIdPersistence(
-    bookId,
-    bookBody,
-    userId as string
-  );
+  const updatedBookPayload = await updateBookByIdPersistence(bookId, bookBody);
   return res.status(updatedBookPayload.statusCode).json(updatedBookPayload);
 };
 
 const deleteBookById = async (req: Request, res: Response) => {
   const { bookId } = req.params;
-  const { userId } = req.query;
 
-  const deletedBookPayload = await deleteBookByIdPersistence(
-    bookId,
-    userId as string
-  );
+  const deletedBookPayload = await deleteBookByIdPersistence(bookId);
   return res.status(deletedBookPayload.statusCode).json(deletedBookPayload);
 };
 
 const createBook = async (req: Request, res: Response) => {
   const bookBody = req.body;
-  const { userId } = req.query;
 
   if (bookBody.created_by_admin_uid) {
     delete bookBody.created_by_teacher_uid;
@@ -71,10 +61,7 @@ const createBook = async (req: Request, res: Response) => {
     delete bookBody.created_by_admin_uid;
   }
 
-  const createdBookPayload = await createBookPersistence(
-    bookBody,
-    userId as string
-  );
+  const createdBookPayload = await createBookPersistence(bookBody);
   return res.status(createdBookPayload.statusCode).json(createdBookPayload);
 };
 

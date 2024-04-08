@@ -28,6 +28,9 @@ const createGradePersistence = async (gradeBody: Grade, userId: string) => {
     };
   }
 
+  await deleteCache("students");
+  await deleteCache(`students:${userId}`);
+
   await deleteCache("grades");
   await deleteCache(`${userId}:grades`);
 

@@ -49,6 +49,10 @@ const updateBookmarkByIdPersistence = async (
   await deleteCache(`${userId}:bookmarks`);
   await setCache(`${userId}:bookmarks:${bookmarkId}`, updatedBookmark);
 
+  await deleteCache(`students:${userId}`);
+  await deleteCache(`teachers:${userId}`);
+  await deleteCache(`admins:${userId}`);
+
   return {
     msg: `Successfully updated bookmark with id: ${bookmarkId}`,
     bookmark: updatedBookmark,

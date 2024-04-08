@@ -38,6 +38,9 @@ const deleteGradeByIdPersistence = async (gradeId: string, userId: string) => {
     };
   }
 
+  await deleteCache("students");
+  await deleteCache(`students:${userId}`);
+
   await deleteCache(`grades`);
   await deleteCache(`${userId}:grades`);
   await deleteCache(`${userId}:grades:${deletedGrade.grade_uid}`);

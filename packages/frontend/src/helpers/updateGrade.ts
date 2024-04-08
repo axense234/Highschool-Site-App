@@ -17,10 +17,13 @@ const updateGrade = (
   if (allowEditGrade) {
     dispatch(
       updateGradeById({
-        card_section_uid: section_uid,
-        id: grade.grade_uid,
-        value,
-        grade_uid: grade.grade_uid,
+        templateGrade: {
+          card_section_uid: section_uid,
+          id: grade.grade_uid,
+          value,
+          grade_uid: grade.grade_uid,
+        },
+        studentId: usedId,
       })
     )
       .unwrap()

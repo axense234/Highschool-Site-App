@@ -45,6 +45,10 @@ const deleteBookmarkByIdPersistence = async (
   await deleteCache(`${userId}:bookmarks`);
   await deleteCache(`${userId}:bookmarks:${deletedBookmark.bookmark_uid}`);
 
+  await deleteCache(`students:${userId}`);
+  await deleteCache(`teachers:${userId}`);
+  await deleteCache(`admins:${userId}`);
+
   return {
     msg: `Successfully deleted bookmark with id:${bookmarkId}!`,
     bookmark: deletedBookmark,

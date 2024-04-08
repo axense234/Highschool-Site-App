@@ -26,6 +26,10 @@ const createBookmarkPersistence = async (
   await deleteCache("bookmarks");
   await deleteCache(`${userId}:bookmarks`);
 
+  await deleteCache(`students:${userId}`);
+  await deleteCache(`teachers:${userId}`);
+  await deleteCache(`admins:${userId}`);
+
   await setCache(
     `${userId}:bookmarks:${createdBookmark.bookmark_uid}`,
     createdBookmark

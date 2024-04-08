@@ -222,6 +222,7 @@ const studentsSlice = createSlice({
           state.formModal.msg = "Am creat un student cu success!";
           state.formModal.color = "#90ee90";
           student.id = student.student_uid;
+          localStorage.setItem("hsa-userId", student.student_uid);
           studentsAdapter.addOne(state, student);
           window.location.href = `${baseSiteUrl}/profil`;
         }

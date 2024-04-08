@@ -16,10 +16,13 @@ const updateAbsence = (
   if (allowAbsenceReasoning) {
     dispatch(
       updateAbsenceById({
-        reasoned: !absence.reasoned,
-        absence_uid: absence.absence_uid,
-        card_section_uid: section_uid,
-        id: absence.absence_uid,
+        templateAbsence: {
+          reasoned: !absence.reasoned,
+          absence_uid: absence.absence_uid,
+          card_section_uid: section_uid,
+          id: absence.absence_uid,
+        },
+        studentId: usedId,
       })
     )
       .unwrap()

@@ -1,16 +1,15 @@
 // Prisma
 import { Announcement } from "@prisma/client";
-// Utils
-import { deleteCache, setCache } from "../../../utils/redis";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
+// Utils
+import { deleteCache, setCache } from "../../../utils/redis";
 // Client
 import { announcementClient } from "../../../db/postgres";
 
 const updateAnnouncementByIdPersistence = async (
   announcementId: string,
-  announcementBody: Announcement,
-  userId: string
+  announcementBody: Announcement
 ) => {
   if (!announcementId) {
     return {
@@ -45,10 +44,14 @@ const updateAnnouncementByIdPersistence = async (
     };
   }
 
+  const creatorId =
+    updatedAnnouncement.created_by_admin_uid ||
+    updatedAnnouncement.created_by_teacher_uid;
+
   await deleteCache(`announcements`);
-  await deleteCache(`${userId}:announcements`);
+  await deleteCache(`${creatorId}:announcements`);
   await setCache(
-    `${userId}:announcements:${announcementId}`,
+    `${creatorId}:announcements:${announcementId}`,
     updatedAnnouncement
   );
 

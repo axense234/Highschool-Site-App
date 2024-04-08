@@ -15,7 +15,6 @@ import Overlay from "@/components/others/Overlay";
 import PageTitle from "@/components/home/PageTitle";
 // Hooks
 import useGetPathname from "@/hooks/useGetPathname";
-import useAuthorization from "@/hooks/useAuthorization";
 // Components
 import ProfileDashboard from "@/components/profile/ProfileDashboard";
 import ProfileStudentCatalogue from "@/components/profile/ProfileStudentCatalogue";

@@ -84,8 +84,9 @@ export const createBookmark = createAsyncThunk<
   TemplateBookmark
 >("bookmarks/createBookmark", async (templateBookmark) => {
   try {
+    const userId = localStorage.getItem("hsa-userId");
     const { data } = await axiosInstance.post(
-      "/bookmarks/bookmark/create",
+      `/bookmarks/bookmark/create?userId=${userId}`,
       templateBookmark
     );
     return data.bookmark as Bookmark;
@@ -99,8 +100,9 @@ export const deleteBookmarkById = createAsyncThunk<
   string
 >("bookmarks/deleteBookmarkById", async (bookmarkId) => {
   try {
+    const userId = localStorage.getItem("hsa-userId");
     const { data } = await axiosInstance.delete(
-      `/bookmarks/bookmark/delete/${bookmarkId}`
+      `/bookmarks/bookmark/delete/${bookmarkId}?userId=${userId}`
     );
     return data.bookmark as Bookmark;
   } catch (error) {
@@ -113,8 +115,9 @@ export const updateBookmarkById = createAsyncThunk<
   TemplateBookmark
 >("bookmarks/updateBookmarkById", async (templateBookmark) => {
   try {
+    const userId = localStorage.getItem("hsa-userId");
     const { data } = await axiosInstance.patch(
-      `/bookmarks/bookmark/update/${templateBookmark.bookmark_uid}`,
+      `/bookmarks/bookmark/update/${templateBookmark.bookmark_uid}?userId=${userId}`,
       templateBookmark
     );
     return data.bookmark as Bookmark;

@@ -164,7 +164,10 @@ export const getUserProfile = createAsyncThunk<
   Admin | Student | Teacher | AxiosError
 >("general/getUserProfile", async () => {
   try {
-    const { data } = await axiosInstance.get("/users/user/profile");
+    const userId = localStorage.getItem("hsa-userId");
+    const { data } = await axiosInstance.get(
+      `/users/user/profile?userId=${userId}`
+    );
     return data.user as Admin | Student | Teacher;
   } catch (error) {
     return error as AxiosError;
@@ -192,6 +195,7 @@ export const logoutProfile = createAsyncThunk<string | AxiosError>(
   async () => {
     try {
       const { data } = await axiosInstance.delete("/users/options/logout", {});
+      localStorage.removeItem("hsa-userId");
       return data.msg as string;
     } catch (error) {
       return error as AxiosError;
@@ -361,7 +365,7 @@ const generalSlice = createSlice({
           "Încercăm să intrăm în contul tău, vă rugăm să așteptați...";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        const account = action.payload;
+        const account = action.payload as User;
         const axiosError = action.payload as AxiosError;
 
         if (axiosError.response?.status !== 200 && axiosError.response) {
@@ -375,6 +379,14 @@ const generalSlice = createSlice({
           state.formModal.msg = "Am intrat in cont cu success!";
           state.formModal.color = "#90ee90";
           window.location.href = `${baseSiteUrl}/profil`;
+
+          const userIdProperty =
+            (account as TemplateTeacher).teacher_uid ||
+            (account as TemplateAdmin).admin_uid ||
+            (account as TemplateStudent).student_uid ||
+            "none";
+
+          localStorage.setItem("hsa-userId", userIdProperty);
         }
         state.screenLoadingMessage = "";
         state.loadingLoginProfile = "SUCCEDED";

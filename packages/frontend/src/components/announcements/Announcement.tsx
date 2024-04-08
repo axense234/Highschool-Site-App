@@ -8,7 +8,7 @@ import {
   SetStateAction,
 } from "react";
 // Types
-import { Announcement } from "@prisma/client";
+import type { Announcement } from "@prisma/client";
 // React Icons
 import { MdArrowDropDownCircle } from "react-icons/md";
 // Next
@@ -33,6 +33,7 @@ import {
   selectTemplateAnnouncement,
   setFoundAnnouncementId,
   setTemplateAnnouncement,
+  updateTemplateAnnouncement,
 } from "@/redux/slices/announcementsSlice";
 // Store
 import { State } from "@/redux/api/store";
@@ -72,7 +73,9 @@ const Announcement: FC<Announcement> = ({
     annRef,
     setToggle
   );
-  useVideoUrlFormat(templateAnnouncement);
+  useVideoUrlFormat(templateAnnouncement.video_url as string, (specifier) =>
+    dispatch(updateTemplateAnnouncement({ key: "video_url", value: specifier }))
+  );
 
   if (editModeAvailable) {
     return (

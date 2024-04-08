@@ -5,10 +5,7 @@ import { deleteCache } from "../../../utils/redis";
 // Client
 import { announcementClient } from "../../../db/postgres";
 
-const deleteAnnouncementByIdPersistence = async (
-  announcementId: string,
-  userId: string
-) => {
+const deleteAnnouncementByIdPersistence = async (announcementId: string) => {
   if (!announcementId) {
     return {
       msg: "Please provide an announcementId!",
@@ -41,10 +38,14 @@ const deleteAnnouncementByIdPersistence = async (
     };
   }
 
+  const creatorId =
+    deletedAnnouncement.created_by_admin_uid ||
+    deletedAnnouncement.created_by_teacher_uid;
+
   await deleteCache(`announcements`);
-  await deleteCache(`${userId}:announcements`);
+  await deleteCache(`${creatorId}:announcements`);
   await deleteCache(
-    `${userId}:announcements:${deletedAnnouncement.announcement_uid}`
+    `${creatorId}:announcements:${deletedAnnouncement.announcement_uid}`
   );
 
   return {

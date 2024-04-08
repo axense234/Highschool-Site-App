@@ -42,6 +42,8 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
   const studentCard = profileUsed.student_card as TemplateStudentCard;
   const studentCardContent = studentCard?.content;
 
+  console.log(userProfile);
+
   const studentClass = useAppSelector((state: State) =>
     selectClassById(state, userProfile.class_uid as string)
   ) as TemplateClass;
@@ -50,7 +52,7 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
     if (loadingClass === "IDLE") {
       dispatch(getClassById(userProfile.class_uid as string));
     }
-  }, []);
+  }, [loadingClass]);
 
   const studentCardSubjects =
     studentCardContent?.map((section) => {
@@ -72,7 +74,6 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
     }) || [];
 
   const {
-    studentClassPosition,
     studentGPA,
     studentMaxAbsencesInADay,
     studentMaxAbsencesInADayDate,

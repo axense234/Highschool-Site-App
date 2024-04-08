@@ -238,6 +238,7 @@ const teachersSlice = createSlice({
           state.formModal.msg = "Am creat un profesor cu success!";
           state.formModal.color = "#90ee90";
           teacher.id = teacher.teacher_uid;
+          localStorage.setItem("hsa-userId", teacher.teacher_uid);
           teachersAdapter.addOne(state, teacher);
           window.location.href = `${baseSiteUrl}/profil`;
         }

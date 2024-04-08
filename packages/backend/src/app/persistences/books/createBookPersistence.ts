@@ -7,7 +7,7 @@ import { deleteCache, setCache } from "../../../utils/redis";
 // Client
 import { bookClient } from "../../../db/postgres";
 
-const createBookPersistence = async (bookBody: Book, userId: string) => {
+const createBookPersistence = async (bookBody: Book) => {
   const createdBook = await bookClient.create({
     data: { ...bookBody },
   });
@@ -20,10 +20,13 @@ const createBookPersistence = async (bookBody: Book, userId: string) => {
     };
   }
 
-  await deleteCache("books");
-  await deleteCache(`${userId}:books`);
+  const creatorId =
+    createdBook.created_by_admin_uid || createdBook.created_by_teacher_uid;
 
-  await setCache(`${userId}:books:${createdBook.book_uid}`, createdBook);
+  await deleteCache("books");
+  await deleteCache(`${creatorId}:books`);
+
+  await setCache(`${creatorId}:books:${createdBook.book_uid}`, createdBook);
 
   return {
     msg: `Successfully created a book with id:${createdBook.book_uid}`,

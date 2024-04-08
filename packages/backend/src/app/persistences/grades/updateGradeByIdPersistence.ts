@@ -1,9 +1,9 @@
+// Status Codes
+import { StatusCodes } from "http-status-codes";
 // Prisma
 import { Grade } from "@prisma/client";
 // Utils
 import { deleteCache, setCache } from "../../../utils/redis";
-// Status Codes
-import { StatusCodes } from "http-status-codes";
 // Client
 import { gradeClient } from "../../../db/postgres";
 
@@ -44,6 +44,9 @@ const updateGradeByIdPersistence = async (
       statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     };
   }
+
+  await deleteCache("students");
+  await deleteCache(`students:${userId}`);
 
   await deleteCache(`grades`);
   await deleteCache(`${userId}:grades`);

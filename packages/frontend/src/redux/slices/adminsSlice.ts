@@ -107,7 +107,7 @@ export const createAdmin = createAsyncThunk<Admin | AxiosError, TemplateAdmin>(
   async (templateAdmin) => {
     try {
       const { data } = await axiosInstance.post(
-        "/users/create/ADMIN",
+        "/users/create/ADMIN?",
         templateAdmin
       );
       return data.user as Admin;
@@ -220,6 +220,7 @@ const adminsSlice = createSlice({
           state.formModal.msg = "Am creat un admin cu success!";
           state.formModal.color = "#90ee90";
           admin.id = admin.admin_uid;
+          localStorage.setItem("hsa-userId", admin.admin_uid);
           adminsAdapter.addOne(state, admin);
           window.location.href = `${baseSiteUrl}/profil`;
         }

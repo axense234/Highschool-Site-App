@@ -82,11 +82,11 @@ export const getAbsenceById = createAsyncThunk<Absence | AxiosError, string>(
 
 export const createAbsence = createAsyncThunk<
   Absence | AxiosError,
-  TemplateAbsence
->("absences/createAbsence", async (templateAbsence) => {
+  { templateAbsence: TemplateAbsence; studentId: string }
+>("absences/createAbsence", async ({ templateAbsence, studentId }) => {
   try {
     const { data } = await axiosInstance.post(
-      "/absences/absence/create",
+      `/absences/absence/create?userId=${studentId}`,
       templateAbsence
     );
     return data.absence as Absence;
@@ -95,27 +95,27 @@ export const createAbsence = createAsyncThunk<
   }
 });
 
-export const deleteAbsenceById = createAsyncThunk<Absence | AxiosError, string>(
-  "absences/deleteAbsenceById",
-  async (absenceId) => {
-    try {
-      const { data } = await axiosInstance.delete(
-        `/absences/absence/delete/${absenceId}`
-      );
-      return data.absence as Absence;
-    } catch (error) {
-      return error as AxiosError;
-    }
+export const deleteAbsenceById = createAsyncThunk<
+  Absence | AxiosError,
+  { absenceId: string; studentId: string }
+>("absences/deleteAbsenceById", async ({ absenceId, studentId }) => {
+  try {
+    const { data } = await axiosInstance.delete(
+      `/absences/absence/delete/${absenceId}?userId=${studentId}`
+    );
+    return data.absence as Absence;
+  } catch (error) {
+    return error as AxiosError;
   }
-);
+});
 
 export const updateAbsenceById = createAsyncThunk<
   Absence | AxiosError,
-  TemplateAbsence
->("absences/updateAbsenceById", async (templateAbsence) => {
+  { templateAbsence: TemplateAbsence; studentId: string }
+>("absences/updateAbsenceById", async ({ templateAbsence, studentId }) => {
   try {
     const { data } = await axiosInstance.patch(
-      `/absences/absence/update/${templateAbsence.absence_uid}`,
+      `/absences/absence/update/${templateAbsence.absence_uid}?userId=${studentId}`,
       templateAbsence
     );
     return data.absence as Absence;
