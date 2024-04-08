@@ -28,17 +28,17 @@ const ProfileTeacherClassrooms: FC<ProfileTeacherClassroomsProps> = ({
   const usedTeacherClasses =
     profile.role === "ADMIN"
       ? usedTeacher.classes
-      : usedTeacher.classes.filter((classroom) => classroom.public);
+      : usedTeacher.classes.filter((classroom) => classroom.public) || [];
 
   return (
     <div className={profileSettingsStyles.profileSettingsContainer}>
-      {usedTeacherClasses.length >= 1 ? (
+      {usedTeacherClasses?.length >= 1 ? (
         <ul
           className={
             profileSettingsStyles.profileSettingsContainer__teacherClassrooms
           }
         >
-          {usedTeacherClasses.map((classroom) => {
+          {usedTeacherClasses?.map((classroom) => {
             return (
               <TeacherClassroom {...classroom} key={classroom.class_uid} />
             );

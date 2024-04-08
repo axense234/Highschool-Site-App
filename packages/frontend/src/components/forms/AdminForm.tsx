@@ -302,6 +302,7 @@ const AdminForm: FC<FormStepProps> = ({
             type="submit"
             className={accountsFormStyles.accountsFormContainer__formButton}
             onClick={(e) => handleSubmitAdmin(e)}
+            disabled={loadingCreateCloudinaryImageForAdmin === "PENDING"}
           >
             Creați un cont
           </button>

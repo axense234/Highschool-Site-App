@@ -430,6 +430,7 @@ const TeacherForm: FC<FormStepProps> = ({
             type="submit"
             className={accountsFormStyles.accountsFormContainer__formButton}
             onClick={(e) => handleSubmitTeacher(e)}
+            disabled={loadingCreateCloudinaryImageForTeacher === "PENDING"}
           >
             Creați un cont
           </button>
