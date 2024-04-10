@@ -46,13 +46,14 @@ const About: FC = () => {
               idUsed="aboutMe"
             />
             <p>
-              Mă numesc Comănescu Andrei, am 17 ani, vin de la Liceul Teoretic
-              Ion Barbu Pitești, studiez dezvoltarea site-urilor de vreo 2 ani.
-              Sunt proficient în următoarele tehnologii: HTML, CSS, SASS,
+              Mă numesc Comănescu Andrei, am 18 ani, vin de la Liceul Teoretic
+              "Ion Barbu" Pitești, studiez dezvoltarea site-urilor de vreo 3
+              ani. Sunt proficient în următoarele tehnologii: HTML, CSS, SASS,
               Javascript, Typescript, React, NextJS, Node, Express, MongoDB,
               Mongoose, PostgreSQL, Prisma, Redis, Redux, Netlify, Render,
-              ElephantSQL; merg mai mult în detaliu despre tehnologiile
-              respective în <a href="#technologiesUsed">ultima secțiune.</a>
+              ElephantSQL, Docker, Jenkins; merg mai mult în detaliu despre
+              tehnologiile respective în{" "}
+              <a href="#technologiesUsed">ultima secțiune.</a>
             </p>
             <p>
               Folosesc&nbsp;
@@ -75,10 +76,9 @@ const About: FC = () => {
             />
             <p>
               Am făcut acest site pentru a-mi arăta cunoștințele referitoare la
-              dezvoltarea web, în același timp antrenându-mă puțin mai mult cu
-              tehnologiile: SCSS, NextJS, Redux, Typescript, deoarece aceste
-              tehnologii sunt puțin mai complicate, dar merită a fi învățate,
-              deoarece îmi fac viața mai ușoară și mai puțin plictisitoare.
+              dezvoltarea web, în același timp antrenându-mi capacitatea de a
+              lucra la proiecte de scală mai mare, ce necesită o gândire de
+              termen lung.
             </p>
             <p>
               Un alt motiv pentru crearea site-ului este șansa de a câștiga un
@@ -111,10 +111,7 @@ const About: FC = () => {
                 <p>
                   Secțiunea "Titlul" este prima secțiune din pagina "Acasă", ea
                   conținând un titlu și un subtitlu. Fundalul secțiunii este o
-                  imagine a Liceului Teoretic Ion Barbu din Pitesti. Această
-                  secțiune este reprezentată de un component funcțional React,
-                  care primește 2 parametri: titlul și subtitlul și le afișează
-                  cum se poate observa.
+                  imagine a Liceului Teoretic "Ion Barbu" din Pitesti.
                 </p>
               </li>
               <li>

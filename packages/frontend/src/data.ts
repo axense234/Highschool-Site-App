@@ -741,7 +741,7 @@ export const sidebarSocialMediaLinks: SidebarLink[] = [
   },
   {
     id: 2,
-    label: "Site Original",
+    label: "Site-ul liceului LTIBP",
     dest: "https://sites.google.com/ltibp.ro/licionbarbu/acasa?authuser=0",
     logoUrl: FaSchool({}),
   },
@@ -754,7 +754,7 @@ export const sidebarSocialMediaLinks: SidebarLink[] = [
   {
     id: 4,
     label: "Concurs",
-    dest: "https://infoeducatie.ro/",
+    dest: "https://cnodobescu.ro/2024/04/05/concursul-regional-de-creatie-literara-realizare-site-web-si-filme-scoala-intre-viziune-si-misiune/",
     logoUrl: TbOlympics({}),
   },
 ];
