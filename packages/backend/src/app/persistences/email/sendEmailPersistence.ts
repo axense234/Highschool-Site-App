@@ -11,12 +11,16 @@ import { EmailFormType } from "../../../core/types/emailFormType";
 const sendEmailPersistence = async (emailForm: EmailFormType) => {
   const transporter = nodemailer.createTransport(transporterConfig);
 
+  const fromName = `${emailForm.emailAddress}`;
+
   const mailOptions: MailOptions = {
-    from: emailForm.sender || "HSA API USER",
+    from: fromName || "HSA API USER",
     to: process.env.EMAIL_ADDRESS_USER,
     subject: emailForm.subject || "Undefined Subject",
     text: emailForm.message || "Default message",
   };
+
+  console.log(mailOptions);
 
   const emailRes = await transporter.sendMail(mailOptions);
 

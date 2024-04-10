@@ -3,4 +3,5 @@ export type EmailFormType = {
   subject: string;
   recipient: string;
   sender: string;
+  emailAddress?: string;
 };
