@@ -3,6 +3,9 @@ import express, { Response, Request } from "express";
 // Async Error Wrapper
 require("express-async-errors");
 // Module
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 declare module "express-serve-static-core" {
   export interface Request {
     user: any;
