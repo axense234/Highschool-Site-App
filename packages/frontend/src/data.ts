@@ -561,7 +561,7 @@ export const istoricPinpoints: IstoricPinPoint[] = [
   },
   {
     id: 8,
-    timePeriod: "2023",
+    timePeriod: "2024",
     content:
       "Liceul Teoretic Ion Barbu Pitesti continuă să se mențină în topul instituțiilor de învățământ din Pitești și se angajează să ofere o educație de calitate, pregătind elevii pentru provocările viitorului.",
   },
