@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 // Status Codes
 import { StatusCodes } from "http-status-codes";
 // Utils
-import { createJWT, verifyJWT } from "../utils/jwt";
+import { verifyJWT } from "../utils/jwt";
 import { getOrSetCache } from "../utils/redis";
 
 declare module "express-serve-static-core" {
