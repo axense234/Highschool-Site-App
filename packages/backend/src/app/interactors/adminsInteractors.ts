@@ -6,13 +6,6 @@ import getAdminByIdPersistence from "../persistences/admins/getAdminByIdPersiste
 import updateAdminByIdPersistence from "../persistences/admins/updateAdminByIdPersistence";
 import deleteAdminByIdPersistence from "../persistences/admins/deleteAdminByIdPersistence";
 
-declare module "express-serve-static-core" {
-  export interface Request {
-    user: any;
-    cookies: any;
-  }
-}
-
 const getAllAdmins = async (req: Request, res: Response) => {
   const foundAdminsPayload = await getAllAdminsPersistence();
   return res.status(foundAdminsPayload.statusCode).json(foundAdminsPayload);

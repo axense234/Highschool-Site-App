@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 // Utils
 import { deleteCache, setCache } from "../../../utils/redis";
 // Types
-import TemplateAdminType from "../../../core/types/TemplateAdminType";
+import type TemplateAdminType from "../../../core/types/TemplateAdminType";
 // Client
 import { adminClient } from "../../../db/postgres";
 // Data

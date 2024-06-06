@@ -2,6 +2,14 @@
 import express, { Response, Request } from "express";
 // Async Error Wrapper
 require("express-async-errors");
+// Module
+declare module "express-serve-static-core" {
+  export interface Request {
+    user: any;
+    cookies: any;
+  }
+}
+
 // Dotenv
 import * as dotenv from "dotenv";
 import path from "path";

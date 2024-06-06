@@ -6,12 +6,6 @@ import { StatusCodes } from "http-status-codes";
 import { verifyJWT } from "../utils/jwt";
 import { getOrSetCache } from "../utils/redis";
 
-declare module "express-serve-static-core" {
-  export interface Request {
-    user: any;
-  }
-}
-
 const authenticationMiddleware = async (
   req: Request,
   res: Response,
