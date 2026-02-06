@@ -31,7 +31,7 @@ export const defaultBookmarksTeacher: Prisma.BookmarkCreateManyInput[] = [
 
 export const siteUrl =
   process.env.NODE_ENV === "production"
-    ? `${window.location.origin}/reset-pass`
+    ? `${process.env.CLIENT_URL}/reset-pass`
     : `http://localhost:3000/reset-pass`;
 
 export const resetPassEmailMessage = (

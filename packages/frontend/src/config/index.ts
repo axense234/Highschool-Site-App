@@ -5,6 +5,9 @@ const baseUrl =
     ? "http://localhost:4000"
     : "https://highschool-site-app-server-ca.onrender.com";
 
-const baseSiteUrl = window.location.origin
+const baseSiteUrl =
+  env === "development" || env === "test"
+    ? "http://localhost:3000"
+    : process.env.CLIENT_URL
 
 export { baseUrl, baseSiteUrl };
