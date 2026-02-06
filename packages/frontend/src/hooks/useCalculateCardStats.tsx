@@ -90,7 +90,7 @@ const useCalculateCardStats = (
   const studentMaxAbsencesInADay =
     studentDaysThatContainAbsences.length > 0
       ? Math.max(
-          ...studentDaysThatContainAbsences?.map((day) => {
+          ...studentDaysThatContainAbsences.map((day) => {
             let maxAbsencesInDay = 0;
             maxAbsencesInDay = Math.max(
               studentCardAbsences.reduce((totalAbs, subject) => {
