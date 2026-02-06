@@ -5,7 +5,7 @@ import { app } from "..";
 import { connectToPostgres } from "../db/postgres";
 import { connectToRedis } from "../db/redis";
 
-const PORT = process.env.SERVER_PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 const startServer = async () => {
   try {

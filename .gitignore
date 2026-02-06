@@ -4,3 +4,4 @@ next-env.d.ts
 .next
 build
 dist
+dump.rdb
