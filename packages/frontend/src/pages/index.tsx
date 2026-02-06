@@ -306,7 +306,7 @@ const About: FC = () => {
             <ul className={aboutStyles.aboutContainer__pageInfoSections}>
               <li>
                 <h4>
-                  <Link href="/documente/#map">1.Mapa Documentelor</Link>
+                  <Link href="/documente/#map">1?.mapa Documentelor</Link>
                 </h4>
                 <p>
                   Secțiunea "Mapa Documentelor" este prima secțiune din pagina
@@ -643,7 +643,7 @@ const About: FC = () => {
           />
           <h3>1.Tehnologiile folosite pe Client:</h3>
           <div className={aboutStyles.aboutContainer__frontendTech}>
-            {aboutTechnologiesUsedFrontend.map((technology) => {
+            {aboutTechnologiesUsedFrontend?.map((technology) => {
               return (
                 <Link
                   href={technology.techUrl}
@@ -662,7 +662,7 @@ const About: FC = () => {
           </div>
           <h3>2.Tehnologiile folosite pe Server:</h3>
           <div className={aboutStyles.aboutContainer__backendTech}>
-            {aboutTechnologiesUsedBackend.map((technology) => {
+            {aboutTechnologiesUsedBackend?.map((technology) => {
               return (
                 <Link
                   href={technology.techUrl}

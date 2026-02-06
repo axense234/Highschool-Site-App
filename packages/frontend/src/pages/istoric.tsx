@@ -49,7 +49,7 @@ const Istoric: FC = () => {
               src="https://res.cloudinary.com/birthdayreminder/image/upload/v1684921668/Highschool%20Site%20App/ion_barbu_dk87mu.jpg"
             />
             <ul className={historyStyles.historyContainer__pinpoints}>
-              {istoricPinpoints.map((pinpoint) => {
+              {istoricPinpoints?.map((pinpoint) => {
                 return (
                   <li key={pinpoint.id}>
                     <span>{pinpoint.timePeriod}</span>

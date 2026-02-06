@@ -19,7 +19,7 @@ const HomeFacilities: FC = () => {
           idUsed="facilities"
         />
         <ul className={homeStyles.homeContainer__facilityRooms}>
-          {facilityRooms.map((room) => {
+          {facilityRooms?.map((room) => {
             return <li key={room.id}>{room.desc}</li>;
           })}
         </ul>

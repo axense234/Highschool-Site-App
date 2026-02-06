@@ -77,7 +77,7 @@ const useCalculateCardStats = (
 
   const studentDaysThatContainAbsences =
     studentCardAbsences
-      .map((subject) => {
+      ?.map((subject) => {
         return subject.absences?.map((absence) => {
           return {
             id: absence.absence_uid,
@@ -90,7 +90,7 @@ const useCalculateCardStats = (
   const studentMaxAbsencesInADay =
     studentDaysThatContainAbsences.length > 0
       ? Math.max(
-          ...studentDaysThatContainAbsences.map((day) => {
+          ...studentDaysThatContainAbsences?.map((day) => {
             let maxAbsencesInDay = 0;
             maxAbsencesInDay = Math.max(
               studentCardAbsences.reduce((totalAbs, subject) => {
@@ -113,7 +113,7 @@ const useCalculateCardStats = (
       : 0;
 
   const studentDaysThatContainAbsencesArray =
-    studentDaysThatContainAbsences.map((day) => {
+    studentDaysThatContainAbsences?.map((day) => {
       if (day?.absenceDate) {
         return new Date(day.absenceDate).toLocaleDateString();
       }

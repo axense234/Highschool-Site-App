@@ -156,7 +156,7 @@ const gradesSlice = createSlice({
       .addCase(getAllGrades.fulfilled, (state, action) => {
         const grades = action.payload as Grade[];
         if (grades.length >= 1) {
-          grades.map((grade) => {
+          grades?.map((grade) => {
             grade.id = grade.grade_uid;
             return grade;
           });

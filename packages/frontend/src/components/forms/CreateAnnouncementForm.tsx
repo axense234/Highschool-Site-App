@@ -194,7 +194,7 @@ const CreateAnnouncementForm: FC = () => {
               value={templateAnnouncement.category}
               onChange={(e) => onCategoryChange(e.target.value)}
             >
-              {announcementCategories.map((category) => {
+              {announcementCategories?.map((category) => {
                 return (
                   <option value={category.name as string} key={category.id}>
                     {category.name}

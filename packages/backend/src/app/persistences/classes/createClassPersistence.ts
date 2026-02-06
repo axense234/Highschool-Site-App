@@ -32,7 +32,7 @@ const createClassPersistence = async (
 
   if (classBody.students) {
     classBody.students = {
-      connect: (classBody.students as string[]).map((student: string) => {
+      connect: (classBody.students as string[])?.map((student: string) => {
         return { student_uid: student };
       }),
     };
@@ -40,7 +40,7 @@ const createClassPersistence = async (
 
   if (classBody.teachers) {
     classBody.teachers = {
-      connect: (classBody.teachers as string[]).map((teacher: string) => {
+      connect: (classBody.teachers as string[])?.map((teacher: string) => {
         return { teacher_uid: teacher };
       }),
     };

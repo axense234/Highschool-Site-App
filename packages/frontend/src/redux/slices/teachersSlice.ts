@@ -181,7 +181,7 @@ const teachersSlice = createSlice({
         const teachers = action.payload as Teacher[];
         const axiosError = action.payload as AxiosError;
         if (!axiosError.response) {
-          teachers.map((teacher) => {
+          teachers?.map((teacher) => {
             teacher.id = teacher.teacher_uid;
             return teacher;
           });
@@ -202,7 +202,7 @@ const teachersSlice = createSlice({
 
         if (!axiosError.response) {
           if (teacher.classes) {
-            teacher.classes.map((classroom) => {
+            teacher.classes?.map((classroom) => {
               classroom.id = classroom.class_uid;
               return classroom;
             });

@@ -59,7 +59,7 @@ if (!self.define) {
       exports,
       require
     };
-    registry[uri] = Promise.all(depsNames.map(
+    registry[uri] = Promise.all(depsNames?.map(
       depName => specialDeps[depName] || require(depName)
     )).then(deps => {
       factory(...deps);
@@ -98,4 +98,4 @@ define(['./workbox-51a6f67f'], (function (workbox) { 'use strict';
   }), 'GET');
 
 }));
-//# sourceMappingURL=sw.js.map
+//# sourceMappingURL=sw.js?.map

@@ -77,7 +77,7 @@ const CreateClassForm: FC = () => {
     const { options } = e.target;
     const selectedValues = Array.from(options)
       .filter((option) => option.selected)
-      .map((option) => option.value);
+      ?.map((option) => option.value);
 
     dispatch(updateTemplateClass({ key: "students", value: selectedValues }));
   };
@@ -86,7 +86,7 @@ const CreateClassForm: FC = () => {
     const { options } = e.target;
     const selectedValues = Array.from(options)
       .filter((option) => option.selected)
-      .map((option) => option.value);
+      ?.map((option) => option.value);
 
     dispatch(updateTemplateClass({ key: "teachers", value: selectedValues }));
   };
@@ -243,7 +243,7 @@ const CreateClassForm: FC = () => {
                 onChange={(e) => onMasterTeacherChange(e.target.value)}
               >
                 <option value="">Fără diriginte.</option>
-                {usableTeachers.map((teacher) => {
+                {usableTeachers?.map((teacher) => {
                   return (
                     <option
                       value={teacher.teacher_uid}
@@ -289,7 +289,7 @@ const CreateClassForm: FC = () => {
                   onChange={(e) => onClassTeachersChange(e)}
                   style={{ width: "100%" }}
                 >
-                  {teachers.map((teacher) => {
+                  {teachers?.map((teacher) => {
                     return (
                       <option
                         value={teacher.teacher_uid}
@@ -336,7 +336,7 @@ const CreateClassForm: FC = () => {
                   onChange={(e) => onClassStudentsChange(e)}
                   style={{ width: "100%" }}
                 >
-                  {usableStudents.map((student) => {
+                  {usableStudents?.map((student) => {
                     return (
                       <option
                         value={student.student_uid}

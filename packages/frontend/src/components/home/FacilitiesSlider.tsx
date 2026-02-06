@@ -43,7 +43,7 @@ const FacilitiesSlider: FC = () => {
       onMouseLeave={() => setShowSliderButtons(false)}
     >
       <div className={facilitiesSliderStyles.facilitiesSliderContainer__images}>
-        {facilityImages.map((image, imageIndex) => {
+        {facilityImages?.map((image, imageIndex) => {
           let pos = "next";
 
           if (imageId === imageIndex) {
@@ -77,7 +77,7 @@ const FacilitiesSlider: FC = () => {
       <form
         className={facilitiesSliderStyles.facilitiesSliderContainer__imagesMap}
       >
-        {facilityImages.map((image, imageIndex) => {
+        {facilityImages?.map((image, imageIndex) => {
           return (
             <input
               type="radio"

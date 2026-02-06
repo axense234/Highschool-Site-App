@@ -21,7 +21,7 @@ const HomeOfferings = () => {
     <section className={homeStyles.homeContainer__offerings}>
       <MarkableHeading textContent="Ce oferim?" type="h2" idUsed="offerings" />
       <ol className={homeStyles.homeContainer__offeringsList}>
-        {offeringsList.map((offering, offIndex) => {
+        {offeringsList?.map((offering, offIndex) => {
           return (
             <OfferingItem
               {...offering}

@@ -51,7 +51,7 @@ const Category: FC<CategoryType> = ({ name: categoryName }) => {
         <h3>{categoryName}</h3>
       </div>
       {showCategory &&
-        accurateAnnouncements.map((announcement) => {
+        accurateAnnouncements?.map((announcement) => {
           return (
             <li key={announcement.id}>
               <Announcement {...announcement} />

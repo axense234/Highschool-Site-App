@@ -66,7 +66,7 @@ const ProfileDashboard: FC<ProfileDashboardProps> = ({ profile, type }) => {
       <div className={profileStyles.profileContainer__profileHub}>
         <nav className={profileStyles.profileContainer__profileOptions}>
           <ul>
-            {profileOptionsShown.map((option) => {
+            {profileOptionsShown?.map((option) => {
               if (
                 option.content === "viewStudentClassroom" &&
                 (profile as Student).class_label

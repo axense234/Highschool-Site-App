@@ -154,7 +154,7 @@ const bookmarksSlice = createSlice({
       .addCase(getAllBookmarks.fulfilled, (state, action) => {
         const bookmarks = action.payload as Bookmark[];
         if (bookmarks.length >= 1) {
-          bookmarks.map((bookmark) => {
+          bookmarks?.map((bookmark) => {
             bookmark.id = bookmark.bookmark_uid;
             return bookmark;
           });

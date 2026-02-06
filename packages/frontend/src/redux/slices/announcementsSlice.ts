@@ -188,7 +188,7 @@ const announcementsSlice = createSlice({
         const axiosError = action.payload as AxiosError;
 
         if (!axiosError.response) {
-          announcements.map((announcement) => {
+          announcements?.map((announcement) => {
             announcement.id = announcement.announcement_uid;
             return announcement;
           });

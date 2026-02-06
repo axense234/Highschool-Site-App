@@ -24,7 +24,7 @@ const HomeInfo: FC = () => {
         idUsed="differences"
       />
       <div className={homeStyles.homeContainer__infoSections}>
-        {infoSections.map((infoSection) => {
+        {infoSections?.map((infoSection) => {
           return <InfoSection {...infoSection} key={infoSection.id} />;
         })}
       </div>

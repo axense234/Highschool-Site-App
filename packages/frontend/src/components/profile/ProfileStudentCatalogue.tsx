@@ -122,7 +122,7 @@ const ProfileStudentCatalogue: FC<ProfileStudentCatalogueProps> = ({
 
   const usableTeachers = studentClass?.teachers;
 
-  const studentCardTeachers = ((usableTeachers as Teacher[]) || []).map(
+  const studentCardTeachers = ((usableTeachers as Teacher[]) || [])?.map(
     (teacher) => {
       return {
         id: teacher.teacher_uid,

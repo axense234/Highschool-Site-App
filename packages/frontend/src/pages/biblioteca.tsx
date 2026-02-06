@@ -70,7 +70,7 @@ const BooksPageNav: FC = () => {
   const books = useAppSelector(selectAllBooks);
   const bookSortingOptions = useAppSelector(selectBookSortingOptions);
 
-  const bookAuthors = books.map((book) => {
+  const bookAuthors = books?.map((book) => {
     return { book_uid: book.book_uid, authorName: book.author };
   });
 
@@ -170,7 +170,7 @@ const Books: FC = () => {
 
   return (
     <ul className={libraryStyles.libraryContainer__libraryBooks}>
-      {usedBooks.map((book) => {
+      {usedBooks?.map((book) => {
         return (
           <li key={book.book_uid}>
             <Book {...book} />

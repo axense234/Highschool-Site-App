@@ -100,7 +100,7 @@ const AccountsForm: FC<AccountsFormProps> = ({ type }) => {
     <section className={accountsFormStyles.accountsFormContainer}>
       <nav className={accountsFormStyles.accountsFormContainer__typeNav}>
         <ul className={accountsFormStyles.accountsFormContainer__typeNavList}>
-          {usedTypeNavOptions.map((option) => {
+          {usedTypeNavOptions?.map((option) => {
             return (
               <li
                 key={option.id}

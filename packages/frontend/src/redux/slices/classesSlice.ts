@@ -184,7 +184,7 @@ const classesSlice = createSlice({
         const classes = action.payload as Class[];
 
         if (classes.length >= 1) {
-          classes.map((classItem) => {
+          classes?.map((classItem) => {
             classItem.id = classItem.class_uid;
             return classItem;
           });
@@ -205,14 +205,14 @@ const classesSlice = createSlice({
 
         if (!axiosError.response) {
           if (classItem.students) {
-            (classItem.students as Student[]).map((student) => {
+            (classItem.students as Student[])?.map((student) => {
               student.id = student.student_uid;
               return student;
             });
           }
 
           if (classItem.teachers) {
-            (classItem.teachers as Teacher[]).map((teacher) => {
+            (classItem.teachers as Teacher[])?.map((teacher) => {
               teacher.id = teacher.teacher_uid;
               return teacher;
             });

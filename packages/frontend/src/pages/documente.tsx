@@ -35,7 +35,7 @@ const Documents: FC = () => {
           <MarkableHeading textContent="Documente" type="h2" />
           <div className={documentsStyles.documentsContainer__info}>
             <ul className={documentsStyles.documentsContainer__map}>
-              {documentsAndLawsInfo.map((document) => {
+              {documentsAndLawsInfo?.map((document) => {
                 return (
                   <li key={document.id}>
                     <a href={`#${document.label}`}>{document.label}</a>
@@ -47,7 +47,7 @@ const Documents: FC = () => {
               className={documentsStyles.documentsContainer__documents}
               id="documents"
             >
-              {documentsAndLawsInfo.map((document) => {
+              {documentsAndLawsInfo?.map((document) => {
                 return <Document key={document.id} {...document} />;
               })}
             </div>
@@ -70,7 +70,7 @@ const Document: FC<DocumentOrLaw> = ({ label, pdfURLs, id }) => {
         <hr />
       </div>
       <ul className={documentsStyles.documentsContainer__documentPDFs}>
-        {pdfURLs.map((url: string, index: number) => {
+        {pdfURLs?.map((url: string, index: number) => {
           return (
             <li key={url}>
               <iframe src={url} title={label} />

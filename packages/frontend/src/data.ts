@@ -918,7 +918,7 @@ export const individualPagesData: IndividualPageData[] = [
   // Announcements Page
   {
     id: 1001,
-    recommendations: (announcementCategories as PageData[]).map((cat) => {
+    recommendations: (announcementCategories as PageData[])?.map((cat) => {
       return {
         id: (cat.id as number) + 100,
         dest: `/anunturi/#${cat.dest}`,
@@ -957,7 +957,7 @@ export const individualPagesData: IndividualPageData[] = [
   // Documents Page
   {
     id: 1004,
-    recommendations: (documentsAndLawsInfo as unknown as PageData[]).map(
+    recommendations: (documentsAndLawsInfo as unknown as PageData[])?.map(
       (doc) => {
         return {
           id: (doc.id as number) + 200,

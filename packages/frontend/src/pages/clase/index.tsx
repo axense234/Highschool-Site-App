@@ -69,7 +69,7 @@ const Classrooms: FC = () => {
           ) : (
             <ul className={classStyles.classesContainer__classes}>
               {shownClasses.length >= 1 ? (
-                shownClasses.map((classItem) => {
+                shownClasses?.map((classItem) => {
                   return (
                     <li key={classItem.class_uid}>
                       <ClassItem {...classItem} />

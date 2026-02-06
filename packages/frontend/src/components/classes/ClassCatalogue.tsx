@@ -43,7 +43,7 @@ const ClassCatalogue: FC<TemplateClass> = ({ label, students, class_uid }) => {
           className={classStyles.classContainer__classCatalogueBody}
           style={{ height: `${usableStudents.length} * 30rem` }}
         >
-          {usableStudents.map((student, index) => {
+          {usableStudents?.map((student, index) => {
             return (
               <ClassCatalogueSection
                 key={student.student_uid}
@@ -110,7 +110,7 @@ const ClassCatalogueHead: FC<ClassCatalogueHeadProps> = ({
                 classStyles.classContainer__classCatalogueSubjectsContainer
               }
             >
-              {classCatalogueSubjectsCountMap.map((list, index) => {
+              {classCatalogueSubjectsCountMap?.map((list, index) => {
                 let pos = "next";
 
                 if (currentClassSubjectsShownId === index) {
@@ -127,7 +127,7 @@ const ClassCatalogueHead: FC<ClassCatalogueHeadProps> = ({
                   <ul className={classStyles[pos]} key={list.id}>
                     {subjects
                       .slice(subjectsSlicer, subjectsSlicer + 6)
-                      .map((subject) => {
+                      ?.map((subject) => {
                         return <li key={subject.id}>{subject.name}</li>;
                       })}
                   </ul>

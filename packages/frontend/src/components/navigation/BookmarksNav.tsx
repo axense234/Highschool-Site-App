@@ -48,7 +48,7 @@ const BookmarksNav: FC<BookmarksMenuProps> = ({ showBookmarks }) => {
         }}
       >
         <ul className={bookmarksStyles.bookmarksContainer__bookmarks}>
-          {(profile.bookmarks as TemplateBookmark[]).map((bookmark) => {
+          {(profile.bookmarks as TemplateBookmark[])?.map((bookmark) => {
             return (
               <li key={bookmark.bookmark_uid}>
                 <BookmarkComponent {...bookmark} />

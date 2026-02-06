@@ -176,7 +176,7 @@ const studentsSlice = createSlice({
       .addCase(getAllStudents.fulfilled, (state, action) => {
         const students = action.payload as Student[];
         if (students.length >= 1) {
-          students.map((student) => {
+          students?.map((student) => {
             student.id = student.student_uid;
             return student;
           });

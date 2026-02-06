@@ -108,7 +108,7 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
             Liceul Teoretic <br /> "Ion Barbu" Pitești
           </h1>
           <div className={sidebarStyles.sidebarContainer__pageLinks}>
-            {sidebarPageLinks.map((pageLink) => {
+            {sidebarPageLinks?.map((pageLink) => {
               if (pageLink.dest === "/profil" && !profile.email && profile) {
                 return null;
               }
@@ -141,7 +141,7 @@ const Sidebar: FC<SidebarProps> = ({ showSidebar, setShowSidebar }) => {
             })}
           </div>
           <div className={sidebarStyles.sidebarContainer__socialMediaLinks}>
-            {sidebarSocialMediaLinks.map((socialMediaLink) => {
+            {sidebarSocialMediaLinks?.map((socialMediaLink) => {
               return (
                 <Link
                   href={socialMediaLink.dest}

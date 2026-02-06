@@ -133,7 +133,7 @@ const EditableTeacher: FC<TemplateTeacher> = ({
             value={subject}
             onChange={(e) => onSubjectChange(e.target.value as Subjects)}
           >
-            {subjects.map((subject) => {
+            {subjects?.map((subject) => {
               return (
                 <option value={subject.name} key={subject.id}>
                   {subject.name}

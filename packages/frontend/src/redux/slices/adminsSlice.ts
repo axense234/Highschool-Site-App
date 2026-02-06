@@ -174,7 +174,7 @@ const adminsSlice = createSlice({
       .addCase(getAllAdmins.fulfilled, (state, action) => {
         const admins = action.payload as Admin[];
         if (admins.length >= 1) {
-          admins.map((admin) => {
+          admins?.map((admin) => {
             admin.id = admin.admin_uid;
             return admin;
           });

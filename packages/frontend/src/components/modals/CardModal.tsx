@@ -127,7 +127,7 @@ const MoveAnnouncementModal: FC<MoveAnnouncementsModalProps> = ({
       onMouseLeave={() => dispatch(updateToggleMoveAnnouncementModal())}
     >
       <ul className={cardStyles.modalContainer__categoryList}>
-        {announcementCategories.map((category) => {
+        {announcementCategories?.map((category) => {
           return (
             <li
               key={category.id}

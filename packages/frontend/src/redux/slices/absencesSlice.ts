@@ -152,7 +152,7 @@ const absencesSlice = createSlice({
       .addCase(getAllAbsences.fulfilled, (state, action) => {
         const absences = action.payload as Absence[];
         if (absences.length >= 1) {
-          absences.map((absence) => {
+          absences?.map((absence) => {
             absence.id = absence.absence_uid;
             return absence;
           });

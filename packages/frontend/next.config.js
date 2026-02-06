@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   distDir: "build",
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development",
   },

@@ -18,7 +18,7 @@ import useGetPathname from "@/hooks/useGetPathname";
 const Home: FC = () => {
   useGetPathname();
 
-  const imageUrls = facilityImages.map((facImage) => {
+  const imageUrls = facilityImages?.map((facImage) => {
     return facImage.logoUrl;
   });
 

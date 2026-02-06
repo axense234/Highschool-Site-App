@@ -40,7 +40,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
   const dispatch = useAppDispatch();
   const searchbarRef = useRef<HTMLDivElement>(null);
 
-  const categoryNames = announcementCategories.map((cat) => cat.name);
+  const categoryNames = announcementCategories?.map((cat) => cat.name);
 
   const profile = useAppSelector(selectProfile);
   const pathname = useAppSelector(selectCurrentPathname);
@@ -54,7 +54,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
 
   const router = useRouter();
 
-  const recommendationsFromClasses = usableClasses.map((usableClass) => {
+  const recommendationsFromClasses = usableClasses?.map((usableClass) => {
     return {
       id: usableClass.class_uid,
       dest: `/clase/${usableClass.class_uid}`,
@@ -63,7 +63,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
     };
   });
 
-  const recommendationsFromAnnouncements = announcements.map((ann) => {
+  const recommendationsFromAnnouncements = announcements?.map((ann) => {
     return {
       id: ann.id,
       dest: `/anunturi`,
@@ -72,7 +72,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
     };
   });
 
-  const recommendationsFromTeachers = teachers.map((teacher) => {
+  const recommendationsFromTeachers = teachers?.map((teacher) => {
     return {
       id: teacher.id,
       dest: `/profesori`,
@@ -90,7 +90,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
 
   const allPageRecommendations = individualPagesData
     .filter((pageData) => pageData.pageDest !== pathname)
-    .map((pageData) => pageData.recommendations)
+    ?.map((pageData) => pageData.recommendations)
     .flat();
 
   const allPageRecommendationsInOrder = foundIndividualPageRecommendations
@@ -197,7 +197,7 @@ const Searchbar: FC<SearchbarProps> = ({ setShowSearchbar, showSearchbar }) => {
           </form>
           {(shownRecommendations?.length as number) >= 1 && (
             <ul className={searchbarStyles.searchbarContainer__recommendations}>
-              {shownRecommendations?.slice(0, 8).map((rec, index) => {
+              {shownRecommendations?.slice(0, 8)?.map((rec, index) => {
                 return (
                   <li
                     // eslint-disable-next-line react/no-array-index-key

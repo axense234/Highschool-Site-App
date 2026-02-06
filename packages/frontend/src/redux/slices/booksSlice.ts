@@ -182,7 +182,7 @@ const booksSlice = createSlice({
         const axiosError = action.payload as AxiosError;
 
         if (!axiosError.response) {
-          books.map((book) => {
+          books?.map((book) => {
             book.id = book.book_uid;
             return book;
           });

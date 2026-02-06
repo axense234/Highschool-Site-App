@@ -320,7 +320,7 @@ const StudentForm: FC<FormStepProps> = ({
                 onChange={(e) => onStudentClassChange(e.target.value)}
               >
                 <option value="">Nu sunt într-o clasă.</option>
-                {classes.map((classItem) => {
+                {classes?.map((classItem) => {
                   return (
                     <option key={classItem.id} value={classItem.label}>
                       {classItem.label}

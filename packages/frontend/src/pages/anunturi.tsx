@@ -68,7 +68,7 @@ const Announcements: FC = () => {
               }
             >
               {announcements.length > 0 ? (
-                announcementCategories.map((category) => {
+                announcementCategories?.map((category) => {
                   return <Category {...category} key={category.id} />;
                 })
               ) : (

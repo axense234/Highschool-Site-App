@@ -68,14 +68,14 @@ const PageNav: FC<PageNavProps> = ({ componentType }) => {
 
   const sortByOptions =
     componentType === "announcement"
-      ? sortByAnnouncementOptions.map((categorie) => {
+      ? sortByAnnouncementOptions?.map((categorie) => {
           return (
             <option key={categorie.id} value={categorie.value}>
               {categorie.label}
             </option>
           );
         })
-      : sortByTeacherOptions.map((materie) => {
+      : sortByTeacherOptions?.map((materie) => {
           return (
             <option key={materie.id} value={materie.value}>
               {materie.label}

@@ -69,7 +69,7 @@ const Teachers: FC = () => {
           ) : (
             <div className={teachersStyles.teachersContainer__teachers}>
               {shownTeachers.length >= 1 ? (
-                shownTeachers.map((teacher) => {
+                shownTeachers?.map((teacher) => {
                   return <InactiveTeacher {...teacher} key={teacher.id} />;
                 })
               ) : (
