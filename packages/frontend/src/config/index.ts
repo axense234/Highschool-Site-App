@@ -5,9 +5,6 @@ const baseUrl =
     ? "http://localhost:4000"
     : "https://highschool-site-app-server-ca.onrender.com";
 
-const baseSiteUrl =
-  env === "development"
-    ? "http://localhost:3000"
-    : "https://highschool-site-app-ca.netlify.app";
+const baseSiteUrl = window.location.origin
 
 export { baseUrl, baseSiteUrl };

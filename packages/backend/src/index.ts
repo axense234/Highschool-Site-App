@@ -55,6 +55,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://highschool-site-app-ca.netlify.app",
+      "https://highschool-site-app-ca.com"
     ],
     credentials: true,
   })

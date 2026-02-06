@@ -1,4 +1,4 @@
-import { Bookmark, Prisma, Subjects } from "@prisma/client";
+import { Prisma, Subjects } from "@prisma/client";
 
 export const defaultBookmarksAdmin: Prisma.BookmarkCreateManyInput[] = [
   { dest: "/anunturi", label: "Anunțuri", type: "NORMAL" },
@@ -30,8 +30,8 @@ export const defaultBookmarksTeacher: Prisma.BookmarkCreateManyInput[] = [
 ];
 
 export const siteUrl =
-  process.env.NODE_ENV === "prouduction"
-    ? "https://highschool-site-app-ca.netlify.app/reset-pass"
+  process.env.NODE_ENV === "production"
+    ? `${window.location.origin}/reset-pass`
     : `http://localhost:3000/reset-pass`;
 
 export const resetPassEmailMessage = (
