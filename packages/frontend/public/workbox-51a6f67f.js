@@ -759,7 +759,7 @@ define(['exports'], (function (exports) { 'use strict';
             {
               logger.debug(`Caching URLs from the window`, payload.urlsToCache);
             }
-            const requestPromises = Promise.all(payload.urlsToCache?.map(entry => {
+            const requestPromises = Promise.all(payload.urlsToCache.map(entry => {
               if (typeof entry === 'string') {
                 entry = [entry];
               }
@@ -2455,4 +2455,4 @@ define(['exports'], (function (exports) { 'use strict';
     exports.registerRoute = registerRoute;
 
 }));
-//# sourceMappingURL=workbox-51a6f67f.js?.map
+//# sourceMappingURL=workbox-51a6f67f.js.map
